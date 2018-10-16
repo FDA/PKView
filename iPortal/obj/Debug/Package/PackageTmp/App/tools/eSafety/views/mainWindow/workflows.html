@@ -1,0 +1,32 @@
+﻿<div>
+    <ul class="nav nav-tabs workflowTabs">
+        <!-- ko foreach: project.workflows -->
+        <li class="workflowTab" data-bind="css: { active: $parent.activeOrFirstWorkflow() == id() }">
+            <a href="#" class="workflowTab" data-bind="click: $parent.activateWorkflow">
+                <span data-bind="text: name()"></span>
+                <i class="fa fa-minus-sign closeIcon" data-bind="tooltip: { title: 'Remove this workflow' }"></i>                
+            </a>
+        </li>
+        <!-- /ko -->
+        <li>
+            <button class="btn btn-primary btn-small addWorkflowBtn" data-bind="tooltip: { title: 'Add a new workflow' }">
+                <i class="fa fa-plus"></i>
+            </button>
+        </li>
+    </ul>  
+    <!--<div data-bind="foreach: project.workflows">
+        <div class="projectSteps" data-bind="compose: view(), visible: $parent.activeOrFirstWorkflow() == id()"></div>
+    </div>-->
+    <style scoped>
+        /*TODO: integrate styles with a proper structure */
+        .workflowTabs {margin-bottom: 5px;}
+        .workflowTabs a.workflowTab { padding: 5px 7px; }  
+        .closeIcon { color: rgb(230, 230, 230); margin-left: 3px;}
+        .closeIcon:hover { color: red;}
+        .addWorkflowBtn      
+        {
+            margin: 4px 5px 6px;
+            padding: 0;
+        }
+    </style>
+</div>

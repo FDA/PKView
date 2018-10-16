@@ -1,0 +1,25 @@
+﻿<div class="row-fluid" style="margin-top: 10px">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <ul data-bind="foreach: projectTypes" class="nav">
+                <li data-bind="css: { active: $parent.projectMode() == value }">
+                    <a href="#" data-bind="click: $parent.switchProjectType">
+                        <i data-bind="css: icon"></i><span data-bind="text: displayText"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <form class="form-horizontal">  
+        <fieldset>
+            <div class="control-group k-content" data-bind="visible: projectMode() == 'wizard'">
+                <select id="selectTemplate" class="span12 combobox" placeholder="Select workflow template..." 
+                        data-bind="options: workflowTemplates, optionsText: 'displayText', value: selectedTemplate"></select>
+            </div>
+            <div class="input-append"> 
+                <input type="text" class="input-xlarge" placeholder="Project name..." data-bind="value: projectName" />
+                <button class="btn btn-primary input-small" data-bind="click: startProject">Start</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

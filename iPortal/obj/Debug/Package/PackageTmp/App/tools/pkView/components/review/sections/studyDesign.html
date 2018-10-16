@@ -1,0 +1,270 @@
+﻿<div class="well" style="padding-bottom:0">
+    <nav class="navbar navbar-lite navbar-sm navbar-click" role="toolbar">
+        <p class="navbar-text">General Study Information</p>
+    </nav>
+
+    <!-- Disclaimer while computing the cohorts -->
+    <!-- ko if: !ComputingStudyDesign() && ComputingReferences() -->
+    <div class="alert alert-info">
+        <i class="fa fa-spinner fa-spin active"></i> Determining study groups and treatments ...
+    </div>
+    <!-- /ko -->
+    <!-- Disclaimer while computing the cohorts -->
+    <!-- ko if: ComputingStudyDesign() -->
+    <div class="alert alert-info">
+        <i class="fa fa-spinner fa-spin active"></i> Determining study design ...
+    </div>
+    <!-- /ko -->
+    <!-- Disclaimer if we cannot determine the cohorts -->
+    <!-- ko if: cohortsNotFound() -->
+    <div class="alert alert-danger">
+        Could not determine study groups and treatments.
+        <sub>
+            <a href="#" data-bind="tooltip: { container: 'body',
+                title: 'This can be caused by an ambiguous format in the variables used to retrieve the ' +
+                    'study treatments and groups. Please try correcting the study design or selecting a different ' +
+                    'domain as the source to determine treatments/groups. You can inspect the original data ' +
+                    'using the \'View Data\' buttons in the sections below'}">
+                ?
+            </a>
+        </sub>
+    </div>
+    <!-- /ko -->
+    <!-- Study Design when no cohorts are defined -->
+    <div class="row" data-bind="if: showBasicStudyDesign">
+        <div class="col-sm-12 col-md-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-xs-4">Study Design</label>
+                    <div class="col-xs-8">
+                        <select class="form-control"
+                                data-bind="options: $root.StudyDesignTypes, value: study.StudyDesign,
+                                selectize: { selectOnTab: true }, optionsText: 'Name', optionsValue: 'Type'"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cohorts -->
+    <!-- ko if: showCohorts -->
+    <div class="row" data-bind="foreach: { data: study.Cohorts, as: 'cohort' }">
+
+        <div class="panel-default" data-bind="css: {panel: $root.study.Cohorts().length > 1}">
+            <div class="panel-body">
+                <!-- ko if: $root.study.Cohorts().length > 1-->
+                <button class="btn btn-link btn-xs navbar-right" data-bind="click: $root.moveCohortUp,
+                    tooltip: { container: 'body' , title: 'You can sort the cohorts to mirror the numbering used in the study protocol' }">
+                    <i class="fa fa-chevron-up"></i>
+                </button>
+                <button class="btn btn-link btn-xs navbar-right" data-bind="click: $root.moveCohortDown,
+                    tooltip: { container: 'body' , title: 'You can sort the cohorts to mirror the numbering used in the study protocol' }">
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <div class="horiz-separator" style="margin-bottom: 20px; padding-bottom: 3px">
+                    <b>Cohort <span data-bind="text: cohort.Number()"></span>: <span data-bind="text: cohort.Name()"></span></b>
+                </div>
+                <!-- /ko -->
+                <!-- Study Design -->
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Study Design</label>
+                            <div class="col-xs-8" data-bind="if: $index() == 0">
+                                <select class="form-control"
+                                        data-bind="options: $root.StudyDesignTypes, value: $root.study.StudyDesign,
+                                        selectize: { selectOnTab: true }, optionsText: 'Name', optionsValue: 'Type'"></select>
+                            </div>
+                            <div class="col-xs-8" data-bind="if: $index() > 0,
+                                tooltip: { container: 'body' , title: $index()> 0 ? 'We do not currently support combination studies with multiple study designs' : '' }">
+                                <input class="form-control" disabled type="text"
+                                       data-bind="value: $root.StudyDesignTypes[$root.study.StudyDesign()].Name" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Reference treatment/group -->
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label">Reference Trt/Grp</label>
+                            <div class="col-xs-8">
+                                <select class="form-control"
+                                        data-bind="options: cohort.treatmentList, value: cohort.Reference,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <div class="row">
+        <!-- code commented to remove 'Determine study design based on DM (not EX)' from the 'Data management' page -->
+        <!-- changed on 08/03/2017 -->
+        <!-- Use DM checkbox -->
+        <!--
+        <div class="col-md-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="" data-bind="checked: study.UseDm, disable: study.UseCustomArms">
+                                Determine study design based on DM (not EX)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+        <!-- Use EX for reference checkbox -->
+        <!-- code commented to remove 'Determine treatments/groups based on EX (not DM)' from the 'Data management' page -->
+        <!-- changed on 08/03/2017 -->
+        <!--
+        <div class="col-md-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="" data-bind="checked: study.UseExRef, disable: study.UseCustomArms">
+                                Determine treatments/groups based on EX (not DM)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+    </div>
+    <div class="row">
+        <!-- Use SUPPDM checkbox -->
+        <div class="col-md-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="" data-bind="checked: study.UseSuppdm, disable: study.UseCustomArms">
+                                Use SUPPDM to help determine treatments/groups
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Use SUPPDM checkbox -->
+        <div class="col-md-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="" data-bind="checked: study.UseCustomArms">
+                                Use user reviewed study arms
+                            </label>
+                            <button class="btn btn-default btn-xs" style="margin-left: 10px; margin-top: -5px" data-bind="click: $root.editReferences,
+                                enable: study.UseCustomArms, tooltip: { container: 'body', title: 'Review the study arms' }" type="button">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="well" style="padding-bottom:0">
+        <nav class="navbar navbar-lite navbar-sm navbar-click" role="toolbar">
+            <p class="navbar-text">Addtional options</p>
+        </nav>
+        <div class="row">
+            <!-- code commented to remove 'Disable initial PC data cleanup' from the 'Data management' page -->
+            <!-- changed on 08/03/2017 -->
+            <!-- disable PC cleanup checkbox -->
+             <!--
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" data-bind="checked: study.DisablePcCleanup">
+                                    Disable initial PC data cleanup
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+            <!-- Use Cumulative checkbox -->
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" data-bind="checked: study.Cumulative">
+                                    Cumulative in report
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Use Subject C_T Correlation checkbox -->
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" data-bind="checked: study.SubjectCTCorrelation">
+                                    Subject C_T Correlation in report
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Use Scatter Plot checkbox -->
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" data-bind="checked: study.ScatterPlot">
+                                    Scatter Plot in report
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Use Demographic table checkbox -->
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" data-bind="checked: study.Demographictable">
+                                    Demographic table in report
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

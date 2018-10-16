@@ -1,0 +1,1310 @@
+INFO: 1                                                          The SAS System                         11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Copyright (c) 2002-2012 by SAS Institute Inc., Cary, NC, USA.
+INFO: NOTE: SAS (r) Proprietary Software 9.4 (TS1M4)
+INFO: Licensed to UNIVERSITY OF ILLINOIS SYSTEM - T&R SFA, Site 70080107.
+INFO: NOTE: This session is executing on the X64_10PRO  platform.
+INFO: 
+INFO: 
+INFO: 
+INFO: NOTE: Updated analytical products:
+INFO: 
+INFO: SAS/STAT 14.2
+INFO: SAS/ETS 14.2
+INFO: SAS/OR 14.2
+INFO: SAS/IML 14.2
+INFO: SAS/QC 14.2
+INFO: 
+INFO: NOTE: Additional host information:
+INFO: 
+INFO: X64_10PRO WIN 10.0.15063  Workstation
+INFO: 
+INFO: NOTE: SAS Initialization used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 1
+INFO: 2          %LET SASSPPATH = C:\OCP\Sasjobs.Standalone\\Stored Procedures;
+INFO: 3
+INFO: 4          %global SasSpPath;
+INFO: 5          options nofmterr compress = yes mprint spool notes msglevel=n linesize = 256
+INFO: 6          sasautos = (sasautos "&SasSpPath.\Macros" "&SasSpPath.\Sub Macros");
+INFO: 7
+INFO: 8          libname user "%sysfunc(getoption(work))" ACCESS=TEMP FILELOCKWAIT=20;
+INFO: NOTE: Libref USER refers to the same physical library as WORK.
+INFO: NOTE: Libref USER was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\apps\SAS\SASUser\Peter\SAS Temporary Files\_TD8316_DESKTOP-MP8HDJJ_\Prc71
+INFO: 9          %let work = user.;
+INFO: 10
+INFO: 11         ods path &work.templat(update)
+INFO: 12             sasuser.templat(read)
+INFO: 13             sashelp.tmplmst(read)
+INFO: 14         ;
+INFO: 15
+INFO: 16         /* Path where NDAs are stored in the server */
+INFO: 17         %let inputfolder=\\localhost\clinical\;
+INFO: 18
+INFO: 19         %PkViewMetaAnalysisForestPlot;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.userData;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.userConfig end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM USERCONFIG IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if Name="Username" then call symputx("UserName", dequote(value), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if Name="ProfileName" then call symputx("ProfileName", dequote(value), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 6 observations read from the data set WEBSVC.USERCONFIG.
+INFO: NOTE: The data set USER.USERDATA has 6 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.USERDATA increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: 2                                                                                                                        The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: User: Peter
+INFO: Settings Id: Test data 9-6
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.study;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.study end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM STUDY IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if eof then do;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyType", Type, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyId", StudyCode, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyDesign", Design, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("SubmissionID", Submission, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("SupplementNum", dequote(Supplement), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseEx", UseEx, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseSuppdm", UseSuppdm, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("DisablePcCleanup", DisablePcCleanup, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomArms", UseCustomArms, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPcVisit", UseCustomPcVisit, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPcPctptnum", UseCustomPcPctptnum, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPpVisit", UseCustomPpVisit, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   end;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.STUDY.
+INFO: NOTE: The data set USER.STUDY has 2 observations and 16 variables.
+INFO: NOTE: Compressing data set USER.STUDY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: Extracted Study Design: CROSSOVER
+INFO: Extracted Study Type: UNKNOWN
+INFO: Extracted Study Id: TEST002
+INFO: Extracted Submission Id: DRUG000
+INFO: Supplement Number: 0000
+INFO: Use EX: 1
+INFO: Use SUPPDM: 0
+INFO: Use Custom Pc Visit: 1
+INFO: Use Custom Pp Visit: 1
+INFO: Use Custom Pc pctptnum: 0
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.mapping;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM MAPPING IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="USUBJID" then call symputx("UsubjidVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="ARM" then call symputx("ArmVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="AGE" then call symputx("AgeVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="SEX" then call symputx("SexVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="RACE" then call symputx("RaceVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="COUNTRY" then call symputx("CountryVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="ETHNIC" then call symputx("EthnicVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="EXTRT" then call symputx("ExTrtVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="EXSTDTC" then call symputx("ExStdtcVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="VISIT" then call symputx("ExVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="VISIT" then call symputx("PcVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCTEST" then call symputx("PCTESTVar",FILEVAR,"G");
+INFO: 3                                                                                                                        The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCSTRESN" then call symputx("PcStresnVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCTPTNUM" then call symputx("PctptnumVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="VISIT" then call symputx("PpVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPCAT" then call symputx("PpcatVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPSTRESN" then call symputx("PpstresnVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPTESTCD" then call symputx("PptestcdVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 36 observations read from the data set WEBSVC.MAPPING.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.customDmArms;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.customDmArms;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM CUSTOMDMARMS IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 3 observations read from the data set WEBSVC.CUSTOMDMARMS.
+INFO: NOTE: The data set USER.CUSTOMDMARMS has 3 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMDMARMS increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.customPcVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.customPcVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM CUSTOMPCVISIT IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 11 observations read from the data set WEBSVC.CUSTOMPCVISIT.
+INFO: NOTE: The data set USER.CUSTOMPCVISIT has 11 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMPCVISIT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.customPpVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.customPpVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM CUSTOMPPVISIT IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 3 observations read from the data set WEBSVC.CUSTOMPPVISIT.
+INFO: NOTE: The data set USER.CUSTOMPPVISIT has 3 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMPPVISIT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set sashelp.vmember(where = (libname = "WEBSVC" and memtype = "DATA"));
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(memname) = "REFERENCES" then call symput("Exist",1);
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   else call symput("Exist",0);
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 4                                                                                                                        The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:166   19:197
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: NOTE: There were 15 observations read from the data set SASHELP.VMEMBER.
+INFO: WHERE (libname='WEBSVC') and (memtype='DATA');
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.07 seconds
+INFO: cpu time            0.07 seconds
+INFO: 
+INFO: 
+INFO: references exist=           0
+INFO: inputfolder=\\localhost\clinical\DRUG000
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.dirs_found (compress=no);
+INFO: MPRINT(SMLISTFILESINFOLDER):   length Root $500.;
+INFO: MPRINT(SMLISTFILESINFOLDER):   root = "\\localhost\clinical\DRUG000";
+INFO: MPRINT(SMLISTFILESINFOLDER):   output;
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: The data set USER.DIRS_FOUND has 1 observations and 1 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.dirs_found user.files_found (compress=no);
+INFO: MPRINT(SMLISTFILESINFOLDER):   keep Path FileName FileType;
+INFO: MPRINT(SMLISTFILESINFOLDER):   length fref $8 Path Filename $500 FileType $16;
+INFO: MPRINT(SMLISTFILESINFOLDER):   modify user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   Path = root;
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = filename(fref, path);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if rc = 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   did = dopen(fref);
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = filename(fref);
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   else do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   length msg $500.;
+INFO: MPRINT(SMLISTFILESINFOLDER):   msg = sysmsg();
+INFO: MPRINT(SMLISTFILESINFOLDER):   putlog msg=;
+INFO: MPRINT(SMLISTFILESINFOLDER):   did = .;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   if did <= 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   return;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   dnum = dnum(did);
+INFO: MPRINT(SMLISTFILESINFOLDER):   do i = 1 to dnum;
+INFO: MPRINT(SMLISTFILESINFOLDER):   filename = dread(did, i);
+INFO: MPRINT(SMLISTFILESINFOLDER):   fid = mopen(did, filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if fid > 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   FileType = prxchange('s/.*\.{1,1}(.*)/$1/', 1, filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if filename = filetype then filetype = ' ';
+INFO: MPRINT(SMLISTFILESINFOLDER):   output user.files_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   else do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   root = catt(path, "\", filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   output user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: 5                                                                                                                        The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = dclose(did);
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: The data set USER.DIRS_FOUND has been updated.  There were 0 observations rewritten, 9 observations added and 0 observations deleted.
+INFO: NOTE: The data set USER.FILES_FOUND has 8 observations and 3 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.06 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.files(rename = (root = path));
+INFO: MPRINT(SMLISTFILESINFOLDER):   set user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: There were 10 observations read from the data set USER.DIRS_FOUND.
+INFO: NOTE: The data set USER.FILES has 10 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.FILES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):  ;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   ** Get the path to the datasets **;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set user.files end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if scan(upcase(path), -1, "\") = "TEST002" then do;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("DatasetPath", substr(path, 1, length(path) - length("TEST002") - 1));
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   stop;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   end;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 7 observations read from the data set USER.FILES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: DatasetPath = \\localhost\clinical\DRUG000\0000\m5\datasets
+INFO: DataSetPath = \\localhost\clinical\DRUG000\0000\m5\datasets
+INFO: StudyId = TEST002
+INFO: Continue? - success
+INFO: InputDm = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\dm.xpt
+INFO: InputPc = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pc.xpt
+INFO: InputPp = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pp.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\ex.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\suppdm.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\sc.xpt
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):  ;
+INFO: DM file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\dm.xpt
+INFO: EX file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\ex.xpt
+INFO: PC file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pc.xpt
+INFO: PP file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pp.xpt
+INFO: UsubjidVar = USUBJID
+INFO: ArmVar = ARM
+INFO: AgeVar = AGE
+INFO: SexVar = SEX
+INFO: 6                                                                                                                        The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: CountryVar = COUNTRY
+INFO: RaceVar = RACE
+INFO: EthnicVar =
+INFO: ExTrtVar = EXTRT
+INFO: ExVisitVar = EPOCH
+INFO: ExStdtcVar =
+INFO: PcstresnVar = PCSTRESN
+INFO: PcVisitVar = VISIT
+INFO: PctptnumVar = PCTPT
+INFO: PpstresnVar = PPSTRESN
+INFO: PpVisitVar = VISIT
+INFO: PpcatVar = PPCAT
+INFO: PptestcdVar = PPTESTCD
+INFO: PpSpecimenVar = PPSPEC
+INFO: PcSpecimenVar = PCSPEC
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):  ;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   data _null_;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   set websvc.reportConfig end = eof;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   * FROM REPORTCONFIG IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   if Name="Name" then call symputx("ReportFolder", value, "G");
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   run;
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.REPORTCONFIG.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   data user.references;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   set websvc.references;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   * FROM REFERENCES IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   run;
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.REFERENCES.
+INFO: NOTE: The data set USER.REFERENCES has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.REFERENCES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   data user.parameter;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   set websvc.parameter;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   * FROM PARAMETER IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   run;
+INFO: NOTE: There were 6 observations read from the data set WEBSVC.PARAMETER.
+INFO: NOTE: The data set USER.PARAMETER has 6 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.PARAMETER increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   data user.analyte;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   set websvc.analyte;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   * FROM ANALYTE IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   run;
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.ANALYTE.
+INFO: 7                                                                                                                        The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: The data set USER.ANALYTE has 2 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.ANALYTE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   data user.method;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   set websvc.method;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   * FROM METHOD IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   run;
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.METHOD.
+INFO: NOTE: The data set USER.METHOD has 2 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.METHOD increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   data user.sort;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   set websvc.sort;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   * FROM SORT IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   run;
+INFO: NOTE: There were 6 observations read from the data set WEBSVC.SORT.
+INFO: NOTE: The data set USER.SORT has 6 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.SORT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   data _null_;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   set user.sort end = eof;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   if Level="files" then call symputx("SortFiles", sortOrder, "G");
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   run;
+INFO: 
+INFO: NOTE: There were 6 observations read from the data set USER.SORT.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   * created on 06/21/2015 macrovar: cohort, reference, parameteres;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   *use ORDER BY for listing references- FIX ME (genreate warning may need fix);
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   *onetable or by cohort? cohort, reference, parameters,analyte, method;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   proc sql noprint;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   select distinct cohort into: cohort_sel separated by "$" from user.references;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   select distinct reference into :ref_sel separated by "$" from user.references order by cohort;
+WARNING: WARNING: The query as specified involves ordering by an item that doesn't appear in its SELECT clause. Since you are ordering the output of a SELECT DISTINCT it may appear that some duplicates have not been eliminated.
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   select distinct analyte into :anal_sel separated by "$" from user.analyte;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   select distinct parameter into :param_sel separated by "$" from user.parameter;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   select distinct method into :method_sel separated by "$" from user.method;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: 8                                                                                                                        The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: cohort_sel=Cohort$FASTED-FED
+INFO: ref_sel=DRUG 10 MG$FASTED
+INFO: anal_sel=DRUG$DRUG X
+INFO: param_sel=AUC$AUC0_T$CMAX
+INFO: method_sel=paired
+INFO: sortfiles=
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   proc transpose data=user.sort out=user.sortt;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   var sortorder;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   run;
+INFO: 
+INFO: NOTE: There were 6 observations read from the data set USER.SORT.
+INFO: NOTE: The data set USER.SORTT has 1 observations and 8 variables.
+INFO: NOTE: Compressing data set USER.SORTT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE TRANSPOSE used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   data user.sortt( keep=COL3 COL2 COL1 _NAME_ rename= (COL3=columns COL2=folders COL1=files _NAME_=LEVEL));
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   set user.sortt;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.SORTT.
+INFO: NOTE: The data set USER.SORTT has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.SORTT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   data user.sortt;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   set user.sortt;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   columns=TRANWRD(columns,",", "@");
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.SORTT.
+INFO: NOTE: The data set USER.SORTT has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.SORTT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   proc sql noprint;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   select distinct columns into: sort_list from user.sortt;
+INFO: MPRINT(SMREADREPORTSETTINGSFOREST):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: sort_list=comparison@analyte@parameter
+INFO: 9                                                                                                                        The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):  ;
+INFO: AnalyteVar=PPCAT
+INFO: ParameterVar=PPTESTCD
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sql noprint;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   select distinct STUDYCODE into: studycodelist separated by "$" from study;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: studycodelist=TEST001$TEST002
+INFO: current_study=TEST001
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   libname mylib "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates";
+INFO: NOTE: Libref MYLIB was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data current1 (rename=(PPCAT=analytepp PPTESTCD=parameterpp));
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   length study cohortDescription PPCAT PPTESTCD esttype combination $200;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set mylib.estminmax;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   STUDY="TEST001";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   R="Ratio";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   lower="Lower";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   upper="Upper";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ObsID=_n_;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   Par="Parameter";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ParCat="Para_Category";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   comp="Comparison";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   Est="Estimate";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable cohortDescription by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 64 observations read from the data set MYLIB.ESTMINMAX.
+INFO: NOTE: The data set USER.CURRENT1 has 64 observations and 20 variables.
+INFO: NOTE: Compressing data set USER.CURRENT1 decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: analyte:PPCAT
+INFO: analyte parametervar
+INFO: current_study=TEST002
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   libname mylib "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates";
+INFO: NOTE: Libref MYLIB was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data current2 (rename=(PPCAT=analytepp PPTESTCD=parameterpp));
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   length study cohortDescription PPCAT PPTESTCD esttype combination $200;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set mylib.estminmax;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   STUDY="TEST002";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   R="Ratio";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   lower="Lower";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   upper="Upper";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ObsID=_n_;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   Par="Parameter";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ParCat="Para_Category";
+INFO: 10                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   comp="Comparison";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   Est="Estimate";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable cohortDescription by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 12 observations read from the data set MYLIB.ESTMINMAX.
+INFO: NOTE: The data set USER.CURRENT2 has 12 observations and 22 variables.
+INFO: NOTE: Compressing data set USER.CURRENT2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: analyte:PPCAT
+INFO: analyte parametervar
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data combine;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set current1 current2 ;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   lcl=round(lcl,0.001);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ucl=round(ucl,0.001);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: Missing values were generated as a result of performing an operation on missing values.
+INFO: Each place is given by: (Number of times) at (Line):(Column).
+INFO: 4 at 19:8    4 at 19:30
+INFO: NOTE: There were 64 observations read from the data set USER.CURRENT1.
+INFO: NOTE: There were 12 observations read from the data set USER.CURRENT2.
+INFO: NOTE: The data set USER.COMBINE has 76 observations and 22 variables.
+INFO: NOTE: Compressing data set USER.COMBINE decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data combine;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set combine;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if ratio eq . then delete;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 76 observations read from the data set USER.COMBINE.
+INFO: NOTE: The data set USER.COMBINE has 76 observations and 22 variables.
+INFO: NOTE: Compressing data set USER.COMBINE decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=combine out=combine1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by study combination analytepp parameterpp;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 76 observations read from the data set USER.COMBINE.
+INFO: NOTE: The data set USER.COMBINE1 has 76 observations and 22 variables.
+INFO: NOTE: Compressing data set USER.COMBINE1 decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: 11                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data metareferences;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set websvc.metareferences;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   * FROM METAREFERENCES IN FILE '';
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set WEBSVC.METAREFERENCES.
+INFO: NOTE: The data set USER.METAREFERENCES has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.METAREFERENCES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data method;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set websvc.method;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   * FROM METHOD IN FILE '';
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.METHOD.
+INFO: NOTE: The data set USER.METHOD has 2 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.METHOD increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data analyte;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set websvc.analyte;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   * FROM ANALYTE IN FILE '';
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.ANALYTE.
+INFO: NOTE: The data set USER.ANALYTE has 2 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.ANALYTE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data parameter;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set websvc.parameter;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   * FROM PARAMETER IN FILE '';
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: NOTE: There were 6 observations read from the data set WEBSVC.PARAMETER.
+INFO: NOTE: The data set USER.PARAMETER has 6 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.PARAMETER increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=metareferences out=metareferences1;
+INFO: 12                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.METAREFERENCES.
+INFO: NOTE: The data set USER.METAREFERENCES1 has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.METAREFERENCES1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=method out=method1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.METHOD.
+INFO: NOTE: The data set USER.METHOD1 has 2 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.METHOD1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data metaref_method(drop=number testcohorts reference);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   length studycode cohort method combination $200;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   merge metareferences1 method1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if TESTCOHORTS=REFERENCE then delete;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   combination=trim(TESTCOHORTS)||" ~vs~ "||trim(reference);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.METAREFERENCES1.
+INFO: NOTE: There were 2 observations read from the data set USER.METHOD1.
+INFO: NOTE: The data set USER.METAREF_METHOD has 4 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.METAREF_METHOD increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data studycohort;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set metaref_method;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   keep studycode cohort;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.METAREF_METHOD.
+INFO: NOTE: The data set USER.STUDYCOHORT has 4 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.STUDYCOHORT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=studycohort nodupkey;
+INFO: 13                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode cohort;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.STUDYCOHORT.
+INFO: NOTE: 2 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.STUDYCOHORT has 2 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.STUDYCOHORT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=studycohort ;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: Input data set is already sorted, no sorting done.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=analyte;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.ANALYTE.
+INFO: NOTE: The data set USER.ANALYTE has 2 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.ANALYTE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data analytenew;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   length analyte $200;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   merge studycohort analyte ;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.STUDYCOHORT.
+INFO: NOTE: There were 2 observations read from the data set USER.ANALYTE.
+INFO: NOTE: The data set USER.ANALYTENEW has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.ANALYTENEW increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=analytenew;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode cohort;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.ANALYTENEW.
+INFO: NOTE: The data set USER.ANALYTENEW has 2 observations and 3 variables.
+INFO: 14                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Compressing data set USER.ANALYTENEW increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=metaref_method;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode cohort;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.METAREF_METHOD.
+INFO: NOTE: The data set USER.METAREF_METHOD has 4 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.METAREF_METHOD increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data metaref_method_anal;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   merge analytenew metaref_method;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode cohort;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.ANALYTENEW.
+INFO: NOTE: There were 4 observations read from the data set USER.METAREF_METHOD.
+INFO: NOTE: The data set USER.METAREF_METHOD_ANAL has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.METAREF_METHOD_ANAL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=parameter out=parameter1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 6 observations read from the data set USER.PARAMETER.
+INFO: NOTE: The data set USER.PARAMETER1 has 6 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.PARAMETER1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data parameter1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set parameter1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if first.studycode then order+1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 6 observations read from the data set USER.PARAMETER1.
+INFO: NOTE: The data set USER.PARAMETER1 has 6 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.PARAMETER1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: 15                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sql noprint;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   select distinct studycode into: study separated by "$" from parameter1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: studycode=TEST001$TEST002
+INFO: study maxi=2
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data subset1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set parameter1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   where order=1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.PARAMETER1.
+INFO: WHERE order=1;
+INFO: NOTE: The data set USER.SUBSET1 has 3 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.SUBSET1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sql noprint;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   select distinct parameter into: parameter separated by "$" from subset1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: parameter=AUC$AUC0_T$CMAX in subset1
+INFO: parmeter maxj=3
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data study1para1 (where=(parameter ne "    "));
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   length parameter $200;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set metaref_method_anal;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if studycode="TEST001" then parameter="AUC";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.METAREF_METHOD_ANAL.
+INFO: NOTE: The data set USER.STUDY1PARA1 has 3 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.STUDY1PARA1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data study1para2 (where=(parameter ne "    "));
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   length parameter $200;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set metaref_method_anal;
+INFO: 16                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if studycode="TEST001" then parameter="AUC0_T";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.METAREF_METHOD_ANAL.
+INFO: NOTE: The data set USER.STUDY1PARA2 has 3 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.STUDY1PARA2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data study1para3 (where=(parameter ne "    "));
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   length parameter $200;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set metaref_method_anal;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if studycode="TEST001" then parameter="CMAX";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.METAREF_METHOD_ANAL.
+INFO: NOTE: The data set USER.STUDY1PARA3 has 3 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.STUDY1PARA3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data user_study1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   retain studycode cohort analyte parameter method combination;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set study1para1 study1para2 study1para3 ;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.STUDY1PARA1.
+INFO: NOTE: There were 3 observations read from the data set USER.STUDY1PARA2.
+INFO: NOTE: There were 3 observations read from the data set USER.STUDY1PARA3.
+INFO: NOTE: The data set USER.USER_STUDY1 has 9 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.USER_STUDY1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: i=1 j=4 maxi=2 maxj=3
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data subset2;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set parameter1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   where order=2;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.PARAMETER1.
+INFO: WHERE order=2;
+INFO: NOTE: The data set USER.SUBSET2 has 3 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.SUBSET2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 17                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sql noprint;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   select distinct parameter into: parameter separated by "$" from subset2;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: parameter=AUC$AUC0_T$CMAX in subset2
+INFO: parmeter maxj=3
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data study2para1 (where=(parameter ne "    "));
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   length parameter $200;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set metaref_method_anal;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if studycode="TEST002" then parameter="AUC";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.METAREF_METHOD_ANAL.
+INFO: NOTE: The data set USER.STUDY2PARA1 has 1 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.STUDY2PARA1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data study2para2 (where=(parameter ne "    "));
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   length parameter $200;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set metaref_method_anal;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if studycode="TEST002" then parameter="AUC0_T";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.METAREF_METHOD_ANAL.
+INFO: NOTE: The data set USER.STUDY2PARA2 has 1 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.STUDY2PARA2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data study2para3 (where=(parameter ne "    "));
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   length parameter $200;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set metaref_method_anal;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if studycode="TEST002" then parameter="CMAX";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.METAREF_METHOD_ANAL.
+INFO: NOTE: The data set USER.STUDY2PARA3 has 1 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.STUDY2PARA3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data user_study2;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   retain studycode cohort analyte parameter method combination;
+INFO: 18                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set study2para1 study2para2 study2para3 ;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.STUDY2PARA1.
+INFO: NOTE: There were 1 observations read from the data set USER.STUDY2PARA2.
+INFO: NOTE: There were 1 observations read from the data set USER.STUDY2PARA3.
+INFO: NOTE: The data set USER.USER_STUDY2 has 3 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.USER_STUDY2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: i=2 j=4 maxi=2 maxj=3
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data userfull;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   retain studycode cohort analyte parameter method combination;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set user_study1 user_study2 ;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 9 observations read from the data set USER.USER_STUDY1.
+INFO: NOTE: There were 3 observations read from the data set USER.USER_STUDY2.
+INFO: NOTE: The data set USER.USERFULL has 12 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.USERFULL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: i=3 maxi=2
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sql;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   create table MengForest as select* from userfull inner join combine1 on userfull.studycode=combine1.study and userfull.cohort=combine1.cohortdescription and userfull.analyte=combine1.analytepp and
+INFO: userfull.parameter=combine1.parameterpp and userfull.method=combine1.EstType and userfull.combination=combine1.combination;
+WARNING: WARNING: Variable combination already exists on file USER.MENGFOREST.
+INFO: NOTE: Compressing data set USER.MENGFOREST increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: Table USER.MENGFOREST created, with 9 rows and 27 columns.
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data metaformat;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set websvc.metaformat( obs=1);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   * FROM METAFORMAT IN FILE '';
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if ANALYSISMETHOD="Maximum and Minimum" then ANALYSISMETHOD="MM";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if ANALYSISMETHOD="90% Confidence Interval(CI)" then ANALYSISMETHOD="CI";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.METAFORMAT.
+INFO: NOTE: The data set USER.METAFORMAT has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.METAFORMAT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: 19                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data metaformat;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set metaformat;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   call symput("lower",LOWERBOUND);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   call symput ("upper",UPPERBOUND);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   call symput("labelanalyte",PLOTANALYSIS );
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   call symput ("SelectedAnal",ANALYSISMETHOD);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:87    19:121
+INFO: NOTE: There were 1 observations read from the data set USER.METAFORMAT.
+INFO: NOTE: The data set USER.METAFORMAT has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.METAFORMAT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: lower=         1.5 upper=         0.5
+INFO: labelanalyte=false || ANALYSISMETHOD=MM
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data sortstudy;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set metareferences;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   id=_N_;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   keep studycode id;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.METAREFERENCES.
+INFO: NOTE: The data set USER.SORTSTUDY has 4 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.SORTSTUDY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=sortstudy nodupkey;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.SORTSTUDY.
+INFO: NOTE: 2 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.SORTSTUDY has 2 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.SORTSTUDY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=mengforest;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode;
+INFO: 
+INFO: NOTE: There were 9 observations read from the data set USER.MENGFOREST.
+INFO: NOTE: The data set USER.MENGFOREST has 9 observations and 27 variables.
+INFO: NOTE: Compressing data set USER.MENGFOREST increased size by 100.00 percent.
+INFO: 20                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data mengforest_id;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   merge mengforest(in=a) sortstudy(in=b);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by studycode;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   if a;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 9 observations read from the data set USER.MENGFOREST.
+INFO: NOTE: There were 2 observations read from the data set USER.SORTSTUDY.
+INFO: NOTE: The data set USER.MENGFOREST_ID has 9 observations and 28 variables.
+INFO: NOTE: Compressing data set USER.MENGFOREST_ID increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sort data=mengforest_id;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   by id studycode cohort combination analyte parameter;
+INFO: 
+INFO: NOTE: There were 9 observations read from the data set USER.MENGFOREST_ID.
+INFO: NOTE: The data set USER.MENGFOREST_ID has 9 observations and 28 variables.
+INFO: NOTE: Compressing data set USER.MENGFOREST_ID increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data Mengforest1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set mengforest_id;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   obsID=_N_;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   minlabel="Minimum";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   maxlabel="Maximum";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 9 observations read from the data set USER.MENGFOREST_ID.
+INFO: NOTE: The data set USER.MENGFOREST1 has 9 observations and 30 variables.
+INFO: NOTE: Compressing data set USER.MENGFOREST1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc template;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   define statgraph ForestPlot ;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   begingraph / designwidth=1200px designheight=1000;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   entrytitle "Forest Plot" / textattrs = (size = 12pt weight = bold) pad = (bottom = 5px);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   layout lattice / columns = 4 columnweights=(0.3 0.2 0.3 0.2);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   layout overlay / walldisplay = none xaxisopts = (display = none offsetmin = 0.2 offsetmax = 0.2 tickvalueattrs = (size = 8)) yaxisopts = (reverse = true display = none tickvalueattrs = (weight = bold) offsetmin = 0);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   scatterplot y = obsid x = comp / markercharacter =combination markercharacterattrs=(family='Lucida Console' size=7 weight=bold );
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   endlayout;
+INFO: 21                                                                                                                       The SAS System                                                                                       11:57 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   layout overlay / walldisplay = none xaxisopts = (display = none offsetmin = 0.3 offsetmax = 0.2 tickvalueattrs = (size = 8)) yaxisopts = (reverse = true display = none tickvalueattrs = (weight = bold) offsetmin = 0);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   scatterplot y = obsid x = par / markercharacter =parameterpp markerattrs = (size = 0);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   endlayout;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   layout overlay / walldisplay = none yaxisopts = (reverse = true display = none offsetmin = 0) xaxisopts = (tickvalueattrs = (size = 7pt) labelattrs = (size = 7pt) label = "Ratio of Geometric Means from Test against
+INFO: Reference and 90% CI");
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   scatterplot y = obsid x = ratio / xerrorlower = lcl xerrorupper = ucl markerattrs = (size = 1.2pct symbol = diamondfilled size=6);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   referenceline x = 1 /LINEATTRS=(COLOR=black thickness=1);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   referenceline x = 1.5/LINEATTRS=(COLOR=gray PATTERN=2 thickness=1);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   referenceline x = 0.5/LINEATTRS=(COLOR=gray PATTERN=2 thickness=1);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   endlayout;
+INFO: get maxmin
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   layout overlay / walldisplay = none x2axisopts = (display = (tickvalues) offsetmin = 0.25 offsetmax = 0.25) yaxisopts = (reverse = true display = none);
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   scatterplot y = obsid x = minlabel / markercharacter = min markercharacterattrs = graphvaluetext xaxis = x2;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   scatterplot y = obsid x = maxlabel / markercharacter = max markercharacterattrs = graphvaluetext xaxis = x2;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   endlayout;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   endlayout;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   endgraph;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   end;
+INFO: NOTE: STATGRAPH 'ForestPlot' has been saved to: USER.TEMPLAT
+INFO: NOTE: PROCEDURE TEMPLATE used (Total process time):
+INFO: real time           0.03 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: NOTE: The directory has been created at C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta
+INFO: NOTE: Value of folderpath = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):  ;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   options nodate nonumber;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta" style=statistical sge=on;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ods graphics on / noborder imagefmt = png imagename = "DRUG000Meta" width = 1000px height = 1200;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc sgrender data=MengForest1 template=ForestPlot;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta\DRUG000Meta.png.
+INFO: NOTE: There were 9 observations read from the data set USER.MENGFOREST1.
+INFO: NOTE: PROCEDURE SGRENDER used (Total process time):
+INFO: real time           0.18 seconds
+INFO: cpu time            0.09 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ods listing sge=off;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ods graphics off;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ods csv file="C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta\userselection.csv";
+INFO: NOTE: Writing CSV Body file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta\userselection.csv
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc print data=userfull;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):  run;
+INFO: 
+INFO: NOTE: There were 12 observations read from the data set USER.USERFULL.
+INFO: NOTE: The PROCEDURE PRINT printed page 1.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ods csv close;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ods csv file="C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta\available PE estimates.csv";
+INFO: NOTE: Writing CSV Body file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta\available PE estimates.csv
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc print data=combine1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   var study cohortdescription analytepp parameterpp esttype combination ratio lcl ucl;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 76 observations read from the data set USER.COMBINE1.
+INFO: NOTE: The PROCEDURE PRINT printed pages 2-3.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.03 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ods csv close;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   data usermetainput;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   retain NDA study cohortDescription analyte parameter esttype combination ratio lcl ucl max min obsID par parcat comp est r lower upper minlabel maxlabel lowerbound upperbound;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   set mengforest1;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   NDA="DRUG000";
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   lowerbound= 1.5;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   upperbound= 0.5;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   keep NDA study cohortDescription analyte parameter sttype combination ratio lcl ucl MAX MIN ObsID R lower upper Par ParCat comp Est minlabel maxlabel lowerbound upperbound;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+WARNING: WARNING: The variable sttype in the DROP, KEEP, or RENAME list has never been referenced.
+INFO: NOTE: There were 9 observations read from the data set USER.MENGFOREST1.
+INFO: NOTE: The data set USER.USERMETAINPUT has 9 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.USERMETAINPUT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: NOTE: The directory has been created at C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta\Package
+INFO: NOTE: Value of folderpath = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta\Package
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):  ;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ods csv file="C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta\Package\Meta_Input.csv" style=statistical;
+INFO: NOTE: Writing CSV Body file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\Meta\Package\Meta_Input.csv
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   proc print data=usermetainput noobs;
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   run;
+INFO: 
+INFO: NOTE: There were 9 observations read from the data set USER.USERMETAINPUT.
+INFO: NOTE: The PROCEDURE PRINT printed page 4.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAANALYSISFORESTPLOT):   ods csv close;
+INFO: 20

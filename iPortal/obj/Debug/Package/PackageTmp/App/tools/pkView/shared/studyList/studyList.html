@@ -1,0 +1,24 @@
+﻿<div data-bind="if: list().length > 0" style="margin-top: 15px">
+    <i class="fa" data-bind="css: 'fa-' + iconClasses[contextClass] + ' icon-' + contextClass"></i>
+    <a href="#" data-bind="click: toggleList">
+        <span data-bind="text: list().length"></span>
+        <span data-bind="text: list().length > 1 ? 'studies' : 'study'"></span>
+    </a>
+    <span data-bind="text: what"></span>
+    <sub data-bind="if: suffix != null">
+        <a href="#" data-bind="click: function () { ;},text: suffix.text, tooltip: { container: 'body', title: suffix.tooltip,
+            template: tooltipTemplate.replace('@1', suffix.class || '') }, "></a></sub>
+    <div class="alert" data-bind="css: 'alert-' + contextClass, visible: showList" style="margin-top: 5px">
+        <i class="fa fa-angle-double-up fa-lg pull-left" data-bind="click: toggleList" style="padding-top: 3px">
+            <span class="sr-only">Collapse</span></i>
+        <p class="text-justify" style="padding-left: 35px">
+            <!-- ko foreach: list().slice(0,-2) -->
+                    <span data-bind="text: StudyCode"></span>, 
+            <!-- /ko -->
+            <span data-bind="if: list().length > 1">
+                <span data-bind="text: list().slice(-2, -1)[0].StudyCode"></span> and 
+            </span>
+            <span data-bind="text: list().slice(-1)[0].StudyCode"></span>
+        </p>
+    </div>                  
+</div>

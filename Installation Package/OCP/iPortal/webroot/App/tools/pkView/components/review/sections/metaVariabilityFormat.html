@@ -1,0 +1,80 @@
+﻿<div>
+    <div class="container-fluid">
+       <div class="col-md-12">
+                            <label class="col-xs-5" for="studies">Studies order</label>
+                            <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                title: 'Meta analysis according to the items in this list. Tip: Drag to sort.' }">
+                                <select class="form-control" multiple="multiple"
+                                        data-bind="options: analyzableStudies, selectedOptions: selectedStudies,
+                            selectize: { selectOnTab: true, dropdownParent: 'body', plugins: ['drag_drop','remove_button'] },
+                            optionsText: 'StudyCode', optionsValue: 'StudyCode'"></select>
+                            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+               
+                    <label class="col-xs-3">Plot Type</label>
+                <div class="col-xs-6" data-bind="tooltip: { container: 'body', placement: 'right',
+                    title: 'Select Plot Type' }">
+                    <select data-bind="options: $root.PlotType, value: $root.metaformat().PlotType,
+                            selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                </div>
+                
+            </div>
+
+            <div class="col-md-4">
+                     <label class="col-xs-4">Normalized By</label>
+                <div class="col-xs-6" data-bind="tooltip: { container: 'body', placement: 'right',
+                    title: 'Select Normalize Method' }">
+                    <select class="form-control"
+                            data-bind="options: $root.NormalizedType, value: $root.metaformat().NormalizedType,
+                            selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="btn-group" role="group" aria-label="Click Here Show Distribution">
+                    <button type="button" class="btn btn-sm btn-primary"
+                            data-bind="enable: metareportGenerated, tooltip: { container: 'body', title: 'Click Here Show Distribution' }, click: showdistribution">
+                            <i class="fa fa-fw" data-bind="css: {
+                                'fa-download': !metacomputingReport(),
+                                'fa-spinner fa-spin': metacomputingReport
+                            }">
+                        </i> Click Here Show Distribution
+                    </button>
+                </div>
+
+            </div>
+            <div class="splash" data-bind="visible: metacomputingReport">
+                <i class="fa fa-spinner fa-2x fa-spin active"></i>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <label class="col-md-2 control-label">Cutoff</label>
+                <input class="col-md-1" type="text" data-bind="value: $root.metaformat().Cutofflowerbound" />
+                <label class="col-md-3">(Lower Bound)</label>
+                <input class="col-md-1" type="text" data-bind="value: $root.metaformat().Cutoffupperbound" />
+                <label class="col-md-2">(Upper Bound)</label>
+            </div>
+        </div>
+
+        </div>
+        
+
+
+
+                    
+    <div class="modal-footer">
+
+        <button class="btn btn-sm btn-primary" data-bind="click: save">
+            <i class="fa fa-save"></i> Save and close
+        </button>
+    </div>
+</div>
+
+

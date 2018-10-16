@@ -1,0 +1,3 @@
+<div data-bind="formFieldTextbox: { label: settings.label, required: settings.required, placeholder: settings.placeholder, eventNamespace: settings.eventNamespace, tooltip: settings.tooltip, style: settings.style, buttonAddons: settings.buttonAddons }">
+    <select data-part="valueControl" class="form-control" data-bind="event: { change: fromTextbox('setModified') }, attr: { 'placeholder': getPlaceholder(), 'multiple': typeof ($parent.settings.multiple) != 'undefined' ? 'multiple' : null }"/>
+</div>

@@ -1,0 +1,213 @@
+﻿<div id="Batch" class="container">
+    <legend>Batch test of all NDAs</legend>
+
+    <div class="splash" data-bind="visible: !responseReady()">
+        <i class="fa fa-spinner fa-2x fa-spin active"></i>
+    </div>
+
+    <div data-bind="visible: responseReady()">
+        <table id="batchTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>NDA</th>
+                    <th>Study</th>
+                    <th>Mapping Error</th>
+                    <th>Missing Files</th>
+                    <th>Study Design</th>
+                    <th>ARM Values</th>
+                    <th>PP:Visit</th>
+                    <th>PP:Visit Values</th>
+                    <th>PC:Visit</th>
+                    <th>PC:Visit Values</th>
+                    <th>Unmapped Variables</th>
+                    <th>Unmapped Optional Variables</th>
+                    <th>Non SDTM (guessed) Mappings</th>
+                    <th>Analysis crashed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="visibility: hidden; height: 0px">
+                    <td style="line-height: 0">NDA</td>
+                    <td style="line-height: 0">Study</td>
+                    <td style="line-height: 0">Mapping Error</td>
+                    <td style="line-height: 0">Missing Files</td>
+                    <td style="line-height: 0">Study Design</td>
+                    <td style="line-height: 0">ARM Values</td>
+                    <td style="line-height: 0">PP:Visit</td>
+                    <td style="line-height: 0">PP:Visit Values</td>
+                    <td style="line-height: 0">PC:Visit</td>
+                    <td style="line-height: 0">PC:Visit Values</td>
+                    <td style="line-height: 0">Unmapped Variables</td>
+                    <td style="line-height: 0">Unmapped Optional Variables</td>
+                    <td style="line-height: 0">Non SDTM (guessed) Mappings</td>
+                    <td style="line-height: 0">Analysis crashed</td>
+                </tr>
+                <tr style="display: none"><td colspan="7"></td></tr>
+            <!-- ko foreach:  { data: ndaList, as: 'NDAName' } -->      
+                <!-- ko if: $root.results().length > $index() -->                                    
+                    <!-- ko if: 'mappings' in $root.results()[$index()] -->
+                        <!-- ko with: $root.results()[$index()] -->
+                            <!-- ko ifnot: mappings == 'error' || mappings == 'missing' || mappings == 'toolFailed' -->
+                                <!-- ko foreach: { data: mappings, as: 'study' } -->
+                                <tr>
+                                    <td data-bind="text: NDAName"></td> 
+                                    <td data-bind="text: StudyCode"></td>
+                                    <td><span class="badge badge-success">No</span></td>                                    
+                                    <!-- ko ifnot: StudyError == 1 -->
+                                        <td><span class="badge badge-success">No</span></td>
+                                        <td data-bind="foreach: $root.studyDesignTypes">
+                                            <span data-bind="if: Type == study.StudyDesign">
+                                                <span data-bind="text: Name"></span>
+                                            </span>
+                                        </td>
+                                        <td data-bind="foreach: Arms">
+                                            [<span data-bind="text: $data"></span>]<br />
+                                        </td>
+                                        <td data-bind="foreach: StudyMappings">
+                                            <!-- ko if: Type == "PP" -->
+                                                <!-- ko foreach: DomainMappings -->
+                                                    <!-- ko if: SdtmVariable == "VISIT" -->
+                                                    <span class="badge" data-bind="text: FileVariable + ' (' + (MappingQuality == 0 ? 'SDTM' : (MappingQuality == 1 ? 'Heuristics' : 'Unmapped')) + ')', css: { 'badge-success': MappingQuality == 0, 'badge-warning': MappingQuality == 1, 'badge-danger': MappingQuality == 2 } "></span>
+                                                    <!-- /ko -->
+                                                <!-- /ko -->
+                                            <!-- /ko -->
+                                        </td>
+                                        <td data-bind="foreach: PpVisit">
+                                            [<span data-bind="text: $data"></span>]<br />
+                                        </td>
+                                        <td data-bind="foreach: StudyMappings">
+                                            <!-- ko if: Type == "PC" -->
+                                                <!-- ko foreach: DomainMappings -->
+                                                    <!-- ko if: SdtmVariable == "VISIT" -->
+                                                    <span class="badge" data-bind="text: FileVariable + ' (' + (MappingQuality == 0 ? 'SDTM' : (MappingQuality == 1 ? 'Heuristics' : 'Unmapped')) + ')', css: { 'badge-success': MappingQuality == 0, 'badge-warning': MappingQuality == 1, 'badge-danger': MappingQuality == 2 } "></span>
+                                                    <!-- /ko -->
+                                                <!-- /ko -->
+                                            <!-- /ko -->
+                                        </td>
+                                        <td data-bind="foreach: PcVisit">
+                                            [<span data-bind="text: $data"></span>]<br />
+                                        </td>
+                                        <td>
+                                            <span data-bind="if: QualityCount.unmapped == 0" class="badge badge-success">No</span>
+                                            <span data-bind="if: QualityCount.unmapped > 0">
+                                                <span class="badge badge-danger">Yes</span>                                            
+                                                <!-- ko foreach: {data: StudyMappings, as: 'domain'} -->
+                                                    <!-- ko foreach: {data: DomainMappings, as: 'mapping'} -->
+                                                        <!-- ko if: MappingQuality == 2 && !$root.isOptionalVariable(domain, $root.splash, mapping) -->
+                                                            <span data-bind="text: domain.Type + ':'"></span>
+                                                            <span data-bind="text: $root.sdtmVariables[SdtmVariable].description"></span>
+                                                            <span>. </span>   
+                                                        <!-- /ko -->
+                                                    <!-- /ko -->
+                                                <!-- /ko -->                    
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span data-bind="if: QualityCount.unmappedOptional == 0" class="badge badge-success">No</span>
+                                            <span data-bind="if: QualityCount.unmappedOptional > 0">
+                                                <span class="badge badge-info">Yes</span>                                            
+                                                <!-- ko foreach: {data: StudyMappings, as: 'domain'} -->
+                                                    <!-- ko foreach: {data: DomainMappings, as: 'mapping'} -->
+                                                        <!-- ko if: MappingQuality == 2 && $root.isOptionalVariable(domain, $root.splash, mapping) -->
+                                                            <span data-bind="text: domain.Type + ':'"></span>
+                                                            <span data-bind="text: $root.sdtmVariables[SdtmVariable].description"></span>
+                                                            <span>. </span>   
+                                                        <!-- /ko -->
+                                                    <!-- /ko -->
+                                                <!-- /ko -->                    
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span data-bind="if: QualityCount.good == 0" class="badge badge-success">No</span>
+                                            <span data-bind="if: QualityCount.good > 0">
+                                                <span class="badge badge-info">Yes</span>                                            
+                                                <!-- ko foreach: {data: StudyMappings, as: 'domain'} -->
+                                                    <!-- ko foreach: {data: DomainMappings, as: 'mapping'} -->
+                                                        <!-- ko if: MappingQuality == 1 -->
+                                                            <span data-bind="text: domain.Type + ':'"></span>
+                                                            <span data-bind="text: $root.sdtmVariables[SdtmVariable].description"></span>
+                                                            <span data-bind="text: '(' + FileVariable + ')'"></span>
+                                                            <span>. </span>   
+                                                        <!-- /ko -->
+                                                    <!-- /ko -->
+                                                <!-- /ko -->                    
+                                            </span>
+                                        </td>                                        
+                                        <td>
+                                            <span data-bind="ifnot: 'analysis' in $root.results()[$parentContext.$index()]">
+                                                <i class="fa fa-refresh fa-spin active"></i>
+                                            </span>
+                                            <span data-bind="if: 'analysis' in $root.results()[$parentContext.$index()]">
+                                                <span data-bind="with: $root.results()[$parentContext.$index()]">
+                                                    <span data-bind="if: analysis == 'aborted'">
+                                                        <span class="badge badge-danger">Package Failed</span>
+                                                    </span>
+                                                    <span data-bind="if: analysis != 'aborted'">
+                                                        <span data-bind="if: analysis.failed.indexOf($parent.StudyCode) != -1">
+                                                            <span class="badge badge-danger">Yes</span>
+                                                        </span>
+                                                        <span data-bind="if: analysis.success.indexOf($parent.StudyCode) != -1">
+                                                            <span class="badge badge-success">No</span>
+                                                        </span>
+                                                        <span data-bind="if: analysis.unRunnable.indexOf($parent.StudyCode) != -1">
+                                                            -
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </td>
+                                    <!-- /ko -->
+                                    <!-- ko if: StudyError == 1 -->
+                                        <td><span class="badge badge-info">Yes</span></td>
+                                        <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                    <!-- /ko -->
+                                </tr>
+                                <!-- /ko -->   
+                            <!-- /ko -->
+                            <!-- ko if: mappings == 'error' -->
+                            <tr>
+                                <td data-bind="text: NDAName"></td> 
+                                <td>-</td>
+                                <td><span class="badge badge-danger">Yes</span></td>
+                                <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                            </tr>                                
+                            <!-- /ko -->
+                            <!-- ko if: mappings == 'toolfailed' -->
+                            <tr>
+                                <td data-bind="text: NDAName"></td> 
+                                <td>-</td>
+                                <td><span class="badge badge-danger">Tool Failed</span></td>
+                                <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                            </tr>                                
+                            <!-- /ko -->
+                            <!-- ko if: mappings == 'missing' -->
+                            <tr>
+                                <td data-bind="text: NDAName"></td> 
+                                <td><span class="badge badge-info">No Studies</span></td>
+                                <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                            </tr>                                
+                            <!-- /ko -->
+                        <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko ifnot: 'mappings' in $root.results()[$index()] -->
+                    <tr>
+                        <td data-bind="text: NDAName"></td>
+                        <td>Running... <i class="fa fa-refresh fa-spin active"></i></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    </tr>
+                    <!-- /ko -->                    
+                <!-- /ko -->
+                <!-- ko ifnot: $root.results().length > $index()  --> 
+                <tr>
+                    <td data-bind="text: NDAName"></td>
+                    <td>Waiting...</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <!-- /ko -->
+            <!-- /ko -->
+            </tbody>
+        </table>
+    </div> 
+    
+    <div style="width:2px; height: 2px; position:fixed; right: 150px; bottom: 30px" 
+        data-toggle="popover" title="Progress display"></div>          
+</div>

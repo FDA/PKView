@@ -1,0 +1,71 @@
+﻿<div>
+
+    <div class="form-horizontal" data-bind="with: report">
+
+        <!-- Reference treatments/groups -->
+        <!-- ko foreach:  { data: Settings.References, as: 'cohortReferences' } -->
+        <div class="form-group">
+            <label class="col-xs-4 control-label control-label-detail">
+                Cohort:                 
+            </label>
+            <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Reference treatment to use in the treatment comparisons' }">
+                <span data-bind="text: cohortReferences.Cohort"></span>
+            </div>
+            
+
+        </div>
+        <div class="form-group">
+            <label class="col-xs-4 control-label control-label-detail">
+                Trt/Grp
+            </label>
+            <div class="col-xs-8 btn-group" role="group" aria-label="Test"
+                 data-bind="foreach: { data: $root.MetaCohorts[$index()], as: 'metaCohort'} ,
+                    tooltip: { container: 'body', placement: 'left', title: 'Test' }">
+                <button type="button" class="btn btn-sm" data-bind="text: metaCohort,
+                     css: { 'active btn-default': $root.report.Settings.References()[$parentContext.$index()].MetaCohorts.indexOf(metaCohort) != -1,
+                        'btn-lite': $root.report.Settings.References()[$parentContext.$index()].MetaCohorts.indexOf(metaCohort)  == -1
+                    }, click: function () { $root.toggleMetaCohorts(metaCohort,$parentContext.$index()); }"></button>
+
+                
+            </div>
+            <label class="col-xs-4 control-label control-label-detail">
+                Dose
+            </label>
+            <div class="col-xs-8 btn-group" role="group" data-bind="foreach: { data: $root.Doses[$index()], as: 'dose'} ,
+                    tooltip: { container: 'body', placement: 'left', title: 'Does' }">
+                <input type="text" class="form-control input-sm" data-bind="value: dose.value, valueUpdate: 'keyup'" />
+            </div>
+
+        </div>
+        <!-- /ko -->
+
+        <!-- Analytes -->
+        <div class="form-group">
+            <label class="col-xs-4 control-label">
+                Analytes
+            </label>
+            <div class="col-xs-8 btn-group" role="group" aria-label="Analytes"
+                 data-bind="tooltip: { container: 'body', placement: 'left', title: 'Analytes to be included in the figures/plots' }">
+                <select class="col-xs-8 btn-group" role="group" aria-label="Analytes" data-bind="options: $root.analytesForvariability, value: $root.report.AnalytesForvariability, selectize: { selectOnTab: true },
+                        optionsText: 'text', optionsValue: 'value'"></select>
+            </div>
+          </div>
+
+        <!-- Parameters -->
+        <div class="form-group">
+            <label class="col-xs-4 control-label">
+                Parameters
+            </label>
+            <div class="col-xs-8 btn-group" role="group" aria-label="Parameters"
+                 data-bind="tooltip: { container: 'body', placement: 'left', title: 'Parameters to be included in the figures/plots' }">
+                <select class="col-xs-8 btn-group" role="group" aria-label="Parameters" data-bind="options: $root.parametersForvariability, value: $root.report.ParametersForvariability, selectize: { selectOnTab: true },
+                        optionsText: 'text', optionsValue: 'value'"></select>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>

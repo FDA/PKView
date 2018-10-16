@@ -1,0 +1,70 @@
+﻿<div class="container-fluid">
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="concFile">Concentration data file</label>
+            <div class="col-sm-7">                     
+                <select id="concFile" class="form-control" 
+                    data-bind="options: fileList, value: concentrationPath, optionsCaption: 'Select File...',
+                        selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'relative', optionsValue: 'path'"></select>                     
+            </div>
+            <div class="col-sm-1" style="padding-left: 5px">
+                <button class="btn btn-default btn-sm" type="button" style="border-radius: 3px"
+                        data-bind="click: function () {viewData(concentrationPath());}, enable: concentrationPath() != null && concentrationPath().length > 0,
+                            tooltip: { container: 'body', title: 'View this data file' }">
+                    <i class="fa fa-eye"></i>
+                </button>
+            </div>                
+        </div>   
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="pkFile">PK data file</label>
+            <div class="col-sm-7">
+                <select id="pkFile" class="form-control"
+                        data-bind="options: fileList, value: pkPath, optionsCaption: 'Select File...',
+                    selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'relative', optionsValue: 'path'"></select>
+            </div>
+            <div class="col-sm-1" style="padding-left: 5px">
+                <button class="btn btn-default btn-sm" type="button" style="border-radius: 3px"
+                        data-bind="click: function () {viewData(pkPath());}, enable: pkPath() != null && pkPath().length > 0,
+                            tooltip: { container: 'body', title: 'View this data file' }">
+                    <i class="fa fa-eye"></i>
+                </button>
+            </div>
+        </div>
+        <div class="form-group">                                   
+            <label class="col-sm-4 control-label checkbox" for="timeFile">
+                <input type="checkbox" data-bind="checked: comparison.useTimeFile"> Separate Time data file
+            </label>                                    
+            <div class="col-sm-7">
+                <select id="timeFile" class="form-control"
+                        data-bind="options: fileList, value: timePath, optionsCaption: 'Select File...',
+                        enable: comparison.useTimeFile, selectize: { selectOnTab: true, dropdownParent: 'body' },
+                        optionsText: 'relative', optionsValue: 'path'"></select>
+            </div>
+            <div class="col-sm-1" style="padding-left: 5px">
+                <button class="btn btn-default btn-sm" type="button" style="border-radius: 3px"
+                        data-bind="click: function () {viewData(timePath());}, enable: timePath ()!= null && timePath().length > 0,
+                            tooltip: { container: 'body', title: 'View this data file' }">
+                    <i class="fa fa-eye"></i>
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label checkbox" for="keFile">
+                <input type="checkbox" data-bind="checked: comparison.useKeFile"> Separate Ke data file
+            </label>
+            <div class="col-sm-7">
+                <select id="keFile" class="form-control"
+                        data-bind="options: fileList, value: kePath, optionsCaption: 'Select File...',
+                        enable: comparison.useKeFile, selectize: { selectOnTab: true, dropdownParent: 'body' }, 
+                        optionsText: 'relative', optionsValue: 'path'"></select>
+            </div>
+            <div class="col-sm-1" style="padding-left: 5px">
+                <button class="btn btn-default btn-sm" type="button" style="border-radius: 3px"
+                        data-bind="click: function () {viewData(kePath());}, enable: kePath() != null && kePath().length > 0,
+                            tooltip: { container: 'body', title: 'View this data file' }">
+                    <i class="fa fa-eye"></i>
+                </button>
+            </div>
+        </div>                                         
+    </form>
+</div>

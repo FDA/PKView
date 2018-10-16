@@ -1,0 +1,22 @@
+<div class="form-group" style="padding-left: 2px; padding-right: 2px">
+    <label data-part="controlLabel" class="control-label" style="max-width: 99%" data-bind="css: getLabelClass(), tooltip: { title: settings.tooltip, placement: 'right', trigger: 'manual' }">
+        <p class="pull-right">
+            <span data-bind="if: settings.required"> * </span>
+            <i class="fa fa-question-circle" style="color:#71A4D2; cursor: help; line-height: 1.5em"/>
+        </p>
+        <p class="truncate" data-bind="text: settings.label, style: { marginRight: settings.required ? '25px' : '17px' }"/>
+    </label>
+    <div data-part="controlBox">
+        <!--ko if: addonsOnLeft -->
+            <span class="input-group-btn" data-bind="foreach: leftAddons">
+                <button class="btn btn-default" type="button" style="height: 34px" data-bind="html: html, click: click, tooltip: { title: tooltip }"></button>
+            </span>
+        <!-- /ko -->
+        <input data-part="valueControl" type="text" class="form-control" data-bind="value: settings.value, attr: { placeholder: getPlaceholder() }, event: { keypress: setModified }"/>
+        <!--ko if: addonsOnRight -->
+            <span class="input-group-btn" data-bind="foreach: rightAddons">
+                <button class="btn btn-default" type="button" style="height: 34px" data-bind="html: html, click: click, tooltip: { title: tooltip }"></button>
+            </span>
+        <!-- /ko -->
+    </div>
+</div>

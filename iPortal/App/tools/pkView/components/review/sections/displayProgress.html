@@ -1,0 +1,26 @@
+﻿<div class="container-fluid">
+    <!-- progress display -->
+    <p class="navbar-text" data-bind="visible: splash.visible()">
+        <span class="text-art-light" style="padding-right: 20px;" data-bind="text: splash.feedback() + ' ...'"></span>
+        <span class="fa-stack fa-lg">
+            <span class="fa fa-stack-1x fa-stack-text" data-bind="text: splash.progress() + '%'"></span>
+            <i class="fa fa-spin fa-circle-o-notch fa-stack-2x"></i>
+        </span>
+    </p>
+</div>
+
+<div class="modal-footer" style="background-color:lightgray">
+    <span style="float:left">
+        Time elapsed :   
+     <span data-bind="text: timeElapsed"></span>
+    </span>
+    <span style="float:right" data-bind="visible: !timeCalculated()">
+        Determining estimated time required...
+    </span>
+    <span style="float:right" data-bind="visible: timeCalculated">
+        Estimated time remaining :   
+     <span data-bind="text: timeRemaining"></span>
+    </span>
+</div>
+
+

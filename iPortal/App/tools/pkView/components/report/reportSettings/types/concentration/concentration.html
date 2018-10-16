@@ -1,0 +1,84 @@
+﻿<div>
+    <div class="form-horizontal" data-bind="with: report">
+
+        <!-- Reference treatments/groups -->
+        <!-- ko foreach:  { data: Settings.References, as: 'cohortReferences' } -->
+        <div class="form-group">
+            <label class="col-xs-4 control-label control-label-detail">
+                Reference Trt/Grp
+                <!-- ko if: $parent.Settings.References.length > 1 -->
+                <small>Cohort: <span data-bind="text: cohortReferences.Cohort"></span></small>
+                <!-- /ko -->
+            </label>
+            <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Reference treatment to use in the treatment comparisons' }">
+                <select class="form-control"
+                        data-bind="options: $root.study.Cohorts()[$index()].treatmentList, value: cohortReferences.Reference,
+                            selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- Analytes -->
+        <div class="form-group">
+            <label class="col-xs-4 control-label">
+                Analytes
+            </label>
+            <div class="col-xs-8 btn-group" role="group" aria-label="Analytes"
+                 data-bind="foreach: { data: $root.analytes, as: 'analyte' },
+                    tooltip: { container: 'body', placement: 'left', title: 'Analytes to be included in the figures/plots' }">
+                <button type="button" class="btn btn-sm" data-bind="text: analyte,
+                    css: { 'active btn-default': $parent.Settings.Analytes.indexOf(analyte) != -1,
+                        'btn-lite': $parent.Settings.Analytes.indexOf(analyte) == -1
+                    }, click: function () { $root.toggleAnalyte(analyte); }"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plots for the user to select the time interval to plot -->
+    <div class="well">
+        <nav class="navbar navbar-lite navbar-sm navbar-click" role="toolbar">
+            <p class="navbar-text"><strong>Select interval of time to plot</strong></p>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <ul data-bind="foreach: { data: plots, as: 'cohortPlots' }" class="nav nav-tabs">
+                    <!-- ko foreach: { data: cohortPlots.plots, as: 'analytePlots' }-->
+                    <li class="plotTab" data-bind="if: $root.report.Settings.Analytes.indexOf(analytePlots.analyte) != -1, 
+                        css: { active: $root.currentCohort() == $parentContext.$index() && $root.currentAnalyte() == $index() }">
+                        <a href="#" data-bind="click: function () { $root.activateTab($parentContext.$index(), $index()); }">
+                            <!-- ko if: $root.multiCohort -->
+                            <span data-bind="text: cohortPlots.cohort"></span>:
+                            <!-- /ko-->
+                            <span data-bind="text: analytePlots.analyte"></span>
+                        </a>
+                    </li>    
+                    <!-- /ko-->            
+                </ul>
+
+                <div class="tab-pane" style="padding: 20px; background-color: #ffffff">
+                <!-- ko compose: { 
+                    model: 'shared/components/plot/concentrationPlot/concentrationPlot', 
+                    activationData: plots[currentCohort()].plots[currentAnalyte()].plots
+                } --><!-- /ko -->
+                </div>
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">Selected time</label>
+                        <div class="col-xs-8">
+                            <p class="form-control-static" data-bind="text: currentInterval"></p>     
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-default" data-bind="click: reviewTimePoints">Review time points</button>
+    <button class="btn btn-primary" data-bind="click: generateReport, disable: computingReport">
+        <i class="fa" data-bind="css: { 'fa-save': !computingReport(), 'fa-spinner fa-spin': computingReport() }"></i> Save
+    </button>
+
+
+</div>

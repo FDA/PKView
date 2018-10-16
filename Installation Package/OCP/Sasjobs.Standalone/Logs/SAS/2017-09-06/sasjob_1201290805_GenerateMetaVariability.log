@@ -1,0 +1,3447 @@
+INFO: 1                                                          The SAS System                         12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Copyright (c) 2002-2012 by SAS Institute Inc., Cary, NC, USA.
+INFO: NOTE: SAS (r) Proprietary Software 9.4 (TS1M4)
+INFO: Licensed to UNIVERSITY OF ILLINOIS SYSTEM - T&R SFA, Site 70080107.
+INFO: NOTE: This session is executing on the X64_10PRO  platform.
+INFO: 
+INFO: 
+INFO: 
+INFO: NOTE: Updated analytical products:
+INFO: 
+INFO: SAS/STAT 14.2
+INFO: SAS/ETS 14.2
+INFO: SAS/OR 14.2
+INFO: SAS/IML 14.2
+INFO: SAS/QC 14.2
+INFO: 
+INFO: NOTE: Additional host information:
+INFO: 
+INFO: X64_10PRO WIN 10.0.15063  Workstation
+INFO: 
+INFO: NOTE: SAS Initialization used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 1
+INFO: 2          %LET SASSPPATH = C:\OCP\Sasjobs.Standalone\\Stored Procedures;
+INFO: 3
+INFO: 4          %global SasSpPath;
+INFO: 5          options nofmterr compress = yes mprint spool notes msglevel=n linesize = 256
+INFO: 6          sasautos = (sasautos "&SasSpPath.\Macros" "&SasSpPath.\Sub Macros");
+INFO: 7
+INFO: 8          libname user "%sysfunc(getoption(work))" ACCESS=TEMP FILELOCKWAIT=20;
+INFO: NOTE: Libref USER refers to the same physical library as WORK.
+INFO: NOTE: Libref USER was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\apps\SAS\SASUser\Peter\SAS Temporary Files\_TD8316_DESKTOP-MP8HDJJ_\Prc73
+INFO: 9          %let work = user.;
+INFO: 10
+INFO: 11         ods path &work.templat(update)
+INFO: 12             sasuser.templat(read)
+INFO: 13             sashelp.tmplmst(read)
+INFO: 14         ;
+INFO: 15
+INFO: 16         /* Path where NDAs are stored in the server */
+INFO: 17         %let inputfolder=\\localhost\clinical\;
+INFO: 18
+INFO: 19         %PkViewMetaVariability;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.userData;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.userConfig end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM USERCONFIG IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if Name="Username" then call symputx("UserName", dequote(value), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if Name="ProfileName" then call symputx("ProfileName", dequote(value), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 6 observations read from the data set WEBSVC.USERCONFIG.
+INFO: NOTE: The data set USER.USERDATA has 6 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.USERDATA increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: 2                                                                                                                        The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: User: Peter
+INFO: Settings Id: Test data 9-6
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.study;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.study end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM STUDY IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if eof then do;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyType", Type, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyId", StudyCode, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyDesign", Design, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("SubmissionID", Submission, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("SupplementNum", dequote(Supplement), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseEx", UseEx, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseSuppdm", UseSuppdm, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("DisablePcCleanup", DisablePcCleanup, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomArms", UseCustomArms, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPcVisit", UseCustomPcVisit, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPcPctptnum", UseCustomPcPctptnum, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPpVisit", UseCustomPpVisit, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   end;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.STUDY.
+INFO: NOTE: The data set USER.STUDY has 2 observations and 16 variables.
+INFO: NOTE: Compressing data set USER.STUDY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: Extracted Study Design: CROSSOVER
+INFO: Extracted Study Type: UNKNOWN
+INFO: Extracted Study Id: TEST002
+INFO: Extracted Submission Id: DRUG000
+INFO: Supplement Number: 0000
+INFO: Use EX: 1
+INFO: Use SUPPDM: 0
+INFO: Use Custom Pc Visit: 1
+INFO: Use Custom Pp Visit: 1
+INFO: Use Custom Pc pctptnum: 0
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.mapping;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM MAPPING IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="USUBJID" then call symputx("UsubjidVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="ARM" then call symputx("ArmVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="AGE" then call symputx("AgeVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="SEX" then call symputx("SexVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="RACE" then call symputx("RaceVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="COUNTRY" then call symputx("CountryVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="ETHNIC" then call symputx("EthnicVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="EXTRT" then call symputx("ExTrtVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="EXSTDTC" then call symputx("ExStdtcVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="VISIT" then call symputx("ExVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="VISIT" then call symputx("PcVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCTEST" then call symputx("PCTESTVar",FILEVAR,"G");
+INFO: 3                                                                                                                        The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCSTRESN" then call symputx("PcStresnVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCTPTNUM" then call symputx("PctptnumVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="VISIT" then call symputx("PpVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPCAT" then call symputx("PpcatVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPSTRESN" then call symputx("PpstresnVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPTESTCD" then call symputx("PptestcdVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 36 observations read from the data set WEBSVC.MAPPING.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.customDmArms;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.customDmArms;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM CUSTOMDMARMS IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 3 observations read from the data set WEBSVC.CUSTOMDMARMS.
+INFO: NOTE: The data set USER.CUSTOMDMARMS has 3 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMDMARMS increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.customPcVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.customPcVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM CUSTOMPCVISIT IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 11 observations read from the data set WEBSVC.CUSTOMPCVISIT.
+INFO: NOTE: The data set USER.CUSTOMPCVISIT has 11 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMPCVISIT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.customPpVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.customPpVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM CUSTOMPPVISIT IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 3 observations read from the data set WEBSVC.CUSTOMPPVISIT.
+INFO: NOTE: The data set USER.CUSTOMPPVISIT has 3 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMPPVISIT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set sashelp.vmember(where = (libname = "WEBSVC" and memtype = "DATA"));
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(memname) = "REFERENCES" then call symput("Exist",1);
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   else call symput("Exist",0);
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 4                                                                                                                        The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:166   19:197
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: NOTE: There were 16 observations read from the data set SASHELP.VMEMBER.
+INFO: WHERE (libname='WEBSVC') and (memtype='DATA');
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.08 seconds
+INFO: cpu time            0.09 seconds
+INFO: 
+INFO: 
+INFO: references exist=           0
+INFO: inputfolder=\\localhost\clinical\DRUG000
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.dirs_found (compress=no);
+INFO: MPRINT(SMLISTFILESINFOLDER):   length Root $500.;
+INFO: MPRINT(SMLISTFILESINFOLDER):   root = "\\localhost\clinical\DRUG000";
+INFO: MPRINT(SMLISTFILESINFOLDER):   output;
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: The data set USER.DIRS_FOUND has 1 observations and 1 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.dirs_found user.files_found (compress=no);
+INFO: MPRINT(SMLISTFILESINFOLDER):   keep Path FileName FileType;
+INFO: MPRINT(SMLISTFILESINFOLDER):   length fref $8 Path Filename $500 FileType $16;
+INFO: MPRINT(SMLISTFILESINFOLDER):   modify user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   Path = root;
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = filename(fref, path);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if rc = 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   did = dopen(fref);
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = filename(fref);
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   else do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   length msg $500.;
+INFO: MPRINT(SMLISTFILESINFOLDER):   msg = sysmsg();
+INFO: MPRINT(SMLISTFILESINFOLDER):   putlog msg=;
+INFO: MPRINT(SMLISTFILESINFOLDER):   did = .;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   if did <= 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   return;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   dnum = dnum(did);
+INFO: MPRINT(SMLISTFILESINFOLDER):   do i = 1 to dnum;
+INFO: MPRINT(SMLISTFILESINFOLDER):   filename = dread(did, i);
+INFO: MPRINT(SMLISTFILESINFOLDER):   fid = mopen(did, filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if fid > 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   FileType = prxchange('s/.*\.{1,1}(.*)/$1/', 1, filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if filename = filetype then filetype = ' ';
+INFO: MPRINT(SMLISTFILESINFOLDER):   output user.files_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   else do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   root = catt(path, "\", filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   output user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: 5                                                                                                                        The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = dclose(did);
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: The data set USER.DIRS_FOUND has been updated.  There were 0 observations rewritten, 9 observations added and 0 observations deleted.
+INFO: NOTE: The data set USER.FILES_FOUND has 8 observations and 3 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.06 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.files(rename = (root = path));
+INFO: MPRINT(SMLISTFILESINFOLDER):   set user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: There were 10 observations read from the data set USER.DIRS_FOUND.
+INFO: NOTE: The data set USER.FILES has 10 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.FILES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):  ;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   ** Get the path to the datasets **;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set user.files end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if scan(upcase(path), -1, "\") = "TEST002" then do;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("DatasetPath", substr(path, 1, length(path) - length("TEST002") - 1));
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   stop;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   end;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 7 observations read from the data set USER.FILES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: DatasetPath = \\localhost\clinical\DRUG000\0000\m5\datasets
+INFO: DataSetPath = \\localhost\clinical\DRUG000\0000\m5\datasets
+INFO: StudyId = TEST002
+INFO: Continue? - success
+INFO: InputDm = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\dm.xpt
+INFO: InputPc = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pc.xpt
+INFO: InputPp = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pp.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\ex.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\suppdm.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\sc.xpt
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):  ;
+INFO: DM file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\dm.xpt
+INFO: EX file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\ex.xpt
+INFO: PC file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pc.xpt
+INFO: PP file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pp.xpt
+INFO: UsubjidVar = USUBJID
+INFO: ArmVar = ARM
+INFO: AgeVar = AGE
+INFO: SexVar = SEX
+INFO: 6                                                                                                                        The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: CountryVar = COUNTRY
+INFO: RaceVar = RACE
+INFO: EthnicVar =
+INFO: ExTrtVar = EXTRT
+INFO: ExVisitVar = EPOCH
+INFO: ExStdtcVar =
+INFO: PcstresnVar = PCSTRESN
+INFO: PcVisitVar = VISIT
+INFO: PctptnumVar = PCTPT
+INFO: PpstresnVar = PPSTRESN
+INFO: PpVisitVar = VISIT
+INFO: PpcatVar = PPCAT
+INFO: PptestcdVar = PPTESTCD
+INFO: PpSpecimenVar = PPSPEC
+INFO: PcSpecimenVar = PCSPEC
+INFO: MPRINT(PKVIEWMETAVARIABILITY):  ;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data _null_;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set websvc.reportConfig end = eof;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   * FROM REPORTCONFIG IN FILE '';
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   if Name="Name" then call symputx("ReportFolder", value, "G");
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.REPORTCONFIG.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data user.study;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set websvc.study;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   * FROM STUDY IN FILE '';
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.STUDY.
+INFO: NOTE: The data set USER.STUDY has 2 observations and 16 variables.
+INFO: NOTE: Compressing data set USER.STUDY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data user.cohort;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set websvc.cohort;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   * FROM COHORT IN FILE '';
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.COHORT.
+INFO: NOTE: The data set USER.COHORT has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.COHORT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data user.parameter;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set websvc.parameter;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   * FROM PARAMETER IN FILE '';
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: Compression was disabled for data set USER.PARAMETER because compression overhead would increase the size of the data set.
+INFO: 7                                                                                                                        The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.PARAMETER.
+INFO: NOTE: The data set USER.PARAMETER has 2 observations and 2 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data user.analyte;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set websvc.analyte;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   * FROM ANALYTE IN FILE '';
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.ANALYTE.
+INFO: NOTE: The data set USER.ANALYTE has 2 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.ANALYTE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data trtdose;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set websvc.trtdose;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   * FROM TRTDOSE IN FILE '';
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: There were 6 observations read from the data set WEBSVC.TRTDOSE.
+INFO: NOTE: The data set USER.TRTDOSE has 6 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.TRTDOSE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sql noprint;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   select distinct cohort into: cohort_sel separated by "$" from user.cohort;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   select distinct analyte into :anal_sel separated by "$" from user.analyte;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   select distinct parameter into :param_sel separated by "$" from user.parameter;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   select distinct STUDYCODE into: studycode_sel separated by "$" from study;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   select distinct trtgrp into: trtgrp_sel separated by "$" from trtdose;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: cohort_sel=Cohort$FASTED-FED
+INFO: anal_sel=DRUG$DRUG X
+INFO: param_sel=AUC
+INFO: studycode_sel=TEST001$TEST002
+INFO: trtgrp_sel=DRUG 10 MG$DRUG 20 MG$DRUG 40 MG$DRUG 80 MG$FASTED$FED
+INFO: current_study=TEST001
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   libname mylib "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates";
+INFO: NOTE: Libref MYLIB was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data current1;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   length study cohortDescription MacroAnalyte MacroParameter combination $200;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set mylib.individualpkstatsMeta;
+INFO: 8                                                                                                                        The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   STUDY="TEST001";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ObsID=_n_;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable cohortDescription by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 1140 observations read from the data set MYLIB.INDIVIDUALPKSTATSMETA.
+INFO: NOTE: The data set USER.CURRENT1 has 1140 observations and 20 variables.
+INFO: NOTE: Compressing data set USER.CURRENT1 decreased size by 86.21 percent.
+INFO: Compressed is 4 pages; un-compressed would require 29 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: current_study=TEST002
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   libname mylib "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates";
+INFO: NOTE: Libref MYLIB was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data current2;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   length study cohortDescription MacroAnalyte MacroParameter combination $200;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set mylib.individualpkstatsMeta;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   STUDY="TEST002";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ObsID=_n_;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable cohortDescription by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 80 observations read from the data set MYLIB.INDIVIDUALPKSTATSMETA.
+INFO: NOTE: The data set USER.CURRENT2 has 80 observations and 24 variables.
+INFO: NOTE: Compressing data set USER.CURRENT2 decreased size by 33.33 percent.
+INFO: Compressed is 2 pages; un-compressed would require 3 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data combine;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set current1 current2 ;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   OrgMACRORESULT=EXP(MACRORESULT);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   keep study cohortDescription MacroAnalyte MacroParameter combination TreatmentInPeriodText USUBJID MACRORESULT OrgMACRORESULT ObsID ;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable USUBJID by input data set(s). This can cause truncation of data.
+INFO: NOTE: Missing values were generated as a result of performing an operation on missing values.
+INFO: Each place is given by: (Number of times) at (Line):(Column).
+INFO: 168 at 19:19
+INFO: NOTE: There were 1140 observations read from the data set USER.CURRENT1.
+INFO: NOTE: There were 80 observations read from the data set USER.CURRENT2.
+INFO: NOTE: The data set USER.COMBINE has 1220 observations and 10 variables.
+INFO: NOTE: Compressing data set USER.COMBINE decreased size by 83.33 percent.
+INFO: Compressed is 4 pages; un-compressed would require 24 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sort data=combine out=combine1;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by study combination MacroAnalyte MacroParameter ;
+INFO: 9                                                                                                                        The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 1220 observations read from the data set USER.COMBINE.
+INFO: NOTE: The data set USER.COMBINE1 has 1220 observations and 10 variables.
+INFO: NOTE: Compressing data set USER.COMBINE1 decreased size by 83.33 percent.
+INFO: Compressed is 4 pages; un-compressed would require 24 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data metaformat;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set websvc.metavariabilityformat (obs=1);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   * FROM METAVARIABILITYFORMAT IN FILE '';
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   call symput("lower",lowerbound);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   call symput("upper",upperbound);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:105   19:138
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.METAVARIABILITYFORMAT.
+INFO: NOTE: The data set USER.METAFORMAT has 1 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.METAFORMAT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: lower=         0.3 upper=         0.6
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sort data=analyte;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by studycode;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.ANALYTE.
+INFO: NOTE: The data set USER.ANALYTE has 2 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.ANALYTE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sort data=parameter;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by studycode;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.PARAMETER.
+INFO: NOTE: The data set USER.PARAMETER has 2 observations and 2 variables.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data analparam;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   merge analyte parameter;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by studycode ;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.ANALYTE.
+INFO: NOTE: There were 2 observations read from the data set USER.PARAMETER.
+INFO: 10                                                                                                                       The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: The data set USER.ANALPARAM has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.ANALPARAM increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sort data=analparam;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by studycode ;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.ANALPARAM.
+INFO: NOTE: The data set USER.ANALPARAM has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.ANALPARAM increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sort data=trtdose;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by studycode ;
+INFO: 
+INFO: NOTE: There were 6 observations read from the data set USER.TRTDOSE.
+INFO: NOTE: The data set USER.TRTDOSE has 6 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.TRTDOSE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data userfull;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   merge analparam trtdose;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by studycode ;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.ANALPARAM.
+INFO: NOTE: There were 6 observations read from the data set USER.TRTDOSE.
+INFO: NOTE: The data set USER.USERFULL has 6 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.USERFULL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data combine1;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set combine1;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   letter="a";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   studychar=strip(letter)||strip(study);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   drop study letter;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   rename studychar=study;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 1220 observations read from the data set USER.COMBINE1.
+INFO: NOTE: The data set USER.COMBINE1 has 1220 observations and 10 variables.
+INFO: NOTE: Compressing data set USER.COMBINE1 decreased size by 83.33 percent.
+INFO: 11                                                                                                                       The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: Compressed is 4 pages; un-compressed would require 24 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data userfull;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set userfull;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   letter1="a";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   studycodechar=strip(letter1)||strip(studycode);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   drop studycode letter1;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   rename studycodechar=studycode;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 6 observations read from the data set USER.USERFULL.
+INFO: NOTE: The data set USER.USERFULL has 6 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.USERFULL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sql;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   create table MengMetaVar as select* from userfull inner join combine1 on userfull.studycode=combine1.study and userfull.selectedcohort=combine1.cohortdescription and userfull.analyte=combine1.MacroAnalyte and
+INFO: userfull.parameter=combine1.MacroParameter and userfull.trtgrp=combine1.treatmentinperiodtext;
+INFO: NOTE: Compressing data set USER.MENGMETAVAR decreased size by 60.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 5 pages.
+INFO: NOTE: Table USER.MENGMETAVAR created, with 244 rows and 17 columns.
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data mengmetavar;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   retain study TreatmentInPeriodText USUBJID normalbydose ObsID cohortDescription MacroAnalyte MacroParameter combination MACRORESULT OrgMACRORESULT dose number;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set mengmetavar;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   drop STUDYCODE ANALYTE PARAMETER SelectedCohort trtgrp;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   normalbydose=orgMACRORESULT/dose;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ObsID=_n_;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   parameterlabel="Parameter";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   trtlabel="trtgrp";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   Studylabel="Study";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: Missing values were generated as a result of performing an operation on missing values.
+INFO: Each place is given by: (Number of times) at (Line):(Column).
+INFO: 84 at 19:182
+INFO: NOTE: There were 244 observations read from the data set USER.MENGMETAVAR.
+INFO: NOTE: The data set USER.MENGMETAVAR has 244 observations and 16 variables.
+INFO: NOTE: Compressing data set USER.MENGMETAVAR decreased size by 60.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 5 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 12                                                                                                                       The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data mengmetavar;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set mengmetavar;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   if dose eq . then delete;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 244 observations read from the data set USER.MENGMETAVAR.
+INFO: NOTE: The data set USER.MENGMETAVAR has 244 observations and 16 variables.
+INFO: NOTE: Compressing data set USER.MENGMETAVAR decreased size by 60.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 5 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sort data=mengmetavar;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by study MacroAnalyte MacroParameter cohortdescription treatmentinperiodtext;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 244 observations read from the data set USER.MENGMETAVAR.
+INFO: NOTE: The data set USER.MENGMETAVAR has 244 observations and 16 variables.
+INFO: NOTE: Compressing data set USER.MENGMETAVAR decreased size by 60.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 5 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data mengmetavar1;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set mengmetavar;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by study MacroAnalyte MacroParameter cohortdescription treatmentinperiodtext;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   if first.treatmentinperiodtext then catlevel+1;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   if not first.treatmentinperiodtext then study= .;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   if not first.treatmentinperiodtext then MacroAnalyte= . ;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   if not first.treatmentinperiodtext then MacroParameter= .;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   if not first.treatmentinperiodtext then treatmentinperiodtext= .;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   if not first.treatmentinperiodtext then studylabel= .;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   obsid=catlevel;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   if not first.treatmentinperiodtext then obsid = .;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:167   19:227   19:52    19:119   19:174
+INFO: NOTE: There were 244 observations read from the data set USER.MENGMETAVAR.
+INFO: NOTE: The data set USER.MENGMETAVAR1 has 244 observations and 17 variables.
+INFO: NOTE: Compressing data set USER.MENGMETAVAR1 decreased size by 60.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 5 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc template;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   define statgraph ForestPlotMetaVar ;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   begingraph / designwidth=1400px designheight=1000;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   entrytitle "DRUG000 Forest Plot Meta Variability Analysis" / textattrs = (size = 12pt weight = bold) pad = (bottom = 5px);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   layout lattice / columns = 4 columnweights=(0.1 0.13 0.05 0.72);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   layout overlay / walldisplay = none xaxisopts = (display = none offsetmin = 0.2 offsetmax = 0.2 tickvalueattrs = (size = 8)) yaxisopts = (reverse = true display = none tickvalueattrs = (weight = bold) offsetmin = 0);
+INFO: 13                                                                                                                       The SAS System                                                                                       12:01 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   scatterplot y = obsid x =studylabel / markercharacter =study markercharacterattrs=(family='Lucida Console' size=7 weight=bold );
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   endlayout;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   layout overlay / walldisplay = none xaxisopts = (display = none offsetmin = 0.3 offsetmax = 0.2 tickvalueattrs = (size = 8)) yaxisopts = (reverse = true display = none tickvalueattrs = (weight = bold) offsetmin = 0);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   scatterplot y = obsid x = trtlabel / markercharacter =treatmentinperiodtext markerattrs = (size = 0);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   endlayout;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   layout overlay / walldisplay = none xaxisopts = (display = none offsetmin = 0.3 offsetmax = 0.2 tickvalueattrs = (size = 8)) yaxisopts = (reverse = true display = none tickvalueattrs = (weight = bold) offsetmin = 0);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   scatterplot y = obsid x = parameterlabel / markercharacter =pptestcd markerattrs = (size = 0);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   endlayout;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   layout overlay / yaxisopts=(reverse=true tickvalueattrs=(size=6pt) display=( tickvalues line) ) xaxisopts=(display=(ticks tickvalues line) tickvalueattrs=(size=6pt));
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   scatterplot y=catlevel x=normalbydose/ group=usubjid name="scatter" markerattrs=(size= 8 );
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   referenceline x=1 / LINEATTRS=(COLOR=gray PATTERN=solid thickness=1);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   referenceline x = 0.3/LINEATTRS=(COLOR=gray PATTERN=shortdash thickness=1);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   referenceline x = 0.6/LINEATTRS=(COLOR=gray PATTERN=shortdash thickness=1);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   endlayout;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   endlayout;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   endgraph;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   end;
+INFO: NOTE: STATGRAPH 'ForestPlotMetaVar' has been saved to: USER.TEMPLAT
+INFO: NOTE: PROCEDURE TEMPLATE used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability" exists
+INFO: MPRINT(PKVIEWMETAVARIABILITY):  ;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   options nodate nonumber;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability" style=statistical;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics on / noborder imagefmt = png imagename = "DRUG000MetaVariability" width = 1000px height = 1200;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sgrender data=mengmetavar1 template=ForestPlotMetaVar;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: Compressing data set WORK._DOCTMP000000000000000000089 decreased size by 60.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 5 pages.
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\DRUG000MetaVariability.png.
+INFO: NOTE: There were 244 observations read from the data set USER.MENGMETAVAR1.
+INFO: NOTE: PROCEDURE SGRENDER used (Total process time):
+INFO: real time           0.20 seconds
+INFO: cpu time            0.09 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics off;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing close;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data distributioninput;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set mengmetavar;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   drop combination;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: There were 244 observations read from the data set USER.MENGMETAVAR.
+INFO: NOTE: The data set USER.DISTRIBUTIONINPUT has 244 observations and 15 variables.
+INFO: NOTE: Compressing data set USER.DISTRIBUTIONINPUT decreased size by 60.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 5 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sort data=distributioninput nodupkey;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by study TreatmentInPeriodText USUBJID normalbydose cohortDescription MacroAnalyte MacroParameter OrgMACRORESULT dose;
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 244 observations read from the data set USER.DISTRIBUTIONINPUT.
+INFO: NOTE: 209 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.DISTRIBUTIONINPUT has 35 observations and 15 variables.
+INFO: NOTE: Compressing data set USER.DISTRIBUTIONINPUT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability" style=statistical;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics on / noborder imagefmt = png imagename = "DRUG000_Distribution" width = 1000px height = 1200;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics on;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc univariate data=distributioninput noprint;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   histogram normalbydose ;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   title 'Distribution of PP Results Normalized by Dose';
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   inset normal(mu sigma) n = 'Number of Observations' / position=ne;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+WARNING: WARNING: The normal distribution was not specified in the previous plot statement.  The normal statistics will be ignored in this INSET statement.
+INFO: NOTE: PROCEDURE UNIVARIATE used (Total process time):
+INFO: real time           0.17 seconds
+INFO: cpu time            0.07 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics off;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing close;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods csv file="C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\distributioninput.csv";
+INFO: NOTE: Writing CSV Body file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\distributioninput.csv
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc print data=distributioninput;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.DISTRIBUTIONINPUT.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.03 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods csv close;
+INFO: current_study=TEST001
+INFO: \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm
+INFO: current_studydmxpt=\\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\dm.xpt
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   libname sasfile "\\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm";
+INFO: NOTE: Libref SASFILE was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   libname xptfile xport "\\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\dm.xpt" access=readonly;
+INFO: NOTE: Libref XPTFILE was successfully assigned as follows:
+INFO: Engine:        XPORT
+INFO: Physical Name: \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\dm.xpt
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc copy inlib=xptfile outlib=sasfile;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: Input library XPTFILE is sequential.
+INFO: NOTE: Copying XPTFILE.DM to SASFILE.DM (memtype=DATA).
+INFO: NOTE: BUFSIZE is not cloned when copying across different engines. System Option for BUFSIZE was used.
+INFO: NOTE: There were 26 observations read from the data set XPTFILE.DM.
+INFO: NOTE: The data set SASFILE.DM has 26 observations and 19 variables.
+INFO: The SAS System
+INFO: 
+INFO: NOTE: Compressing data set SASFILE.DM increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE COPY used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data currentdm1;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set sasfile.dm;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   STUDY="TEST001";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ObsID=_n_;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 26 observations read from the data set SASFILE.DM.
+INFO: NOTE: The data set USER.CURRENTDM1 has 26 observations and 21 variables.
+INFO: NOTE: Compressing data set USER.CURRENTDM1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: current_study=TEST002
+INFO: \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm
+INFO: current_studydmxpt=\\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\dm.xpt
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   libname sasfile "\\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm";
+INFO: NOTE: Libref SASFILE was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   libname xptfile xport "\\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\dm.xpt" access=readonly;
+INFO: NOTE: Libref XPTFILE was successfully assigned as follows:
+INFO: Engine:        XPORT
+INFO: Physical Name: \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\dm.xpt
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc copy inlib=xptfile outlib=sasfile;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: Input library XPTFILE is sequential.
+INFO: NOTE: Copying XPTFILE.DM to SASFILE.DM (memtype=DATA).
+INFO: NOTE: BUFSIZE is not cloned when copying across different engines. System Option for BUFSIZE was used.
+INFO: NOTE: There were 10 observations read from the data set XPTFILE.DM.
+INFO: NOTE: The data set SASFILE.DM has 10 observations and 12 variables.
+INFO: NOTE: Compressing data set SASFILE.DM increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE COPY used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data currentdm2;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set sasfile.dm;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   STUDY="TEST002";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ObsID=_n_;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 10 observations read from the data set SASFILE.DM.
+INFO: NOTE: The data set USER.CURRENTDM2 has 10 observations and 14 variables.
+INFO: NOTE: Compressing data set USER.CURRENTDM2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: The SAS System
+INFO: 
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data combinedm;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   length study $200;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set currentdm1 currentdm2 ;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable USUBJID by input data set(s). This can cause truncation of data.
+WARNING: WARNING: Multiple lengths were specified for the variable ARMCD by input data set(s). This can cause truncation of data.
+WARNING: WARNING: Multiple lengths were specified for the variable ARM by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 26 observations read from the data set USER.CURRENTDM1.
+INFO: NOTE: There were 10 observations read from the data set USER.CURRENTDM2.
+INFO: NOTE: The data set USER.COMBINEDM has 36 observations and 21 variables.
+INFO: NOTE: Compressing data set USER.COMBINEDM increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data metasubjectid;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set mengmetavar;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   keep usubjid study normalbydose;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 244 observations read from the data set USER.MENGMETAVAR.
+INFO: NOTE: The data set USER.METASUBJECTID has 244 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.METASUBJECTID increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sort data=metasubjectid nodupkey;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by study usubjid normalbydose;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 244 observations read from the data set USER.METASUBJECTID.
+INFO: NOTE: 209 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.METASUBJECTID has 35 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.METASUBJECTID increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sort data=metasubjectid;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by usubjid;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.METASUBJECTID.
+INFO: NOTE: The data set USER.METASUBJECTID has 35 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.METASUBJECTID increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: The SAS System
+INFO: 
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sort data=combinedm;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by usubjid;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 36 observations read from the data set USER.COMBINEDM.
+INFO: NOTE: The data set USER.COMBINEDM has 36 observations and 21 variables.
+INFO: NOTE: Compressing data set USER.COMBINEDM increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data metademo;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   merge metasubjectid (in=a) combinedm (in=b);
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by usubjid;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   if a and b;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.METASUBJECTID.
+INFO: NOTE: There were 36 observations read from the data set USER.COMBINEDM.
+INFO: NOTE: The data set USER.METADEMO has 35 observations and 22 variables.
+INFO: NOTE: Compressing data set USER.METADEMO increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sort data=metademo;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   by study usubjid;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO.
+INFO: NOTE: The data set USER.METADEMO has 35 observations and 22 variables.
+INFO: NOTE: Compressing data set USER.METADEMO increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods csv file="C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\MetaDemoInput.csv" style=statistical ;
+INFO: NOTE: Writing CSV Body file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\MetaDemoInput.csv
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc print data=metademo;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):  run;
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.03 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods csv close;
+INFO: MPRINT(MENGMETADEMO):   data belowlower;
+INFO: MPRINT(MENGMETADEMO):   set metademo;
+INFO: MPRINT(MENGMETADEMO):   where normalbydose< 0.3;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 11 observations read from the data set USER.METADEMO.
+INFO: WHERE normalbydose<0.3;
+INFO: NOTE: The data set USER.BELOWLOWER has 11 observations and 22 variables.
+INFO: NOTE: Compressing data set USER.BELOWLOWER increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc summary data=belowlower;
+INFO: MPRINT(MENGMETADEMO):   var AGE;
+INFO: MPRINT(MENGMETADEMO):   output out = lowercont(drop = _type_ _freq_) mean = mean n=n std=std min=min max=max;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 11 observations read from the data set USER.BELOWLOWER.
+INFO: NOTE: The data set USER.LOWERCONT has 1 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.LOWERCONT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SUMMARY used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data lowercont;
+INFO: MPRINT(MENGMETADEMO):   set lowercont;
+INFO: MPRINT(MENGMETADEMO):   label="AGE";
+INFO: MPRINT(MENGMETADEMO):   mean=round(mean,0.01);
+INFO: MPRINT(MENGMETADEMO):   std=round(std,0.01);
+INFO: MPRINT(MENGMETADEMO):   n=round(n,1);
+INFO: MPRINT(MENGMETADEMO):   min=round(min,0.01);
+INFO: MPRINT(MENGMETADEMO):   max=round(max,0.01);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.LOWERCONT.
+INFO: NOTE: The data set USER.LOWERCONT has 1 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.LOWERCONT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc transpose data=lowercont out=llong;
+INFO: MPRINT(MENGMETADEMO):   id label;
+INFO: MPRINT(MENGMETADEMO):   var mean n std min max;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.LOWERCONT.
+INFO: NOTE: The data set USER.LLONG has 5 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.LLONG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: The SAS System
+INFO: 
+INFO: NOTE: PROCEDURE TRANSPOSE used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data llong;
+INFO: MPRINT(MENGMETADEMO):   set llong;
+INFO: MPRINT(MENGMETADEMO):   category="Below Lower";
+INFO: MPRINT(MENGMETADEMO):   order1=1;
+INFO: MPRINT(MENGMETADEMO):   order2=_n_;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.LLONG.
+INFO: NOTE: The data set USER.LLONG has 5 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.LLONG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: llong$mlong$ulong
+INFO: MPRINT(MENGMETADEMO):   data meng;
+INFO: MPRINT(MENGMETADEMO):   if exist("llong") then l=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("mlong") then m=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("ulong") then u=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("l",l);
+INFO: MPRINT(MENGMETADEMO):   call symput("m",m);
+INFO: MPRINT(MENGMETADEMO):   call symput("u",u);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:117   19:137   19:157
+INFO: NOTE: The data set USER.MENG has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.MENG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: l:           1
+INFO: m:           .
+INFO: u:           .
+INFO: MPRINT(MENGMETADEMO):   data contall;
+INFO: MPRINT(MENGMETADEMO):   set llong;
+INFO: MPRINT(MENGMETADEMO):   rename age=value;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.LLONG.
+INFO: NOTE: The data set USER.CONTALL has 5 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CONTALL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: The SAS System
+INFO: 
+INFO: RACE$SEX$$countryvar
+INFO: MPRINT(MENGMETADEMO):   data meng1;
+INFO: MPRINT(MENGMETADEMO):   if exist("belowlower") then bl=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("middle") then md=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("aboveupper") then au=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("bl",bl);
+INFO: MPRINT(MENGMETADEMO):   call symput("md",md);
+INFO: MPRINT(MENGMETADEMO):   call symput("au",au);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:132   19:154   19:176
+INFO: NOTE: The data set USER.MENG1 has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.MENG1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: bl:           1
+INFO: md:           .
+INFO: au:           .
+INFO: input=belowlower$$
+INFO: categoryvar=Below Lower$$
+INFO: MPRINT(MENGMETADEMO):   proc freq data=belowlower noprint;
+INFO: MPRINT(MENGMETADEMO):   tables RACE/out=user.race_1 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 11 observations read from the data set USER.BELOWLOWER.
+INFO: NOTE: The data set USER.RACE_1 has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.RACE_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.race_1 ;
+INFO: MPRINT(MENGMETADEMO):   set user.race_1 ;
+INFO: MPRINT(MENGMETADEMO):   category="Below Lower";
+INFO: MPRINT(MENGMETADEMO):   order1=2;
+INFO: MPRINT(MENGMETADEMO):   rename count=value race=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.RACE_1.
+INFO: NOTE: The data set USER.RACE_1 has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.RACE_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=belowlower noprint;
+INFO: MPRINT(MENGMETADEMO):   tables SEX/out=user.sex_1 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: The SAS System
+INFO: 
+INFO: 
+INFO: NOTE: There were 11 observations read from the data set USER.BELOWLOWER.
+INFO: NOTE: The data set USER.SEX_1 has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.SEX_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.sex_1 ;
+INFO: MPRINT(MENGMETADEMO):   set user.sex_1 ;
+INFO: MPRINT(MENGMETADEMO):   category="Below Lower";
+INFO: MPRINT(MENGMETADEMO):   order1=3;
+INFO: MPRINT(MENGMETADEMO):   rename count=value sex=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.SEX_1.
+INFO: NOTE: The data set USER.SEX_1 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.SEX_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=belowlower noprint;
+INFO: MPRINT(MENGMETADEMO):   tables COUNTRY/out=user.country_1 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 11 observations read from the data set USER.BELOWLOWER.
+INFO: NOTE: The data set USER.COUNTRY_1 has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.country_1 ;
+INFO: MPRINT(MENGMETADEMO):   set user.country_1 ;
+INFO: MPRINT(MENGMETADEMO):   category="Below Lower";
+INFO: MPRINT(MENGMETADEMO):   order1=4;
+INFO: MPRINT(MENGMETADEMO):   rename count=value country=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.COUNTRY_1.
+INFO: NOTE: The data set USER.COUNTRY_1 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallrace;
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   set user.race_1;
+INFO: MPRINT(MENGMETADEMO):   _label_="race";
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.RACE_1.
+INFO: NOTE: The data set USER.CATALLRACE has 1 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLRACE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc sql noprint;
+INFO: MPRINT(MENGMETADEMO):   select count(*) into : raceobs from catallrace;
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: raceobs=       1
+INFO: MPRINT(MENGMETADEMO):   proc sql;
+INFO: MPRINT(MENGMETADEMO):   select name into :racevlist from dictionary.columns where memname=upcase("catallrace") and varnum=1;
+WARNING: WARNING: No output destinations active.
+INFO: MPRINT(MENGMETADEMO):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: racevlist =_name_
+INFO: MPRINT(MENGMETADEMO):   proc sort data=catallrace;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.CATALLRACE.
+INFO: NOTE: The data set USER.CATALLRACE has 1 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLRACE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallrace;
+INFO: MPRINT(MENGMETADEMO):   set catallrace;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   if first._name_ then order2+1;
+INFO: MPRINT(MENGMETADEMO):  ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.CATALLRACE.
+INFO: NOTE: The data set USER.CATALLRACE has 1 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALLRACE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: The SAS System
+INFO: 
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallsex;
+INFO: MPRINT(MENGMETADEMO):   set user.sex_1;
+INFO: MPRINT(MENGMETADEMO):   _label_="sex";
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.SEX_1.
+INFO: NOTE: The data set USER.CATALLSEX has 2 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLSEX increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc sql noprint;
+INFO: MPRINT(MENGMETADEMO):   select count(*) into : sexobs from catallsex;
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: sexobs=       2
+INFO: MPRINT(MENGMETADEMO):   proc sql;
+INFO: MPRINT(MENGMETADEMO):   select name into :sexvlist from dictionary.columns where memname=upcase("catallsex") and varnum=1;
+WARNING: WARNING: No output destinations active.
+INFO: MPRINT(MENGMETADEMO):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: sexvlist=_name_
+INFO: MPRINT(MENGMETADEMO):   proc sort data=catallsex;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.CATALLSEX.
+INFO: NOTE: The data set USER.CATALLSEX has 2 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLSEX increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallsex;
+INFO: MPRINT(MENGMETADEMO):   set catallsex;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   if first._name_ then order2+1;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.CATALLSEX.
+INFO: The SAS System
+INFO: 
+INFO: NOTE: The data set USER.CATALLSEX has 2 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALLSEX increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallcountry;
+INFO: MPRINT(MENGMETADEMO):   set user.country_1;
+INFO: MPRINT(MENGMETADEMO):   _label_="country";
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.COUNTRY_1.
+INFO: NOTE: The data set USER.CATALLCOUNTRY has 2 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLCOUNTRY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc sql noprint;
+INFO: MPRINT(MENGMETADEMO):   select count(*) into : countryobs from catallcountry;
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: countryobs=       2
+INFO: MPRINT(MENGMETADEMO):   proc sql;
+INFO: MPRINT(MENGMETADEMO):   select name into :countryvlist from dictionary.columns where memname=upcase("catallcountry") and varnum=1;
+WARNING: WARNING: No output destinations active.
+INFO: MPRINT(MENGMETADEMO):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: countryvlist =_name_
+INFO: MPRINT(MENGMETADEMO):   proc sort data=catallcountry;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.CATALLCOUNTRY.
+INFO: NOTE: The data set USER.CATALLCOUNTRY has 2 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLCOUNTRY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallcountry;
+INFO: MPRINT(MENGMETADEMO):   set catallcountry;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   if first._name_ then order2+1;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.CATALLCOUNTRY.
+INFO: NOTE: The data set USER.CATALLCOUNTRY has 2 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALLCOUNTRY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data meng2;
+INFO: MPRINT(MENGMETADEMO):   if exist("catallrace") then cr=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("catallsex") then cs=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("catallcountry") then cc=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("catallethnic") then ce=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("cr",cr);
+INFO: MPRINT(MENGMETADEMO):   call symput("cs",cs);
+INFO: MPRINT(MENGMETADEMO):   call symput("cc",cc);
+INFO: MPRINT(MENGMETADEMO):   call symput("ce",ce);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:177   19:199   19:221   19:243
+INFO: NOTE: The data set USER.MENG2 has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.MENG2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: cr:           1
+INFO: cs:           1
+INFO: cc:           1
+INFO: ce:           .
+INFO: MPRINT(MENGMETADEMO):   data catall;
+INFO: MPRINT(MENGMETADEMO):   set catallrace catallsex catallcountry;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable _label_ by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 1 observations read from the data set USER.CATALLRACE.
+INFO: NOTE: There were 2 observations read from the data set USER.CATALLSEX.
+INFO: NOTE: There were 2 observations read from the data set USER.CATALLCOUNTRY.
+INFO: NOTE: The data set USER.CATALL has 5 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data meng3;
+INFO: MPRINT(MENGMETADEMO):   if exist("catall") then catall=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("contall") then contall=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("catall",catall);
+INFO: MPRINT(MENGMETADEMO):   call symput("contall",contall);
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:116   19:147
+INFO: NOTE: The data set USER.MENG3 has 1 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.MENG3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: catall:           1
+INFO: contall:           1
+INFO: MPRINT(MENGMETADEMO):   data all;
+INFO: MPRINT(MENGMETADEMO):   set catall contall;
+INFO: MPRINT(MENGMETADEMO):   drop _label_;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable _label_ by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 5 observations read from the data set USER.CATALL.
+INFO: NOTE: There were 5 observations read from the data set USER.CONTALL.
+INFO: NOTE: The data set USER.ALL has 10 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.ALL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc format ;
+INFO: MPRINT(MENGMETADEMO):   value head 1="Age" 2="Race" 3="Sex" 4="Country" 5="Ethnic";
+INFO: NOTE: Format HEAD has been output.
+INFO: MPRINT(MENGMETADEMO):   run ;
+INFO: 
+INFO: NOTE: PROCEDURE FORMAT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   ods rtf file="C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Demographic Summary.rtf" style=statistical ;
+INFO: NOTE: Writing RTF Body file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Demographic Summary.rtf
+INFO: MPRINT(MENGMETADEMO):   title "Meta Variability: Demographic Summary ";
+INFO: MPRINT(MENGMETADEMO):   proc report data=all split="'" nowindows style(report)={font_face=times font_size=3 bordercolor=black } style(column)={just=center font_face=times background=white foreground=black font_size=3 bordercolor=black cellwidth=1in}
+INFO: style(header)={just=center font_face=times cellheight=1in font_size=3 foreground=black bordercolor=black cellwidth=1in backgroundcolor=honeydrew};
+INFO: MPRINT(MENGMETADEMO):   column order1 order2 _name_ category,value;
+INFO: MPRINT(MENGMETADEMO):   define order1 / group noprint order=internal ;
+INFO: MPRINT(MENGMETADEMO):   define order2 / group noprint order=internal ;
+INFO: MPRINT(MENGMETADEMO):   define _name_ / group ' ' ;
+INFO: MPRINT(MENGMETADEMO):   define category/ across 'Categorized by Input Cutoffs' order = internal ;
+INFO: MPRINT(MENGMETADEMO):   define value / group ' ';
+INFO: MPRINT(MENGMETADEMO):   compute before order1 ;
+INFO: MPRINT(MENGMETADEMO):   line @1 ' ' ;
+INFO: MPRINT(MENGMETADEMO):   line @1 order1 head. ;
+INFO: MPRINT(MENGMETADEMO):   endcomp;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 10 observations read from the data set USER.ALL.
+INFO: The SAS System
+INFO: 
+INFO: NOTE: PROCEDURE REPORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   ods rtf close;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):  ;
+INFO: MPRINT(MENGMETADEMO):   data middle;
+INFO: MPRINT(MENGMETADEMO):   set metademo;
+INFO: MPRINT(MENGMETADEMO):   where normalbydose>= 0.3 and normalbydose<= 0.6;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 22 observations read from the data set USER.METADEMO.
+INFO: WHERE (normalbydose>=0.3 and normalbydose<=0.6);
+INFO: NOTE: The data set USER.MIDDLE has 22 observations and 22 variables.
+INFO: NOTE: Compressing data set USER.MIDDLE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc summary data=middle;
+INFO: MPRINT(MENGMETADEMO):   var AGE;
+INFO: MPRINT(MENGMETADEMO):   output out = middlecont(drop = _type_ _freq_) mean = mean n=n std=std min=min max=max;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 22 observations read from the data set USER.MIDDLE.
+INFO: NOTE: The data set USER.MIDDLECONT has 1 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.MIDDLECONT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SUMMARY used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data middlecont;
+INFO: MPRINT(MENGMETADEMO):   set middlecont;
+INFO: MPRINT(MENGMETADEMO):   label="AGE";
+INFO: MPRINT(MENGMETADEMO):   mean=round(mean,0.01);
+INFO: MPRINT(MENGMETADEMO):   std=round(std,0.01);
+INFO: MPRINT(MENGMETADEMO):   n=round(n,1);
+INFO: MPRINT(MENGMETADEMO):   min=round(min,0.01);
+INFO: MPRINT(MENGMETADEMO):   max=round(max,0.01);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.MIDDLECONT.
+INFO: NOTE: The data set USER.MIDDLECONT has 1 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.MIDDLECONT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc transpose data=middlecont out=mlong;
+INFO: MPRINT(MENGMETADEMO):   id label;
+INFO: MPRINT(MENGMETADEMO):   var mean n std min max;
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.MIDDLECONT.
+INFO: NOTE: The data set USER.MLONG has 5 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.MLONG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE TRANSPOSE used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data mlong;
+INFO: MPRINT(MENGMETADEMO):   set mlong;
+INFO: MPRINT(MENGMETADEMO):   category="Middle";
+INFO: MPRINT(MENGMETADEMO):   order1=1;
+INFO: MPRINT(MENGMETADEMO):   order2=_n_;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.MLONG.
+INFO: NOTE: The data set USER.MLONG has 5 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.MLONG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: llong$mlong$ulong
+INFO: MPRINT(MENGMETADEMO):   data meng;
+INFO: MPRINT(MENGMETADEMO):   if exist("llong") then l=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("mlong") then m=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("ulong") then u=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("l",l);
+INFO: MPRINT(MENGMETADEMO):   call symput("m",m);
+INFO: MPRINT(MENGMETADEMO):   call symput("u",u);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:117   19:137   19:157
+INFO: NOTE: The data set USER.MENG has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.MENG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: l:           1
+INFO: m:           1
+INFO: u:           .
+INFO: MPRINT(MENGMETADEMO):   data contall;
+INFO: MPRINT(MENGMETADEMO):   set llong mlong;
+INFO: MPRINT(MENGMETADEMO):   rename age=value;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.LLONG.
+INFO: NOTE: There were 5 observations read from the data set USER.MLONG.
+INFO: NOTE: The data set USER.CONTALL has 10 observations and 6 variables.
+INFO: The SAS System
+INFO: 
+INFO: NOTE: Compressing data set USER.CONTALL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: RACE$SEX$$countryvar
+INFO: MPRINT(MENGMETADEMO):   data meng1;
+INFO: MPRINT(MENGMETADEMO):   if exist("belowlower") then bl=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("middle") then md=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("aboveupper") then au=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("bl",bl);
+INFO: MPRINT(MENGMETADEMO):   call symput("md",md);
+INFO: MPRINT(MENGMETADEMO):   call symput("au",au);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:132   19:154   19:176
+INFO: NOTE: The data set USER.MENG1 has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.MENG1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: bl:           1
+INFO: md:           1
+INFO: au:           .
+INFO: input=belowlower$middle$
+INFO: categoryvar=Below Lower$Middle$
+INFO: MPRINT(MENGMETADEMO):   proc freq data=belowlower noprint;
+INFO: MPRINT(MENGMETADEMO):   tables RACE/out=user.race_1 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 11 observations read from the data set USER.BELOWLOWER.
+INFO: NOTE: The data set USER.RACE_1 has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.RACE_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.race_1 ;
+INFO: MPRINT(MENGMETADEMO):   set user.race_1 ;
+INFO: MPRINT(MENGMETADEMO):   category="Below Lower";
+INFO: MPRINT(MENGMETADEMO):   order1=2;
+INFO: MPRINT(MENGMETADEMO):   rename count=value race=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.RACE_1.
+INFO: NOTE: The data set USER.RACE_1 has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.RACE_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: The SAS System
+INFO: 
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=belowlower noprint;
+INFO: MPRINT(MENGMETADEMO):   tables SEX/out=user.sex_1 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 11 observations read from the data set USER.BELOWLOWER.
+INFO: NOTE: The data set USER.SEX_1 has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.SEX_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.sex_1 ;
+INFO: MPRINT(MENGMETADEMO):   set user.sex_1 ;
+INFO: MPRINT(MENGMETADEMO):   category="Below Lower";
+INFO: MPRINT(MENGMETADEMO):   order1=3;
+INFO: MPRINT(MENGMETADEMO):   rename count=value sex=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.SEX_1.
+INFO: NOTE: The data set USER.SEX_1 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.SEX_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=belowlower noprint;
+INFO: MPRINT(MENGMETADEMO):   tables COUNTRY/out=user.country_1 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 11 observations read from the data set USER.BELOWLOWER.
+INFO: NOTE: The data set USER.COUNTRY_1 has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.country_1 ;
+INFO: MPRINT(MENGMETADEMO):   set user.country_1 ;
+INFO: MPRINT(MENGMETADEMO):   category="Below Lower";
+INFO: MPRINT(MENGMETADEMO):   order1=4;
+INFO: MPRINT(MENGMETADEMO):   rename count=value country=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.COUNTRY_1.
+INFO: NOTE: The data set USER.COUNTRY_1 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_1 increased size by 100.00 percent.
+INFO: The SAS System
+INFO: 
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=middle noprint;
+INFO: MPRINT(MENGMETADEMO):   tables RACE/out=user.race_2 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 22 observations read from the data set USER.MIDDLE.
+INFO: NOTE: The data set USER.RACE_2 has 3 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.RACE_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.race_2 ;
+INFO: MPRINT(MENGMETADEMO):   set user.race_2 ;
+INFO: MPRINT(MENGMETADEMO):   category="Middle";
+INFO: MPRINT(MENGMETADEMO):   order1=2;
+INFO: MPRINT(MENGMETADEMO):   rename count=value race=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.RACE_2.
+INFO: NOTE: The data set USER.RACE_2 has 3 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.RACE_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=middle noprint;
+INFO: MPRINT(MENGMETADEMO):   tables SEX/out=user.sex_2 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 22 observations read from the data set USER.MIDDLE.
+INFO: NOTE: The data set USER.SEX_2 has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.SEX_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.sex_2 ;
+INFO: MPRINT(MENGMETADEMO):   set user.sex_2 ;
+INFO: MPRINT(MENGMETADEMO):   category="Middle";
+INFO: MPRINT(MENGMETADEMO):   order1=3;
+INFO: MPRINT(MENGMETADEMO):   rename count=value sex=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.SEX_2.
+INFO: The SAS System
+INFO: 
+INFO: NOTE: The data set USER.SEX_2 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.SEX_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=middle noprint;
+INFO: MPRINT(MENGMETADEMO):   tables COUNTRY/out=user.country_2 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 22 observations read from the data set USER.MIDDLE.
+INFO: NOTE: The data set USER.COUNTRY_2 has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.country_2 ;
+INFO: MPRINT(MENGMETADEMO):   set user.country_2 ;
+INFO: MPRINT(MENGMETADEMO):   category="Middle";
+INFO: MPRINT(MENGMETADEMO):   order1=4;
+INFO: MPRINT(MENGMETADEMO):   rename count=value country=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.COUNTRY_2.
+INFO: NOTE: The data set USER.COUNTRY_2 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallrace;
+INFO: MPRINT(MENGMETADEMO):   set user.race_1 user.race_2;
+INFO: MPRINT(MENGMETADEMO):   _label_="race";
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.RACE_1.
+INFO: NOTE: There were 3 observations read from the data set USER.RACE_2.
+INFO: NOTE: The data set USER.CATALLRACE has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLRACE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc sql noprint;
+INFO: MPRINT(MENGMETADEMO):   select count(*) into : raceobs from catallrace;
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: The SAS System
+INFO: 
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: raceobs=       4
+INFO: MPRINT(MENGMETADEMO):   proc sql;
+INFO: MPRINT(MENGMETADEMO):   select name into :racevlist from dictionary.columns where memname=upcase("catallrace") and varnum=1;
+WARNING: WARNING: No output destinations active.
+INFO: MPRINT(MENGMETADEMO):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: racevlist =_name_
+INFO: MPRINT(MENGMETADEMO):   proc sort data=catallrace;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.CATALLRACE.
+INFO: NOTE: The data set USER.CATALLRACE has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLRACE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallrace;
+INFO: MPRINT(MENGMETADEMO):   set catallrace;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   if first._name_ then order2+1;
+INFO: MPRINT(MENGMETADEMO):  ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.CATALLRACE.
+INFO: NOTE: The data set USER.CATALLRACE has 4 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALLRACE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallsex;
+INFO: MPRINT(MENGMETADEMO):   set user.sex_1 user.sex_2;
+INFO: MPRINT(MENGMETADEMO):   _label_="sex";
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.SEX_1.
+INFO: NOTE: There were 2 observations read from the data set USER.SEX_2.
+INFO: NOTE: The data set USER.CATALLSEX has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLSEX increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: The SAS System
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc sql noprint;
+INFO: MPRINT(MENGMETADEMO):   select count(*) into : sexobs from catallsex;
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: sexobs=       4
+INFO: MPRINT(MENGMETADEMO):   proc sql;
+INFO: MPRINT(MENGMETADEMO):   select name into :sexvlist from dictionary.columns where memname=upcase("catallsex") and varnum=1;
+WARNING: WARNING: No output destinations active.
+INFO: MPRINT(MENGMETADEMO):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: sexvlist=_name_
+INFO: MPRINT(MENGMETADEMO):   proc sort data=catallsex;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.CATALLSEX.
+INFO: NOTE: The data set USER.CATALLSEX has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLSEX increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallsex;
+INFO: MPRINT(MENGMETADEMO):   set catallsex;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   if first._name_ then order2+1;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.CATALLSEX.
+INFO: NOTE: The data set USER.CATALLSEX has 4 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALLSEX increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallcountry;
+INFO: MPRINT(MENGMETADEMO):   set user.country_1 user.country_2;
+INFO: MPRINT(MENGMETADEMO):   _label_="country";
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.COUNTRY_1.
+INFO: NOTE: There were 2 observations read from the data set USER.COUNTRY_2.
+INFO: NOTE: The data set USER.CATALLCOUNTRY has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLCOUNTRY increased size by 100.00 percent.
+INFO: The SAS System
+INFO: 
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc sql noprint;
+INFO: MPRINT(MENGMETADEMO):   select count(*) into : countryobs from catallcountry;
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: countryobs=       4
+INFO: MPRINT(MENGMETADEMO):   proc sql;
+INFO: MPRINT(MENGMETADEMO):   select name into :countryvlist from dictionary.columns where memname=upcase("catallcountry") and varnum=1;
+WARNING: WARNING: No output destinations active.
+INFO: MPRINT(MENGMETADEMO):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: countryvlist =_name_
+INFO: MPRINT(MENGMETADEMO):   proc sort data=catallcountry;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.CATALLCOUNTRY.
+INFO: NOTE: The data set USER.CATALLCOUNTRY has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLCOUNTRY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallcountry;
+INFO: MPRINT(MENGMETADEMO):   set catallcountry;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   if first._name_ then order2+1;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.CATALLCOUNTRY.
+INFO: NOTE: The data set USER.CATALLCOUNTRY has 4 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALLCOUNTRY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data meng2;
+INFO: MPRINT(MENGMETADEMO):   if exist("catallrace") then cr=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("catallsex") then cs=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("catallcountry") then cc=1;
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   if exist("catallethnic") then ce=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("cr",cr);
+INFO: MPRINT(MENGMETADEMO):   call symput("cs",cs);
+INFO: MPRINT(MENGMETADEMO):   call symput("cc",cc);
+INFO: MPRINT(MENGMETADEMO):   call symput("ce",ce);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:177   19:199   19:221   19:243
+INFO: NOTE: The data set USER.MENG2 has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.MENG2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: cr:           1
+INFO: cs:           1
+INFO: cc:           1
+INFO: ce:           .
+INFO: MPRINT(MENGMETADEMO):   data catall;
+INFO: MPRINT(MENGMETADEMO):   set catallrace catallsex catallcountry;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable _label_ by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 4 observations read from the data set USER.CATALLRACE.
+INFO: NOTE: There were 4 observations read from the data set USER.CATALLSEX.
+INFO: NOTE: There were 4 observations read from the data set USER.CATALLCOUNTRY.
+INFO: NOTE: The data set USER.CATALL has 12 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data meng3;
+INFO: MPRINT(MENGMETADEMO):   if exist("catall") then catall=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("contall") then contall=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("catall",catall);
+INFO: MPRINT(MENGMETADEMO):   call symput("contall",contall);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:116   19:147
+INFO: NOTE: The data set USER.MENG3 has 1 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.MENG3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: catall:           1
+INFO: contall:           1
+INFO: MPRINT(MENGMETADEMO):   data all;
+INFO: MPRINT(MENGMETADEMO):   set catall contall;
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   drop _label_;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable _label_ by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 12 observations read from the data set USER.CATALL.
+INFO: NOTE: There were 10 observations read from the data set USER.CONTALL.
+INFO: NOTE: The data set USER.ALL has 22 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.ALL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc format ;
+INFO: MPRINT(MENGMETADEMO):   value head 1="Age" 2="Race" 3="Sex" 4="Country" 5="Ethnic";
+INFO: NOTE: Format HEAD is already on the library WORK.FORMATS.
+INFO: NOTE: Format HEAD has been output.
+INFO: MPRINT(MENGMETADEMO):   run ;
+INFO: 
+INFO: NOTE: PROCEDURE FORMAT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   ods rtf file="C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Demographic Summary.rtf" style=statistical ;
+INFO: NOTE: Writing RTF Body file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Demographic Summary.rtf
+INFO: MPRINT(MENGMETADEMO):   title "Meta Variability: Demographic Summary ";
+INFO: MPRINT(MENGMETADEMO):   proc report data=all split="'" nowindows style(report)={font_face=times font_size=3 bordercolor=black } style(column)={just=center font_face=times background=white foreground=black font_size=3 bordercolor=black cellwidth=1in}
+INFO: style(header)={just=center font_face=times cellheight=1in font_size=3 foreground=black bordercolor=black cellwidth=1in backgroundcolor=honeydrew};
+INFO: MPRINT(MENGMETADEMO):   column order1 order2 _name_ category,value;
+INFO: MPRINT(MENGMETADEMO):   define order1 / group noprint order=internal ;
+INFO: MPRINT(MENGMETADEMO):   define order2 / group noprint order=internal ;
+INFO: MPRINT(MENGMETADEMO):   define _name_ / group ' ' ;
+INFO: MPRINT(MENGMETADEMO):   define category/ across 'Categorized by Input Cutoffs' order = internal ;
+INFO: MPRINT(MENGMETADEMO):   define value / group ' ';
+INFO: MPRINT(MENGMETADEMO):   compute before order1 ;
+INFO: MPRINT(MENGMETADEMO):   line @1 ' ' ;
+INFO: MPRINT(MENGMETADEMO):   line @1 order1 head. ;
+INFO: MPRINT(MENGMETADEMO):   endcomp;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+WARNING: WARNING: Use of CELLWIDTH/OUTPUTWIDTH= in a spanning header or footer will rarely yield expected results. For conventional usage, specify outputwidth only for the data column cells.
+INFO: NOTE: There were 22 observations read from the data set USER.ALL.
+INFO: NOTE: PROCEDURE REPORT used (Total process time):
+INFO: real time           0.03 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   ods rtf close;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):  ;
+INFO: MPRINT(MENGMETADEMO):   data aboveupper;
+INFO: MPRINT(MENGMETADEMO):   set metademo;
+INFO: MPRINT(MENGMETADEMO):   where normalbydose> 0.6;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.METADEMO.
+INFO: WHERE normalbydose>0.6;
+INFO: The SAS System
+INFO: 
+INFO: NOTE: The data set USER.ABOVEUPPER has 2 observations and 22 variables.
+INFO: NOTE: Compressing data set USER.ABOVEUPPER increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc summary data=aboveupper;
+INFO: MPRINT(MENGMETADEMO):   var AGE;
+INFO: MPRINT(MENGMETADEMO):   output out = uppercont(drop = _type_ _freq_) mean = mean n=n std=std min=min max=max;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.ABOVEUPPER.
+INFO: NOTE: The data set USER.UPPERCONT has 1 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.UPPERCONT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SUMMARY used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data uppercont;
+INFO: MPRINT(MENGMETADEMO):   set uppercont;
+INFO: MPRINT(MENGMETADEMO):   label="AGE";
+INFO: MPRINT(MENGMETADEMO):   mean=round(mean,0.01);
+INFO: MPRINT(MENGMETADEMO):   std=round(std,0.01);
+INFO: MPRINT(MENGMETADEMO):   n=round(n,1);
+INFO: MPRINT(MENGMETADEMO):   min=round(min,0.01);
+INFO: MPRINT(MENGMETADEMO):   max=round(max,0.01);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.UPPERCONT.
+INFO: NOTE: The data set USER.UPPERCONT has 1 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.UPPERCONT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc transpose data=uppercont out=ulong;
+INFO: MPRINT(MENGMETADEMO):   id label;
+INFO: MPRINT(MENGMETADEMO):   var mean n std min max;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.UPPERCONT.
+INFO: NOTE: The data set USER.ULONG has 5 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.ULONG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE TRANSPOSE used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data ulong;
+INFO: MPRINT(MENGMETADEMO):   set ulong;
+INFO: MPRINT(MENGMETADEMO):   category="Above Upper";
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   order1=1;
+INFO: MPRINT(MENGMETADEMO):   order2=_n_;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.ULONG.
+INFO: NOTE: The data set USER.ULONG has 5 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.ULONG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: llong$mlong$ulong
+INFO: MPRINT(MENGMETADEMO):   data meng;
+INFO: MPRINT(MENGMETADEMO):   if exist("llong") then l=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("mlong") then m=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("ulong") then u=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("l",l);
+INFO: MPRINT(MENGMETADEMO):   call symput("m",m);
+INFO: MPRINT(MENGMETADEMO):   call symput("u",u);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:117   19:137   19:157
+INFO: NOTE: The data set USER.MENG has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.MENG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: l:           1
+INFO: m:           1
+INFO: u:           1
+INFO: MPRINT(MENGMETADEMO):   data contall;
+INFO: MPRINT(MENGMETADEMO):   set llong mlong ulong;
+INFO: MPRINT(MENGMETADEMO):   rename age=value;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.LLONG.
+INFO: NOTE: There were 5 observations read from the data set USER.MLONG.
+INFO: NOTE: There were 5 observations read from the data set USER.ULONG.
+INFO: NOTE: The data set USER.CONTALL has 15 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CONTALL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: RACE$SEX$$countryvar
+INFO: MPRINT(MENGMETADEMO):   data meng1;
+INFO: MPRINT(MENGMETADEMO):   if exist("belowlower") then bl=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("middle") then md=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("aboveupper") then au=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("bl",bl);
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   call symput("md",md);
+INFO: MPRINT(MENGMETADEMO):   call symput("au",au);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:132   19:154   19:176
+INFO: NOTE: The data set USER.MENG1 has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.MENG1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: bl:           1
+INFO: md:           1
+INFO: au:           1
+INFO: input=$belowlower$middle$aboveupper
+INFO: categoryvar=Below Lower$Middle$Above Upper
+INFO: MPRINT(MENGMETADEMO):   proc freq data=belowlower noprint;
+INFO: MPRINT(MENGMETADEMO):   tables RACE/out=user.race_1 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 11 observations read from the data set USER.BELOWLOWER.
+INFO: NOTE: The data set USER.RACE_1 has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.RACE_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.race_1 ;
+INFO: MPRINT(MENGMETADEMO):   set user.race_1 ;
+INFO: MPRINT(MENGMETADEMO):   category="Below Lower";
+INFO: MPRINT(MENGMETADEMO):   order1=2;
+INFO: MPRINT(MENGMETADEMO):   rename count=value race=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.RACE_1.
+INFO: NOTE: The data set USER.RACE_1 has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.RACE_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=belowlower noprint;
+INFO: MPRINT(MENGMETADEMO):   tables SEX/out=user.sex_1 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 11 observations read from the data set USER.BELOWLOWER.
+INFO: NOTE: The data set USER.SEX_1 has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.SEX_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: The SAS System
+INFO: 
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.sex_1 ;
+INFO: MPRINT(MENGMETADEMO):   set user.sex_1 ;
+INFO: MPRINT(MENGMETADEMO):   category="Below Lower";
+INFO: MPRINT(MENGMETADEMO):   order1=3;
+INFO: MPRINT(MENGMETADEMO):   rename count=value sex=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.SEX_1.
+INFO: NOTE: The data set USER.SEX_1 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.SEX_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=belowlower noprint;
+INFO: MPRINT(MENGMETADEMO):   tables COUNTRY/out=user.country_1 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 11 observations read from the data set USER.BELOWLOWER.
+INFO: NOTE: The data set USER.COUNTRY_1 has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.country_1 ;
+INFO: MPRINT(MENGMETADEMO):   set user.country_1 ;
+INFO: MPRINT(MENGMETADEMO):   category="Below Lower";
+INFO: MPRINT(MENGMETADEMO):   order1=4;
+INFO: MPRINT(MENGMETADEMO):   rename count=value country=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.COUNTRY_1.
+INFO: NOTE: The data set USER.COUNTRY_1 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=middle noprint;
+INFO: MPRINT(MENGMETADEMO):   tables RACE/out=user.race_2 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 22 observations read from the data set USER.MIDDLE.
+INFO: NOTE: The data set USER.RACE_2 has 3 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.RACE_2 increased size by 100.00 percent.
+INFO: The SAS System
+INFO: 
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.race_2 ;
+INFO: MPRINT(MENGMETADEMO):   set user.race_2 ;
+INFO: MPRINT(MENGMETADEMO):   category="Middle";
+INFO: MPRINT(MENGMETADEMO):   order1=2;
+INFO: MPRINT(MENGMETADEMO):   rename count=value race=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.RACE_2.
+INFO: NOTE: The data set USER.RACE_2 has 3 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.RACE_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=middle noprint;
+INFO: MPRINT(MENGMETADEMO):   tables SEX/out=user.sex_2 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 22 observations read from the data set USER.MIDDLE.
+INFO: NOTE: The data set USER.SEX_2 has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.SEX_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.sex_2 ;
+INFO: MPRINT(MENGMETADEMO):   set user.sex_2 ;
+INFO: MPRINT(MENGMETADEMO):   category="Middle";
+INFO: MPRINT(MENGMETADEMO):   order1=3;
+INFO: MPRINT(MENGMETADEMO):   rename count=value sex=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.SEX_2.
+INFO: NOTE: The data set USER.SEX_2 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.SEX_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=middle noprint;
+INFO: MPRINT(MENGMETADEMO):   tables COUNTRY/out=user.country_2 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 22 observations read from the data set USER.MIDDLE.
+INFO: The SAS System
+INFO: 
+INFO: NOTE: The data set USER.COUNTRY_2 has 2 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.country_2 ;
+INFO: MPRINT(MENGMETADEMO):   set user.country_2 ;
+INFO: MPRINT(MENGMETADEMO):   category="Middle";
+INFO: MPRINT(MENGMETADEMO):   order1=4;
+INFO: MPRINT(MENGMETADEMO):   rename count=value country=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.COUNTRY_2.
+INFO: NOTE: The data set USER.COUNTRY_2 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=aboveupper noprint;
+INFO: MPRINT(MENGMETADEMO):   tables RACE/out=user.race_3 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.ABOVEUPPER.
+INFO: NOTE: The data set USER.RACE_3 has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.RACE_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.race_3 ;
+INFO: MPRINT(MENGMETADEMO):   set user.race_3 ;
+INFO: MPRINT(MENGMETADEMO):   category="Above Upper";
+INFO: MPRINT(MENGMETADEMO):   order1=2;
+INFO: MPRINT(MENGMETADEMO):   rename count=value race=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.RACE_3.
+INFO: NOTE: The data set USER.RACE_3 has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.RACE_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=aboveupper noprint;
+INFO: MPRINT(MENGMETADEMO):   tables SEX/out=user.sex_3 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: The SAS System
+INFO: 
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.ABOVEUPPER.
+INFO: NOTE: The data set USER.SEX_3 has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.SEX_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.sex_3 ;
+INFO: MPRINT(MENGMETADEMO):   set user.sex_3 ;
+INFO: MPRINT(MENGMETADEMO):   category="Above Upper";
+INFO: MPRINT(MENGMETADEMO):   order1=3;
+INFO: MPRINT(MENGMETADEMO):   rename count=value sex=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.SEX_3.
+INFO: NOTE: The data set USER.SEX_3 has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.SEX_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc freq data=aboveupper noprint;
+INFO: MPRINT(MENGMETADEMO):   tables COUNTRY/out=user.country_3 nocol norow nopercent;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.ABOVEUPPER.
+INFO: NOTE: The data set USER.COUNTRY_3 has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data user.country_3 ;
+INFO: MPRINT(MENGMETADEMO):   set user.country_3 ;
+INFO: MPRINT(MENGMETADEMO):   category="Above Upper";
+INFO: MPRINT(MENGMETADEMO):   order1=4;
+INFO: MPRINT(MENGMETADEMO):   rename count=value country=_name_;
+INFO: MPRINT(MENGMETADEMO):   drop PERCENT;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.COUNTRY_3.
+INFO: NOTE: The data set USER.COUNTRY_3 has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.COUNTRY_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallrace;
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   set user.race_1 user.race_2 user.race_3;
+INFO: MPRINT(MENGMETADEMO):   _label_="race";
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.RACE_1.
+INFO: NOTE: There were 3 observations read from the data set USER.RACE_2.
+INFO: NOTE: There were 1 observations read from the data set USER.RACE_3.
+INFO: NOTE: The data set USER.CATALLRACE has 5 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLRACE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc sql noprint;
+INFO: MPRINT(MENGMETADEMO):   select count(*) into : raceobs from catallrace;
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: raceobs=       5
+INFO: MPRINT(MENGMETADEMO):   proc sql;
+INFO: MPRINT(MENGMETADEMO):   select name into :racevlist from dictionary.columns where memname=upcase("catallrace") and varnum=1;
+WARNING: WARNING: No output destinations active.
+INFO: MPRINT(MENGMETADEMO):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: racevlist =_name_
+INFO: MPRINT(MENGMETADEMO):   proc sort data=catallrace;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.CATALLRACE.
+INFO: NOTE: The data set USER.CATALLRACE has 5 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLRACE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallrace;
+INFO: MPRINT(MENGMETADEMO):   set catallrace;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   if first._name_ then order2+1;
+INFO: MPRINT(MENGMETADEMO):  ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.CATALLRACE.
+INFO: NOTE: The data set USER.CATALLRACE has 5 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALLRACE increased size by 100.00 percent.
+INFO: The SAS System
+INFO: 
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallsex;
+INFO: MPRINT(MENGMETADEMO):   set user.sex_1 user.sex_2 user.sex_3;
+INFO: MPRINT(MENGMETADEMO):   _label_="sex";
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.SEX_1.
+INFO: NOTE: There were 2 observations read from the data set USER.SEX_2.
+INFO: NOTE: There were 1 observations read from the data set USER.SEX_3.
+INFO: NOTE: The data set USER.CATALLSEX has 5 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLSEX increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc sql noprint;
+INFO: MPRINT(MENGMETADEMO):   select count(*) into : sexobs from catallsex;
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: sexobs=       5
+INFO: MPRINT(MENGMETADEMO):   proc sql;
+INFO: MPRINT(MENGMETADEMO):   select name into :sexvlist from dictionary.columns where memname=upcase("catallsex") and varnum=1;
+WARNING: WARNING: No output destinations active.
+INFO: MPRINT(MENGMETADEMO):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: sexvlist=_name_
+INFO: MPRINT(MENGMETADEMO):   proc sort data=catallsex;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.CATALLSEX.
+INFO: NOTE: The data set USER.CATALLSEX has 5 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLSEX increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallsex;
+INFO: MPRINT(MENGMETADEMO):   set catallsex;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   if first._name_ then order2+1;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.CATALLSEX.
+INFO: NOTE: The data set USER.CATALLSEX has 5 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALLSEX increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallcountry;
+INFO: MPRINT(MENGMETADEMO):   set user.country_1 user.country_2 user.country_3;
+INFO: MPRINT(MENGMETADEMO):   _label_="country";
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.COUNTRY_1.
+INFO: NOTE: There were 2 observations read from the data set USER.COUNTRY_2.
+INFO: NOTE: There were 1 observations read from the data set USER.COUNTRY_3.
+INFO: NOTE: The data set USER.CATALLCOUNTRY has 5 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLCOUNTRY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc sql noprint;
+INFO: MPRINT(MENGMETADEMO):   select count(*) into : countryobs from catallcountry;
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: countryobs=       5
+INFO: MPRINT(MENGMETADEMO):   proc sql;
+INFO: MPRINT(MENGMETADEMO):   select name into :countryvlist from dictionary.columns where memname=upcase("catallcountry") and varnum=1;
+WARNING: WARNING: No output destinations active.
+INFO: MPRINT(MENGMETADEMO):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: MPRINT(MENGMETADEMO):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: countryvlist =_name_
+INFO: MPRINT(MENGMETADEMO):   proc sort data=catallcountry;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.CATALLCOUNTRY.
+INFO: NOTE: The data set USER.CATALLCOUNTRY has 5 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.CATALLCOUNTRY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: The SAS System
+INFO: 
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data catallcountry;
+INFO: MPRINT(MENGMETADEMO):   set catallcountry;
+INFO: MPRINT(MENGMETADEMO):   by _name_ ;
+INFO: MPRINT(MENGMETADEMO):   if first._name_ then order2+1;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: There were 5 observations read from the data set USER.CATALLCOUNTRY.
+INFO: NOTE: The data set USER.CATALLCOUNTRY has 5 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALLCOUNTRY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data meng2;
+INFO: MPRINT(MENGMETADEMO):   if exist("catallrace") then cr=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("catallsex") then cs=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("catallcountry") then cc=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("catallethnic") then ce=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("cr",cr);
+INFO: MPRINT(MENGMETADEMO):   call symput("cs",cs);
+INFO: MPRINT(MENGMETADEMO):   call symput("cc",cc);
+INFO: MPRINT(MENGMETADEMO):   call symput("ce",ce);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:177   19:199   19:221   19:243
+INFO: NOTE: The data set USER.MENG2 has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.MENG2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: cr:           1
+INFO: cs:           1
+INFO: cc:           1
+INFO: ce:           .
+INFO: MPRINT(MENGMETADEMO):   data catall;
+INFO: MPRINT(MENGMETADEMO):   set catallrace catallsex catallcountry;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable _label_ by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 5 observations read from the data set USER.CATALLRACE.
+INFO: NOTE: There were 5 observations read from the data set USER.CATALLSEX.
+INFO: NOTE: There were 5 observations read from the data set USER.CATALLCOUNTRY.
+INFO: NOTE: The data set USER.CATALL has 15 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.CATALL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: The SAS System
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   data meng3;
+INFO: MPRINT(MENGMETADEMO):   if exist("catall") then catall=1;
+INFO: MPRINT(MENGMETADEMO):   if exist("contall") then contall=1;
+INFO: MPRINT(MENGMETADEMO):   call symput("catall",catall);
+INFO: MPRINT(MENGMETADEMO):   call symput("contall",contall);
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:116   19:147
+INFO: NOTE: The data set USER.MENG3 has 1 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.MENG3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: catall:           1
+INFO: contall:           1
+INFO: MPRINT(MENGMETADEMO):   data all;
+INFO: MPRINT(MENGMETADEMO):   set catall contall;
+INFO: MPRINT(MENGMETADEMO):   drop _label_;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the variable _label_ by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 15 observations read from the data set USER.CATALL.
+INFO: NOTE: There were 15 observations read from the data set USER.CONTALL.
+INFO: NOTE: The data set USER.ALL has 30 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.ALL increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   proc format ;
+INFO: MPRINT(MENGMETADEMO):   value head 1="Age" 2="Race" 3="Sex" 4="Country" 5="Ethnic";
+INFO: NOTE: Format HEAD is already on the library WORK.FORMATS.
+INFO: NOTE: Format HEAD has been output.
+INFO: MPRINT(MENGMETADEMO):   run ;
+INFO: 
+INFO: NOTE: PROCEDURE FORMAT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   ods rtf file="C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Demographic Summary.rtf" style=statistical ;
+INFO: NOTE: Writing RTF Body file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Demographic Summary.rtf
+INFO: MPRINT(MENGMETADEMO):   title "Meta Variability: Demographic Summary ";
+INFO: MPRINT(MENGMETADEMO):   proc report data=all split="'" nowindows style(report)={font_face=times font_size=3 bordercolor=black } style(column)={just=center font_face=times background=white foreground=black font_size=3 bordercolor=black cellwidth=1in}
+INFO: style(header)={just=center font_face=times cellheight=1in font_size=3 foreground=black bordercolor=black cellwidth=1in backgroundcolor=honeydrew};
+INFO: MPRINT(MENGMETADEMO):   column order1 order2 _name_ category,value;
+INFO: MPRINT(MENGMETADEMO):   define order1 / group noprint order=internal ;
+INFO: MPRINT(MENGMETADEMO):   define order2 / group noprint order=internal ;
+INFO: MPRINT(MENGMETADEMO):   define _name_ / group ' ' ;
+INFO: MPRINT(MENGMETADEMO):   define category/ across 'Categorized by Input Cutoffs' order = internal ;
+INFO: MPRINT(MENGMETADEMO):   define value / group ' ';
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   compute before order1 ;
+INFO: MPRINT(MENGMETADEMO):   line @1 ' ' ;
+INFO: MPRINT(MENGMETADEMO):   line @1 order1 head. ;
+INFO: MPRINT(MENGMETADEMO):   endcomp;
+INFO: MPRINT(MENGMETADEMO):   run;
+INFO: 
+WARNING: WARNING: Use of CELLWIDTH/OUTPUTWIDTH= in a spanning header or footer will rarely yield expected results. For conventional usage, specify outputwidth only for the data column cells.
+INFO: NOTE: There were 30 observations read from the data set USER.ALL.
+INFO: NOTE: PROCEDURE REPORT used (Total process time):
+INFO: real time           0.03 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(MENGMETADEMO):   ods rtf close;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features" exists
+INFO: MPRINT(PKVIEWMETAVARIABILITY):  ;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features" style=statistical;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics on / noborder imagefmt = png imagename = "DRUG000_DOSE" width = 1000px height = 1200;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sgplot data=mengmetavar;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   title "PP Results Normalized by Dose  VS  Dose";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   vbox normalbydose/category=dose;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   yaxis label="PP Results Normalized by Dose";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: PROCEDURE SGPLOT used (Total process time):
+INFO: real time           0.13 seconds
+INFO: cpu time            0.07 seconds
+INFO: 
+WARNING: WARNING: The data for boxes is incomplete or invalid. Some boxes will not be drawn.
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features\DRUG000_DOSE.png.
+INFO: NOTE: There were 244 observations read from the data set USER.MENGMETAVAR.
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics off;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing close;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sql noprint;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   select AGE into: agemissing from metademo;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: 56.082135524
+INFO: has agevar and agevalue
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc reg data=metademo;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   model normalbydose=AGE;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods output ParameterEstimates=PE;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: NOTE: The data set USER.PE has 2 observations and 9 variables.
+INFO: NOTE: Compressing data set USER.PE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE REG used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   data _null_;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   set PE;
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   if _n_ = 1 then call symput('Int', put(estimate, BEST6.));
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   else call symput('Slope', put(estimate, BEST6.));
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.PE.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: int=0.2993 slop=0.0023
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features" style=statistical;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics on / noborder imagefmt = png imagename = "DRUG000_AGE" width = 1000px height = 1200;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sgplot data=metademo noautolegend;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   title "Regression Line of PP Results Normalized by Dose VS Age";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   reg y=normalbydose x=AGE;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   inset "Intercept = 0.2993" "Slope = 0.0023" / border title="Parameter Estimates" position=topleft;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   yaxis label="PP Results Normalized by Dose";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: PROCEDURE SGPLOT used (Total process time):
+INFO: real time           0.15 seconds
+INFO: cpu time            0.09 seconds
+INFO: 
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features\DRUG000_AGE.png.
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO.
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics off;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing close;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sql noprint;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   select RACE into: racemissing from metademo;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: WHITE
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features" style=statistical;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics on / noborder imagefmt = png imagename = "DRUG000_RACE" width = 1000px height = 1200;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   title "PP Results Normalized by Dose in Race";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sgplot data=metademo;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   vbox normalbydose/category=RACE;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   yaxis label="PP Results Normalized by Dose";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: PROCEDURE SGPLOT used (Total process time):
+INFO: real time           0.12 seconds
+INFO: cpu time            0.07 seconds
+INFO: 
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features\DRUG000_RACE.png.
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO.
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics off;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing close;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sql noprint;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   select SEX into: sexmissing from metademo;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   quit;
+INFO: The SAS System
+INFO: 
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: F
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features" style=statistical;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics on / noborder imagefmt = png imagename = "DRUG000_SEX" width = 1000px height = 1200;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   title "PP Results Normalized by Dose in Gender";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sgplot data=metademo;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   vbox normalbydose/category=SEX;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   yaxis label="PP Results Normalized by Dose";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: PROCEDURE SGPLOT used (Total process time):
+INFO: real time           0.14 seconds
+INFO: cpu time            0.09 seconds
+INFO: 
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features\DRUG000_SEX.png.
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO.
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics off;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing close;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sql noprint;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   select COUNTRY into: countrymissing from metademo;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: DEU
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features" style=statistical;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics on / noborder imagefmt = png imagename = "DRUG000_COUNTRY" width = 1000px height = 1200;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   title "PP Results Normalized by Dose in Country";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   proc sgplot data=metademo;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   vbox normalbydose/category=COUNTRY;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   yaxis label="PP Results Normalized by Dose";
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   run;
+INFO: 
+INFO: NOTE: PROCEDURE SGPLOT used (Total process time):
+INFO: real time           0.14 seconds
+INFO: cpu time            0.07 seconds
+INFO: 
+WARNING: WARNING: The data for boxes is incomplete or invalid. Some boxes will not be drawn.
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features\DRUG000_COUNTRY.png.
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO.
+INFO: 
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods graphics off;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):   ods listing close;
+INFO: MPRINT(STATS):   data metademo1;
+INFO: MPRINT(STATS):   set metademo;
+INFO: MPRINT(STATS):   log_normalbydose=log(normalbydose);
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: Missing values were generated as a result of performing an operation on missing values.
+INFO: Each place is given by: (Number of times) at (Line):(Column).
+INFO: 7 at 19:49
+INFO: The SAS System
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO.
+INFO: NOTE: The data set USER.METADEMO1 has 35 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.METADEMO1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   proc summary data=metademo1;
+INFO: MPRINT(STATS):   class RACE;
+INFO: MPRINT(STATS):   var normalbydose;
+INFO: MPRINT(STATS):   output out=stats_1 mean=mean n=n std=std median=median;
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO1.
+INFO: NOTE: The data set USER.STATS_1 has 4 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.STATS_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SUMMARY used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   proc means data=metademo1 noprint;
+INFO: MPRINT(STATS):   class RACE;
+INFO: MPRINT(STATS):   var log_normalbydose;
+INFO: MPRINT(STATS):   output out=logstats_1 mean=logmean;
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO1.
+INFO: NOTE: The data set USER.LOGSTATS_1 has 4 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.LOGSTATS_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE MEANS used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   data geomean_1;
+INFO: MPRINT(STATS):   set logstats_1;
+INFO: MPRINT(STATS):   geomean = exp(logmean);
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.LOGSTATS_1.
+INFO: NOTE: The data set USER.GEOMEAN_1 has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.GEOMEAN_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   proc sort data=stats_1;
+INFO: MPRINT(STATS):  by RACE;
+INFO: NOTE: There were 4 observations read from the data set USER.STATS_1.
+INFO: NOTE: The data set USER.STATS_1 has 4 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.STATS_1 increased size by 100.00 percent.
+INFO: The SAS System
+INFO: 
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   proc sort data=geomean_1;
+INFO: MPRINT(STATS):  by RACE;
+INFO: NOTE: There were 4 observations read from the data set USER.GEOMEAN_1.
+INFO: NOTE: The data set USER.GEOMEAN_1 has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.GEOMEAN_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   data statsall_1;
+INFO: MPRINT(STATS):   merge stats_1 geomean_1;
+INFO: MPRINT(STATS):   by RACE;
+INFO: MPRINT(STATS):   if _type_= 0 then delete;
+INFO: MPRINT(STATS):   drop _TYPE_ _FREQ_ ;
+INFO: MPRINT(STATS):   mean=round(mean,0.01);
+INFO: MPRINT(STATS):   std=round(std,0.01);
+INFO: MPRINT(STATS):   median=round(median,0.01);
+INFO: MPRINT(STATS):   logmean=round(logmean,0.01);
+INFO: MPRINT(STATS):   geomean=round(geomean,0.01);
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.STATS_1.
+INFO: NOTE: There were 4 observations read from the data set USER.GEOMEAN_1.
+INFO: NOTE: The data set USER.STATSALL_1 has 3 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.STATSALL_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   proc summary data=metademo1;
+INFO: MPRINT(STATS):   class SEX;
+INFO: MPRINT(STATS):   var normalbydose;
+INFO: MPRINT(STATS):   output out=stats_2 mean=mean n=n std=std median=median;
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO1.
+INFO: NOTE: The data set USER.STATS_2 has 3 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.STATS_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SUMMARY used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   proc means data=metademo1 noprint;
+INFO: MPRINT(STATS):   class SEX;
+INFO: MPRINT(STATS):   var log_normalbydose;
+INFO: MPRINT(STATS):   output out=logstats_2 mean=logmean;
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO1.
+INFO: NOTE: The data set USER.LOGSTATS_2 has 3 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.LOGSTATS_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE MEANS used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   data geomean_2;
+INFO: MPRINT(STATS):   set logstats_2;
+INFO: MPRINT(STATS):   geomean = exp(logmean);
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.LOGSTATS_2.
+INFO: NOTE: The data set USER.GEOMEAN_2 has 3 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.GEOMEAN_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   proc sort data=stats_2;
+INFO: MPRINT(STATS):  by SEX;
+INFO: NOTE: There were 3 observations read from the data set USER.STATS_2.
+INFO: NOTE: The data set USER.STATS_2 has 3 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.STATS_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   proc sort data=geomean_2;
+INFO: MPRINT(STATS):  by SEX;
+INFO: NOTE: There were 3 observations read from the data set USER.GEOMEAN_2.
+INFO: NOTE: The data set USER.GEOMEAN_2 has 3 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.GEOMEAN_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   data statsall_2;
+INFO: MPRINT(STATS):   merge stats_2 geomean_2;
+INFO: MPRINT(STATS):   by SEX;
+INFO: MPRINT(STATS):   if _type_= 0 then delete;
+INFO: MPRINT(STATS):   drop _TYPE_ _FREQ_ ;
+INFO: MPRINT(STATS):   mean=round(mean,0.01);
+INFO: MPRINT(STATS):   std=round(std,0.01);
+INFO: MPRINT(STATS):   median=round(median,0.01);
+INFO: MPRINT(STATS):   logmean=round(logmean,0.01);
+INFO: MPRINT(STATS):   geomean=round(geomean,0.01);
+INFO: MPRINT(STATS):   run;
+INFO: The SAS System
+INFO: 
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.STATS_2.
+INFO: NOTE: There were 3 observations read from the data set USER.GEOMEAN_2.
+INFO: NOTE: The data set USER.STATSALL_2 has 2 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.STATSALL_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   proc summary data=metademo1;
+INFO: MPRINT(STATS):   class COUNTRY;
+INFO: MPRINT(STATS):   var normalbydose;
+INFO: MPRINT(STATS):   output out=stats_3 mean=mean n=n std=std median=median;
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO1.
+INFO: NOTE: The data set USER.STATS_3 has 4 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.STATS_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SUMMARY used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   proc means data=metademo1 noprint;
+INFO: MPRINT(STATS):   class COUNTRY;
+INFO: MPRINT(STATS):   var log_normalbydose;
+INFO: MPRINT(STATS):   output out=logstats_3 mean=logmean;
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: There were 35 observations read from the data set USER.METADEMO1.
+INFO: NOTE: The data set USER.LOGSTATS_3 has 4 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.LOGSTATS_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE MEANS used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   data geomean_3;
+INFO: MPRINT(STATS):   set logstats_3;
+INFO: MPRINT(STATS):   geomean = exp(logmean);
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: Missing values were generated as a result of performing an operation on missing values.
+INFO: Each place is given by: (Number of times) at (Line):(Column).
+INFO: 1 at 19:85
+INFO: NOTE: There were 4 observations read from the data set USER.LOGSTATS_3.
+INFO: NOTE: The data set USER.GEOMEAN_3 has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.GEOMEAN_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: The SAS System
+INFO: 
+INFO: MPRINT(STATS):   proc sort data=stats_3;
+INFO: MPRINT(STATS):  by COUNTRY;
+INFO: NOTE: There were 4 observations read from the data set USER.STATS_3.
+INFO: NOTE: The data set USER.STATS_3 has 4 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.STATS_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   proc sort data=geomean_3;
+INFO: MPRINT(STATS):  by COUNTRY;
+INFO: NOTE: There were 4 observations read from the data set USER.GEOMEAN_3.
+INFO: NOTE: The data set USER.GEOMEAN_3 has 4 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.GEOMEAN_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   data statsall_3;
+INFO: MPRINT(STATS):   merge stats_3 geomean_3;
+INFO: MPRINT(STATS):   by COUNTRY;
+INFO: MPRINT(STATS):   if _type_= 0 then delete;
+INFO: MPRINT(STATS):   drop _TYPE_ _FREQ_ ;
+INFO: MPRINT(STATS):   mean=round(mean,0.01);
+INFO: MPRINT(STATS):   std=round(std,0.01);
+INFO: MPRINT(STATS):   median=round(median,0.01);
+INFO: MPRINT(STATS):   logmean=round(logmean,0.01);
+INFO: MPRINT(STATS):   geomean=round(geomean,0.01);
+INFO: MPRINT(STATS):   run;
+INFO: 
+INFO: NOTE: Missing values were generated as a result of performing an operation on missing values.
+INFO: Each place is given by: (Number of times) at (Line):(Column).
+INFO: 1 at 19:112   1 at 19:134   1 at 19:158   1 at 19:186   1 at 19:215
+INFO: NOTE: There were 4 observations read from the data set USER.STATS_3.
+INFO: NOTE: There were 4 observations read from the data set USER.GEOMEAN_3.
+INFO: NOTE: The data set USER.STATSALL_3 has 3 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.STATSALL_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   ods tagsets.excelxp file="C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features\Descriptive Statistics.xls" STYLE=statistical;
+INFO: NOTE: Writing TAGSETS.EXCELXP Body file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\MetaVariability\Intrinsic Features\Descriptive Statistics.xls
+INFO: NOTE: This is the Excel XP tagset (Compatible with SAS 9.1.3 and above, v1.131, 04/23/2015). Add options(doc='help') to the ods statement for more information.
+INFO: MPRINT(STATS):   ods tagsets.excelxp options(SHEET_NAME="RACE");
+INFO: MPRINT(STATS):   proc print data=statsall_1 noobs;
+INFO: MPRINT(STATS):  run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.STATSALL_1.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: The SAS System
+INFO: 
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   ods tagsets.excelxp options(SHEET_NAME="SEX");
+INFO: MPRINT(STATS):   proc print data=statsall_2 noobs;
+INFO: MPRINT(STATS):  run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.STATSALL_2.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   ods tagsets.excelxp options(SHEET_NAME="COUNTRY");
+INFO: MPRINT(STATS):   proc print data=statsall_3 noobs;
+INFO: MPRINT(STATS):  run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.STATSALL_3.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(STATS):   ods tagsets.excelxp close;
+INFO: MPRINT(PKVIEWMETAVARIABILITY):  ;
+INFO: 20

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="013125d8be934d56a84a1a0e6bca72fe" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="OCPSQLModel.ESAFETY_PROJECT" Width="1.5" PointX="0.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.ESAFETY_PROJECT2" Width="1.5" PointX="0.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.ESAFETY_WORKFLOW" Width="1.5" PointX="2.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.FPTOOLS_PROJECT" Width="1.875" PointX="12.625" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_DM_DATASET" Width="1.5" PointX="7.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_DM_FILE" Width="1.5" PointX="9.5" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_EX_DATASET" Width="1.5" PointX="7.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_EX_FILE" Width="1.5" PointX="9.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_FILE" Width="1.5" PointX="7.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_FP" Width="1.75" PointX="15.875" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_FP_ROW" Width="1.875" PointX="19" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_FP_STYLE" Width="1.875" PointX="12.625" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_PC_DATASET" Width="1.5" PointX="7.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_PC_FILE" Width="1.5" PointX="9.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_PP_DATASET" Width="1.5" PointX="7.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_PP_FILE" Width="1.5" PointX="9.5" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_SCALE" Width="1.875" PointX="12.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_SDTM_VARIABLE" Width="1.5" PointX="4.625" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_STUDY" Width="1.75" PointX="4.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_STUDY_DESIGN" Width="1.75" PointX="2.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_STUDY_TYPE" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_SUBMISSION" Width="1.5" PointX="2.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_SUBMISSION_TYPE" Width="1.5" PointX="0.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OCPSQLModel.IPORTAL_VARIABLE_MAPPING" Width="1.5" PointX="9.25" PointY="14" IsExpanded="true" />
+        <AssociationConnector Association="OCPSQLModel.ESAFETY_WORKFLOW_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.ESAFETY_PROJECT2_Workflows" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_FP_FPTOOLS_PROJECT" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_DM_DATASET_IPORTAL_STUDY" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_DM_FILE_IPORTAL_DM_FILE" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_DM_FILE_IPORTAL_FILE" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_EX_DATASET_IPORTAL_STUDY" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_EX_FILE_IPORTAL_EX_DATASET" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_EX_FILE_IPORTAL_FILE" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_PC_FILE_IPORTAL_FILE" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_PP_FILE_IPORTAL_FILE" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_VARIABLE_MAPPING_IPORTAL_FILE" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_FP_IPORTAL_FP_STYLE" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_FP_IPORTAL_SCALE" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_FP_ROW_IPORTAL_FP" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_PC_DATASET_IPORTAL_STUDY" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_PC_FILE_IPORTAL_PC_DATASET" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_PP_DATASET_IPORTAL_STUDY" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_PP_FILE_IPORTAL_PP_DATASET" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_VARIABLE_MAPPING_IPORTAL_SDTM_VARIABLE" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_eREVIEW_STUDY_eREVIEW_STUDY" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_eREVIEW_STUDY_eREVIEW_STUDY_TYPE" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_STUDY_IPORTAL_STUDY_DESIGN" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK_IPORTAL_STUDY_IPORTAL_SUBMISSION" ManuallyRouted="false" />
+        <AssociationConnector Association="OCPSQLModel.FK__eREVIEW_S__SUBMI__0E591826" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OCPSQLModel.SYSTEM_USER" Width="1.75" PointX="12.625" PointY="6.875" />
+        <AssociationConnector Association="OCPSQLModel.FK_FPTOOLS_PROJECT_SYSTEM_USER" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

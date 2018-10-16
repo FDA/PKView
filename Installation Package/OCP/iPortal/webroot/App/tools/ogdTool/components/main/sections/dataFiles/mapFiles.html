@@ -1,0 +1,92 @@
+﻿<div>
+    <div class="container-fluid">
+        <div class="col-sm-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="subject">Subject</label>
+                    <div class="col-sm-8">
+                        <select id="subject" class="form-control"
+                                data-bind="options: varList, value: subject, optionsCaption: 'Select...',
+                            selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'name', optionsValue: 'name'"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="period">Period</label>
+                    <div class="col-sm-8">
+                        <select id="period" class="form-control"
+                                data-bind="options: varList, value: period, optionsCaption: 'Select...',
+                            selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'name', optionsValue: 'name'"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="sequence">Sequence</label>
+                    <div class="col-sm-8">
+                        <select id="sequence" class="form-control"
+                                data-bind="options: varList, value: sequence, optionsCaption: 'Select...',
+                                selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'name', optionsValue: 'name'"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="treatment">Treatment</label>
+                    <div class="col-sm-8">
+                        <select id="treatment" class="form-control"
+                                data-bind="options: varList, value: treatment, optionsCaption: 'Select...',
+                                selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'name', optionsValue: 'name'"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="concentration">Concentration</label>
+                    <div class="col-sm-8">
+                        <select id="concentration" class="form-control"
+                                data-bind="options: arrayVarList, value: concentration, optionsCaption: 'Select...',
+                        selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'name', optionsValue: 'name'"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="time">Time</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <select id="time" class="form-control"
+                                    data-bind="options: arrayVarList, value: time, optionsCaption: 'Select...',
+                            selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'name', optionsValue: 'name'"></select>
+                            <span class="input-group-btn" style="padding-left: 10px; vertical-align: top">
+                                <button class="btn btn-default btn-sm" data-bind="click: editTime" type="button" style="border-radius: 3px">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label checkbox" for="group">
+                        <input type="checkbox" data-bind="checked: hasGroup"> Group
+                    </label>
+                    <div class="col-sm-8">
+                        <select id="group" class="form-control"
+                                data-bind="options: varList, value: group, disable: !hasGroup(), optionsCaption: 'Select...',
+                            selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'name', optionsValue: 'name'"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

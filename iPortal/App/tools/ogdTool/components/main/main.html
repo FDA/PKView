@@ -1,0 +1,92 @@
+﻿<div id="main">
+    <section>
+        <nav class="navbar navbar-lite" role="toolbar">
+            <div class="container-fluid">
+                <div class="navbar-header pull-left">
+                    <!-- Project, submission, comparison -->
+                    <p class="navbar-title">
+                        <strong data-bind="text: project().name"></strong>
+                        <small>
+                            - <span data-bind="text: project().submissionType + project().submissionNumber"></span>
+                            <span data-bind="if: project().comparisons() && project().comparisons().length > 0">
+                                - <span data-bind="text: project().comparisons()[activeComparison()].title"></span>
+                            </span>
+                        </small>
+                    </p>                 
+                </div>
+
+                <!-- toolbar -->
+                <div class="btn-toolbar navbar-right pull-right" role="toolbar" aria-label="Main Toolbar">
+
+                    <!-- Back -->
+                    <div class="btn-group" role="group" aria-label="Save option" style="margin-left: 5px">
+                        <button type="button" class="btn btn-sm btn-default"
+                                data-bind="tooltip : { container: 'body', title: 'Back to home screen' }, click: goToHome">
+                            <i class="fa fa-home"></i>
+                        </button>
+                    </div>
+
+                    <!-- Save -->
+                    <div class="btn-group" role="group" aria-label="Save option" style="margin-left: 5px">
+                        <button type="button" class="btn btn-sm btn-default"
+                                data-bind="click: save, tooltip : { container: 'body', title: 'Save project' }">
+                            <i class="fa fa-save"></i>
+                        </button>
+                    </div>
+
+                    <!-- Execute --
+                    <div class="btn-group" role="group" aria-label="Save option" style="margin-left: 5px">
+                        <button type="button" class="btn btn-sm btn-default"
+                                data-bind="tooltip : { container: 'body', title: 'Execute the analysis' }">
+                            <i class="fa fa-play"></i>
+                        </button>
+                    </div>-->
+
+                    <!-- Download -->
+                    <div class="btn-group" role="group" aria-label="Save option" style="margin-left: 5px">
+                        <button type="button" class="btn btn-sm btn-primary"
+                                data-bind="click: download, tooltip: { container: 'body', title: 'Download script and results (if analysis has been executed)' }">
+                            <i class="fa fa-download"></i>
+                        </button>
+                    </div>
+                   
+                </div> 
+            </div>
+        </nav>
+       
+        <!-- Tab bar -->
+        <ul class="nav nav-tabs" id="comparisonTabs">
+            <!-- ko foreach: project().comparisons -->
+            <li class="comparisonTab" data-bind="css: { active: $root.activeComparison() == $index() }">
+                <a href="#" data-bind="click: function(){ $root.setActiveComparison($index()); }">
+                    <span data-bind="text: title"></span>
+                    <i class="fa fa-lg fa-check-circle icon-success"
+                       data-bind="visible: true, tooltip: { container: 'body', title: '' }"
+                       data-placement="auto left"></i>
+                    <i class="fa fa-lg fa-exclamation-circle icon-warning"
+                       data-bind="visible: false"
+                       data-placement="auto left"></i>
+                    <span class="badge badge-warning"
+                          data-bind="text: ''"
+                          data-placement="auto left">-1</span>
+                    <i class="fa fa-lg fa-times-circle icon-danger"
+                       data-bind="visible: false"
+                       data-placement="auto left"></i>
+                    <span class="badge badge-danger"
+                          data-bind="text: ''"
+                          data-placement="auto left">-1</span>
+                </a>
+            </li>
+            <!-- /ko -->
+        </ul>
+ 
+        <!-- Study Tab -->
+        <div class="tab-content" data-bind=" foreach: { data: project().comparisons, as: 'comparison' }" style="overflow: visible; padding-top: 20px">
+            <div class="tab-pane active" data-bind="if: $root.activeComparison() == $index()">
+                <!-- ko compose: { model: 'tools/ogdTool/components/main/comparisonForm', activationData: { project: $root.project(), comparison: comparison } } -->
+                <!-- /ko -->
+            </div>
+        </div>
+          
+    </section>    
+</div>

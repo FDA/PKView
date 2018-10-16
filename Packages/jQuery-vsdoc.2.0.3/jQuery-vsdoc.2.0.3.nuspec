@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>jQuery-vsdoc</id>
+    <version>2.0.3</version>
+    <title>jQuery vsdoc</title>
+    <authors>Kiarash Soleimanzadeh</authors>
+    <owners>Kiarash Soleimanzadeh</owners>
+    <projectUrl>http://www.soleimanzadeh.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>jQuery IntelliSense for Visual Studio.</description>
+    <releaseNotes />
+    <tags>jQuery vsdoc intellisense</tags>
+    <dependencies>
+      <dependency id="jQuery" version="2.0.3" />
+    </dependencies>
+    <references />
+  </metadata>
+</package>

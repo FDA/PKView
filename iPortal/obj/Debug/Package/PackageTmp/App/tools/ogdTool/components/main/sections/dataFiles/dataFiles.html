@@ -1,0 +1,24 @@
+﻿<div class="row">
+    <div class="col-sm-12">        
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-xs-4">Selected Files</label>
+                <div class="col-xs-8">
+                    <button class="btn btn-default btn-sm pull-right" data-bind="click: selectDataFiles">Select</button>  
+                    <p class="form-control-static" data-bind="text: fileSelectionSummary"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-4">Study Design</label>
+                <div class="col-xs-8">
+                    <select class="form-control"
+                            data-bind="options: sharedModels.studyDesignTypes, value: comparison.studyDesign,
+                        selectize: { selectOnTab: true }, optionsText: 'Name', optionsValue: 'Type'" disabled></select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

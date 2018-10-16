@@ -1,0 +1,170 @@
+﻿
+
+    <div class="form-horizontal" data-bind="with: report">
+
+    <!-- Reference treatments/groups -->
+    <!-- ko foreach:  { data: Settings.References, as: 'cohortReferences' } -->
+    <div class="form-group">
+        <label class="col-xs-4 control-label control-label-detail">
+            Reference Trt/Grp
+            <!-- ko if: $parent.Settings.References.length > 1 -->
+            <small>Cohort: <span data-bind="text: cohortReferences.Cohort"></span></small>
+            <!-- /ko -->
+        </label>
+        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Reference treatment to use in the treatment comparisons' }">
+            <select class="form-control"
+                    data-bind="options: $root.study.Cohorts()[$index()].treatmentList, value: cohortReferences.Reference,
+                            selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- Analytes -->
+    <div class="form-group">
+        <label class="col-xs-4 control-label">
+            Analytes
+        </label>
+        <div class="col-xs-8 btn-group" role="group" aria-label="Analytes"
+             data-bind="foreach: { data: $root.analytes, as: 'analyte' },
+                    tooltip: { container: 'body', placement: 'left', title: 'Analytes to be included in the figures/plots' }">
+            <button type="button" class="btn btn-sm" data-bind="text: analyte,
+                    css: { 'active btn-default': $parent.Settings.Analytes.indexOf(analyte) != -1,
+                        'btn-lite': $parent.Settings.Analytes.indexOf(analyte) == -1
+                    }, click: function () { $root.toggleAnalyte(analyte); }"></button>
+        </div>
+    </div>
+
+    <!-- Parameters -->
+    <div class="form-group">
+        <label class="col-xs-4 control-label">
+            Parameters
+        </label>
+        <div class="col-xs-8 btn-group" role="group" aria-label="Parameters"
+             data-bind="foreach: { data: $root.parameters, as: 'parameter' } ,
+                    tooltip: { container: 'body', placement: 'left', title: 'Parameters to be included in the figures/plots' }">
+            <button type="button" class="btn btn-sm" data-bind="text: parameter,
+                    css: { 'active btn-default': $parent.Settings.Parameters.indexOf(parameter) != -1,
+                        'btn-lite': $parent.Settings.Parameters.indexOf(parameter) == -1
+                    }, click: function () { $root.toggleParameter(parameter); }"></button>
+        </div>
+    </div>
+
+    <!-- Statistical Method -->
+    <div class="form-group">
+        <label class="col-xs-4 control-label">
+            Statistical Method
+        </label>
+        <div class="col-xs-8">
+            <select class="form-control"
+                    data-bind="options: $root.statisticalMethods,
+                        value: Settings.Method, selectize: { selectOnTab: true },
+                        optionsText: 'text', optionsValue: 'value'"></select>
+        </div>
+    </div>
+
+    <!-- Folder Sorting (hidden until SAS allows for it) -->
+    <!--<div class="form-group">
+            <label class="col-xs-4 control-label">One Folder Per
+            </label>
+            <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Tables will be organized in folders according to the items in this list. Tip: Drag to sort.' }">
+                <select class="form-control" multiple="multiple"
+                    data-bind="optionsText: 'text', optionsValue: 'value',
+    options: $root.folderSortingOptions, selectedOptions: Settings.Sorting.Folders,
+    selectize: { selectOnTab: true, plugins: ['drag_drop', 'remove_button'] }"></select>
+            </div>
+        </div>-->
+    <!-- File Sorting -->
+    <div class="form-group">
+        <label class="col-xs-4 control-label">
+            One Table Per
+        </label>
+        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                title: 'Observations will be split in different files according to the items in this list. Tip: Drag to sort.' }">
+            <select class="form-control" multiple="multiple"
+                    data-bind="optionsText: 'text', optionsValue: 'value',
+    options: $root.fileSortingOptions, selectedOptions: Settings.Sorting.Files,
+    selectize: { selectOnTab: true, plugins: [/*'drag_drop', */'remove_button'] }"></select>
+        </div>
+    </div>
+
+    <!-- Table Columns -->
+    <div class="form-group">
+        <label class="col-xs-4 control-label">
+            Column Order
+        </label>
+        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                title: 'Table columns will be displayed and sorted according to the items in this list. Tip: Drag to sort.' }">
+            <select class="form-control" multiple="multiple"
+                    data-bind="optionsText: 'text', optionsValue: 'value',
+    options: $root.columnSortingOptions, selectedOptions: Settings.Sorting.Columns,
+    selectize: { selectOnTab: true, plugins: ['drag_drop'/*, 'remove_button'*/],
+        readonly: true, onDelete: function () { return false; }}
+                        "></select>
+        </div>
+    </div>
+    <!-- Generate button -->
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-2">
+            <button class="btn btn-sm btn-default" data-bind="click: $root.generateReport">Generate</button>
+        </div>
+        <div class="col-sm-6 text-danger" data-bind="if: Generated()">
+            Statistical tables were previously generated, clicking <kbd>Generate</kbd> will overwrite them.
+        </div>
+        <div class="col-sm-6" data-bind="if: $root.computingReport">
+            <p><i class="fa fa-spinner fa-spin"></i> Generating statistical table/s ...</p>
+        </div>
+
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-xs-4 control-label">
+            Exclusion
+        </label>
+
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <label class="col-md-2">></label>
+                <input class="col-md-6" type="text" data-bind="value: $root.report.BigthanExcludeSD" />
+                <label class="col-md-4">*SD</label>
+                <label class="col-md-2"><</label>
+                <input class="col-md-6" type="text" data-bind="value: $root.report.SmallthanExcludeSD" />
+                <label class="col-md-4">*SD</label>
+            </div>
+            <div class="col-md-6">
+                <select class="col-md-5" data-bind="options: $root.excludeparameters, value: $root.report.ExcludeParameters1, selectize: { selectOnTab: true },
+                        optionsText: 'text', optionsValue: 'value', optionsCaption: 'Choose...'"></select>
+                <label class="col-md-1">/</label>
+                <select class="col-md-5" data-bind="options: $root.excludeparameters, value: $root.report.ExcludeParameters2, selectize: { selectOnTab: true },
+                        optionsText: 'text', optionsValue: 'value', optionsCaption: 'Choose...'"></select>
+                <label class="col-md-1">></label>
+            </div>
+            <div class="col-md-2">
+                <input class="col-md-8" type="text" data-bind="value: $root.report.percent" />
+                <label class="col-md-4">%</label>
+            </div>
+        </div>
+        <div>
+
+            <div class="col-sm-offset-4 col-sm-2">
+                <button class="btn btn-sm btn-default" data-bind="click: $root.generateExclude">Show Excluded Subjects</button>
+            </div>
+            <div class="col-sm-6" data-bind="if: $root.excludeReport">
+                <p><i class="fa fa-spinner fa-spin"></i> Excluding data...</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-sm-offset-4 col-sm-2">
+                <button class="btn btn-sm btn-default" data-bind="click: $root.editExclude">Edit</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

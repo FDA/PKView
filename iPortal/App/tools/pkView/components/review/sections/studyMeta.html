@@ -1,0 +1,41 @@
+﻿<div class="row">
+
+    <!-- Navigation panel -->
+    <nav class="col-sm-3">
+        <ul class="list-group list-unstyled" data-bind="foreach: { data: validStudies, as: 'study' }">
+            <!-- ko if: study.Analyzable -->
+            <li class="list-pkreport" data-bind="css: { active: $root.activeStudy() == study.StudyCode && $root.activeSupplement() == study.SupplementNumber }">
+                <span class="list-group-item" data-bind="click: function () { $root.activateReport(study, 0); }">
+                    <i class="fa fa-w" data-bind="css: {
+                        'fa-caret-down': $root.activeStudy() == study.StudyCode && $root.activeSupplement() == study.SupplementNumber,
+                        'fa-caret-right': $root.activeStudy() != study.StudyCode || $root.activeSupplement() != study.SupplementNumber }"></i>&nbsp;
+                    <a href="#">
+                        <span data-bind="text: StudyCode"></span>
+                        <!-- ko if: $root.SelectedSupplement() == '' -->
+                        <span data-bind="text: '(' + SupplementNumber + ')' "></span>
+                        <!-- /ko -->
+                    </a>
+                    
+                </span>
+
+            </li>
+            <!-- /ko -->
+        </ul>
+    </nav>
+
+    <!-- Main configuration view -->
+    <section class="col-sm-9" style="border-left: 1px solid #95A5A6">
+        <!-- ko if: validStudies().length > 0 -->
+        <div data-bind="compose: { model: reportSettingsView().model, activationData: reportSettingsView().data }">
+            <div class="splash">
+                <i class="fa fa-spinner fa-2x fa-spin active"></i>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko ifnot: validStudies().length > 0 -->
+        No studies have been analyzed yet for the current submission or supplement selected,
+        please change your selection or return to the analysis step to run the analysis scripts on these studies.
+        <!-- /ko -->
+    </section>
+
+</div>

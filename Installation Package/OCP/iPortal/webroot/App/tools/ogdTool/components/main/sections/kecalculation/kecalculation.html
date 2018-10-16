@@ -1,0 +1,68 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checked="checked" disabled>
+                                Use sponsor provided PK parameters
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checked="checked" disabled>
+                                Use sponsor provided Ke_first / Ke_last
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" data-bind="visible: false">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Custom Ke_first / Ke_last
+                <button class="btn btn-default btn-xs pull-right">
+                    <i class="fa fa-pencil"></i>
+                    Set Values</button>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Subject range</th>
+                        <th>Ke_first</th>
+                        <th>Ke_last</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>All subjects</td>
+                        <td>2</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>sub:01, trt:A, per: 2</td>
+                        <td>5</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>sub:12, trt:B, per: 1</td>
+                        <td>2</td>
+                        <td>26</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

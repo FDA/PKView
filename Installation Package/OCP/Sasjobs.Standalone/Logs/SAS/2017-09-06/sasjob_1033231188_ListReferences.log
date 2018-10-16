@@ -1,0 +1,1449 @@
+INFO: 1                                                          The SAS System                         10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Copyright (c) 2002-2012 by SAS Institute Inc., Cary, NC, USA.
+INFO: NOTE: SAS (r) Proprietary Software 9.4 (TS1M4)
+INFO: Licensed to UNIVERSITY OF ILLINOIS SYSTEM - T&R SFA, Site 70080107.
+INFO: NOTE: This session is executing on the X64_10PRO  platform.
+INFO: 
+INFO: 
+INFO: 
+INFO: NOTE: Updated analytical products:
+INFO: 
+INFO: SAS/STAT 14.2
+INFO: SAS/ETS 14.2
+INFO: SAS/OR 14.2
+INFO: SAS/IML 14.2
+INFO: SAS/QC 14.2
+INFO: 
+INFO: NOTE: Additional host information:
+INFO: 
+INFO: X64_10PRO WIN 10.0.15063  Workstation
+INFO: 
+INFO: NOTE: SAS Initialization used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 1
+INFO: 2          %LET SASSPPATH = C:\OCP\Sasjobs.Standalone\\Stored Procedures;
+INFO: 3
+INFO: 4          %global SasSpPath;
+INFO: 5          options nofmterr compress = yes mprint spool notes msglevel=n linesize = 256
+INFO: 6          sasautos = (sasautos "&SasSpPath.\Macros" "&SasSpPath.\Sub Macros");
+INFO: 7
+INFO: 8          libname user "%sysfunc(getoption(work))" ACCESS=TEMP FILELOCKWAIT=20;
+INFO: NOTE: Libref USER refers to the same physical library as WORK.
+INFO: NOTE: Libref USER was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\apps\SAS\SASUser\Peter\SAS Temporary Files\_TD4836_DESKTOP-MP8HDJJ_\Prc6
+INFO: 9          %let work = user.;
+INFO: 10
+INFO: 11         /* Path where NDAs are stored in the server */
+INFO: 12         %let inputfolder=\\localhost\clinical\;
+INFO: 13
+INFO: 14         %PkViewListPotentialReference;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.userData;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.userConfig end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM USERCONFIG IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if Name="Username" then call symputx("UserName", dequote(value), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if Name="ProfileName" then call symputx("ProfileName", dequote(value), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 3 observations read from the data set WEBSVC.USERCONFIG.
+INFO: NOTE: The data set USER.USERDATA has 3 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.USERDATA increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: User: Peter
+INFO: Settings Id:
+INFO: 2                                                                                                                        The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.study;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.study end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM STUDY IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if eof then do;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyType", Type, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyId", StudyCode, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyDesign", Design, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("SubmissionID", Submission, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("SupplementNum", dequote(Supplement), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseEx", UseEx, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseSuppdm", UseSuppdm, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("DisablePcCleanup", DisablePcCleanup, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomArms", UseCustomArms, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPcVisit", UseCustomPcVisit, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPcPctptnum", UseCustomPcPctptnum, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPpVisit", UseCustomPpVisit, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   end;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.STUDY.
+INFO: NOTE: The data set USER.STUDY has 1 observations and 16 variables.
+INFO: NOTE: Compressing data set USER.STUDY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: Extracted Study Design: PARALLEL
+INFO: Extracted Study Type: UNKNOWN
+INFO: Extracted Study Id: TEST001
+INFO: Extracted Submission Id: DRUG000
+INFO: Supplement Number: 0000
+INFO: Use EX: 0
+INFO: Use SUPPDM: 0
+INFO: Use Custom Pc Visit: 1
+INFO: Use Custom Pp Visit: 1
+INFO: Use Custom Pc pctptnum: 0
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.mapping;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM MAPPING IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="USUBJID" then call symputx("UsubjidVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="ARM" then call symputx("ArmVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="AGE" then call symputx("AgeVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="SEX" then call symputx("SexVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="RACE" then call symputx("RaceVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="COUNTRY" then call symputx("CountryVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="ETHNIC" then call symputx("EthnicVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="EXTRT" then call symputx("ExTrtVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="EXSTDTC" then call symputx("ExStdtcVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="VISIT" then call symputx("ExVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="VISIT" then call symputx("PcVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCTEST" then call symputx("PCTESTVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCSTRESN" then call symputx("PcStresnVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCTPTNUM" then call symputx("PctptnumVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="VISIT" then call symputx("PpVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPCAT" then call symputx("PpcatVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPSTRESN" then call symputx("PpstresnVar",FILEVAR,"G");
+INFO: 3                                                                                                                        The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPTESTCD" then call symputx("PptestcdVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 15 observations read from the data set WEBSVC.MAPPING.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.customPcVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.customPcVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM CUSTOMPCVISIT IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 5 observations read from the data set WEBSVC.CUSTOMPCVISIT.
+INFO: NOTE: The data set USER.CUSTOMPCVISIT has 5 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMPCVISIT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.customPpVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.customPpVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM CUSTOMPPVISIT IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.CUSTOMPPVISIT.
+INFO: NOTE: The data set USER.CUSTOMPPVISIT has 1 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMPPVISIT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set sashelp.vmember(where = (libname = "WEBSVC" and memtype = "DATA"));
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(memname) = "REFERENCES" then call symput("Exist",1);
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   else call symput("Exist",0);
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 14:166   14:197
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: NOTE: There were 5 observations read from the data set SASHELP.VMEMBER.
+INFO: WHERE (libname='WEBSVC') and (memtype='DATA');
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.10 seconds
+INFO: cpu time            0.11 seconds
+INFO: 
+INFO: 
+INFO: references exist=           0
+INFO: inputfolder=\\localhost\clinical\DRUG000
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.dirs_found (compress=no);
+INFO: MPRINT(SMLISTFILESINFOLDER):   length Root $500.;
+INFO: MPRINT(SMLISTFILESINFOLDER):   root = "\\localhost\clinical\DRUG000";
+INFO: MPRINT(SMLISTFILESINFOLDER):   output;
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 4                                                                                                                        The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: NOTE: The data set USER.DIRS_FOUND has 1 observations and 1 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.dirs_found user.files_found (compress=no);
+INFO: MPRINT(SMLISTFILESINFOLDER):   keep Path FileName FileType;
+INFO: MPRINT(SMLISTFILESINFOLDER):   length fref $8 Path Filename $500 FileType $16;
+INFO: MPRINT(SMLISTFILESINFOLDER):   modify user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   Path = root;
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = filename(fref, path);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if rc = 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   did = dopen(fref);
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = filename(fref);
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   else do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   length msg $500.;
+INFO: MPRINT(SMLISTFILESINFOLDER):   msg = sysmsg();
+INFO: MPRINT(SMLISTFILESINFOLDER):   putlog msg=;
+INFO: MPRINT(SMLISTFILESINFOLDER):   did = .;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   if did <= 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   return;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   dnum = dnum(did);
+INFO: MPRINT(SMLISTFILESINFOLDER):   do i = 1 to dnum;
+INFO: MPRINT(SMLISTFILESINFOLDER):   filename = dread(did, i);
+INFO: MPRINT(SMLISTFILESINFOLDER):   fid = mopen(did, filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if fid > 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   FileType = prxchange('s/.*\.{1,1}(.*)/$1/', 1, filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if filename = filetype then filetype = ' ';
+INFO: MPRINT(SMLISTFILESINFOLDER):   output user.files_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   else do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   root = catt(path, "\", filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   output user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = dclose(did);
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: The data set USER.DIRS_FOUND has been updated.  There were 0 observations rewritten, 9 observations added and 0 observations deleted.
+INFO: NOTE: The data set USER.FILES_FOUND has 8 observations and 3 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.06 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.files(rename = (root = path));
+INFO: MPRINT(SMLISTFILESINFOLDER):   set user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: There were 10 observations read from the data set USER.DIRS_FOUND.
+INFO: NOTE: The data set USER.FILES has 10 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.FILES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: 5                                                                                                                        The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):  ;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   ** Get the path to the datasets **;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set user.files end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if scan(upcase(path), -1, "\") = "TEST001" then do;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("DatasetPath", substr(path, 1, length(path) - length("TEST001") - 1));
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   stop;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   end;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 6 observations read from the data set USER.FILES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: DatasetPath = \\localhost\clinical\DRUG000\0000\m5\datasets
+INFO: DataSetPath = \\localhost\clinical\DRUG000\0000\m5\datasets
+INFO: StudyId = TEST001
+INFO: Continue? - success
+INFO: InputDm = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\dm.xpt
+INFO: InputPc = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\pc.xpt
+INFO: InputPp = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\pp.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\ex.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\suppdm.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\sc.xpt
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):  ;
+INFO: DM file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\dm.xpt
+INFO: EX file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\ex.xpt
+INFO: PC file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\pc.xpt
+INFO: PP file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\pp.xpt
+INFO: UsubjidVar = USUBJID
+INFO: ArmVar = ARM
+INFO: AgeVar = AGE
+INFO: SexVar = SEX
+INFO: CountryVar = COUNTRY
+INFO: RaceVar = RACE
+INFO: EthnicVar =
+INFO: ExTrtVar =
+INFO: ExVisitVar =
+INFO: ExStdtcVar =
+INFO: PcstresnVar = PCSTRESN
+INFO: PcVisitVar = VISIT
+INFO: PctptnumVar = PCTPTNUM
+INFO: PpstresnVar = PPSTRESN
+INFO: PpVisitVar = VISIT
+INFO: PpcatVar = PPCAT
+INFO: PptestcdVar = PPTESTCD
+INFO: PpSpecimenVar = PPSPEC
+INFO: PcSpecimenVar = PCSPEC
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):  ;
+INFO: MPRINT(LOG):   data user.log;
+INFO: MPRINT(LOG):   feedback=":I:,1,""Creating folder structures for study TEST001""";
+INFO: 6                                                                                                                        The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(LOG):   output;
+INFO: MPRINT(LOG):   run;
+INFO: 
+INFO: NOTE: The data set USER.LOG has 1 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.LOG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(LOG):   proc print data=user.log noobs;
+INFO: MPRINT(LOG):  run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.LOG.
+INFO: NOTE: The PROCEDURE PRINT printed page 1.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):  ;
+INFO: ------------------------------------------FIXME-----------------------------------------------------
+INFO: The current study is: TEST001
+INFO: MPRINT(LOG):   data user.log;
+INFO: MPRINT(LOG):   feedback=":I:,60,""Preparing PK data for study TEST001""";
+INFO: MPRINT(LOG):   output;
+INFO: MPRINT(LOG):   run;
+INFO: 
+INFO: NOTE: The data set USER.LOG has 1 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.LOG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(LOG):   proc print data=user.log noobs;
+INFO: MPRINT(LOG):  run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.LOG.
+INFO: NOTE: The PROCEDURE PRINT printed page 2.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):  ;
+INFO: MPRINT(SMREADANDMERGEDATASET):   libname input1 xport "\\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\dm.xpt" access = readonly;
+INFO: NOTE: Libref INPUT1 was successfully assigned as follows:
+INFO: Engine:        XPORT
+INFO: Physical Name: \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\dm.xpt
+INFO: MPRINT(SMREADANDMERGEDATASET):   libname input2 xport "\\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\pp.xpt" access = readonly;
+INFO: NOTE: Libref INPUT2 was successfully assigned as follows:
+INFO: Engine:        XPORT
+INFO: Physical Name: \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\pp.xpt
+INFO: MPRINT(SMREADANDMERGEDATASET):   proc sort data = input1.dm out = user.input1;
+INFO: MPRINT(SMREADANDMERGEDATASET):   by USUBJID;
+INFO: 7                                                                                                                        The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMREADANDMERGEDATASET):   run;
+INFO: 
+INFO: NOTE: There were 26 observations read from the data set INPUT1.DM.
+INFO: NOTE: The data set USER.INPUT1 has 26 observations and 19 variables.
+INFO: NOTE: Compressing data set USER.INPUT1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADANDMERGEDATASET):   proc sort data = input2.pp out = user.input2;
+INFO: MPRINT(SMREADANDMERGEDATASET):   by USUBJID;
+INFO: MPRINT(SMREADANDMERGEDATASET):   run;
+INFO: 
+INFO: NOTE: There were 114 observations read from the data set INPUT2.PP.
+INFO: NOTE: The data set USER.INPUT2 has 114 observations and 19 variables.
+INFO: NOTE: Compressing data set USER.INPUT2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.03 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADANDMERGEDATASET):   data user.adpp;
+INFO: MPRINT(SMREADANDMERGEDATASET):   merge user.input1 (in = a) user.input2 (in = b);
+INFO: MPRINT(SMREADANDMERGEDATASET):   by USUBJID;
+INFO: MPRINT(SMREADANDMERGEDATASET):   if a and b;
+INFO: MPRINT(SMREADANDMERGEDATASET):   run;
+INFO: 
+WARNING: WARNING: Multiple lengths were specified for the BY variable USUBJID by input data sets. This might cause unexpected results.
+WARNING: WARNING: Multiple lengths were specified for the variable STUDYID by input data set(s). This can cause truncation of data.
+WARNING: WARNING: Multiple lengths were specified for the variable DOMAIN by input data set(s). This can cause truncation of data.
+INFO: NOTE: There were 26 observations read from the data set USER.INPUT1.
+INFO: NOTE: There were 114 observations read from the data set USER.INPUT2.
+INFO: NOTE: The data set USER.ADPP has 114 observations and 35 variables.
+INFO: NOTE: Compressing data set USER.ADPP increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADANDMERGEDATASET):   libname input1 clear;
+INFO: NOTE: Libref INPUT1 has been deassigned.
+INFO: MPRINT(SMREADANDMERGEDATASET):   libname input2 clear;
+INFO: NOTE: Libref INPUT2 has been deassigned.
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):  ;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   proc sort data = user.adpp;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   by VISIT;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   run;
+INFO: 
+INFO: NOTE: There were 114 observations read from the data set USER.ADPP.
+INFO: NOTE: The data set USER.ADPP has 114 observations and 35 variables.
+INFO: NOTE: Compressing data set USER.ADPP increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: 8                                                                                                                        The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   proc sort data = user.customPpVisit;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   by OldValue;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.CUSTOMPPVISIT.
+INFO: NOTE: The data set USER.CUSTOMPPVISIT has 1 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMPPVISIT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   data user.adpp(rename=(NewValue=VISIT));
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   merge user.adpp(rename=(VISIT=OldValue) in=hasData) user.customPpVisit;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   by OldValue;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   if hasData;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   run;
+INFO: 
+INFO: NOTE: There were 114 observations read from the data set USER.ADPP.
+INFO: NOTE: There were 1 observations read from the data set USER.CUSTOMPPVISIT.
+INFO: NOTE: The data set USER.ADPP has 114 observations and 36 variables.
+INFO: NOTE: Compressing data set USER.ADPP increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   **;
+INFO: \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\SC.XPT
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):  ;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   data user.adpp;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   set user.adpp;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   OriginalPeriod = VISIT;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if _n_ = 1 then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   pattern_per = prxparse("/PERIOD.*?(\d+)/");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   pattern_day = prxparse("/DAY.*?([0-9-]+)/");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   pattern_shortper = prxparse("/P.*?(\d+)/");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   pattern_shortday = prxparse("/D.*?(\d+)/");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   retain pattern_per pattern_day pattern_shortper pattern_shortday;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if (index(upcase(VISIT), "PERIOD") and index(upcase(VISIT), "DAY")) or index(upcase(VISIT), "PERIOD") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if prxmatch(pattern_per, upcase(strip(VISIT))) then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISIT = "PERIOD " || prxposn(pattern_per, 1, upcase(strip(VISIT)));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISITNum = input(scan(VISIT, -1), 8.);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if (index(upcase(VISIT), "P") and index(upcase(VISIT), "D")) or index(upcase(VISIT), "P") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if prxmatch(pattern_shortper, upcase(strip(VISIT))) then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISIT = "PERIOD " || prxposn(pattern_shortper, 1, upcase(strip(VISIT)));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISITNum = input(prxposn(pattern_shortper, 1, upcase(strip(VISIT))), 8.);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if prxmatch(pattern_day, upcase(strip(VISIT))) then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISIT = "DAY " || prxposn(pattern_day, 1, upcase(strip(VISIT)));
+INFO: 9                                                                                                                        The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISITNum = input(prxposn(pattern_day, 1, upcase(strip(VISIT))), 8.);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(upcase(VISIT), "DAY") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if prxmatch(pattern_day, upcase(strip(VISIT))) then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISIT = "DAY " || prxposn(pattern_day, 1, upcase(strip(VISIT)));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISITNum = input(prxposn(pattern_day, 1, upcase(strip(VISIT))), 8.);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(upcase(VISIT), "D") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if prxmatch(pattern_day, upcase(strip(VISIT))) then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISIT = "DAY " || prxposn(pattern_shortday, 1, upcase(strip(VISIT)));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISITNum = input(prxposn(pattern_shortday, 1, upcase(strip(VISIT))), 8.);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISIT = strip(VISIT);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if index(upcase(VISIT), "Test") or index(upcase(VISIT), "Ref")then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   VISIT = strip(VISIT);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   idx_max = max(index(upcase(PPCAT), "PERIOD"), index(upcase(PPCAT), "DAY"), index(upcase(PPCAT), "GROUP"), index(upcase(PPCAT), "TRT"));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if idx_max then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if idx_max then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   PPCAT = scan(PPCAT, 1, "_-/\");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   PPCAT = scan(PPCAT, -1, "_-/\");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if upcase(substr(PPCAT, 1, 6)) = "PERIOD" then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   PPCAT = scan(PPCAT, -1, "_-/\");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if upcase(substr(PPCAT, 1, 3)) in ("DAY", "TRT") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   PPCAT = scan(PPCAT, -1, "_-/\");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if upcase(substr(PPCAT, 1, 5)) = "GROUP" then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   PPCAT = scan(PPCAT, -1, "_-/\");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if upcase(substr(PPCAT, 1, 9)) = "TREATMENT" then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   PPCAT = scan(PPCAT, -1, "_-/\");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   drop pattern_: idx_;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+WARNING: WARNING: The variable idx_ in the DROP, KEEP, or RENAME list has never been referenced.
+INFO: NOTE: There were 114 observations read from the data set USER.ADPP.
+INFO: NOTE: The data set USER.ADPP has 114 observations and 38 variables.
+INFO: NOTE: Compressing data set USER.ADPP increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   data user.adpp;
+INFO: 10                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   length ARM $500.;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   set user.adpp(where = (find(upcase(PPTESTCD), "AUC") or find(upcase(PPTESTCD), "CMAX") or find(upcase(PPTESTCD), "ACTAU") or find(upcase(PPTESTCD), "ACINF") or find(upcase(PPTESTCD), "TMAX") or find(upcase(PPTESTCD),
+INFO: "THALF")));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if index(upcase(ARM), "SCREENING") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   loc_scr = index(upcase(ARM), "SCREENING");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_scr = compress(substr(ARM, loc_scr + 9, 2));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if index(sep_scr, ":") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_scr = ":";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(sep_scr, ";") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_scr = ";";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(sep_scr, "/") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_scr = "/";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(sep_scr, "-") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_scr = "-";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(sep_scr, "&") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_scr = "&";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(sep_scr, "+") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_scr = "+";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   ARM = substr(ARM, index(ARM, strip(sep_scr)) + 1);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if index(upcase(ARM), "FOLLOW-UP") or index(upcase(ARM), "FOLLOW UP") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if index(upcase(ARM), "FOLLOW-UP") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   loc_fu = index(upcase(ARM), "FOLLOW-UP");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_fu = compress(substr(ARM, loc_fu - 2, 2));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   loc_fu = index(upcase(ARM), "FOLLOW UP");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_fu = compress(substr(ARM, loc_fu - 2, 2));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if index(sep_fu, ":") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_fu = ":";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(sep_fu, ";") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_fu = ";";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(sep_fu, "/") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_fu = "/";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(sep_fu, "-") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_fu = "-";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(sep_fu, "&") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_fu = "&";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else if index(sep_fu, "+") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   sep_fu = "+";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if index(upcase(ARM), "FOLLOW-UP") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   _temp_ = strip(substr(ARM, 1, index(ARM, scan(ARM, -2, strip(sep_fu)))-1));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   ARM = substr(_temp_, 1, length(_temp_) - 1);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else do;
+INFO: 11                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   _temp_ = strip(substr(ARM, 1, index(ARM, scan(ARM, -1, strip(sep_fu)))));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   ARM = substr(_temp_, 1, length(_temp_) - 1);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   ARM = strip(ARM);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   drop _t: sep_: loc_: ;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   keep USUBJID VISIT ARM PPCAT PPTESTCD PPSTRESN PPSPEC PPDTC;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: There were 95 observations read from the data set USER.ADPP.
+INFO: WHERE FIND(UPCASE(PPTESTCD), 'AUC') or FIND(UPCASE(PPTESTCD), 'CMAX') or FIND(UPCASE(PPTESTCD), 'ACTAU') or FIND(UPCASE(PPTESTCD), 'ACINF') or FIND(UPCASE(PPTESTCD), 'TMAX') or FIND(UPCASE(PPTESTCD), 'THALF');
+INFO: NOTE: The data set USER.ADPP has 95 observations and 8 variables.
+INFO: NOTE: Compressing data set USER.ADPP increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   proc sort data = user.adpp (keep = ARM VISIT) out = user.periods nodupkey;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   by ARM VISIT;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: There were 95 observations read from the data set USER.ADPP.
+INFO: NOTE: 91 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.PERIODS has 4 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.PERIODS increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   proc sort data = user.adpp (keep = ARM) out = user.sequences nodupkey;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   by ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: There were 95 observations read from the data set USER.ADPP.
+INFO: NOTE: 91 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.SEQUENCES has 4 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.SEQUENCES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   data user._null_;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   set user.periods end = eof;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   by ARM VISIT;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   retain MinNumberOfPeriods MaxNumberOfPeriods counter;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if _n_ = 1 then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   MaxNumberOfPeriods = 0;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   MinNumberOfPeriods = 99;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if first.ARM then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   counter = 0;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: 12                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   counter + 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if last.ARM then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if MaxNumberOfPeriods < counter then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   MaxNumberOfPeriods = counter;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if MinNumberOfPeriods > counter then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   MinNumberOfPeriods = counter;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if eof then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   call symputx("MaxNumberOfPeriods", MaxNumberOfPeriods);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   call symputx("MinNumberOfPeriods", MinNumberOfPeriods);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.PERIODS.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: Maximum number of Periods = 1
+INFO: Minimum number of Periods = 1
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   proc sql noprint;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   select distinct ARM into: SequenceList separated by "~!~" from user.sequences ;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: SequenceList = DRUG 10 MG~!~DRUG 20 MG~!~DRUG 40 MG~!~DRUG 80 MG
+INFO: Number of Sequences = 4
+INFO: Seperator before:
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   data _null_;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   set user.sequences end = eof;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if count(ARM, "") then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   counter + 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if eof then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if counter < (4 - 1) or counter = 0 then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   call symputx("Separator", "");
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   drop counter;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.SEQUENCES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: Separator is:
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):  ;
+INFO: MPRINT(SMREADANDMERGEDATASET):   libname input1 xport "\\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\pp.xpt" access = readonly;
+INFO: NOTE: Libref INPUT1 was successfully assigned as follows:
+INFO: Engine:        XPORT
+INFO: 13                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: Physical Name: \\localhost\clinical\DRUG000\0000\m5\datasets\TEST001\tabulations\sdtm\pp.xpt
+INFO: MPRINT(SMDETERMINEDATASETNAME):   proc contents data=input1._ALL_ memtype=data out=user.dsNames0(keep=memname) noprint;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   run;
+INFO: 
+INFO: NOTE: The data set USER.DSNAMES0 has 19 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.DSNAMES0 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE CONTENTS used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMDETERMINEDATASETNAME):   proc sort data=user.dsNames0 OUT=user.dsNames nodupkey;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   BY memname;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   run;
+INFO: 
+INFO: NOTE: There were 19 observations read from the data set USER.DSNAMES0.
+INFO: NOTE: 18 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.DSNAMES has 1 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.DSNAMES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMDETERMINEDATASETNAME):   data _null_;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   set user.dsNames;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   if index(upcase(memname), upcase('&expectedDsName.')) ne 0 then do;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   call symput('inputDsName', memname);
+INFO: MPRINT(SMDETERMINEDATASETNAME):   end;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.DSNAMES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMDETERMINEDATASETNAME):   data _null_;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   set user.dsNames;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   by memname;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   if first.memname then do;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   call symput('inputDsName', memname);
+INFO: MPRINT(SMDETERMINEDATASETNAME):   end;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.DSNAMES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADANDMERGEDATASET):  ;
+INFO: MPRINT(SMREADANDMERGEDATASET):   data user.pp_tmp;
+INFO: MPRINT(SMREADANDMERGEDATASET):   set input1.PP ;
+INFO: MPRINT(SMREADANDMERGEDATASET):   ;
+INFO: MPRINT(SMREADANDMERGEDATASET):   run;
+INFO: 14                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: NOTE: There were 114 observations read from the data set INPUT1.PP.
+INFO: NOTE: The data set USER.PP_TMP has 114 observations and 19 variables.
+INFO: NOTE: Compressing data set USER.PP_TMP increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADANDMERGEDATASET):   data user.pp;
+INFO: MPRINT(SMREADANDMERGEDATASET):   set user.pp_tmp;
+INFO: MPRINT(SMREADANDMERGEDATASET):   run;
+INFO: 
+INFO: NOTE: There were 114 observations read from the data set USER.PP_TMP.
+INFO: NOTE: The data set USER.PP has 114 observations and 19 variables.
+INFO: NOTE: Compressing data set USER.PP increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADANDMERGEDATASET):   libname input1 clear;
+INFO: NOTE: Libref INPUT1 has been deassigned.
+INFO: MPRINT(GETSEPARATOR):  ;
+INFO: MPRINT(GETSEPARATOR):   proc sort data = user.pp;
+INFO: MPRINT(GETSEPARATOR):   by VISIT;
+INFO: MPRINT(GETSEPARATOR):   run;
+INFO: 
+INFO: NOTE: There were 114 observations read from the data set USER.PP.
+INFO: NOTE: The data set USER.PP has 114 observations and 19 variables.
+INFO: NOTE: Compressing data set USER.PP increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(GETSEPARATOR):   proc sort data = user.customPpVisit;
+INFO: MPRINT(GETSEPARATOR):   by OldValue;
+INFO: MPRINT(GETSEPARATOR):   run;
+INFO: 
+INFO: NOTE: Input data set is already sorted, no sorting done.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(GETSEPARATOR):   data user.pp(rename=(NewValue=VISIT));
+INFO: MPRINT(GETSEPARATOR):   merge user.pp(rename=(VISIT=OldValue) in=hasData) user.customPpVisit;
+INFO: MPRINT(GETSEPARATOR):   by OldValue;
+INFO: MPRINT(GETSEPARATOR):   if hasData;
+INFO: MPRINT(GETSEPARATOR):   run;
+INFO: 
+INFO: NOTE: There were 114 observations read from the data set USER.PP.
+INFO: NOTE: There were 1 observations read from the data set USER.CUSTOMPPVISIT.
+INFO: NOTE: The data set USER.PP has 114 observations and 20 variables.
+INFO: 15                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Compressing data set USER.PP increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(CHECKIFVAREXISTINADATA):   data one11;
+INFO: MPRINT(CHECKIFVAREXISTINADATA):   dsid=open("user.pp");
+INFO: MPRINT(CHECKIFVAREXISTINADATA):   check=varnum(dsid,"VISIT");
+INFO: MPRINT(CHECKIFVAREXISTINADATA):   if check>0 then call symputx("varexist", 1,"G");
+INFO: MPRINT(CHECKIFVAREXISTINADATA):   else call symputx("varexist", 0,"G");
+INFO: MPRINT(CHECKIFVAREXISTINADATA):   run;
+INFO: 
+INFO: NOTE: The data set USER.ONE11 has 1 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.ONE11 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: varexist=1
+INFO: MPRINT(GETSEPARATOR):  ;
+INFO: PeriodppVar=VISIT
+INFO: MPRINT(GETSEPARATOR):   proc freq data=user.pp noprint;
+INFO: MPRINT(GETSEPARATOR):  tables VISIT/out=period_jiaxiang;
+INFO: MPRINT(GETSEPARATOR):  run;
+INFO: 
+INFO: NOTE: There were 114 observations read from the data set USER.PP.
+INFO: NOTE: The data set USER.PERIOD_JIAXIANG has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.PERIOD_JIAXIANG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(GETSEPARATOR):  ;
+INFO: MaxNumberOfPeriodsJG=1
+INFO: Seperator before:
+INFO: MPRINT(GETSEPARATOR):   data _null_;
+INFO: MPRINT(GETSEPARATOR):   set user.sequences end = eof;
+INFO: MPRINT(GETSEPARATOR):   if count(ARM, "") then do;
+INFO: MPRINT(GETSEPARATOR):   counter + 1;
+INFO: MPRINT(GETSEPARATOR):   end;
+INFO: MPRINT(GETSEPARATOR):   if eof then do;
+INFO: MPRINT(GETSEPARATOR):   if counter < (4 - 1) or counter = 0 then do;
+INFO: MPRINT(GETSEPARATOR):   call symputx("Separator", "");
+INFO: MPRINT(GETSEPARATOR):   end;
+INFO: MPRINT(GETSEPARATOR):   end;
+INFO: MPRINT(GETSEPARATOR):   drop counter;
+INFO: MPRINT(GETSEPARATOR):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.SEQUENCES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 16                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: 
+INFO: Separator is:
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):  ;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):  ;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   proc sort data = user.sequences out = user.groups;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   by ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: Input data set is already sorted; it has been copied to the output data set.
+INFO: NOTE: There were 4 observations read from the data set USER.SEQUENCES.
+INFO: NOTE: The data set USER.GROUPS has 4 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.GROUPS increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   data user.groups;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   set user.groups;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   by ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   retain CohortNumber CohortName CohortDescription;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if first.ARM then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber + 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort " || strip(CohortNumber);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 14:147
+INFO: NOTE: There were 4 observations read from the data set USER.GROUPS.
+INFO: NOTE: The data set USER.GROUPS has 4 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.GROUPS increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   proc sort data = user.adpp;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   by ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: There were 95 observations read from the data set USER.ADPP.
+INFO: NOTE: The data set USER.ADPP has 95 observations and 8 variables.
+INFO: NOTE: Compressing data set USER.ADPP increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   proc sort data = user.groups;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   by ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: 17                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.GROUPS.
+INFO: NOTE: The data set USER.GROUPS has 4 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.GROUPS increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   data user.adpp(drop = _t:);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   merge user.adpp(in = a) user.groups(in = b);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   by ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if a;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+WARNING: WARNING: The variable _t: in the DROP, KEEP, or RENAME list has never been referenced.
+INFO: NOTE: There were 95 observations read from the data set USER.ADPP.
+INFO: NOTE: There were 4 observations read from the data set USER.GROUPS.
+INFO: NOTE: The data set USER.ADPP has 95 observations and 11 variables.
+INFO: NOTE: Compressing data set USER.ADPP decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   proc sql noprint;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   select max(CohortNumber) into :NumberOfCohorts from user.adpp ;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: Number of Groups =        4
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   proc sort data = user.adpp out = user.references nodupkey;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   by ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: There were 95 observations read from the data set USER.ADPP.
+INFO: NOTE: 91 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.REFERENCES has 4 observations and 11 variables.
+INFO: NOTE: Compressing data set USER.REFERENCES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   data _null_;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   set user.references end = eof;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   length reference $200.;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   retain reference;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if indexw(upcase(strip(ARM)), "HEALTHY") or indexw(upcase(strip(ARM)), "NORMAL") or indexw(upcase(strip(ARM)), "YOUNGER") or indexw(upcase(strip(ARM)), "CONTROL") or indexw(upcase(strip(ARM)), "IV DOSE") or
+INFO: index(upcase(strip(ARM)), "HEALTHY") >0 then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   numref + 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if numref = 1 then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   reference = ARM;
+INFO: 18                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   else do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   reference = strip(reference) || "@" || ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   if eof then do;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   call symputx("reference", reference);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   call symputx("numref", numref);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   end;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.REFERENCES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: Reference is:
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   proc sql noprint;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   select distinct ARM into: reference separated by "@" from user.references ;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   proc sql noprint;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   select distinct VISIT into :period_list separated by "@" from user.adpp ;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: The references are: DRUG 10 MG@DRUG 20 MG@DRUG 40 MG@DRUG 80 MG
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   proc sql noprint;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   select distinct ARM into :arm_list separated by "@" from user.adpp(where = (VISIT = "DAY 01")) order by ARM ;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   select distinct ARM into :reference_list separated by "@" from user.adpp(where = (VISIT = "DAY 01")) order by ARM ;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   data user.adpp_1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   set user.adpp(where = (VISIT = "DAY 01"));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   length Combination CohortName CohortDescription TreatmentInPeriodText TreatmentInPeriod reference comb1 comb2 $200.;
+WARNING: WARNING: Length of character variable CohortName has already been set. Use the LENGTH statement as the very first statement in the DATA STEP to declare the length of a character variable.
+WARNING: WARNING: Length of character variable CohortDescription has already been set. Use the LENGTH statement as the very first statement in the DATA STEP to declare the length of a character variable.
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 10 MG" || " ~vs~ " || "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: 19                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 10 MG" || " ~vs~ " || "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 80 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 10 MG" || " ~vs~ " || "DRUG 80 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 80 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 20 MG" || " ~vs~ " || "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 20 MG" || " ~vs~ " || "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 80 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 20 MG" || " ~vs~ " || "DRUG 80 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 80 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: 20                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 40 MG" || " ~vs~ " || "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 40 MG" || " ~vs~ " || "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 80 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 40 MG" || " ~vs~ " || "DRUG 80 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 80 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 80 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 80 MG" || " ~vs~ " || "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 10 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 80 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 80 MG" || " ~vs~ " || "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 20 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortNumber = 1;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortName = "Cohort";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   CohortDescription = CohortName;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb1 = "DRUG 80 MG";
+INFO: 21                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Comb2 = "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Combination = "DRUG 80 MG" || " ~vs~ " || "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodText = ARM;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriodLength = length(strip(TreatmentInPeriodText));
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   TreatmentInPeriod = strip(TreatmentInPeriodLength) || "_" || strip(TreatmentInPeriodText);
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   Reference = "DRUG 40 MG";
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   output;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 14:227   14:227   14:227   14:227   14:227   14:227   14:227   14:227   14:227   14:227   14:227   14:227
+INFO: NOTE: There were 95 observations read from the data set USER.ADPP.
+INFO: WHERE VISIT='DAY 01';
+INFO: NOTE: The data set USER.ADPP_1 has 1140 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.ADPP_1 decreased size by 86.21 percent.
+INFO: Compressed is 4 pages; un-compressed would require 29 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   data user.adpp;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   set user.adpp_1 ;
+INFO: MPRINT(SMPREPAREDATAFORANALYSIS):   run;
+INFO: 
+INFO: NOTE: There were 1140 observations read from the data set USER.ADPP_1.
+INFO: NOTE: The data set USER.ADPP has 1140 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.ADPP decreased size by 86.21 percent.
+INFO: Compressed is 4 pages; un-compressed would require 29 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):  ;
+INFO: MPRINT(LOG):   data user.log;
+INFO: MPRINT(LOG):   feedback=":I:,80,""Executing pk analysis summary of study TEST001""";
+INFO: MPRINT(LOG):   output;
+INFO: MPRINT(LOG):   run;
+INFO: 
+INFO: NOTE: The data set USER.LOG has 1 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.LOG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(LOG):   proc print data=user.log noobs;
+INFO: MPRINT(LOG):  run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.LOG.
+INFO: NOTE: The PROCEDURE PRINT printed page 3.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: 22                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):  ;
+INFO: MPRINT(LOG):   data user.log;
+INFO: MPRINT(LOG):   feedback=":I:,100,""Analysis of study TEST001 complete""";
+INFO: MPRINT(LOG):   output;
+INFO: MPRINT(LOG):   run;
+INFO: 
+INFO: NOTE: The data set USER.LOG has 1 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.LOG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(LOG):   proc print data=user.log noobs;
+INFO: MPRINT(LOG):  run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.LOG.
+INFO: NOTE: The PROCEDURE PRINT printed page 4.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):  ;
+INFO: meng check it
+INFO: UsubjidVar.=USUBJID
+INFO: StudyId.=TEST001
+INFO: SequenceVar = ARM
+INFO: AnalyteVar = PPCAT
+INFO: ParameterVar = PPTESTCD
+INFO: PeriodVar = VISIT
+INFO: ResultVar = PPSTRESN
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   *List potential references: Meng & Eduward created on 0507_2015,Meng debug on 5/15;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   *get the value of unique cohortdescriptions and create macro varibale;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   proc sql noprint;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   select count(distinct cohortdescription) into :NumVar from user.adpp;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: NumVar=       1
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   proc sql noprint;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   select distinct treatmentinperiodtext into :treatmentinperiodtext from user.adpp;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: refOrigin=user.adpp
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   * get freqency tables;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   proc freq data=user.adpp noprint;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   tables CohortDescription*treatmentinperiodtext/out=user.reference0(keep=CohortDescription TreatmentInPeriodText) ;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   run;
+INFO: 
+INFO: 23                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: There were 1140 observations read from the data set USER.ADPP.
+INFO: NOTE: The data set USER.REFERENCE0 has 4 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.REFERENCE0 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE FREQ used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   * Strip leading and trailing whitespace;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   data user.reference (keep=CohortDescription Reference);
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   set user.reference0;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   Reference = strip(TreatmentInPeriodText);
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   output;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.REFERENCE0.
+INFO: NOTE: The data set USER.REFERENCE has 4 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.REFERENCE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   data user.data NOLIST;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   length dataset $32.;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   dataset="reference";
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   output;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   run;
+INFO: 
+INFO: NOTE: The data set USER.DATA has 1 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.DATA increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: The data set USER.NOLIST has 1 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.NOLIST increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   proc export data=user.reference outfile="\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\reference.csv" dbms=dlm replace;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   ADLM;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   delimiter=',';
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   run;
+INFO: 
+INFO: 15          /**********************************************************************
+INFO: 16          *   PRODUCT:   SAS
+INFO: 17          *   VERSION:   9.4
+INFO: 18          *   CREATOR:   External File Interface
+INFO: 19          *   DATE:      06SEP17
+INFO: 20          *   DESC:      Generated SAS Datastep Code
+INFO: 21          *   TEMPLATE SOURCE:  (None Specified.)
+INFO: 22          ***********************************************************************/
+INFO: 23             data _null_;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   data _null_;
+INFO: 24             %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+INFO: 24                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: 25             %let _EFIREC_ = 0;     /* clear export record count macro variable */
+INFO: 26             file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\reference.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\reference.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+INFO: 27             if _n_ = 1 then        /* write column names or labels */
+INFO: 28              do;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   if _n_ = 1 then do;
+INFO: 29                put
+INFO: 30                   "CohortDescription"
+INFO: 31                ','
+INFO: 32                   "Reference"
+INFO: 33                ;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   put "CohortDescription" ',' "Reference" ;
+INFO: 34              end;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   end;
+INFO: 35            set  USER.REFERENCE   end=EFIEOD;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   set USER.REFERENCE end=EFIEOD;
+INFO: 36                format CohortDescription $500. ;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   format CohortDescription $500. ;
+INFO: 37                format Reference $200. ;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   format Reference $200. ;
+INFO: 38              do;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   do;
+INFO: 39                EFIOUT + 1;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   EFIOUT + 1;
+INFO: 40                put CohortDescription $ @;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   put CohortDescription $ @;
+INFO: 41                put Reference $ ;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   put Reference $ ;
+INFO: 42                ;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   ;
+INFO: 43              end;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   end;
+INFO: 44             if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   if _ERROR_ then call symputx('_EFIERR_',1);
+INFO: 45             if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+INFO: 46             run;
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):   run;
+INFO: 
+INFO: NOTE: The file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\reference.csv' is:
+INFO: Filename=\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\reference.csv,
+INFO: RECFM=V,LRECL=32767,File Size (bytes)=0,
+INFO: Last Modified=06Sep2017:10:33:23,
+INFO: Create Time=06Sep2017:10:33:05
+INFO: 
+INFO: NOTE: 5 records were written to the file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\reference.csv'.
+INFO: The minimum record length was 17.
+INFO: The maximum record length was 27.
+INFO: NOTE: There were 4 observations read from the data set USER.REFERENCE.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: 4 records created in \\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\reference.csv from USER.REFERENCE.
+INFO: 
+INFO: 
+INFO: NOTE: "\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\reference.csv" file was successfully created.
+INFO: 25                                                                                                                       The SAS System                                                                                       10:33 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: PROCEDURE EXPORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWLISTPOTENTIALREFERENCE):    ;
+INFO: 47

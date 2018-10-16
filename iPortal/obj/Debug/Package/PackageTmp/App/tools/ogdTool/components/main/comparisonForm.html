@@ -1,0 +1,11 @@
+﻿<div>
+    <div data-bind="foreach: { data: subSections, as: 'section'}">
+        <div class="well" style="padding-bottom: 0">
+            <nav class="navbar navbar-lite navbar-sm navbar-click" role="toolbar">
+                <p class="navbar-text" data-bind="text: section.title"></p>
+            </nav>
+            <!-- ko compose: { model: section.model, activationData: { comparison: $root.comparison, project: $root.project } }-->
+            <!-- /ko-->
+        </div>
+    </div>
+</div>

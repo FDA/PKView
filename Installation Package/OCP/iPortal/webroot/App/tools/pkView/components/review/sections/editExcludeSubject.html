@@ -1,0 +1,62 @@
+﻿<div>
+    <div class="container-fluid">
+        <div class="modal-body" style="overflow-y: auto; white-space: nowrap">
+
+
+            <table class="table">
+                <thead>
+                    
+                    <tr>
+                        <th></th>
+                        <th>Exclude</th>
+                        <!-- ko foreach:  { data: $root.excludecolumns, as: 'excludecolumns' } -->
+                        <th style="white-space: nowrap" data-bind="text: excludecolumns.text"></th>
+                        <!-- /ko -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ko foreach:  { data: $root.excludedatatable, as: 'excludedatatable' } -->
+                    <tr>
+                        <td>
+                            <label><span data-bind="text: $index()+1"></span></label>
+                        </td> 
+                        <td>
+                            <label>
+                                <input type="checkbox" value="" data-bind="checked: $root.ExcludeIndex()[$index()]" />
+                            </label>
+                        </td>
+                        <!-- ko foreach:  { data: $root.excludecolumns, as: 'excludecolumns' } -->
+                        <td>
+                            <input type="text" class="form-control input-sm" data-bind="value: excludedatatable[excludecolumns.text], valueUpdate: 'keyup'" />
+                        </td>
+                        <!-- /ko -->
+                        
+                        
+                    </tr>
+                    <!-- /ko -->
+                </tbody>
+            </table>
+            <div class="splash" data-bind="visible: loading">
+                <i class="fa fa-spinner fa-2x fa-spin active"></i>
+            </div>
+        </div>
+        <div class="modal-footer" data-bind="visible: !loading()">
+
+            <button class="btn btn-sm btn-primary" data-bind="enable: reportGenerated, tooltip: { container: 'body', title: 'Exclude and generate report' }, click: save">
+                <i class="fa fa-fw" data-bind="css: {
+                                'fa-spinner fa-spin': computingReport
+                            }">
+                </i> Exclude and generate report
+            </button>
+
+            <!--<button type="button" class="btn btn-sm btn-lite"
+                    data-bind="enable: reportGenerated, tooltip: { container: 'body', title: 'Download current report' }, click: downloadReport">
+                <i class="fa fa-fw" data-bind="css: {
+                                'fa-download': !computingReport(),
+                            }"></i>
+            </button>-->
+        </div>
+    </div>
+
+
+</div>

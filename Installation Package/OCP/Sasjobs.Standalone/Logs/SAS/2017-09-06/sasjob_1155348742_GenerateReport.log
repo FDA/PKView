@@ -1,0 +1,2905 @@
+INFO: 1                                                          The SAS System                         11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Copyright (c) 2002-2012 by SAS Institute Inc., Cary, NC, USA.
+INFO: NOTE: SAS (r) Proprietary Software 9.4 (TS1M4)
+INFO: Licensed to UNIVERSITY OF ILLINOIS SYSTEM - T&R SFA, Site 70080107.
+INFO: NOTE: This session is executing on the X64_10PRO  platform.
+INFO: 
+INFO: 
+INFO: 
+INFO: NOTE: Updated analytical products:
+INFO: 
+INFO: SAS/STAT 14.2
+INFO: SAS/ETS 14.2
+INFO: SAS/OR 14.2
+INFO: SAS/IML 14.2
+INFO: SAS/QC 14.2
+INFO: 
+INFO: NOTE: Additional host information:
+INFO: 
+INFO: X64_10PRO WIN 10.0.15063  Workstation
+INFO: 
+INFO: NOTE: SAS Initialization used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 1
+INFO: 2          %LET SASSPPATH = C:\OCP\Sasjobs.Standalone\\Stored Procedures;
+INFO: 3
+INFO: 4          %global SasSpPath;
+INFO: 5          options nofmterr compress = yes mprint spool notes msglevel=n linesize = 256
+INFO: 6          sasautos = (sasautos "&SasSpPath.\Macros" "&SasSpPath.\Sub Macros");
+INFO: 7
+INFO: 8          libname user "%sysfunc(getoption(work))" ACCESS=TEMP FILELOCKWAIT=20;
+INFO: NOTE: Libref USER refers to the same physical library as WORK.
+INFO: NOTE: Libref USER was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\apps\SAS\SASUser\Peter\SAS Temporary Files\_TD8316_DESKTOP-MP8HDJJ_\Prc64
+INFO: 9          %let work = user.;
+INFO: 10
+INFO: 11         ods path &work.templat(update)
+INFO: 12             sasuser.templat(read)
+INFO: 13             sashelp.tmplmst(read)
+INFO: 14         ;
+INFO: 15
+INFO: 16         /* Path where NDAs are stored in the server */
+INFO: 17         %let inputfolder=\\localhost\clinical\;
+INFO: 18
+INFO: 19         %PKReportExclude;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.userData;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.userConfig end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM USERCONFIG IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if Name="Username" then call symputx("UserName", dequote(value), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if Name="ProfileName" then call symputx("ProfileName", dequote(value), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 3 observations read from the data set WEBSVC.USERCONFIG.
+INFO: NOTE: The data set USER.USERDATA has 3 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.USERDATA increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: 2                                                                                                                        The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: User: Peter
+INFO: Settings Id: Test data 9-6
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.study;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.study end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM STUDY IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if eof then do;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyType", Type, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyId", StudyCode, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("StudyDesign", Design, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("SubmissionID", Submission, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("SupplementNum", dequote(Supplement), "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseEx", UseEx, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseSuppdm", UseSuppdm, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("DisablePcCleanup", DisablePcCleanup, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomArms", UseCustomArms, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPcVisit", UseCustomPcVisit, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPcPctptnum", UseCustomPcPctptnum, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("UseCustomPpVisit", UseCustomPpVisit, "G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   end;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.STUDY.
+INFO: NOTE: The data set USER.STUDY has 1 observations and 16 variables.
+INFO: NOTE: Compressing data set USER.STUDY increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: Extracted Study Design: CROSSOVER
+INFO: Extracted Study Type: UNKNOWN
+INFO: Extracted Study Id: TEST002
+INFO: Extracted Submission Id: DRUG000
+INFO: Supplement Number: 0000
+INFO: Use EX: 0
+INFO: Use SUPPDM: 0
+INFO: Use Custom Pc Visit: 1
+INFO: Use Custom Pp Visit: 1
+INFO: Use Custom Pc pctptnum: 0
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.mapping;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM MAPPING IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="USUBJID" then call symputx("UsubjidVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="ARM" then call symputx("ArmVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="AGE" then call symputx("AgeVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="SEX" then call symputx("SexVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="RACE" then call symputx("RaceVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="COUNTRY" then call symputx("CountryVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="DM" and upcase(STDMVAR)="ETHNIC" then call symputx("EthnicVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="EXTRT" then call symputx("ExTrtVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="EXSTDTC" then call symputx("ExStdtcVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="EX" and upcase(STDMVAR)="VISIT" then call symputx("ExVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="VISIT" then call symputx("PcVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCTEST" then call symputx("PCTESTVar",FILEVAR,"G");
+INFO: 3                                                                                                                        The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCSTRESN" then call symputx("PcStresnVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PC" and upcase(STDMVAR)="PCTPTNUM" then call symputx("PctptnumVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="VISIT" then call symputx("PpVisitVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPCAT" then call symputx("PpcatVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPSTRESN" then call symputx("PpstresnVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(DOMAIN)="PP" and upcase(STDMVAR)="PPTESTCD" then call symputx("PptestcdVar",FILEVAR,"G");
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 15 observations read from the data set WEBSVC.MAPPING.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.customDmArms;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.customDmArms;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM CUSTOMDMARMS IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 3 observations read from the data set WEBSVC.CUSTOMDMARMS.
+INFO: NOTE: The data set USER.CUSTOMDMARMS has 3 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMDMARMS increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.customPcVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.customPcVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM CUSTOMPCVISIT IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 6 observations read from the data set WEBSVC.CUSTOMPCVISIT.
+INFO: NOTE: The data set USER.CUSTOMPCVISIT has 6 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMPCVISIT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data user.customPpVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set websvc.customPpVisit;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   * FROM CUSTOMPPVISIT IN FILE '';
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: NOTE: There were 2 observations read from the data set WEBSVC.CUSTOMPPVISIT.
+INFO: NOTE: The data set USER.CUSTOMPPVISIT has 2 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.CUSTOMPPVISIT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set sashelp.vmember(where = (libname = "WEBSVC" and memtype = "DATA"));
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if upcase(memname) = "REFERENCES" then call symput("Exist",1);
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   else call symput("Exist",0);
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 4                                                                                                                        The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:166   19:197
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   _CLASSES_ FROM _SYSTABLES_ IN FILE '';
+INFO: NOTE: There were 13 observations read from the data set SASHELP.VMEMBER.
+INFO: WHERE (libname='WEBSVC') and (memtype='DATA');
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.09 seconds
+INFO: cpu time            0.09 seconds
+INFO: 
+INFO: 
+INFO: references exist=           0
+INFO: inputfolder=\\localhost\clinical\DRUG000
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.dirs_found (compress=no);
+INFO: MPRINT(SMLISTFILESINFOLDER):   length Root $500.;
+INFO: MPRINT(SMLISTFILESINFOLDER):   root = "\\localhost\clinical\DRUG000";
+INFO: MPRINT(SMLISTFILESINFOLDER):   output;
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: The data set USER.DIRS_FOUND has 1 observations and 1 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.dirs_found user.files_found (compress=no);
+INFO: MPRINT(SMLISTFILESINFOLDER):   keep Path FileName FileType;
+INFO: MPRINT(SMLISTFILESINFOLDER):   length fref $8 Path Filename $500 FileType $16;
+INFO: MPRINT(SMLISTFILESINFOLDER):   modify user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   Path = root;
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = filename(fref, path);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if rc = 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   did = dopen(fref);
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = filename(fref);
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   else do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   length msg $500.;
+INFO: MPRINT(SMLISTFILESINFOLDER):   msg = sysmsg();
+INFO: MPRINT(SMLISTFILESINFOLDER):   putlog msg=;
+INFO: MPRINT(SMLISTFILESINFOLDER):   did = .;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   if did <= 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   return;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   dnum = dnum(did);
+INFO: MPRINT(SMLISTFILESINFOLDER):   do i = 1 to dnum;
+INFO: MPRINT(SMLISTFILESINFOLDER):   filename = dread(did, i);
+INFO: MPRINT(SMLISTFILESINFOLDER):   fid = mopen(did, filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if fid > 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   FileType = prxchange('s/.*\.{1,1}(.*)/$1/', 1, filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if filename = filetype then filetype = ' ';
+INFO: MPRINT(SMLISTFILESINFOLDER):   output user.files_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   else do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   root = catt(path, "\", filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   output user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: 5                                                                                                                        The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = dclose(did);
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: The data set USER.DIRS_FOUND has been updated.  There were 0 observations rewritten, 9 observations added and 0 observations deleted.
+INFO: NOTE: The data set USER.FILES_FOUND has 8 observations and 3 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.10 seconds
+INFO: cpu time            0.07 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.files(rename = (root = path));
+INFO: MPRINT(SMLISTFILESINFOLDER):   set user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: There were 10 observations read from the data set USER.DIRS_FOUND.
+INFO: NOTE: The data set USER.FILES has 10 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.FILES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):  ;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   ** Get the path to the datasets **;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   set user.files end = eof;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   if scan(upcase(path), -1, "\") = "TEST002" then do;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   call symputx("DatasetPath", substr(path, 1, length(path) - length("TEST002") - 1));
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   stop;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   end;
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 7 observations read from the data set USER.FILES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: DatasetPath = \\localhost\clinical\DRUG000\0000\m5\datasets
+INFO: DataSetPath = \\localhost\clinical\DRUG000\0000\m5\datasets
+INFO: StudyId = TEST002
+INFO: Continue? - success
+INFO: InputDm = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\dm.xpt
+INFO: InputPc = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pc.xpt
+INFO: InputPp = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pp.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\ex.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\suppdm.xpt
+INFO: InputEx = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\sc.xpt
+INFO: MPRINT(SMREADMAPPINGSFROMDATASET):  ;
+INFO: DM file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\dm.xpt
+INFO: EX file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\ex.xpt
+INFO: PC file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pc.xpt
+INFO: PP file path = \\localhost\clinical\DRUG000\0000\m5\datasets\TEST002\tabulations\sdtm\pp.xpt
+INFO: UsubjidVar = USUBJID
+INFO: ArmVar = ARM
+INFO: AgeVar = AGE
+INFO: SexVar = SEX
+INFO: 6                                                                                                                        The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: CountryVar = COUNTRY
+INFO: RaceVar = RACE
+INFO: EthnicVar =
+INFO: ExTrtVar =
+INFO: ExVisitVar =
+INFO: ExStdtcVar =
+INFO: PcstresnVar = PCSTRESN
+INFO: PcVisitVar = VISIT
+INFO: PctptnumVar = PCTPT
+INFO: PpstresnVar = PPSTRESN
+INFO: PpVisitVar = VISIT
+INFO: PpcatVar = PPCAT
+INFO: PptestcdVar = PPTESTCD
+INFO: PpSpecimenVar = PPSPEC
+INFO: PcSpecimenVar = PCSPEC
+INFO: MPRINT(PKEXCLUDESUB):  ;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   set websvc.reportConfig end = eof;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   * FROM REPORTCONFIG IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   if Name="Name" then call symputx("ReportFolder", value, "G");
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   run;
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.REPORTCONFIG.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   data user.references;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   set websvc.references;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   * FROM REFERENCES IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   run;
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.REFERENCES.
+INFO: NOTE: The data set USER.REFERENCES has 1 observations and 3 variables.
+INFO: NOTE: Compressing data set USER.REFERENCES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   data user.parameter;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   set websvc.parameter;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   * FROM PARAMETER IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   run;
+INFO: NOTE: Compression was disabled for data set USER.PARAMETER because compression overhead would increase the size of the data set.
+INFO: NOTE: There were 3 observations read from the data set WEBSVC.PARAMETER.
+INFO: NOTE: The data set USER.PARAMETER has 3 observations and 1 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   data user.analyte;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   set websvc.analyte;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   * FROM ANALYTE IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   run;
+INFO: NOTE: Compression was disabled for data set USER.ANALYTE because compression overhead would increase the size of the data set.
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.ANALYTE.
+INFO: 7                                                                                                                        The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: The data set USER.ANALYTE has 1 observations and 1 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   data user.method;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   set websvc.method;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   * FROM METHOD IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   run;
+INFO: NOTE: Compression was disabled for data set USER.METHOD because compression overhead would increase the size of the data set.
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.METHOD.
+INFO: NOTE: The data set USER.METHOD has 1 observations and 1 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   data user.sort;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   set websvc.sort;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   * FROM SORT IN FILE '';
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   run;
+INFO: NOTE: There were 3 observations read from the data set WEBSVC.SORT.
+INFO: NOTE: The data set USER.SORT has 3 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.SORT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   data _null_;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   set user.sort end = eof;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   if Level="files" then call symputx("SortFiles", sortOrder, "G");
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.SORT.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   * created on 06/21/2015 macrovar: cohort, reference, parameteres;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   *use ORDER BY for listing references- FIX ME (genreate warning may need fix);
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   *onetable or by cohort? cohort, reference, parameters,analyte, method;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   proc sql noprint;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   select distinct cohort into: cohort_sel separated by "$" from user.references;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   select distinct reference into :ref_sel separated by "$" from user.references order by cohort;
+WARNING: WARNING: The query as specified involves ordering by an item that doesn't appear in its SELECT clause. Since you are ordering the output of a SELECT DISTINCT it may appear that some duplicates have not been eliminated.
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   select distinct analyte into :anal_sel separated by "$" from user.analyte;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   select distinct parameter into :param_sel separated by "$" from user.parameter;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   select distinct method into :method_sel separated by "$" from user.method;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: 8                                                                                                                        The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: cohort_sel=FASTED-FED
+INFO: ref_sel=FASTED
+INFO: anal_sel=DRUG X
+INFO: param_sel=AUC$AUC0_T$CMAX
+INFO: method_sel=paired
+INFO: sortfiles=
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   proc transpose data=user.sort out=user.sortt;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   var sortorder;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.SORT.
+INFO: NOTE: The data set USER.SORTT has 1 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.SORTT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE TRANSPOSE used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   data user.sortt( keep=COL3 COL2 COL1 _NAME_ rename= (COL3=columns COL2=folders COL1=files _NAME_=LEVEL));
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   set user.sortt;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.SORTT.
+INFO: NOTE: The data set USER.SORTT has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.SORTT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   data user.sortt;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   set user.sortt;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   columns=TRANWRD(columns,",", "@");
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.SORTT.
+INFO: NOTE: The data set USER.SORTT has 1 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.SORTT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   proc sql noprint;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   select distinct columns into: sort_list from user.sortt;
+INFO: MPRINT(SMREADREPORTSETTINGSFROMDATASET):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: sort_list=analyte@comparison@parameter@cohort
+INFO: MPRINT(PKEXCLUDESUB):  ;
+INFO: OutputFolder=C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000
+INFO: MPRINT(PKEXCLUDESUB):   libname result "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates";
+INFO: 9                                                                                                                        The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Libref RESULT was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates
+INFO: AnalyteVar=PPCAT
+INFO: ParameterVar=PPTESTCD
+INFO: MPRINT(PKEXCLUDESUB):   data result.IndividualPkStats;
+INFO: MPRINT(PKEXCLUDESUB):   set result.IndividualPkStats;
+INFO: MPRINT(PKEXCLUDESUB):   OrgPPSTRESN=exp(PPSTRESN);
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 80 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: NOTE: The data set RESULT.INDIVIDUALPKSTATS has 80 observations and 23 variables.
+INFO: NOTE: Compressing data set RESULT.INDIVIDUALPKSTATS decreased size by 33.33 percent.
+INFO: Compressed is 2 pages; un-compressed would require 3 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data _null_;
+INFO: MPRINT(PKEXCLUDESUB):   set websvc.excludesubject;
+INFO: MPRINT(PKEXCLUDESUB):   * FROM EXCLUDESUBJECT IN FILE '';
+INFO: MPRINT(PKEXCLUDESUB):   call symput("times1",SMALLTHANEXCLUDESD);
+INFO: MPRINT(PKEXCLUDESUB):   call symput("times2",BIGTHANEXCLUDESD);
+INFO: MPRINT(PKEXCLUDESUB):   call symput("p1",ExcludeParameters1);
+INFO: MPRINT(PKEXCLUDESUB):   call symput("p2",ExcludeParameters2);
+INFO: MPRINT(PKEXCLUDESUB):   call symput("percent",percent);
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 19:161   19:203   19:83
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.EXCLUDESUBJECT.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: SMALLTHANEXCLUDESD=           2
+INFO: BIGTHANEXCLUDESD=           2
+INFO: excludeparameters1=AUC
+INFO: excludeparameters=AUC0_T
+INFO: percent=         105
+INFO: SMALLTHANEXCLUDESD=           2
+INFO: BIGTHANEXCLUDESD=           2
+INFO: percent2=         105
+INFO: user input data to exclude subject
+INFO: MPRINT(PKEXCLUDESUB):   data SelectedSubPK_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   set result.individualpkstats (where = ( CohortDescription = "FASTED-FED" and PPCAT ="DRUG X" and PPTESTCD = "AUC" ));
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: WHERE (CohortDescription='FASTED-FED') and (PPCAT='DRUG X') and (PPTESTCD='AUC');
+INFO: NOTE: The data set USER.SELECTEDSUBPK_1_1_1 has 16 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.SELECTEDSUBPK_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 10                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: 
+INFO: SelectCohort=FASTED-FED
+INFO: SelectAnalyte=DRUG X
+INFO: SelectParameter=AUC$AUC0_T$CMAX
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=SelectedSubPK_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   by cohortnumber PPCAT PPTESTCD treatmentinperiodtext ;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SELECTEDSUBPK_1_1_1.
+INFO: NOTE: The data set USER.SELECTEDSUBPK_1_1_1 has 16 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.SELECTEDSUBPK_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: PPCAT PPTESTCD
+INFO: MPRINT(PKEXCLUDESUB):   proc summary data=SelectedSubPK_1_1_1 ;
+INFO: MPRINT(PKEXCLUDESUB):   by cohortnumber PPCAT PPTESTCD treatmentinperiodtext ;
+INFO: MPRINT(PKEXCLUDESUB):   var OrgPPSTRESN;
+INFO: MPRINT(PKEXCLUDESUB):   output out=StatsPK_1_1_1 std=std mean=mean;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SELECTEDSUBPK_1_1_1.
+INFO: NOTE: The data set USER.STATSPK_1_1_1 has 2 observations and 8 variables.
+INFO: NOTE: Compressing data set USER.STATSPK_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SUMMARY used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sql;
+INFO: MPRINT(PKEXCLUDESUB):   create table mergesubstd_1_1_1 as select a.cohortnumber, a.PPCAT , a.PPTESTCD, a.treatmentinperiodtext, b.std, b.mean, CohortDescription, USUBJID,combination,PPSTRESN, OrgPPSTRESN from SelectedSubPK_1_1_1 as a left join
+INFO: StatsPK_1_1_1 as b on a.cohortnumber=b.cohortnumber and a.PPCAT=b.PPCAT and a.PPTESTCD=b.PPTESTCD and a.treatmentinperiodtext=b.treatmentinperiodtext;
+INFO: NOTE: Compressing data set USER.MERGESUBSTD_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: Table USER.MERGESUBSTD_1_1_1 created, with 16 rows and 11 columns.
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: neither times1 nor  times2 is null , times2 is upper bound times1 is lower bound
+INFO: MPRINT(PKEXCLUDESUB):   data mergesubstd_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   set mergesubstd_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   upperbound=mean+ 2*std;
+INFO: MPRINT(PKEXCLUDESUB):   lowerbound=mean- 2*std;
+INFO: MPRINT(PKEXCLUDESUB):   if OrgPPSTRESN>upperbound or OrgPPSTRESN<lowerbound then Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.MERGESUBSTD_1_1_1.
+INFO: NOTE: The data set USER.MERGESUBSTD_1_1_1 has 16 observations and 14 variables.
+INFO: NOTE: Compressing data set USER.MERGESUBSTD_1_1_1 increased size by 100.00 percent.
+INFO: 11                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data criteria1_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   set mergesubstd_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   where Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 0 observations read from the data set USER.MERGESUBSTD_1_1_1.
+INFO: WHERE Decision='remove';
+INFO: NOTE: The data set USER.CRITERIA1_1_1_1 has 0 observations and 14 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sql;
+INFO: MPRINT(PKEXCLUDESUB):   select count(*) into:obsnum1 from criteria1_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: The PROCEDURE SQL printed page 1.
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: obsnum1=       0
+INFO: criteria1_1_1_1 contain no data
+INFO: p1 p2 and percent must not be null
+INFO: MPRINT(PKEXCLUDESUB):   data criteria2_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   set result.individualpkstats(where=(PPTESTCD="AUC" or PPTESTCD="AUC0_T"));
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 32 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: WHERE PPTESTCD in ('AUC', 'AUC0_T');
+INFO: NOTE: The data set USER.CRITERIA2_1_1_1 has 32 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.CRITERIA2_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=criteria2_1_1_1 ;
+INFO: MPRINT(PKEXCLUDESUB):   by usubjid cohortdescription PPCAT treatmentinperiodtext;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 32 observations read from the data set USER.CRITERIA2_1_1_1.
+INFO: NOTE: The data set USER.CRITERIA2_1_1_1 has 32 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.CRITERIA2_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: 12                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc transpose data=criteria2_1_1_1 out=widecriteria2_1_1_1 LET;
+INFO: MPRINT(PKEXCLUDESUB):   by usubjid cohortdescription PPCAT treatmentinperiodtext;
+INFO: MPRINT(PKEXCLUDESUB):   var Orgppstresn ;
+INFO: MPRINT(PKEXCLUDESUB):   id PPTESTCD;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 32 observations read from the data set USER.CRITERIA2_1_1_1.
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_1 has 16 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE TRANSPOSE used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   AUCI_AUCT=AUC/AUC0_T;
+INFO: MPRINT(PKEXCLUDESUB):   if AUCI_AUCT> 105/100 then Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.WIDECRITERIA2_1_1_1.
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_1 has 16 observations and 9 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   where Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   drop _NAME_ AUCI_AUCT Decision;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2_1_1_1.
+INFO: WHERE Decision='remove';
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_1 has 2 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_1(where=(PPCAT ="DRUG X" ));
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2_1_1_1.
+INFO: WHERE PPCAT='DRUG X';
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_1 has 2 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 13                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sql;
+INFO: MPRINT(PKEXCLUDESUB):   select count(*) into:obsnum2 from widecriteria2_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: The PROCEDURE SQL printed page 2.
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: obsnum2=       2
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2new_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   if AUC ne . then p1=USUBJID;
+INFO: MPRINT(PKEXCLUDESUB):   drop AUC AUC0_T usubjid;
+INFO: MPRINT(PKEXCLUDESUB):   rename p1=AUC;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2_1_1_1.
+INFO: NOTE: The data set USER.WIDECRITERIA2NEW_1_1_1 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2NEW_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=widecriteria2new_1_1_1 nodupkey;
+INFO: MPRINT(PKEXCLUDESUB):   by CohortDescription PPCAT TreatmentInPeriodText AUC;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2NEW_1_1_1.
+INFO: NOTE: 0 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.WIDECRITERIA2NEW_1_1_1 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2NEW_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data criteria_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2new_1_1_1;
+INFO: MPRINT(PKEXCLUDESUB):   if cohortdescription eq "                   " then delete;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2NEW_1_1_1.
+INFO: NOTE: The data set USER.CRITERIA_1_1_1 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.CRITERIA_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data SelectedSubPK_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   set result.individualpkstats (where = ( CohortDescription = "FASTED-FED" and PPCAT ="DRUG X" and PPTESTCD = "AUC0_T" ));
+INFO: 14                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: WHERE (CohortDescription='FASTED-FED') and (PPCAT='DRUG X') and (PPTESTCD='AUC0_T');
+INFO: NOTE: The data set USER.SELECTEDSUBPK_1_1_2 has 16 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.SELECTEDSUBPK_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: SelectCohort=FASTED-FED
+INFO: SelectAnalyte=DRUG X
+INFO: SelectParameter=AUC$AUC0_T$CMAX
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=SelectedSubPK_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   by cohortnumber PPCAT PPTESTCD treatmentinperiodtext ;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SELECTEDSUBPK_1_1_2.
+INFO: NOTE: The data set USER.SELECTEDSUBPK_1_1_2 has 16 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.SELECTEDSUBPK_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: PPCAT PPTESTCD
+INFO: MPRINT(PKEXCLUDESUB):   proc summary data=SelectedSubPK_1_1_2 ;
+INFO: MPRINT(PKEXCLUDESUB):   by cohortnumber PPCAT PPTESTCD treatmentinperiodtext ;
+INFO: MPRINT(PKEXCLUDESUB):   var OrgPPSTRESN;
+INFO: MPRINT(PKEXCLUDESUB):   output out=StatsPK_1_1_2 std=std mean=mean;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SELECTEDSUBPK_1_1_2.
+INFO: NOTE: The data set USER.STATSPK_1_1_2 has 2 observations and 8 variables.
+INFO: NOTE: Compressing data set USER.STATSPK_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SUMMARY used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sql;
+INFO: MPRINT(PKEXCLUDESUB):   create table mergesubstd_1_1_2 as select a.cohortnumber, a.PPCAT , a.PPTESTCD, a.treatmentinperiodtext, b.std, b.mean, CohortDescription, USUBJID,combination,PPSTRESN, OrgPPSTRESN from SelectedSubPK_1_1_2 as a left join
+INFO: StatsPK_1_1_2 as b on a.cohortnumber=b.cohortnumber and a.PPCAT=b.PPCAT and a.PPTESTCD=b.PPTESTCD and a.treatmentinperiodtext=b.treatmentinperiodtext;
+INFO: NOTE: Compressing data set USER.MERGESUBSTD_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: Table USER.MERGESUBSTD_1_1_2 created, with 16 rows and 11 columns.
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: neither times1 nor  times2 is null , times2 is upper bound times1 is lower bound
+INFO: 15                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data mergesubstd_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   set mergesubstd_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   upperbound=mean+ 2*std;
+INFO: MPRINT(PKEXCLUDESUB):   lowerbound=mean- 2*std;
+INFO: MPRINT(PKEXCLUDESUB):   if OrgPPSTRESN>upperbound or OrgPPSTRESN<lowerbound then Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.MERGESUBSTD_1_1_2.
+INFO: NOTE: The data set USER.MERGESUBSTD_1_1_2 has 16 observations and 14 variables.
+INFO: NOTE: Compressing data set USER.MERGESUBSTD_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data criteria1_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   set mergesubstd_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   where Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 0 observations read from the data set USER.MERGESUBSTD_1_1_2.
+INFO: WHERE Decision='remove';
+INFO: NOTE: The data set USER.CRITERIA1_1_1_2 has 0 observations and 14 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sql;
+INFO: MPRINT(PKEXCLUDESUB):   select count(*) into:obsnum1 from criteria1_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: The PROCEDURE SQL printed page 3.
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: obsnum1=       0
+INFO: criteria1_1_1_2 contain no data
+INFO: p1 p2 and percent must not be null
+INFO: MPRINT(PKEXCLUDESUB):   data criteria2_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   set result.individualpkstats(where=(PPTESTCD="AUC" or PPTESTCD="AUC0_T"));
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 32 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: WHERE PPTESTCD in ('AUC', 'AUC0_T');
+INFO: NOTE: The data set USER.CRITERIA2_1_1_2 has 32 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.CRITERIA2_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=criteria2_1_1_2 ;
+INFO: MPRINT(PKEXCLUDESUB):   by usubjid cohortdescription PPCAT treatmentinperiodtext;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 16                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: NOTE: There were 32 observations read from the data set USER.CRITERIA2_1_1_2.
+INFO: NOTE: The data set USER.CRITERIA2_1_1_2 has 32 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.CRITERIA2_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc transpose data=criteria2_1_1_2 out=widecriteria2_1_1_2 LET;
+INFO: MPRINT(PKEXCLUDESUB):   by usubjid cohortdescription PPCAT treatmentinperiodtext;
+INFO: MPRINT(PKEXCLUDESUB):   var Orgppstresn ;
+INFO: MPRINT(PKEXCLUDESUB):   id PPTESTCD;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 32 observations read from the data set USER.CRITERIA2_1_1_2.
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_2 has 16 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE TRANSPOSE used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   AUCI_AUCT=AUC/AUC0_T;
+INFO: MPRINT(PKEXCLUDESUB):   if AUCI_AUCT> 105/100 then Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.WIDECRITERIA2_1_1_2.
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_2 has 16 observations and 9 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   where Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   drop _NAME_ AUCI_AUCT Decision;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2_1_1_2.
+INFO: WHERE Decision='remove';
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_2 has 2 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_2(where=(PPCAT ="DRUG X" ));
+INFO: 17                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2_1_1_2.
+INFO: WHERE PPCAT='DRUG X';
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_2 has 2 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sql;
+INFO: MPRINT(PKEXCLUDESUB):   select count(*) into:obsnum2 from widecriteria2_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: The PROCEDURE SQL printed page 4.
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: obsnum2=       2
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2new_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   if AUC ne . then p1=USUBJID;
+INFO: MPRINT(PKEXCLUDESUB):   drop AUC AUC0_T usubjid;
+INFO: MPRINT(PKEXCLUDESUB):   rename p1=AUC;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2_1_1_2.
+INFO: NOTE: The data set USER.WIDECRITERIA2NEW_1_1_2 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2NEW_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=widecriteria2new_1_1_2 nodupkey;
+INFO: MPRINT(PKEXCLUDESUB):   by CohortDescription PPCAT TreatmentInPeriodText AUC;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2NEW_1_1_2.
+INFO: NOTE: 0 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.WIDECRITERIA2NEW_1_1_2 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2NEW_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data criteria_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2new_1_1_2;
+INFO: MPRINT(PKEXCLUDESUB):   if cohortdescription eq "                   " then delete;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2NEW_1_1_2.
+INFO: 18                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: The data set USER.CRITERIA_1_1_2 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.CRITERIA_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data SelectedSubPK_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   set result.individualpkstats (where = ( CohortDescription = "FASTED-FED" and PPCAT ="DRUG X" and PPTESTCD = "CMAX" ));
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: WHERE (CohortDescription='FASTED-FED') and (PPCAT='DRUG X') and (PPTESTCD='CMAX');
+INFO: NOTE: The data set USER.SELECTEDSUBPK_1_1_3 has 16 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.SELECTEDSUBPK_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: SelectCohort=FASTED-FED
+INFO: SelectAnalyte=DRUG X
+INFO: SelectParameter=AUC$AUC0_T$CMAX
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=SelectedSubPK_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   by cohortnumber PPCAT PPTESTCD treatmentinperiodtext ;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SELECTEDSUBPK_1_1_3.
+INFO: NOTE: The data set USER.SELECTEDSUBPK_1_1_3 has 16 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.SELECTEDSUBPK_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: PPCAT PPTESTCD
+INFO: MPRINT(PKEXCLUDESUB):   proc summary data=SelectedSubPK_1_1_3 ;
+INFO: MPRINT(PKEXCLUDESUB):   by cohortnumber PPCAT PPTESTCD treatmentinperiodtext ;
+INFO: MPRINT(PKEXCLUDESUB):   var OrgPPSTRESN;
+INFO: MPRINT(PKEXCLUDESUB):   output out=StatsPK_1_1_3 std=std mean=mean;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SELECTEDSUBPK_1_1_3.
+INFO: NOTE: The data set USER.STATSPK_1_1_3 has 2 observations and 8 variables.
+INFO: NOTE: Compressing data set USER.STATSPK_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SUMMARY used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sql;
+INFO: MPRINT(PKEXCLUDESUB):   create table mergesubstd_1_1_3 as select a.cohortnumber, a.PPCAT , a.PPTESTCD, a.treatmentinperiodtext, b.std, b.mean, CohortDescription, USUBJID,combination,PPSTRESN, OrgPPSTRESN from SelectedSubPK_1_1_3 as a left join
+INFO: StatsPK_1_1_3 as b on a.cohortnumber=b.cohortnumber and a.PPCAT=b.PPCAT and a.PPTESTCD=b.PPTESTCD and a.treatmentinperiodtext=b.treatmentinperiodtext;
+INFO: NOTE: Compressing data set USER.MERGESUBSTD_1_1_3 increased size by 100.00 percent.
+INFO: 19                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: Table USER.MERGESUBSTD_1_1_3 created, with 16 rows and 11 columns.
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: neither times1 nor  times2 is null , times2 is upper bound times1 is lower bound
+INFO: MPRINT(PKEXCLUDESUB):   data mergesubstd_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   set mergesubstd_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   upperbound=mean+ 2*std;
+INFO: MPRINT(PKEXCLUDESUB):   lowerbound=mean- 2*std;
+INFO: MPRINT(PKEXCLUDESUB):   if OrgPPSTRESN>upperbound or OrgPPSTRESN<lowerbound then Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.MERGESUBSTD_1_1_3.
+INFO: NOTE: The data set USER.MERGESUBSTD_1_1_3 has 16 observations and 14 variables.
+INFO: NOTE: Compressing data set USER.MERGESUBSTD_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data criteria1_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   set mergesubstd_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   where Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 0 observations read from the data set USER.MERGESUBSTD_1_1_3.
+INFO: WHERE Decision='remove';
+INFO: NOTE: The data set USER.CRITERIA1_1_1_3 has 0 observations and 14 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sql;
+INFO: MPRINT(PKEXCLUDESUB):   select count(*) into:obsnum1 from criteria1_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: The PROCEDURE SQL printed page 5.
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: obsnum1=       0
+INFO: criteria1_1_1_3 contain no data
+INFO: p1 p2 and percent must not be null
+INFO: MPRINT(PKEXCLUDESUB):   data criteria2_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   set result.individualpkstats(where=(PPTESTCD="AUC" or PPTESTCD="AUC0_T"));
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 32 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: WHERE PPTESTCD in ('AUC', 'AUC0_T');
+INFO: NOTE: The data set USER.CRITERIA2_1_1_3 has 32 observations and 23 variables.
+INFO: 20                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Compressing data set USER.CRITERIA2_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=criteria2_1_1_3 ;
+INFO: MPRINT(PKEXCLUDESUB):   by usubjid cohortdescription PPCAT treatmentinperiodtext;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 32 observations read from the data set USER.CRITERIA2_1_1_3.
+INFO: NOTE: The data set USER.CRITERIA2_1_1_3 has 32 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.CRITERIA2_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc transpose data=criteria2_1_1_3 out=widecriteria2_1_1_3 LET;
+INFO: MPRINT(PKEXCLUDESUB):   by usubjid cohortdescription PPCAT treatmentinperiodtext;
+INFO: MPRINT(PKEXCLUDESUB):   var Orgppstresn ;
+INFO: MPRINT(PKEXCLUDESUB):   id PPTESTCD;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 32 observations read from the data set USER.CRITERIA2_1_1_3.
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_3 has 16 observations and 7 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE TRANSPOSE used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   AUCI_AUCT=AUC/AUC0_T;
+INFO: MPRINT(PKEXCLUDESUB):   if AUCI_AUCT> 105/100 then Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.WIDECRITERIA2_1_1_3.
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_3 has 16 observations and 9 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   where Decision="remove";
+INFO: MPRINT(PKEXCLUDESUB):   drop _NAME_ AUCI_AUCT Decision;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2_1_1_3.
+INFO: WHERE Decision='remove';
+INFO: 21                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_3 has 2 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_3(where=(PPCAT ="DRUG X" ));
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2_1_1_3.
+INFO: WHERE PPCAT='DRUG X';
+INFO: NOTE: The data set USER.WIDECRITERIA2_1_1_3 has 2 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sql;
+INFO: MPRINT(PKEXCLUDESUB):   select count(*) into:obsnum2 from widecriteria2_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: The PROCEDURE SQL printed page 6.
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: obsnum2=       2
+INFO: MPRINT(PKEXCLUDESUB):   data widecriteria2new_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   if AUC ne . then p1=USUBJID;
+INFO: MPRINT(PKEXCLUDESUB):   drop AUC AUC0_T usubjid;
+INFO: MPRINT(PKEXCLUDESUB):   rename p1=AUC;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2_1_1_3.
+INFO: NOTE: The data set USER.WIDECRITERIA2NEW_1_1_3 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2NEW_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=widecriteria2new_1_1_3 nodupkey;
+INFO: MPRINT(PKEXCLUDESUB):   by CohortDescription PPCAT TreatmentInPeriodText AUC;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2NEW_1_1_3.
+INFO: NOTE: 0 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.WIDECRITERIA2NEW_1_1_3 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.WIDECRITERIA2NEW_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: 22                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data criteria_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   set widecriteria2new_1_1_3;
+INFO: MPRINT(PKEXCLUDESUB):   if cohortdescription eq "                   " then delete;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.WIDECRITERIA2NEW_1_1_3.
+INFO: NOTE: The data set USER.CRITERIA_1_1_3 has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.CRITERIA_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data user.ExcludeSubject;
+INFO: MPRINT(PKEXCLUDESUB):   set criteria_1_1_1 criteria_1_1_2 criteria_1_1_3 ;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.CRITERIA_1_1_1.
+INFO: NOTE: There were 2 observations read from the data set USER.CRITERIA_1_1_2.
+INFO: NOTE: There were 2 observations read from the data set USER.CRITERIA_1_1_3.
+INFO: NOTE: The data set USER.EXCLUDESUBJECT has 6 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.EXCLUDESUBJECT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc contents data=user.ExcludeSubject varnum noprint out=varname ;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: The data set USER.VARNAME has 4 observations and 41 variables.
+INFO: NOTE: Compressing data set USER.VARNAME increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE CONTENTS used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sql noprint;
+INFO: MPRINT(PKEXCLUDESUB):   select distinct name into: varnamelist separated by " " from varname;
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: AUC CohortDescription PPCAT TreatmentInPeriodText
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=user.ExcludeSubject nodupkey;
+INFO: MPRINT(PKEXCLUDESUB):   by AUC CohortDescription PPCAT TreatmentInPeriodText;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 6 observations read from the data set USER.EXCLUDESUBJECT.
+INFO: 23                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: 4 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.EXCLUDESUBJECT has 2 observations and 4 variables.
+INFO: NOTE: Compressing data set USER.EXCLUDESUBJECT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data user.data NOLIST;
+INFO: MPRINT(PKEXCLUDESUB):   length dataset $32.;
+INFO: MPRINT(PKEXCLUDESUB):   dataset="ExcludeSubject";
+INFO: MPRINT(PKEXCLUDESUB):   output;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: The data set USER.DATA has 1 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.DATA increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: The data set USER.NOLIST has 1 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.NOLIST increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc export data=user.ExcludeSubject outfile="\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\ExcludeSubject.csv" dbms=dlm replace;
+INFO: MPRINT(PKEXCLUDESUB):   ADLM;
+INFO: MPRINT(PKEXCLUDESUB):   delimiter=',';
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: 20          /**********************************************************************
+INFO: 21          *   PRODUCT:   SAS
+INFO: 22          *   VERSION:   9.4
+INFO: 23          *   CREATOR:   External File Interface
+INFO: 24          *   DATE:      06SEP17
+INFO: 25          *   DESC:      Generated SAS Datastep Code
+INFO: 26          *   TEMPLATE SOURCE:  (None Specified.)
+INFO: 27          ***********************************************************************/
+INFO: 28             data _null_;
+INFO: MPRINT(PKEXCLUDESUB):   data _null_;
+INFO: 29             %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+INFO: 30             %let _EFIREC_ = 0;     /* clear export record count macro variable */
+INFO: 31             file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\ExcludeSubject.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+INFO: MPRINT(PKEXCLUDESUB):   file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\ExcludeSubject.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+INFO: 32             if _n_ = 1 then        /* write column names or labels */
+INFO: 33              do;
+INFO: MPRINT(PKEXCLUDESUB):   if _n_ = 1 then do;
+INFO: 34                put
+INFO: 35                   "CohortDescription"
+INFO: 36                ','
+INFO: 37                   "PPCAT"
+INFO: 38                ','
+INFO: 39                   "TreatmentInPeriodText"
+INFO: 40                ','
+INFO: 41                   "AUC"
+INFO: 42                ;
+INFO: MPRINT(PKEXCLUDESUB):   put "CohortDescription" ',' "PPCAT" ',' "TreatmentInPeriodText" ',' "AUC" ;
+INFO: 24                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: 43              end;
+INFO: MPRINT(PKEXCLUDESUB):   end;
+INFO: 44            set  USER.EXCLUDESUBJECT   end=EFIEOD;
+INFO: MPRINT(PKEXCLUDESUB):   set USER.EXCLUDESUBJECT end=EFIEOD;
+INFO: 45                format CohortDescription $500. ;
+INFO: MPRINT(PKEXCLUDESUB):   format CohortDescription $500. ;
+INFO: 46                format PPCAT $9. ;
+INFO: MPRINT(PKEXCLUDESUB):   format PPCAT $9. ;
+INFO: 47                format TreatmentInPeriodText $200. ;
+INFO: MPRINT(PKEXCLUDESUB):   format TreatmentInPeriodText $200. ;
+INFO: 48                format AUC $200. ;
+INFO: MPRINT(PKEXCLUDESUB):   format AUC $200. ;
+INFO: 49              do;
+INFO: MPRINT(PKEXCLUDESUB):   do;
+INFO: 50                EFIOUT + 1;
+INFO: MPRINT(PKEXCLUDESUB):   EFIOUT + 1;
+INFO: 51                put CohortDescription $ @;
+INFO: MPRINT(PKEXCLUDESUB):   put CohortDescription $ @;
+INFO: 52                put PPCAT $ @;
+INFO: MPRINT(PKEXCLUDESUB):   put PPCAT $ @;
+INFO: 53                put TreatmentInPeriodText $ @;
+INFO: MPRINT(PKEXCLUDESUB):   put TreatmentInPeriodText $ @;
+INFO: 54                put AUC $ ;
+INFO: MPRINT(PKEXCLUDESUB):   put AUC $ ;
+INFO: 55                ;
+INFO: MPRINT(PKEXCLUDESUB):   ;
+INFO: 56              end;
+INFO: MPRINT(PKEXCLUDESUB):   end;
+INFO: 57             if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+INFO: MPRINT(PKEXCLUDESUB):   if _ERROR_ then call symputx('_EFIERR_',1);
+INFO: 58             if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+INFO: MPRINT(PKEXCLUDESUB):   if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+INFO: 59             run;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: The file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\ExcludeSubject.csv' is:
+INFO: Filename=\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\ExcludeSubject.csv,
+INFO: RECFM=V,LRECL=32767,File Size (bytes)=0,
+INFO: Last Modified=06Sep2017:11:55:32,
+INFO: Create Time=06Sep2017:11:54:58
+INFO: 
+INFO: NOTE: 3 records were written to the file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\ExcludeSubject.csv'.
+INFO: The minimum record length was 38.
+INFO: The maximum record length was 49.
+INFO: NOTE: There were 2 observations read from the data set USER.EXCLUDESUBJECT.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: 2 records created in \\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\ExcludeSubject.csv from USER.EXCLUDESUBJECT.
+INFO: 
+INFO: 
+INFO: NOTE: "\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\ExcludeSubject.csv" file was successfully created.
+INFO: NOTE: PROCEDURE EXPORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 25                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):    ;
+INFO: MPRINT(PKEXCLUDESUB):   proc sql;
+INFO: MPRINT(PKEXCLUDESUB):   select count(*) into:obsnum from user.ExcludeSubject;
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: The PROCEDURE SQL printed page 7.
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: obsnum=       2
+INFO: MPRINT(PKEXCLUDESUB):   proc contents data=user.excludesubject varnum noprint out=user.excludeParam;
+INFO: MPRINT(PKEXCLUDESUB):  run;
+INFO: 
+INFO: NOTE: The data set USER.EXCLUDEPARAM has 4 observations and 41 variables.
+INFO: NOTE: Compressing data set USER.EXCLUDEPARAM increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE CONTENTS used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data user.excludeparam1;
+INFO: MPRINT(PKEXCLUDESUB):   set user.excludeparam;
+INFO: MPRINT(PKEXCLUDESUB):   where name ne "PPCAT" and name ne "CohortDescription" and name ne "TreatmentInPeriodText";
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.EXCLUDEPARAM.
+INFO: WHERE name not in ('CohortDescription', 'PPCAT', 'TreatmentInPeriodText');
+INFO: NOTE: The data set USER.EXCLUDEPARAM1 has 1 observations and 41 variables.
+INFO: NOTE: Compressing data set USER.EXCLUDEPARAM1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sql noprint ;
+INFO: MPRINT(PKEXCLUDESUB):   select distinct name into:arraylist separated by " " from user.excludeparam1;
+INFO: MPRINT(PKEXCLUDESUB):   select distinct name into: excludedparamlist separated by "$" from user.excludeparam1;
+INFO: MPRINT(PKEXCLUDESUB):   select count(distinct(name)) into: number from user.excludeparam1;
+INFO: MPRINT(PKEXCLUDESUB):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: excludeparamlist=AUC
+INFO: arraylist=AUC
+INFO: number=       1
+INFO: MPRINT(PKEXCLUDESUB):   data user.toremove;
+INFO: MPRINT(PKEXCLUDESUB):   length usubjid pptestcd $ 200 ;
+INFO: MPRINT(PKEXCLUDESUB):   set user.excludesubject;
+INFO: MPRINT(PKEXCLUDESUB):   array n[ 1] AUC;
+INFO: MPRINT(PKEXCLUDESUB):   USUBJID=n[1];
+INFO: MPRINT(PKEXCLUDESUB):   PPTESTCD= "AUC";
+INFO: MPRINT(PKEXCLUDESUB):   output;
+INFO: 26                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.EXCLUDESUBJECT.
+INFO: NOTE: The data set USER.TOREMOVE has 2 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.TOREMOVE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data user.subtoremove;
+INFO: MPRINT(PKEXCLUDESUB):   set user.toremove;
+INFO: MPRINT(PKEXCLUDESUB):   if usubjid eq "                           " then delete;
+INFO: MPRINT(PKEXCLUDESUB):   drop AUC;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.TOREMOVE.
+INFO: NOTE: The data set USER.SUBTOREMOVE has 2 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.SUBTOREMOVE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=user.subtoremove;
+INFO: MPRINT(PKEXCLUDESUB):   by CohortDescription PPCAT PPTESTCD TreatmentInPeriodText usubjid;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.SUBTOREMOVE.
+INFO: NOTE: The data set USER.SUBTOREMOVE has 2 observations and 5 variables.
+INFO: NOTE: Compressing data set USER.SUBTOREMOVE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   proc sort data=result.individualpkstats;
+INFO: MPRINT(PKEXCLUDESUB):   by CohortDescription PPCAT PPTESTCD TreatmentInPeriodText usubjid;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 80 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: NOTE: The data set RESULT.INDIVIDUALPKSTATS has 80 observations and 23 variables.
+INFO: NOTE: Compressing data set RESULT.INDIVIDUALPKSTATS decreased size by 33.33 percent.
+INFO: Compressed is 2 pages; un-compressed would require 3 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKEXCLUDESUB):   data user.removedinput;
+INFO: MPRINT(PKEXCLUDESUB):   merge user.subtoremove(in=a) result.individualpkstats(in=b);
+INFO: MPRINT(PKEXCLUDESUB):   by CohortDescription PPCAT PPTESTCD TreatmentInPeriodText usubjid;
+INFO: MPRINT(PKEXCLUDESUB):   if b and not a;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: 27                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.SUBTOREMOVE.
+INFO: NOTE: There were 80 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: NOTE: The data set USER.REMOVEDINPUT has 78 observations and 23 variables.
+INFO: NOTE: Compressing data set USER.REMOVEDINPUT decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: user input data to exclude subject ends
+INFO: MPRINT(PKEXCLUDESUB):   data result.removedinput;
+INFO: MPRINT(PKEXCLUDESUB):   set user.removedinput;
+INFO: MPRINT(PKEXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 78 observations read from the data set USER.REMOVEDINPUT.
+INFO: NOTE: The data set RESULT.REMOVEDINPUT has 78 observations and 23 variables.
+INFO: NOTE: Compressing data set RESULT.REMOVEDINPUT decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: meng gets studydesign:CROSSOVER
+INFO: obsnum=       2
+INFO: MPRINT(SUBINEXPLOT):   data includesub;
+INFO: MPRINT(SUBINEXPLOT):   merge user.subtoremove(in=a) result.individualpkstats(in=b);
+INFO: MPRINT(SUBINEXPLOT):   by CohortDescription PPCAT PPTESTCD TreatmentInPeriodText usubjid;
+INFO: MPRINT(SUBINEXPLOT):   if b and not a;
+INFO: MPRINT(SUBINEXPLOT):   category="include";
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.SUBTOREMOVE.
+INFO: NOTE: There were 80 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: NOTE: The data set USER.INCLUDESUB has 78 observations and 24 variables.
+INFO: NOTE: Compressing data set USER.INCLUDESUB decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   data excludesub;
+INFO: MPRINT(SUBINEXPLOT):   merge includesub(in=a) result.individualpkstats(in=b);
+INFO: MPRINT(SUBINEXPLOT):   by CohortDescription PPCAT PPTESTCD TreatmentInPeriodText usubjid;
+INFO: MPRINT(SUBINEXPLOT):   if b and not a;
+INFO: MPRINT(SUBINEXPLOT):   category="exclude";
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 78 observations read from the data set USER.INCLUDESUB.
+INFO: NOTE: There were 80 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: NOTE: The data set USER.EXCLUDESUB has 2 observations and 24 variables.
+INFO: NOTE: Compressing data set USER.EXCLUDESUB increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 28                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   data plotsub;
+INFO: MPRINT(SUBINEXPLOT):   set includesub excludesub;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 78 observations read from the data set USER.INCLUDESUB.
+INFO: NOTE: There were 2 observations read from the data set USER.EXCLUDESUB.
+INFO: NOTE: The data set USER.PLOTSUB has 80 observations and 24 variables.
+INFO: NOTE: Compressing data set USER.PLOTSUB decreased size by 33.33 percent.
+INFO: Compressed is 2 pages; un-compressed would require 3 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sql noprint;
+INFO: MPRINT(SUBINEXPLOT):   select distinct treatmentinperiodtext into: trtlist separated by "$" from plotsub;
+INFO: MPRINT(SUBINEXPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: trtlist=FASTED$FED
+INFO: MPRINT(SUBINEXPLOT):   data plotsub;
+INFO: MPRINT(SUBINEXPLOT):   set plotsub;
+INFO: MPRINT(SUBINEXPLOT):   if Treatmentinperiodtext="FASTED" then trtformat="TRT1";
+INFO: MPRINT(SUBINEXPLOT):   if Treatmentinperiodtext="FED" then trtformat="TRT2";
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 80 observations read from the data set USER.PLOTSUB.
+INFO: NOTE: The data set USER.PLOTSUB has 80 observations and 25 variables.
+INFO: NOTE: Compressing data set USER.PLOTSUB decreased size by 33.33 percent.
+INFO: Compressed is 2 pages; un-compressed would require 3 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sort data=plotsub;
+INFO: MPRINT(SUBINEXPLOT):   by category cohortdescription PPCAT PPTESTCD combination usubjid;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 80 observations read from the data set USER.PLOTSUB.
+INFO: NOTE: The data set USER.PLOTSUB has 80 observations and 25 variables.
+INFO: NOTE: Compressing data set USER.PLOTSUB decreased size by 33.33 percent.
+INFO: Compressed is 2 pages; un-compressed would require 3 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc transpose data=plotsub out=plotsubwide_org let;
+INFO: MPRINT(SUBINEXPLOT):   by category CohortDescription PPCAT PPTESTCD combination usubjid;
+INFO: MPRINT(SUBINEXPLOT):   id trtformat;
+INFO: MPRINT(SUBINEXPLOT):   var orgppstresn;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 29                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: NOTE: There were 80 observations read from the data set USER.PLOTSUB.
+INFO: NOTE: The data set USER.PLOTSUBWIDE_ORG has 42 observations and 9 variables.
+INFO: NOTE: Compressing data set USER.PLOTSUBWIDE_ORG increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE TRANSPOSE used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   data plotsub_nocat;
+INFO: MPRINT(SUBINEXPLOT):   set plotsub;
+INFO: MPRINT(SUBINEXPLOT):   drop category;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 80 observations read from the data set USER.PLOTSUB.
+INFO: NOTE: The data set USER.PLOTSUB_NOCAT has 80 observations and 24 variables.
+INFO: NOTE: Compressing data set USER.PLOTSUB_NOCAT decreased size by 33.33 percent.
+INFO: Compressed is 2 pages; un-compressed would require 3 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sort data=plotsub_nocat;
+INFO: MPRINT(SUBINEXPLOT):   by cohortdescription PPCAT PPTESTCD combination usubjid;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 80 observations read from the data set USER.PLOTSUB_NOCAT.
+INFO: NOTE: The data set USER.PLOTSUB_NOCAT has 80 observations and 24 variables.
+INFO: NOTE: Compressing data set USER.PLOTSUB_NOCAT decreased size by 33.33 percent.
+INFO: Compressed is 2 pages; un-compressed would require 3 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc transpose data=plotsub_nocat out=plotsubwide_nocat let;
+INFO: MPRINT(SUBINEXPLOT):   by CohortDescription PPCAT PPTESTCD combination usubjid;
+INFO: MPRINT(SUBINEXPLOT):   id trtformat;
+INFO: MPRINT(SUBINEXPLOT):   var orgppstresn;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 80 observations read from the data set USER.PLOTSUB_NOCAT.
+INFO: NOTE: The data set USER.PLOTSUBWIDE_NOCAT has 40 observations and 8 variables.
+INFO: NOTE: Compressing data set USER.PLOTSUBWIDE_NOCAT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE TRANSPOSE used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   data allinclude;
+INFO: MPRINT(SUBINEXPLOT):   set plotsubwide_org;
+INFO: MPRINT(SUBINEXPLOT):   where category="include";
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 40 observations read from the data set USER.PLOTSUBWIDE_ORG.
+INFO: 30                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: WHERE category='include';
+INFO: NOTE: The data set USER.ALLINCLUDE has 40 observations and 9 variables.
+INFO: NOTE: Compressing data set USER.ALLINCLUDE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   data allexclude;
+INFO: MPRINT(SUBINEXPLOT):   set plotsubwide_org;
+INFO: MPRINT(SUBINEXPLOT):   where category="exclude";
+INFO: MPRINT(SUBINEXPLOT):   keep CohortDescription PPCAT PPTESTCD combination usubjid _NAME_;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.PLOTSUBWIDE_ORG.
+INFO: WHERE category='exclude';
+INFO: NOTE: The data set USER.ALLEXCLUDE has 2 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.ALLEXCLUDE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sort data=plotsubwide_nocat;
+INFO: MPRINT(SUBINEXPLOT):   by usubjid CohortDescription PPCAT PPTESTCD combination ;
+INFO: NOTE: There were 40 observations read from the data set USER.PLOTSUBWIDE_NOCAT.
+INFO: NOTE: The data set USER.PLOTSUBWIDE_NOCAT has 40 observations and 8 variables.
+INFO: NOTE: Compressing data set USER.PLOTSUBWIDE_NOCAT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sort data=allexclude;
+INFO: MPRINT(SUBINEXPLOT):   by usubjid CohortDescription PPCAT PPTESTCD combination ;
+INFO: NOTE: There were 2 observations read from the data set USER.ALLEXCLUDE.
+INFO: NOTE: The data set USER.ALLEXCLUDE has 2 observations and 6 variables.
+INFO: NOTE: Compressing data set USER.ALLEXCLUDE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   data allexclude_new;
+INFO: MPRINT(SUBINEXPLOT):   merge plotsubwide_nocat(in=a) allexclude(in=b);
+INFO: MPRINT(SUBINEXPLOT):   by usubjid CohortDescription PPCAT PPTESTCD combination ;
+INFO: MPRINT(SUBINEXPLOT):   if b;
+INFO: MPRINT(SUBINEXPLOT):   category="exclude";
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 40 observations read from the data set USER.PLOTSUBWIDE_NOCAT.
+INFO: NOTE: There were 2 observations read from the data set USER.ALLEXCLUDE.
+INFO: NOTE: The data set USER.ALLEXCLUDE_NEW has 2 observations and 9 variables.
+INFO: NOTE: Compressing data set USER.ALLEXCLUDE_NEW increased size by 100.00 percent.
+INFO: 31                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   data plotsubwide;
+INFO: MPRINT(SUBINEXPLOT):   set allexclude_new allinclude;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: NOTE: There were 2 observations read from the data set USER.ALLEXCLUDE_NEW.
+INFO: NOTE: There were 40 observations read from the data set USER.ALLINCLUDE.
+INFO: NOTE: The data set USER.PLOTSUBWIDE has 42 observations and 9 variables.
+INFO: NOTE: Compressing data set USER.PLOTSUBWIDE increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   data plotsubwide12;
+INFO: MPRINT(SUBINEXPLOT):   set plotsubwide;
+INFO: MPRINT(SUBINEXPLOT):   Comparison1="FASTED ~vs~ FED";
+INFO: MPRINT(SUBINEXPLOT):   SubRatio1=TRT1/TRT2;
+INFO: MPRINT(SUBINEXPLOT):   Comparison2="FED ~vs~ FASTED";
+INFO: MPRINT(SUBINEXPLOT):   SubRatio2=TRT2/TRT1;
+INFO: MPRINT(SUBINEXPLOT):   drop _name_ _label_;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+WARNING: WARNING: The variable _label_ in the DROP, KEEP, or RENAME list has never been referenced.
+INFO: NOTE: Missing values were generated as a result of performing an operation on missing values.
+INFO: Each place is given by: (Number of times) at (Line):(Column).
+INFO: 2 at 59:241   2 at 59:149
+INFO: NOTE: There were 42 observations read from the data set USER.PLOTSUBWIDE.
+INFO: NOTE: The data set USER.PLOTSUBWIDE12 has 42 observations and 12 variables.
+INFO: NOTE: Compressing data set USER.PLOTSUBWIDE12 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   data SubInEx;
+INFO: MPRINT(SUBINEXPLOT):   set plotsubwide12;
+INFO: MPRINT(SUBINEXPLOT):   if SubRatio1 eq . then delete;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 42 observations read from the data set USER.PLOTSUBWIDE12.
+INFO: NOTE: The data set USER.SUBINEX has 40 observations and 12 variables.
+INFO: NOTE: Compressing data set USER.SUBINEX increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   data SubInEx;
+INFO: MPRINT(SUBINEXPLOT):   length label $16.;
+INFO: MPRINT(SUBINEXPLOT):   set SubInEx;
+INFO: 32                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   sublength=length(usubjid);
+INFO: MPRINT(SUBINEXPLOT):   if sublength gt 16 then do;
+INFO: MPRINT(SUBINEXPLOT):   labelID=substr(usubjid,length(usubjid)-15,16);
+INFO: MPRINT(SUBINEXPLOT):   if substr(labelID,1,1)="-" or substr(labelID,1,1)="_" then labelID=substr(labelID,length(labelID)-14,15);
+INFO: MPRINT(SUBINEXPLOT):   end;
+INFO: MPRINT(SUBINEXPLOT):   else do;
+INFO: MPRINT(SUBINEXPLOT):   labelID=usubjid;
+INFO: MPRINT(SUBINEXPLOT):   end;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: Variable label is uninitialized.
+INFO: NOTE: There were 40 observations read from the data set USER.SUBINEX.
+INFO: NOTE: The data set USER.SUBINEX has 40 observations and 15 variables.
+INFO: NOTE: Compressing data set USER.SUBINEX increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   data SubInExPlot;
+INFO: MPRINT(SUBINEXPLOT):   set SubInEx;
+INFO: MPRINT(SUBINEXPLOT):   array comp(2) comparison1 comparison2;
+INFO: MPRINT(SUBINEXPLOT):   array rt(2) subratio1 subratio2;
+INFO: MPRINT(SUBINEXPLOT):   do i=1 to 2;
+INFO: MPRINT(SUBINEXPLOT):   comparison=comp(i);
+INFO: MPRINT(SUBINEXPLOT):   subratio=rt(i);
+INFO: MPRINT(SUBINEXPLOT):   output;
+INFO: MPRINT(SUBINEXPLOT):   end;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 40 observations read from the data set USER.SUBINEX.
+INFO: NOTE: The data set USER.SUBINEXPLOT has 80 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.SUBINEXPLOT decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sql noprint;
+INFO: MPRINT(SUBINEXPLOT):   select distinct CohortDescription into : cohortforplot separated by "$" from SubInExPlot;
+INFO: MPRINT(SUBINEXPLOT):   select distinct PPCAT into : analyteforplot separated by "$" from SubInExPlot;
+INFO: MPRINT(SUBINEXPLOT):   select distinct PPTESTCD into : parametersforplot separated by "$" from SubInExPlot;
+INFO: MPRINT(SUBINEXPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: parametersforplot=AUC$AUC0_T$CMAX$THALF$TMAX cohort for plot is FASTED-FED , analyte for plot is DRUG X
+INFO: MPRINT(SUBINEXPLOT):   data SubInExPlot_1_1_1;
+INFO: MPRINT(SUBINEXPLOT):   set SubInExPlot;
+INFO: MPRINT(SUBINEXPLOT):   where CohortDescription="FASTED-FED" and PPCAT="DRUG X" and PPTESTCD ="AUC" ;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT.
+INFO: WHERE (CohortDescription='FASTED-FED') and (PPCAT='DRUG X') and (PPTESTCD='AUC');
+INFO: 33                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: The data set USER.SUBINEXPLOT_1_1_1 has 16 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.SUBINEXPLOT_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sql noprint;
+INFO: MPRINT(SUBINEXPLOT):   select distinct combination into : combgroup separated by "$" from SubInExPlot_1_1_1;
+INFO: MPRINT(SUBINEXPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: combgroup=FED ~vs~ FASTED in  SubInExPlot_1_1_1
+INFO: MPRINT(SUBINEXPLOT):   data SubInExPlot_1_1_1_1;
+INFO: MPRINT(SUBINEXPLOT):   set SubInExPlot_1_1_1;
+INFO: MPRINT(SUBINEXPLOT):   where combination="FED ~vs~ FASTED";
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT_1_1_1.
+INFO: WHERE combination='FED ~vs~ FASTED';
+INFO: NOTE: The data set USER.SUBINEXPLOT_1_1_1_1 has 16 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.SUBINEXPLOT_1_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: meng is here to debug output folder
+INFO: NOTE: The directory has been created at C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table
+INFO: NOTE: Value of folderpath = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory has been created at C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio
+INFO: NOTE: Value of folderpath = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory has been created at C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1
+INFO: NOTE: Value of folderpath = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory has been created at C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X
+INFO: NOTE: Value of folderpath = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory has been created at C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\AUC
+INFO: NOTE: Value of folderpath = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\AUC
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: MPRINT(SUBINEXPLOT):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\AUC" style=statistical sge=on;
+INFO: MPRINT(SUBINEXPLOT):   ods graphics on / imagename = "SubInExPlot_1_1_1_1" noborder height=2300 width=2500 ;
+INFO: MPRINT(SUBINEXPLOT):   filename grafout "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\AUC\SubInExPlot_1_1_1_1.jpeg";
+INFO: NOTE: No units specified for the HSIZE option.  INCHES will be used.
+INFO: MPRINT(SUBINEXPLOT):   goptions reset=all gsfname=grafout gsfmode=replace device=JPEG hsize=15 vsize=12;
+INFO: NOTE: No units specified for the VSIZE option.  INCHES will be used.
+INFO: MPRINT(SUBINEXPLOT):   title "Include and Exclude Subject Ratio ";
+INFO: MPRINT(SUBINEXPLOT):   title1 "Cohort:FASTED-FED";
+INFO: MPRINT(SUBINEXPLOT):   title2 "Analyte:DRUG X";
+INFO: MPRINT(SUBINEXPLOT):   title3 "Parameter: AUC";
+INFO: 34                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sgpanel data=SubInExPlot_1_1_1_1 noautolegend;
+INFO: MPRINT(SUBINEXPLOT):   panelby comparison/novarname layout=columnlattice;
+INFO: MPRINT(SUBINEXPLOT):   scatter x=category y=subratio/markerattrs=(symbol=circle size=5 color=blue) datalabel=labelID;
+INFO: MPRINT(SUBINEXPLOT):   rowaxis grid offsetmin=0 label="Subject Ratio" valueattrs=(size=10);
+INFO: MPRINT(SUBINEXPLOT):   colaxis grid label="Category" valueattrs=(size=10);
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: Compressing data set USER._SGSORT_ increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SGPANEL used (Total process time):
+INFO: real time           0.31 seconds
+INFO: cpu time            0.14 seconds
+INFO: 
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\AUC\SubInExPlot_1_1_1_1.png.
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT_1_1_1_1.
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   ods listing sge=off;
+INFO: MPRINT(SUBINEXPLOT):   ods graphics off;
+INFO: MPRINT(SUBINEXPLOT):   data SubInExPlot_1_1_2;
+INFO: MPRINT(SUBINEXPLOT):   set SubInExPlot;
+INFO: MPRINT(SUBINEXPLOT):   where CohortDescription="FASTED-FED" and PPCAT="DRUG X" and PPTESTCD ="AUC0_T" ;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT.
+INFO: WHERE (CohortDescription='FASTED-FED') and (PPCAT='DRUG X') and (PPTESTCD='AUC0_T');
+INFO: NOTE: The data set USER.SUBINEXPLOT_1_1_2 has 16 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.SUBINEXPLOT_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sql noprint;
+INFO: MPRINT(SUBINEXPLOT):   select distinct combination into : combgroup separated by "$" from SubInExPlot_1_1_2;
+INFO: MPRINT(SUBINEXPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: combgroup=FED ~vs~ FASTED in  SubInExPlot_1_1_2
+INFO: MPRINT(SUBINEXPLOT):   data SubInExPlot_1_1_2_1;
+INFO: MPRINT(SUBINEXPLOT):   set SubInExPlot_1_1_2;
+INFO: MPRINT(SUBINEXPLOT):   where combination="FED ~vs~ FASTED";
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT_1_1_2.
+INFO: WHERE combination='FED ~vs~ FASTED';
+INFO: NOTE: The data set USER.SUBINEXPLOT_1_1_2_1 has 16 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.SUBINEXPLOT_1_1_2_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: meng is here to debug output folder
+INFO: 35                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory has been created at C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\AUC0_T
+INFO: NOTE: Value of folderpath = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\AUC0_T
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: MPRINT(SUBINEXPLOT):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\AUC0_T" style=statistical sge=on;
+INFO: MPRINT(SUBINEXPLOT):   ods graphics on / imagename = "SubInExPlot_1_1_2_1" noborder height=2300 width=2500 ;
+INFO: MPRINT(SUBINEXPLOT):   filename grafout "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\AUC0_T\SubInExPlot_1_1_2_1.jpeg";
+INFO: NOTE: No units specified for the HSIZE option.  INCHES will be used.
+INFO: MPRINT(SUBINEXPLOT):   goptions reset=all gsfname=grafout gsfmode=replace device=JPEG hsize=15 vsize=12;
+INFO: NOTE: No units specified for the VSIZE option.  INCHES will be used.
+INFO: MPRINT(SUBINEXPLOT):   title "Include and Exclude Subject Ratio ";
+INFO: MPRINT(SUBINEXPLOT):   title1 "Cohort:FASTED-FED";
+INFO: MPRINT(SUBINEXPLOT):   title2 "Analyte:DRUG X";
+INFO: MPRINT(SUBINEXPLOT):   title3 "Parameter: AUC0_T";
+INFO: MPRINT(SUBINEXPLOT):   proc sgpanel data=SubInExPlot_1_1_2_1 noautolegend;
+INFO: MPRINT(SUBINEXPLOT):   panelby comparison/novarname layout=columnlattice;
+INFO: MPRINT(SUBINEXPLOT):   scatter x=category y=subratio/markerattrs=(symbol=circle size=5 color=blue) datalabel=labelID;
+INFO: MPRINT(SUBINEXPLOT):   rowaxis grid offsetmin=0 label="Subject Ratio" valueattrs=(size=10);
+INFO: MPRINT(SUBINEXPLOT):   colaxis grid label="Category" valueattrs=(size=10);
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: Compressing data set USER._SGSORT_ increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SGPANEL used (Total process time):
+INFO: real time           0.26 seconds
+INFO: cpu time            0.15 seconds
+INFO: 
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\AUC0_T\SubInExPlot_1_1_2_1.png.
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT_1_1_2_1.
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   ods listing sge=off;
+INFO: MPRINT(SUBINEXPLOT):   ods graphics off;
+INFO: MPRINT(SUBINEXPLOT):   data SubInExPlot_1_1_3;
+INFO: MPRINT(SUBINEXPLOT):   set SubInExPlot;
+INFO: MPRINT(SUBINEXPLOT):   where CohortDescription="FASTED-FED" and PPCAT="DRUG X" and PPTESTCD ="CMAX" ;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT.
+INFO: WHERE (CohortDescription='FASTED-FED') and (PPCAT='DRUG X') and (PPTESTCD='CMAX');
+INFO: NOTE: The data set USER.SUBINEXPLOT_1_1_3 has 16 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.SUBINEXPLOT_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sql noprint;
+INFO: MPRINT(SUBINEXPLOT):   select distinct combination into : combgroup separated by "$" from SubInExPlot_1_1_3;
+INFO: MPRINT(SUBINEXPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: 36                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: combgroup=FED ~vs~ FASTED in  SubInExPlot_1_1_3
+INFO: MPRINT(SUBINEXPLOT):   data SubInExPlot_1_1_3_1;
+INFO: MPRINT(SUBINEXPLOT):   set SubInExPlot_1_1_3;
+INFO: MPRINT(SUBINEXPLOT):   where combination="FED ~vs~ FASTED";
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT_1_1_3.
+INFO: WHERE combination='FED ~vs~ FASTED';
+INFO: NOTE: The data set USER.SUBINEXPLOT_1_1_3_1 has 16 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.SUBINEXPLOT_1_1_3_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: meng is here to debug output folder
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory has been created at C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\CMAX
+INFO: NOTE: Value of folderpath = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\CMAX
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: MPRINT(SUBINEXPLOT):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\CMAX" style=statistical sge=on;
+INFO: MPRINT(SUBINEXPLOT):   ods graphics on / imagename = "SubInExPlot_1_1_3_1" noborder height=2300 width=2500 ;
+INFO: MPRINT(SUBINEXPLOT):   filename grafout "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\CMAX\SubInExPlot_1_1_3_1.jpeg";
+INFO: NOTE: No units specified for the HSIZE option.  INCHES will be used.
+INFO: MPRINT(SUBINEXPLOT):   goptions reset=all gsfname=grafout gsfmode=replace device=JPEG hsize=15 vsize=12;
+INFO: NOTE: No units specified for the VSIZE option.  INCHES will be used.
+INFO: MPRINT(SUBINEXPLOT):   title "Include and Exclude Subject Ratio ";
+INFO: MPRINT(SUBINEXPLOT):   title1 "Cohort:FASTED-FED";
+INFO: MPRINT(SUBINEXPLOT):   title2 "Analyte:DRUG X";
+INFO: MPRINT(SUBINEXPLOT):   title3 "Parameter: CMAX";
+INFO: MPRINT(SUBINEXPLOT):   proc sgpanel data=SubInExPlot_1_1_3_1 noautolegend;
+INFO: MPRINT(SUBINEXPLOT):   panelby comparison/novarname layout=columnlattice;
+INFO: MPRINT(SUBINEXPLOT):   scatter x=category y=subratio/markerattrs=(symbol=circle size=5 color=blue) datalabel=labelID;
+INFO: MPRINT(SUBINEXPLOT):   rowaxis grid offsetmin=0 label="Subject Ratio" valueattrs=(size=10);
+INFO: MPRINT(SUBINEXPLOT):   colaxis grid label="Category" valueattrs=(size=10);
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: Compressing data set USER._SGSORT_ increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SGPANEL used (Total process time):
+INFO: real time           0.29 seconds
+INFO: cpu time            0.17 seconds
+INFO: 
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\CMAX\SubInExPlot_1_1_3_1.png.
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT_1_1_3_1.
+INFO: 
+INFO: 37                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   ods listing sge=off;
+INFO: MPRINT(SUBINEXPLOT):   ods graphics off;
+INFO: MPRINT(SUBINEXPLOT):   data SubInExPlot_1_1_4;
+INFO: MPRINT(SUBINEXPLOT):   set SubInExPlot;
+INFO: MPRINT(SUBINEXPLOT):   where CohortDescription="FASTED-FED" and PPCAT="DRUG X" and PPTESTCD ="THALF" ;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT.
+INFO: WHERE (CohortDescription='FASTED-FED') and (PPCAT='DRUG X') and (PPTESTCD='THALF');
+INFO: NOTE: The data set USER.SUBINEXPLOT_1_1_4 has 16 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.SUBINEXPLOT_1_1_4 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sql noprint;
+INFO: MPRINT(SUBINEXPLOT):   select distinct combination into : combgroup separated by "$" from SubInExPlot_1_1_4;
+INFO: MPRINT(SUBINEXPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: combgroup=FED ~vs~ FASTED in  SubInExPlot_1_1_4
+INFO: MPRINT(SUBINEXPLOT):   data SubInExPlot_1_1_4_1;
+INFO: MPRINT(SUBINEXPLOT):   set SubInExPlot_1_1_4;
+INFO: MPRINT(SUBINEXPLOT):   where combination="FED ~vs~ FASTED";
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT_1_1_4.
+INFO: WHERE combination='FED ~vs~ FASTED';
+INFO: NOTE: The data set USER.SUBINEXPLOT_1_1_4_1 has 16 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.SUBINEXPLOT_1_1_4_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: meng is here to debug output folder
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory has been created at C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\THALF
+INFO: NOTE: Value of folderpath = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\THALF
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: MPRINT(SUBINEXPLOT):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\THALF" style=statistical sge=on;
+INFO: MPRINT(SUBINEXPLOT):   ods graphics on / imagename = "SubInExPlot_1_1_4_1" noborder height=2300 width=2500 ;
+INFO: MPRINT(SUBINEXPLOT):   filename grafout "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\THALF\SubInExPlot_1_1_4_1.jpeg";
+INFO: NOTE: No units specified for the HSIZE option.  INCHES will be used.
+INFO: MPRINT(SUBINEXPLOT):   goptions reset=all gsfname=grafout gsfmode=replace device=JPEG hsize=15 vsize=12;
+INFO: 38                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: No units specified for the VSIZE option.  INCHES will be used.
+INFO: MPRINT(SUBINEXPLOT):   title "Include and Exclude Subject Ratio ";
+INFO: MPRINT(SUBINEXPLOT):   title1 "Cohort:FASTED-FED";
+INFO: MPRINT(SUBINEXPLOT):   title2 "Analyte:DRUG X";
+INFO: MPRINT(SUBINEXPLOT):   title3 "Parameter: THALF";
+INFO: MPRINT(SUBINEXPLOT):   proc sgpanel data=SubInExPlot_1_1_4_1 noautolegend;
+INFO: MPRINT(SUBINEXPLOT):   panelby comparison/novarname layout=columnlattice;
+INFO: MPRINT(SUBINEXPLOT):   scatter x=category y=subratio/markerattrs=(symbol=circle size=5 color=blue) datalabel=labelID;
+INFO: MPRINT(SUBINEXPLOT):   rowaxis grid offsetmin=0 label="Subject Ratio" valueattrs=(size=10);
+INFO: MPRINT(SUBINEXPLOT):   colaxis grid label="Category" valueattrs=(size=10);
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: Compressing data set USER._SGSORT_ increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SGPANEL used (Total process time):
+INFO: real time           0.27 seconds
+INFO: cpu time            0.15 seconds
+INFO: 
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\THALF\SubInExPlot_1_1_4_1.png.
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT_1_1_4_1.
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   ods listing sge=off;
+INFO: MPRINT(SUBINEXPLOT):   ods graphics off;
+INFO: MPRINT(SUBINEXPLOT):   data SubInExPlot_1_1_5;
+INFO: MPRINT(SUBINEXPLOT):   set SubInExPlot;
+INFO: MPRINT(SUBINEXPLOT):   where CohortDescription="FASTED-FED" and PPCAT="DRUG X" and PPTESTCD ="TMAX" ;
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT.
+INFO: WHERE (CohortDescription='FASTED-FED') and (PPCAT='DRUG X') and (PPTESTCD='TMAX');
+INFO: NOTE: The data set USER.SUBINEXPLOT_1_1_5 has 16 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.SUBINEXPLOT_1_1_5 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   proc sql noprint;
+INFO: MPRINT(SUBINEXPLOT):   select distinct combination into : combgroup separated by "$" from SubInExPlot_1_1_5;
+INFO: MPRINT(SUBINEXPLOT):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: combgroup=FED ~vs~ FASTED in  SubInExPlot_1_1_5
+INFO: MPRINT(SUBINEXPLOT):   data SubInExPlot_1_1_5_1;
+INFO: MPRINT(SUBINEXPLOT):   set SubInExPlot_1_1_5;
+INFO: MPRINT(SUBINEXPLOT):   where combination="FED ~vs~ FASTED";
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT_1_1_5.
+INFO: WHERE combination='FED ~vs~ FASTED';
+INFO: NOTE: The data set USER.SUBINEXPLOT_1_1_5_1 has 16 observations and 18 variables.
+INFO: NOTE: Compressing data set USER.SUBINEXPLOT_1_1_5_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: 39                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: meng is here to debug output folder
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X" exists
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: NOTE: The directory has been created at C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\TMAX
+INFO: NOTE: Value of folderpath = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\TMAX
+INFO: MPRINT(SUBINEXPLOT):  ;
+INFO: MPRINT(SUBINEXPLOT):   ods listing gpath = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\TMAX" style=statistical sge=on;
+INFO: MPRINT(SUBINEXPLOT):   ods graphics on / imagename = "SubInExPlot_1_1_5_1" noborder height=2300 width=2500 ;
+INFO: MPRINT(SUBINEXPLOT):   filename grafout "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\TMAX\SubInExPlot_1_1_5_1.jpeg";
+INFO: NOTE: No units specified for the HSIZE option.  INCHES will be used.
+INFO: MPRINT(SUBINEXPLOT):   goptions reset=all gsfname=grafout gsfmode=replace device=JPEG hsize=15 vsize=12;
+INFO: NOTE: No units specified for the VSIZE option.  INCHES will be used.
+INFO: MPRINT(SUBINEXPLOT):   title "Include and Exclude Subject Ratio ";
+INFO: MPRINT(SUBINEXPLOT):   title1 "Cohort:FASTED-FED";
+INFO: MPRINT(SUBINEXPLOT):   title2 "Analyte:DRUG X";
+INFO: MPRINT(SUBINEXPLOT):   title3 "Parameter: TMAX";
+INFO: MPRINT(SUBINEXPLOT):   proc sgpanel data=SubInExPlot_1_1_5_1 noautolegend;
+INFO: MPRINT(SUBINEXPLOT):   panelby comparison/novarname layout=columnlattice;
+INFO: MPRINT(SUBINEXPLOT):   scatter x=category y=subratio/markerattrs=(symbol=circle size=5 color=blue) datalabel=labelID;
+INFO: MPRINT(SUBINEXPLOT):   rowaxis grid offsetmin=0 label="Subject Ratio" valueattrs=(size=10);
+INFO: MPRINT(SUBINEXPLOT):   colaxis grid label="Category" valueattrs=(size=10);
+INFO: MPRINT(SUBINEXPLOT):   run;
+INFO: 
+INFO: NOTE: Compressing data set USER._SGSORT_ increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SGPANEL used (Total process time):
+INFO: real time           0.28 seconds
+INFO: cpu time            0.15 seconds
+INFO: 
+INFO: NOTE: Listing image output written to C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\InExSubratio\cohort1\DRUG X\TMAX\SubInExPlot_1_1_5_1.png.
+INFO: NOTE: There were 16 observations read from the data set USER.SUBINEXPLOT_1_1_5_1.
+INFO: 
+INFO: MPRINT(SUBINEXPLOT):   ods listing sge=off;
+INFO: MPRINT(SUBINEXPLOT):   ods graphics off;
+INFO: MPRINT(PKEXCLUDESUB):  ;
+INFO: MPRINT(PKREPORTEXCLUDE):  ;
+INFO: MPRINT(PKREPORTEXCLUDE):   libname pkOutput "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000";
+INFO: NOTE: Libref PKOUTPUT was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000
+INFO: MPRINT(PKREPORTEXCLUDE):   libname result "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates";
+INFO: NOTE: Libref RESULT was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates
+INFO: AnalyteVar=PPCAT
+INFO: ParameterVar=PPTESTCD
+INFO: meng globaled resultfolder: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table" exists
+INFO: 40                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PKREPORTEXCLUDE):  ;
+INFO: MPRINT(PKREPORTEXCLUDE):   ods csv file= "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\ExcludedSubjects.csv" ;
+INFO: NOTE: Writing CSV Body file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\ExcludedSubjects.csv
+INFO: MPRINT(PKREPORTEXCLUDE):   proc print data=user.excludesubject;
+INFO: MPRINT(PKREPORTEXCLUDE):   run;
+INFO: 
+INFO: NOTE: There were 2 observations read from the data set USER.EXCLUDESUBJECT.
+INFO: NOTE: The PROCEDURE PRINT printed page 8.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKREPORTEXCLUDE):   ods csv close;
+INFO: meng got exclude subejcts and output
+INFO: MPRINT(PKREPORTEXCLUDE):   proc sql noprint;
+INFO: MPRINT(PKREPORTEXCLUDE):   select count(*) into :obscount from result.individualpkstats;
+INFO: MPRINT(PKREPORTEXCLUDE):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: 1st: obscount=      80
+INFO: MPRINT(PKREPORTEXCLUDE):   data result.IndividualPkStats;
+INFO: MPRINT(PKREPORTEXCLUDE):   set result.IndividualPkStats;
+INFO: MPRINT(PKREPORTEXCLUDE):   OrgPPSTRESN=exp(PPSTRESN);
+INFO: MPRINT(PKREPORTEXCLUDE):   run;
+INFO: 
+INFO: NOTE: There were 80 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: NOTE: The data set RESULT.INDIVIDUALPKSTATS has 80 observations and 23 variables.
+INFO: NOTE: Compressing data set RESULT.INDIVIDUALPKSTATS decreased size by 33.33 percent.
+INFO: Compressed is 2 pages; un-compressed would require 3 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKREPORTEXCLUDE):   data _null_;
+INFO: MPRINT(PKREPORTEXCLUDE):   set websvc.excludesubject;
+INFO: MPRINT(PKREPORTEXCLUDE):   * FROM EXCLUDESUBJECT IN FILE '';
+INFO: MPRINT(PKREPORTEXCLUDE):   call symput("times1",SMALLTHANEXCLUDESD);
+INFO: MPRINT(PKREPORTEXCLUDE):   call symput("times2",BIGTHANEXCLUDESD);
+INFO: MPRINT(PKREPORTEXCLUDE):   call symput("p1",ExcludeParameters1);
+INFO: MPRINT(PKREPORTEXCLUDE):   call symput("p2",ExcludeParameters2);
+INFO: MPRINT(PKREPORTEXCLUDE):   call symput("percent",percent);
+INFO: MPRINT(PKREPORTEXCLUDE):   run;
+INFO: 
+INFO: NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+INFO: 59:161   59:203   59:83
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.EXCLUDESUBJECT.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: SMALLTHANEXCLUDESD=           2
+INFO: BIGTHANEXCLUDESD=           2
+INFO: 41                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: excludeparameters1=AUC
+INFO: excludeparameters=AUC0_T
+INFO: percent=         105
+INFO: meng got some subjects to be excluded
+INFO: MPRINT(PKREPORTEXCLUDE):   proc sql noprint;
+INFO: MPRINT(PKREPORTEXCLUDE):   select count(*) into :obscount from result.individualpkstats;
+INFO: MPRINT(PKREPORTEXCLUDE):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: 2nd: obscount=      80
+INFO: MPRINT(PKREPORTEXCLUDE):   proc sql noprint;
+INFO: MPRINT(PKREPORTEXCLUDE):   select count(*) into :obscount from result.individualpkstats;
+INFO: MPRINT(PKREPORTEXCLUDE):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: 3rd: obscount=      80
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   proc sort data =result.individualpkstats(keep = ARM) out = PKStatsSequences nodupkey;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   by ARM;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 80 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: NOTE: 78 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.PKSTATSSEQUENCES has 2 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.PKSTATSSEQUENCES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   proc sql noprint;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   select distinct ARM into: SequenceList separated by "~!~" from PKStatsSequences ;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: SequenceList = FASTED-FED~!~FED-FASTED
+INFO: Number of Sequences = 2
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   proc sort data =result.individualpkstats(keep = ARM VISIT) out = PKStatsPeriods nodupkey;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   by ARM VISIT;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 80 observations read from the data set RESULT.INDIVIDUALPKSTATS.
+INFO: NOTE: 76 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.PKSTATSPERIODS has 4 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.PKSTATSPERIODS increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 42                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   data user._null_;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   set PKStatsPeriods end = eof;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   by ARM VISIT;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   retain MinNumberOfPeriods MaxNumberOfPeriods counter;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   if _n_ = 1 then do;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   MaxNumberOfPeriods = 0;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   MinNumberOfPeriods = 99;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   end;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   if first.ARM then do;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   counter = 0;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   end;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   counter + 1;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   if last.ARM then do;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   if MaxNumberOfPeriods < counter then do;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   MaxNumberOfPeriods = counter;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   end;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   if MinNumberOfPeriods > counter then do;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   MinNumberOfPeriods = counter;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   end;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   end;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   if eof then do;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   call symputx("MaxNumberOfPeriods", MaxNumberOfPeriods);
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   call symputx("MinNumberOfPeriods", MinNumberOfPeriods);
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   end;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 4 observations read from the data set USER.PKSTATSPERIODS.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: Maximum number of Periods = 2
+INFO: Minimum number of Periods = 2
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   proc sort data = result.removedinput;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   by CohortNumber CohortName CohortDescription PPTESTCD PPCAT Combination TreatmentInPeriod;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 78 observations read from the data set RESULT.REMOVEDINPUT.
+INFO: NOTE: The data set RESULT.REMOVEDINPUT has 78 observations and 23 variables.
+INFO: NOTE: Compressing data set RESULT.REMOVEDINPUT decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   proc mixed data = result.removedinput;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   by CohortNumber CohortName CohortDescription PPTESTCD PPCAT Combination;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   class USUBJID ARM VISIT TreatmentInPeriod;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   model PPSTRESN = ARM VISIT TreatmentInPeriod / ddfm = kenwardroger;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   random USUBJID (ARM);
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   lsmeans TreatmentInPeriod / pdiff cl alpha = 0.1;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   estimate 'DDI Effect' TreatmentInPeriod -1 1 / cl alpha = 0.1;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   estimate 'DDI Effect Inv' TreatmentInPeriod 1 -1 / cl alpha = 0.1;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   ods output Estimates = user.estimates_unpaired;
+INFO: 43                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: NOTE: Convergence criteria met.
+INFO: NOTE: The above message was for the following BY group:
+INFO: CohortNumber=1 CohortName=Cohort 1 CohortDescription=FASTED-FED Parameter Short Name=AUC Parameter Category=DRUG X combination=FED ~vs~ FASTED
+INFO: NOTE: Convergence criteria met.
+INFO: NOTE: The above message was for the following BY group:
+INFO: CohortNumber=1 CohortName=Cohort 1 CohortDescription=FASTED-FED Parameter Short Name=AUC0_T Parameter Category=DRUG X combination=FED ~vs~ FASTED
+INFO: NOTE: Convergence criteria met.
+INFO: NOTE: Estimated G matrix is not positive definite.
+INFO: NOTE: Asymptotic variance matrix of covariance parameter estimates has been found to be singular and a generalized inverse was used. Covariance parameters with zero variance do not contribute to degrees of freedom computed by DDFM=KENWARDROGER.
+INFO: NOTE: The above message was for the following BY group:
+INFO: CohortNumber=1 CohortName=Cohort 1 CohortDescription=FASTED-FED Parameter Short Name=CMAX Parameter Category=DRUG X combination=FED ~vs~ FASTED
+INFO: NOTE: Convergence criteria met.
+INFO: NOTE: The above message was for the following BY group:
+INFO: CohortNumber=1 CohortName=Cohort 1 CohortDescription=FASTED-FED Parameter Short Name=THALF Parameter Category=DRUG X combination=FED ~vs~ FASTED
+INFO: NOTE: Convergence criteria met.
+INFO: NOTE: Estimated G matrix is not positive definite.
+INFO: NOTE: Asymptotic variance matrix of covariance parameter estimates has been found to be singular and a generalized inverse was used. Covariance parameters with zero variance do not contribute to degrees of freedom computed by DDFM=KENWARDROGER.
+INFO: NOTE: The above message was for the following BY group:
+INFO: CohortNumber=1 CohortName=Cohort 1 CohortDescription=FASTED-FED Parameter Short Name=TMAX Parameter Category=DRUG X combination=FED ~vs~ FASTED
+INFO: NOTE: The data set USER.ESTIMATES_UNPAIRED has 10 observations and 15 variables.
+INFO: NOTE: Compressing data set USER.ESTIMATES_UNPAIRED increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: The PROCEDURE MIXED printed pages 9-23.
+INFO: NOTE: PROCEDURE MIXED used (Total process time):
+INFO: real time           0.03 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   proc mixed data = result.removedinput;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   by CohortNumber CohortName CohortDescription PPTESTCD PPCAT Combination;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   class USUBJID TreatmentInPeriod;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   model PPSTRESN = TreatmentInPeriod / ddfm = kenwardroger;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   random USUBJID ;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   lsmeans TreatmentInPeriod / pdiff cl alpha = 0.1;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   estimate 'DDI Effect' TreatmentInPeriod -1 1 / cl alpha = 0.1;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   estimate 'DDI Effect Inv' TreatmentInPeriod 1 -1 / cl alpha = 0.1;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   ods output Estimates = user.estimates_paired;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: NOTE: Convergence criteria met.
+INFO: NOTE: The above message was for the following BY group:
+INFO: CohortNumber=1 CohortName=Cohort 1 CohortDescription=FASTED-FED Parameter Short Name=AUC Parameter Category=DRUG X combination=FED ~vs~ FASTED
+INFO: NOTE: Convergence criteria met.
+INFO: NOTE: The above message was for the following BY group:
+INFO: CohortNumber=1 CohortName=Cohort 1 CohortDescription=FASTED-FED Parameter Short Name=AUC0_T Parameter Category=DRUG X combination=FED ~vs~ FASTED
+INFO: NOTE: Convergence criteria met.
+INFO: NOTE: Estimated G matrix is not positive definite.
+INFO: NOTE: Asymptotic variance matrix of covariance parameter estimates has been found to be singular and a generalized inverse was used. Covariance parameters with zero variance do not contribute to degrees of freedom computed by DDFM=KENWARDROGER.
+INFO: NOTE: The above message was for the following BY group:
+INFO: CohortNumber=1 CohortName=Cohort 1 CohortDescription=FASTED-FED Parameter Short Name=CMAX Parameter Category=DRUG X combination=FED ~vs~ FASTED
+INFO: NOTE: Convergence criteria met.
+INFO: NOTE: The above message was for the following BY group:
+INFO: CohortNumber=1 CohortName=Cohort 1 CohortDescription=FASTED-FED Parameter Short Name=THALF Parameter Category=DRUG X combination=FED ~vs~ FASTED
+INFO: NOTE: Convergence criteria met.
+INFO: NOTE: Estimated G matrix is not positive definite.
+INFO: NOTE: Asymptotic variance matrix of covariance parameter estimates has been found to be singular and a generalized inverse was used. Covariance parameters with zero variance do not contribute to degrees of freedom computed by DDFM=KENWARDROGER.
+INFO: NOTE: The above message was for the following BY group:
+INFO: CohortNumber=1 CohortName=Cohort 1 CohortDescription=FASTED-FED Parameter Short Name=TMAX Parameter Category=DRUG X combination=FED ~vs~ FASTED
+INFO: 44                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: The data set USER.ESTIMATES_PAIRED has 10 observations and 15 variables.
+INFO: NOTE: Compressing data set USER.ESTIMATES_PAIRED increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: The PROCEDURE MIXED printed pages 24-38.
+INFO: NOTE: PROCEDURE MIXED used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   data user.estimates;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   set user.estimates_unpaired (in = a) user.estimates_paired (in = b) ;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   if a then do;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   EstType = "unpaired";
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   end;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   else if b then do;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   EstType = "paired  ";
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   end;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 10 observations read from the data set USER.ESTIMATES_UNPAIRED.
+INFO: NOTE: There were 10 observations read from the data set USER.ESTIMATES_PAIRED.
+INFO: NOTE: The data set USER.ESTIMATES has 20 observations and 16 variables.
+INFO: NOTE: Compressing data set USER.ESTIMATES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   data user.estimates;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   set user.estimates;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):  ;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   ratio = exp(estimate);
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   lcl = exp(lower);
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   ucl = exp(upper);
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   if not indexw(combination, "~vs~") then do;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   delete;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   end;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   *Meng 04/23/2015 fixed forest title inverse ratio;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   if label = 'DDI Effect' then do;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   combination = strip(substr(combination, indexw(combination, "~vs~") + 5)) || " ~vs~ " || substr(combination, 1, indexw(combination, "~vs~") - 1);
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   end;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   keep CohortNumber CohortDescription Combination PPTESTCD PPCAT ratio lcl ucl esttype;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 20 observations read from the data set USER.ESTIMATES.
+INFO: NOTE: The data set USER.ESTIMATES has 20 observations and 9 variables.
+INFO: NOTE: Compressing data set USER.ESTIMATES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   proc sort data = user.estimates nodupkey;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   by CohortNumber CohortDescription Combination PPTESTCD PPCAT ratio lcl ucl esttype;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: 
+INFO: 45                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: There were 20 observations read from the data set USER.ESTIMATES.
+INFO: NOTE: 0 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.ESTIMATES has 20 observations and 9 variables.
+INFO: NOTE: Compressing data set USER.ESTIMATES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   data user.estimates;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   set user.estimates(where = (find(upcase(PPTESTCD), "AUC") or find(upcase(PPTESTCD), "CMAX") or find(upcase(PPTESTCD), "ACTAU") or find(upcase(PPTESTCD), "ACINF")));
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 12 observations read from the data set USER.ESTIMATES.
+INFO: WHERE FIND(UPCASE(PPTESTCD), 'AUC') or FIND(UPCASE(PPTESTCD), 'CMAX') or FIND(UPCASE(PPTESTCD), 'ACTAU') or FIND(UPCASE(PPTESTCD), 'ACINF');
+INFO: NOTE: The data set USER.ESTIMATES has 12 observations and 9 variables.
+INFO: NOTE: Compressing data set USER.ESTIMATES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   data user.estimates;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   set user.estimates;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   combination1=TRANWRD(combination,"~vs~", "$$$");
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   Reference_L=scan(combination1,-1,"$$$","R");
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 12 observations read from the data set USER.ESTIMATES.
+INFO: NOTE: The data set USER.ESTIMATES has 12 observations and 11 variables.
+INFO: NOTE: Compressing data set USER.ESTIMATES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   libname pkOutput "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates";
+INFO: NOTE: Libref PKOUTPUT refers to the same physical library as RESULT.
+INFO: NOTE: Libref PKOUTPUT was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   data pkOutput.estimates_ExcludeSub;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   set user.estimates;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 12 observations read from the data set USER.ESTIMATES.
+INFO: NOTE: The data set PKOUTPUT.ESTIMATES_EXCLUDESUB has 12 observations and 11 variables.
+INFO: NOTE: Compressing data set PKOUTPUT.ESTIMATES_EXCLUDESUB increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   libname pkOutput CLEAR;
+INFO: 46                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Libref PKOUTPUT has been deassigned.
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   libname pkOutput "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates";
+INFO: NOTE: Libref PKOUTPUT refers to the same physical library as RESULT.
+INFO: NOTE: Libref PKOUTPUT was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   data pkOutput.IndividualPkStats_ExcludeSub;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   set result.removedinput;
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 78 observations read from the data set RESULT.REMOVEDINPUT.
+INFO: NOTE: The data set PKOUTPUT.INDIVIDUALPKSTATS_EXCLUDESUB has 78 observations and 23 variables.
+INFO: NOTE: Compressing data set PKOUTPUT.INDIVIDUALPKSTATS_EXCLUDESUB decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PK_ANALYSIS_SUMMARY_EXCLUDESUB):   libname pkOutput CLEAR;
+INFO: NOTE: Libref PKOUTPUT has been deassigned.
+INFO: MPRINT(PKREPORTEXCLUDE):  ;
+INFO: get excluded sub of PK analysis summary
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   data work.select_1_1_1;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   set result.estimates_ExcludeSub (where = ( CohortDescription = "FASTED-FED" and Reference_L = "FASTED" and PPCAT ="DRUG X" and PPTESTCD = "AUC" and EstType= "paired" and ratio ne . ));
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set RESULT.ESTIMATES_EXCLUDESUB.
+INFO: WHERE (CohortDescription='FASTED-FED') and (Reference_L='FASTED') and (PPCAT='DRUG X') and (PPTESTCD='AUC') and (EstType='paired') and (ratio not = .);
+INFO: NOTE: The data set WORK.SELECT_1_1_1 has 1 observations and 11 variables.
+INFO: NOTE: Compressing data set WORK.SELECT_1_1_1 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   data work.select_1_1_2;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   set result.estimates_ExcludeSub (where = ( CohortDescription = "FASTED-FED" and Reference_L = "FASTED" and PPCAT ="DRUG X" and PPTESTCD = "AUC0_T" and EstType= "paired" and ratio ne . ));
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set RESULT.ESTIMATES_EXCLUDESUB.
+INFO: WHERE (CohortDescription='FASTED-FED') and (Reference_L='FASTED') and (PPCAT='DRUG X') and (PPTESTCD='AUC0_T') and (EstType='paired') and (ratio not = .);
+INFO: NOTE: The data set WORK.SELECT_1_1_2 has 1 observations and 11 variables.
+INFO: NOTE: Compressing data set WORK.SELECT_1_1_2 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   data work.select_1_1_3;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   set result.estimates_ExcludeSub (where = ( CohortDescription = "FASTED-FED" and Reference_L = "FASTED" and PPCAT ="DRUG X" and PPTESTCD = "CMAX" and EstType= "paired" and ratio ne . ));
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set RESULT.ESTIMATES_EXCLUDESUB.
+INFO: WHERE (CohortDescription='FASTED-FED') and (Reference_L='FASTED') and (PPCAT='DRUG X') and (PPTESTCD='CMAX') and (EstType='paired') and (ratio not = .);
+INFO: NOTE: The data set WORK.SELECT_1_1_3 has 1 observations and 11 variables.
+INFO: 47                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Compressing data set WORK.SELECT_1_1_3 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   data allcohorts;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   set work.select_1_1_1 work.select_1_1_2 work.select_1_1_3 ;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set WORK.SELECT_1_1_1.
+INFO: NOTE: There were 1 observations read from the data set WORK.SELECT_1_1_2.
+INFO: NOTE: There were 1 observations read from the data set WORK.SELECT_1_1_3.
+INFO: NOTE: The data set USER.ALLCOHORTS has 3 observations and 11 variables.
+INFO: NOTE: Compressing data set USER.ALLCOHORTS increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: all cohorts in one table
+INFO: OutputFolder=C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   proc sql;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   select count(*) into: checkempty2 from allcohorts;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   quit;
+INFO: NOTE: The PROCEDURE SQL printed page 39.
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   ods listing close;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   proc report data= allcohorts nowd style(report)=[outputwidth=7in] style(column)=[background=white] style(header)=[foreground=Green] style(summary)=[background=purple foreground=white] style(lines)=[background=lime]
+INFO: style(calldef)=[background=yellow foreground=black] out=AllCohortsNew;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   title1 font = 'Times New Roman' height = 12pt justify = center underlin = 0 color = black bcolor = white 'Summary Table Categorized by Analyte';
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   footnote1 font = 'Times New Roman' height = 9pt justify = center underlin = 0 color = black bcolor = white 'Note: Created on May';
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   column PPCAT CohortNumber combination PPTESTCD reference_L EstType ("Results of Ratio and 90% CI" ratio lcl ucl) ;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   define PPCAT/ "Analyte";
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   define reference_L/"reference_listed";
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   define PPTESTCD/ "Estimated Parameters";
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   define EstType/ "Paired or Unpaired";
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   define Combination/ "Comparison";
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   define CohortNumber/ "Cohorts";
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   define ratio/ format=8.4 "Ratio" ;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   define lcl/ format=8.4 "Lower Limit" ;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   define ucl/ format=8.4 "Upper Limit" ;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.ALLCOHORTS.
+INFO: NOTE: The data set USER.ALLCOHORTSNEW has 3 observations and 10 variables.
+INFO: NOTE: Compressing data set USER.ALLCOHORTSNEW increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE REPORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 48                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   ods listing;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   data AllCohortsNew(rename=(PPCAT=analyte PPTESTCD=parameter CohortNumber=cohort Combination=comparison));
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   set AllCohortsNew;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.ALLCOHORTSNEW.
+INFO: NOTE: The data set USER.ALLCOHORTSNEW has 3 observations and 10 variables.
+INFO: NOTE: Compressing data set USER.ALLCOHORTSNEW increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   proc sort data=AllCohortsNew;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   by analyte comparison parameter cohort;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.ALLCOHORTSNEW.
+INFO: NOTE: The data set USER.ALLCOHORTSNEW has 3 observations and 10 variables.
+INFO: NOTE: Compressing data set USER.ALLCOHORTSNEW increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   data AllCohortsNew;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   retain analyte comparison parameter cohort;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   set AllCohortsNew;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.ALLCOHORTSNEW.
+INFO: NOTE: The data set USER.ALLCOHORTSNEW has 3 observations and 10 variables.
+INFO: NOTE: Compressing data set USER.ALLCOHORTSNEW increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   data AllCohortsNew (keep= parameter analyte comparison Reference_L EstType ratio lcl ucl );
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   set AllCohortsNew;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.ALLCOHORTSNEW.
+INFO: NOTE: The data set USER.ALLCOHORTSNEW has 3 observations and 8 variables.
+INFO: NOTE: Compressing data set USER.ALLCOHORTSNEW increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: NOTE: The directory "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table" exists
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):  ;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   ods csv file= "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\AllCohrotsNew_ExcludeSub.csv" ;
+INFO: 49                                                                                                                       The SAS System                                                                                       11:55 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Writing CSV Body file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Custom Statistical Table\AllCohrotsNew_ExcludeSub.csv
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   proc print data=AllCohortsNew;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   run;
+INFO: 
+INFO: NOTE: There were 3 observations read from the data set USER.ALLCOHORTSNEW.
+INFO: NOTE: The PROCEDURE PRINT printed page 40.
+INFO: NOTE: PROCEDURE PRINT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   ods csv close;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   proc sql noprint;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   select count(*) into :obscount from result.individualpkstats;
+INFO: MPRINT(PKVIEWREPORT_EXCLUDESUB):   quit;
+INFO: NOTE: PROCEDURE SQL used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: 4th: obscount=      80
+INFO: MPRINT(PKREPORTEXCLUDE):  ;
+INFO: 60

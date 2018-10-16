@@ -1,0 +1,16 @@
+<div class="panel panel-primary">
+    <div class="panel-heading" data-part="headerContainer">
+        <h4 class="panel-title">
+            <i class="fa" data-bind="css: {'fa-caret-right': collapsed(), 'fa-caret-down': !collapsed() }"/>
+            <span> </span>
+            <span data-part="header" data-bind="text: settings.headerText"/>
+            <span> </span>
+            <span data-part="tipNote" style="font-size: 0.8em">(Click to expand/collapse)</span>
+        </h4>
+    </div>
+    <div data-part="collapseContainer" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div data-part="itemContainer"/>
+        </div>
+    </div>
+</div>

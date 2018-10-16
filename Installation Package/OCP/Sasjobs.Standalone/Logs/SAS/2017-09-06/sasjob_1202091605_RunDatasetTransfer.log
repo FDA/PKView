@@ -1,0 +1,358 @@
+INFO: 1                                                          The SAS System                         12:02 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Copyright (c) 2002-2012 by SAS Institute Inc., Cary, NC, USA.
+INFO: NOTE: SAS (r) Proprietary Software 9.4 (TS1M4)
+INFO: Licensed to UNIVERSITY OF ILLINOIS SYSTEM - T&R SFA, Site 70080107.
+INFO: NOTE: This session is executing on the X64_10PRO  platform.
+INFO: 
+INFO: 
+INFO: 
+INFO: NOTE: Updated analytical products:
+INFO: 
+INFO: SAS/STAT 14.2
+INFO: SAS/ETS 14.2
+INFO: SAS/OR 14.2
+INFO: SAS/IML 14.2
+INFO: SAS/QC 14.2
+INFO: 
+INFO: NOTE: Additional host information:
+INFO: 
+INFO: X64_10PRO WIN 10.0.15063  Workstation
+INFO: 
+INFO: NOTE: SAS Initialization used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 1
+INFO: 2          %LET SASSPPATH = C:\OCP\Sasjobs.Standalone\\Stored Procedures;
+INFO: 3
+INFO: 4          %global SasSpPath;
+INFO: 5          options nofmterr compress = yes mprint spool sasautos = (sasautos "&SasSpPath.\Macros" "&SasSpPath.\Sub Macros");
+INFO: 6
+INFO: 7          libname user "%sysfunc(getoption(work))" ACCESS=TEMP FILELOCKWAIT=20;
+INFO: NOTE: Libref USER refers to the same physical library as WORK.
+INFO: NOTE: Libref USER was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\apps\SAS\SASUser\Peter\SAS Temporary Files\_TD8316_DESKTOP-MP8HDJJ_\Prc74
+INFO: 8          %let work = user.;
+INFO: 9
+INFO: 10         ods path &work.templat(update)
+INFO: 11             sasuser.templat(read)
+INFO: 12             sashelp.tmplmst(read)
+INFO: 13         ;
+INFO: 14
+INFO: 15         %TransferDataSetToWeb;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   * FROM SASDATA IN FILE '';
+INFO: MPRINT(TRANSFERDATASETTOWEB):   data _null_;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   set websvc.sasdata;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   * FROM SASDATA IN FILE '';
+INFO: MPRINT(TRANSFERDATASETTOWEB):   call symputx("filepath", filepath);
+INFO: MPRINT(TRANSFERDATASETTOWEB):   run;
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.SASDATA.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADANDMERGEDATASET):   libname input1 xport
+INFO: "\\localhost\clinical\DRUG000\0000\m5\datasets\test001\tabulations\sdtm\dm.xpt" access = readonly;
+INFO: NOTE: Libref INPUT1 was successfully assigned as follows:
+INFO: Engine:        XPORT
+INFO: 2                                                          The SAS System                         12:02 Wednesday, September 6, 2017
+INFO: 
+INFO: Physical Name: \\localhost\clinical\DRUG000\0000\m5\datasets\test001\tabulations\sdtm\dm.xpt
+INFO: MPRINT(SMDETERMINEDATASETNAME):   proc contents data=input1._ALL_ memtype=data out=user.dsNames0(keep=memname) noprint;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   run;
+INFO: 
+INFO: NOTE: The data set USER.DSNAMES0 has 19 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.DSNAMES0 increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE CONTENTS used (Total process time):
+INFO: real time           0.03 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMDETERMINEDATASETNAME):   proc sort data=user.dsNames0 OUT=user.dsNames nodupkey;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   BY memname;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   run;
+INFO: 
+INFO: NOTE: There were 19 observations read from the data set USER.DSNAMES0.
+INFO: NOTE: 18 observations with duplicate key values were deleted.
+INFO: NOTE: The data set USER.DSNAMES has 1 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.DSNAMES increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMDETERMINEDATASETNAME):   data _null_;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   set user.dsNames;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   if index(upcase(memname), upcase('&expectedDsName.')) ne 0 then do;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   call symput('inputDsName', memname);
+INFO: MPRINT(SMDETERMINEDATASETNAME):   end;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.DSNAMES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMDETERMINEDATASETNAME):   data _null_;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   set user.dsNames;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   by memname;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   if first.memname then do;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   call symput('inputDsName', memname);
+INFO: MPRINT(SMDETERMINEDATASETNAME):   end;
+INFO: MPRINT(SMDETERMINEDATASETNAME):   run;
+INFO: 
+INFO: NOTE: There were 1 observations read from the data set USER.DSNAMES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADANDMERGEDATASET):  ;
+INFO: MPRINT(SMREADANDMERGEDATASET):   data user.out_tmp;
+INFO: MPRINT(SMREADANDMERGEDATASET):   set input1.DM ;
+INFO: MPRINT(SMREADANDMERGEDATASET):   ;
+INFO: MPRINT(SMREADANDMERGEDATASET):   run;
+INFO: 3                                                          The SAS System                         12:02 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: NOTE: There were 26 observations read from the data set INPUT1.DM.
+INFO: NOTE: The data set USER.OUT_TMP has 26 observations and 19 variables.
+INFO: NOTE: Compressing data set USER.OUT_TMP increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADANDMERGEDATASET):   data user.out;
+INFO: MPRINT(SMREADANDMERGEDATASET):   set user.out_tmp;
+INFO: MPRINT(SMREADANDMERGEDATASET):   run;
+INFO: 
+INFO: NOTE: There were 26 observations read from the data set USER.OUT_TMP.
+INFO: NOTE: The data set USER.OUT has 26 observations and 19 variables.
+INFO: NOTE: Compressing data set USER.OUT increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMREADANDMERGEDATASET):   libname input1 clear;
+INFO: NOTE: Libref INPUT1 has been deassigned.
+INFO: MPRINT(TRANSFERDATASETTOWEB):  ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   data user.data;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   length dataset $20.;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   dataset="out";
+INFO: MPRINT(TRANSFERDATASETTOWEB):   output;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   run;
+INFO: 
+INFO: NOTE: The data set USER.DATA has 1 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.DATA increased size by 100.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(TRANSFERDATASETTOWEB):   proc export data=user.out outfile="\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\outforxptdata.csv"
+INFO: dbms=dlm replace;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   ADLM;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   delimiter=',';
+INFO: MPRINT(TRANSFERDATASETTOWEB):   run;
+INFO: 
+INFO: 16          /**********************************************************************
+INFO: 17          *   PRODUCT:   SAS
+INFO: 18          *   VERSION:   9.4
+INFO: 19          *   CREATOR:   External File Interface
+INFO: 20          *   DATE:      06SEP17
+INFO: 21          *   DESC:      Generated SAS Datastep Code
+INFO: 22          *   TEMPLATE SOURCE:  (None Specified.)
+INFO: 23          ***********************************************************************/
+INFO: 24             data _null_;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   data _null_;
+INFO: 25             %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+INFO: 26             %let _EFIREC_ = 0;     /* clear export record count macro variable */
+INFO: 4                                                          The SAS System                         12:02 Wednesday, September 6, 2017
+INFO: 
+INFO: 27             file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\outforxptdata.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\outforxptdata.csv' delimiter=',' DSD DROPOVER
+INFO: lrecl=32767;
+INFO: 28             if _n_ = 1 then        /* write column names or labels */
+INFO: 29              do;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   if _n_ = 1 then do;
+INFO: 30                put
+INFO: 31                   "STUDYID"
+INFO: 32                ','
+INFO: 33                   "DOMAIN"
+INFO: 34                ','
+INFO: 35                   "USUBJID"
+INFO: 36                ','
+INFO: 37                   "SUBJID"
+INFO: 38                ','
+INFO: 39                   "RFSTDTC"
+INFO: 40                ','
+INFO: 41                   "RFENDTC"
+INFO: 42                ','
+INFO: 43                   "SITEID"
+INFO: 44                ','
+INFO: 45                   "BRTHDTC"
+INFO: 46                ','
+INFO: 47                   "AGE"
+INFO: 48                ','
+INFO: 49                   "AGEU"
+INFO: 50                ','
+INFO: 51                   "SEX"
+INFO: 52                ','
+INFO: 53                   "RACE"
+INFO: 54                ','
+INFO: 55                   "ARMCD"
+INFO: 56                ','
+INFO: 57                   "ARM"
+INFO: 58                ','
+INFO: 59                   "COUNTRY"
+INFO: 60                ','
+INFO: 61                   "DMDTC"
+INFO: 62                ','
+INFO: 63                   "DMDY"
+INFO: 64                ','
+INFO: 65                   "DTHFL"
+INFO: 66                ','
+INFO: 67                   "DTHDTC"
+INFO: 68                ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put "STUDYID" ',' "DOMAIN" ',' "USUBJID" ',' "SUBJID" ',' "RFSTDTC" ',' "RFENDTC" ',' "SITEID" ','
+INFO: "BRTHDTC" ',' "AGE" ',' "AGEU" ',' "SEX" ',' "RACE" ',' "ARMCD" ',' "ARM" ',' "COUNTRY" ',' "DMDTC" ',' "DMDY" ',' "DTHFL" ','
+INFO: "DTHDTC" ;
+INFO: 69              end;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   end;
+INFO: 70            set  USER.OUT   end=EFIEOD;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   set USER.OUT end=EFIEOD;
+INFO: 71                format STUDYID $7. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format STUDYID $7. ;
+INFO: 72                format DOMAIN $3. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format DOMAIN $3. ;
+INFO: 73                format USUBJID $16. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format USUBJID $16. ;
+INFO: 5                                                          The SAS System                         12:02 Wednesday, September 6, 2017
+INFO: 
+INFO: 74                format SUBJID $9. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format SUBJID $9. ;
+INFO: 75                format RFSTDTC $17. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format RFSTDTC $17. ;
+INFO: 76                format RFENDTC $17. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format RFENDTC $17. ;
+INFO: 77                format SITEID $4. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format SITEID $4. ;
+INFO: 78                format BRTHDTC $11. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format BRTHDTC $11. ;
+INFO: 79                format AGE best12. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format AGE best12. ;
+INFO: 80                format AGEU $6. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format AGEU $6. ;
+INFO: 81                format SEX $2. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format SEX $2. ;
+INFO: 82                format RACE $26. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format RACE $26. ;
+INFO: 83                format ARMCD $9. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format ARMCD $9. ;
+INFO: 84                format ARM $19. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format ARM $19. ;
+INFO: 85                format COUNTRY $4. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format COUNTRY $4. ;
+INFO: 86                format DMDTC $11. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format DMDTC $11. ;
+INFO: 87                format DMDY best12. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format DMDY best12. ;
+INFO: 88                format DTHFL $2. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format DTHFL $2. ;
+INFO: 89                format DTHDTC $2. ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   format DTHDTC $2. ;
+INFO: 90              do;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   do;
+INFO: 91                EFIOUT + 1;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   EFIOUT + 1;
+INFO: 92                put STUDYID $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put STUDYID $ @;
+INFO: 93                put DOMAIN $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put DOMAIN $ @;
+INFO: 94                put USUBJID $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put USUBJID $ @;
+INFO: 95                put SUBJID $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put SUBJID $ @;
+INFO: 96                put RFSTDTC $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put RFSTDTC $ @;
+INFO: 97                put RFENDTC $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put RFENDTC $ @;
+INFO: 98                put SITEID $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put SITEID $ @;
+INFO: 99                put BRTHDTC $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put BRTHDTC $ @;
+INFO: 100               put AGE @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put AGE @;
+INFO: 101               put AGEU $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put AGEU $ @;
+INFO: 102               put SEX $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put SEX $ @;
+INFO: 6                                                          The SAS System                         12:02 Wednesday, September 6, 2017
+INFO: 
+INFO: 103               put RACE $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put RACE $ @;
+INFO: 104               put ARMCD $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put ARMCD $ @;
+INFO: 105               put ARM $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put ARM $ @;
+INFO: 106               put COUNTRY $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put COUNTRY $ @;
+INFO: 107               put DMDTC $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put DMDTC $ @;
+INFO: 108               put DMDY @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put DMDY @;
+INFO: 109               put DTHFL $ @;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put DTHFL $ @;
+INFO: 110               put DTHDTC $ ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   put DTHDTC $ ;
+INFO: 111               ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   ;
+INFO: 112             end;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   end;
+INFO: 113            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+INFO: MPRINT(TRANSFERDATASETTOWEB):   if _ERROR_ then call symputx('_EFIERR_',1);
+INFO: 114            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+INFO: MPRINT(TRANSFERDATASETTOWEB):   if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+INFO: 115            run;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   run;
+INFO: 
+INFO: NOTE: The file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\outforxptdata.csv' is:
+INFO: Filename=\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\outforxptdata.csv,
+INFO: RECFM=V,LRECL=32767,File Size (bytes)=0,
+INFO: Last Modified=06Sep2017:12:02:09,
+INFO: Create Time=06Sep2017:12:02:09
+INFO: 
+INFO: NOTE: 27 records were written to the file '\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\outforxptdata.csv'.
+INFO: The minimum record length was 99.
+INFO: The maximum record length was 147.
+INFO: NOTE: There were 26 observations read from the data set USER.OUT.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: 26 records created in \\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\outforxptdata.csv from USER.OUT.
+INFO: 
+INFO: 
+INFO: NOTE: "\\DESKTOP-MP8HDJJ\Output Files\PkView\Peter\outforxptdata.csv" file was successfully created.
+INFO: NOTE: PROCEDURE EXPORT used (Total process time):
+INFO: real time           0.03 seconds
+INFO: cpu time            0.03 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(TRANSFERDATASETTOWEB):    ;
+INFO: MPRINT(TRANSFERDATASETTOWEB):   libname input clear;
+WARNING: WARNING: Libref INPUT is not assigned.
+INFO: 116
+INFO: 117

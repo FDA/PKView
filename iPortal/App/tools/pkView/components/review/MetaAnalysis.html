@@ -1,0 +1,131 @@
+﻿<div>
+    <section>
+        <!-- Main Title/Navigation Bar/Progress Bar -->
+        <nav class="navbar navbar-lite" role="toolbar">
+            <div class="container-fluid">
+                <div class="navbar-header pull-left">
+                    <!-- Nda and study name -->
+                    <p class="navbar-title">
+                        <strong data-bind="text: NDAName"></strong>
+                        <span data-bind="if: analyzableStudies().length > 0 && uiMode() != 'summary'">
+                            <span data-bind="text: ' - ' + activeStudy()"></span>
+                            <!-- ko if: SelectedSupplement() == '' -->
+                            <span data-bind="text: '(' + activeSupplement() + ')' "></span>
+                            <!-- /ko -->
+                        </span>
+                    </p>
+                </div>
+
+                <!-- progress display -->
+                <p class="navbar-text navbar-right pull-right" data-bind="visible: splash.visible()">
+                    <span class="text-art-light" style="padding-right: 20px;" data-bind="text: splash.feedback() + ' ...'"></span>
+                    <span class="fa-stack fa-lg">
+                        <span class="fa fa-stack-1x fa-stack-text" data-bind="text: splash.progress() + '%'"></span>
+                        <i class="fa fa-spin fa-circle-o-notch fa-stack-2x"></i>
+                    </span>
+                </p>
+                <!-- Use Plot Analysis checkbox -->
+                
+                <!-- toolbar -->
+                <div class="btn-toolbar navbar-right pull-right" role="toolbar" aria-label="Main Toolbar"
+                     data-bind="visible: !splash.visible()">
+
+                    <!-- Supplement choice -->
+                    <div class="btn-group" role="group" aria-label="Supplement choice"
+                         data-bind="if: uiMode() == 'settings' && Object.keys(supplements()).length > 1">
+                        <button type="button" data-bind="tooltip: { container: 'body', title: 'Selected Serial Number(s)' }"
+                                class="btn btn-sm btn-lite dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span data-bind="if: SelectedSupplement() != '' && SelectedSupplement() != '0000'">
+                                Serial Number
+                                <span data-bind="text: SelectedSupplement"></span>
+                            </span>
+                            <span data-bind="if: SelectedSupplement() == '0000'">Original (0000)</span>
+                            <span data-bind="if: SelectedSupplement() == ''">All (rolling)</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <!-- ko foreach: { data: Object.keys(supplements()), as: 'supplementNumber' } -->
+                            <li>
+                                <a href="#" data-bind="click: $root.selectSupplement">
+                                    <span data-bind="if: supplementNumber != '0000'">
+                                        Serial Number
+                                        <span data-bind="text: supplementNumber"></span>
+                                    </span>
+                                    <span data-bind="if: supplementNumber == '0000'">Original (0000)</span>
+                                </a>
+                            </li>
+                            <!-- /ko -->
+                            <li><a href="#" data-bind="click: function () { selectSupplement(''); }">All / Rolling</a></li>
+                        </ul>
+                    </div>
+                    <!--<div class="col-xs-1" style="padding-left: 0">-->
+                        <!--<button class="btn btn-default btn-sm" type="button" style="border-radius: 3px"
+                                data-bind="click: function () { $root.setMetaFormat(study, $root);}">
+                            <i class="fa fa-edit"></i>
+                        </button>-->
+                    <!--</div>-->
+                    <!-- Report Actions -->
+                    <div class="btn-group" role="group" aria-label="Report Actions"
+                         data-bind="if: $root.uiMode() == 'settings' && analyzableStudies().length > 0">
+                        <button type="button" class="btn btn-sm btn-lite"
+                                data-bind="tooltip: { container: 'body', title: 'New customized report' }, click: createForestPlotReport">
+                            <span>
+                                <i class="fa fa-file fa-fw"></i>
+                                <i class="fa fa-circle fa-overlay-o"></i>
+                                <i class="fa fa-plus-circle fa-overlay"></i>
+                            </span>
+                        </button>
+
+
+
+
+                        <!--<button type="button" class="btn btn-sm btn-lite"
+        data-bind="tooltip: { container: 'body', title: 'Generate report' }, click: generateReport">
+        <i class="fa fa-fw" data-bind="css: {
+                'fa-play-circle-o': !computingReport(),
+                'fa-spinner fa-spin': computingReport
+            }"></i></button>-->
+                    </div>                    
+
+
+
+                    <!-- Download -->
+
+                    <div class="btn-group" role="group" aria-label="Download Current Study Package">
+                        <button type="button" class="btn btn-sm btn-primary"
+                                data-bind="tooltip: { container: 'body', title: 'Generate Meta Analysis' }, click: function () { $root.setMetaFormat(study, $root)}">
+                            Generate Meta Analysis
+                        </button>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Download Meta Analysis Report Package">
+                        <button type="button" class="btn btn-sm btn-primary"
+                                data-bind="enable: metareportGenerated, tooltip: { container: 'body', title: 'Download Meta Analysis Report Package' }, click: downloadMetaPackage">
+                            <i class="fa fa-fw" data-bind="css: {
+                                'fa-download': !metacomputingReport(),
+                                'fa-spinner fa-spin': metacomputingReport
+                            }"></i> Download Package
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main interface -->
+        <div class="tab-content">
+            
+            <div role="tabpanel" class="tab-pane" data-bind="if: $root.uiMode() == 'settings', css: { active: $root.uiMode() == 'settings' }">
+                <!-- ko compose: { model: 'tools/pkView/components/review/sections/studyMeta', activationData: { data: $root }} -->
+                <div class="splash">
+                    <i class="fa fa-spinner fa-2x fa-spin active"></i>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+        <div class="tab-content">
+
+
+            
+
+        </div>
+    </section>
+</div>

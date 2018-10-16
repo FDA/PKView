@@ -1,0 +1,13 @@
+<div>
+    <!-- ko foreach: { data: items, afterRender: afterRenderItem } -->
+    <div data-part="itemTemplate">
+        <div data-bind="compose: $data"/>
+        <button data-bind="click: removeItem">X</button>
+    </div>
+    <!-- /ko -->
+    <button data-part="addBtn" class="btn btn-default" data-bind="click: addItem">
+        <i class="fa fa-plus"/>
+        <span> Add </span>
+        <span data-bind="text: settings.itemName"/>
+    </button>
+</div>

@@ -1,0 +1,56 @@
+﻿<div class="container-fluid" style="padding: 0;">
+    <div class="row-fluid">
+        <div class="span6 roundCorners paddedBlock" style="height: 100%;">
+            <div class="blockHeader">
+                <p><strong>Column Mapping</strong></p>
+            </div>
+            <form class="form-horizontal paddedBlock" style="margin-bottom: 0;">  
+                <fieldset>
+                    <div class="control-group k-content">
+                        <span class="span3"><label class="control-label">Study Id</label></span>
+                        <select class="demographicSelect span9 combobox" placeholder="Select ..." 
+                                data-bind="options: file.variables, optionsText: 'description', optionsValue: 'id', value: file.config().studyId"></select>
+                    </div>
+                    <div class="control-group k-content">
+                        <span class="span3"><label class="control-label">Subject Id</label></span>
+                        <select class="demographicSelect span9 combobox" placeholder="Select ..." 
+                                data-bind="options: file.variables, optionsText: 'description', optionsValue: 'id', value: file.config().subjectId"></select>
+                    </div>
+                    <div class="control-group k-content">
+                        <span class="span3"><label class="control-label">Treatment Group</label></span>
+                        <select class="demographicSelect span9 combobox" placeholder="Select ..." 
+                                data-bind="options: file.variables, optionsText: 'description', optionsValue: 'id', value: file.config().treatmentGroup"></select>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="span6 roundCorners paddedBlock" style="height: 100%;">
+            <div class="blockHeader">
+                <p><strong>Risk Factors</strong></p>
+                <form class="riskFactors form-horizontal paddedBlock" style="margin-bottom: 0;">  
+                    <fieldset>
+                        <!-- ko foreach: selectedRiskFactors -->
+                        <div class="control-group k-content">
+                            <span class="span1"><label class="control-label"><i class="fa fa-remove"></i></label></span>                       
+                            <select class="riskSelect span11 combobox" placeholder="Select ..." 
+                                    data-bind="options: $root.file.variables, optionsText: 'description', optionsValue: 'id', value: $data"></select>
+                        </div>
+                        <!-- /ko -->
+                        <div class="control-group k-content">
+                            <span class="span1"></span>                    
+                            <select class="firstRiskSelect span11 combobox" placeholder="Select ..." 
+                                    data-bind="options: file.variables, optionsText: 'description', optionsValue: 'id', value: riskFactorSelection"></select>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <style scoped>
+                form.riskFactors i.fa-remove { color: #E6E6E6; }
+                form.riskFactors i.fa-remove:hover { color: red; }
+            </style>
+        </div>                                
+    </div>
+    <a class="btn" style="margin-top:15px;" data-bind="click: viewDemographicTable">
+        <i class="fa fa-table"></i> View Demographic Table
+    </a>
+</div>

@@ -1,0 +1,18 @@
+﻿<div>
+    <div class="container-fluid" data-bind="foreach: {data: timeArray, as: timeVariable }">
+        <div class="col-sm-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="subject"></label>
+                    <div class="col-sm-8">
+                        <select id="subject" class="form-control"
+                                data-bind="options: varList, value: subject, optionsCaption: 'Select...',
+                            selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'name', optionsValue: 'name'"></select>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+

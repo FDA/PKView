@@ -1,0 +1,8 @@
+<div data-bind="formFieldTextbox: { label: settings.label , value: settings.value, required: settings.required,                 eventNamespace: settings.eventNamespace, tooltip: settings.tooltip, placeholder: settings.placeholder, style: settings.style }">
+    <div data-part="valueControl" class="input-group date" data-date-format="YYYY-MM-DD hh:mm">
+        <input type="text" class="form-control" data-bind="value: settings.value, attr: { placeholder: getPlaceholder() }, event: { keypress: setModified }"/>
+        <span class="input-group-addon">
+            <i class="fa fa-calendar fa-fw"/>
+        </span>
+    </div>
+</div>

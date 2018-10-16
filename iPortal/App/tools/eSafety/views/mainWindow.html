@@ -1,0 +1,360 @@
+﻿<div>
+    <div class="pull-right" style="text-align: right; margin-top: -20px; height: 0; padding-right:30px">        
+        <p style="font-size: 1.5em; font-weight:bold; color:#339955; -ms-text-shadow: 5px 5px 5px #7777ff; 
+                text-shadow: 5px 5px 5px #77ff77; -webkit-font-smoothing: antialiased;">eSafety</p>
+    </div>
+    <div class="treeMenu col-md-2" style="height: 100%; border-right: solid 1px #aaaaaa">
+        <div  style="padding-bottom: 5px;">
+            <p><strong>
+                <span>Project 1</span>                        
+            </strong></p> 
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <!-- ko template: { name: 'treeNode', foreach: project } --><!-- /ko -->
+        </ul>
+    </div>
+            
+    <div class="col-md-10" style="margin-left:0; padding-top:20px">
+                            
+        <div class="container pull-right dropdown" style="padding-top: 7px"> 
+            <button class="btn btn-default btn-xs" data-bind="click: $root.previousStep">
+                    <i class="fa fa-arrow-left"></i> Back</button>
+              <button class="btn btn-default btn-xs" data-toggle="dropdown">Next 
+                    <i class="fa fa-arrow-right"></i></button>
+                  <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+                    <!-- ko foreach: nextStepChildrenOptions -->
+                        <li><a href="#" data-bind="click: $root.nextStep, text: Name"></a></li>
+                    <!-- /ko -->
+                      <li role="presentation" class="divider"></li>
+                    <!-- ko foreach: nextStepNewOptions -->
+                        <li><a href="#" data-bind="click: $root.newStep, text: 'New ' + Name"></a></li>
+                    <!-- /ko -->
+                  </ul>
+        </div>
+        <ul class="breadcrumb">
+            <!-- ko template: { name: 'breadcrumb', data: $root.activeNode() } --><!-- /ko -->
+        </ul> 
+
+        <div data-bind="visible: $root.activeNode().Type == 'dataInput'">                       
+            <div class="inputMenu col-md-2 well well-sm" style="height: 100%;">
+                <p><strong>Input Files 
+                        <button class="btn btn-xs btn-default pull-right" style=" margin-bottom: 3px; padding: 0 5px">
+                            <i class="fa fa-plus-sign"></i>
+                        </button></strong>
+                </p> 
+                <ul class="nav nav-pills nav-stacked">
+                    <!-- ko foreach: fileTypes -->
+                    <li class="nav-header" data-bind="text: name"></li>
+                    
+                    <!-- ko foreach: $root.files -->
+                    <!-- ko if: type == $parent.id -->
+                    <li data-bind="css: { active: $root.activeOrFirstFile() == id }">
+                        <a href="#" data-bind="click: $root.activateFile">
+                            <span data-bind="text: name"></span>
+                            <i class="menuIcon fa fa-eye-open pull-right" data-bind=" tooltip: { title: 'Preview this file' }"  ></i>
+                            <i class="menuIcon fa fa-trash pull-right" data-bind=" tooltip: { title: 'Remove this file' }"  ></i>
+                        </a>                                    
+                    </li>
+                    <!-- /ko -->
+                    <!-- /ko -->
+
+                    <!-- /ko -->
+                </ul>
+            </div>
+            <!-- ko foreach: files -->
+            <div class="col-md-10" data-bind="visible: $root.activeOrFirstFile() == id" style="height: 100%;">
+                <div class="row">                              
+                    <div class="col-md-6" style="height: 100%; border-right: 1px solid #eeeeee">
+                        <legend style="font-size:1em">Column Mapping</legend>
+                        <form class="form-horizontal">  
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Study Id</label>
+                                <div class="demographicSelect col-md-9"><select class="chosenClass form-control" data-bind="options: $root.files()[0].variables, optionsText: 'description', optionsValue: 'id', value: $root.file.config().studyId"></select></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Subject Id</label>
+                                <div class="demographicSelect col-md-9"><select class="chosenClass form-control" data-bind="options: $root.files()[0].variables, optionsText: 'description', optionsValue: 'id', value: $root.file.config().subjectId"></select></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Treatment Group</label>
+                                <div class="demographicSelect col-md-9"><select class="chosenClass form-control" data-bind="options: $root.files()[0].variables, optionsText: 'description', optionsValue: 'id', value: $root.file.config().treatmentGroup"></select></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6" style="height: 100%;">
+                        <legend style="font-size:1em">Risk Factors</legend>
+                        <form class="riskFactors form-horizontal ">  
+                            <div class="form-group">
+                                <span class="col-md-1"></span>                    
+                                <div class="firstRiskSelect col-md-11">
+                                    <select multiple="multiple" class="chosenClass form-control" 
+                                        data-bind="options: $root.files()[0].variables, optionsText: 'description', optionsValue: 'id'"
+                                        data-placeholder="Select...">
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                        <style scoped>
+                            form.riskFactors i.fa-remove { color: #E6E6E6; }
+                            form.riskFactors i.fa-remove:hover { color: red; }
+                        </style>
+                    </div>
+                </div>  
+                <div class="row container">   
+                    
+                    <legend style="font-size:1em">Filtering / Selection</legend>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <p class="form-control-static"><i class="fa fa-remove"></i> </p>
+                        </div>  
+                        <div class="form-group">
+                            <select class="chosenClass form-control" style="width:100%" data-bind="options: ['SAFYN', '.............................']" ></select>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosenClass form-control" style="width:100%" data-bind="options: ['=']" ></select>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosenClass form-control" style="width:100%" data-bind="options: ['Y', '.............................']" ></select>
+                        </div>
+                        <button class="btn btn-default btn-sm"><i class="fa fa-plus-sign"></i> Add New Filter</button>
+                    </form>
+                                             
+                    <button class="btn btn-default btn-sm" style="margin-top:15px;" data-bind="click: $root.viewDemographicTable">
+                        <i class="fa fa-table"></i> View Demographic Table
+                    </button>    
+                </div>       
+            </div>
+            <!-- /ko -->
+            <style scoped>
+                div.inputMenu { padding-bottom:10px;background-color: #F7F7F9;}
+                div.inputMenu div.well { padding: 0; height: 100%; margin-bottom: 0 }
+                div.inputMenu li > a > i.menuIcon { display: none }
+                div.inputMenu li > a:hover > i.menuIcon { display: inline-block }
+                div.inputMenu li > a:hover > i.menuIcon:hover 
+                {
+                    background-color: white;
+                    color: #0088CC;
+                    -webkit-border-radius: 4px;
+                    -moz-border-radius: 4px;
+                    border-radius: 4px;  
+                }
+            </style>
+        </div>
+
+        <div data-bind="visible: $root.activeNode().Type == 'subset'">
+            <div class="row">
+                <div class="col-md-6" style="height: 100%; border-right: 1px solid #eeeeee">
+                    <form class="form-horizontal">  
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Analysis Variable</label>
+                            <div class="btn-group col-md-8" data-toggle="buttons">
+                                <label class="btn btn-sm btn-success">
+                                <input type="radio" value="1" name="options" id="Radio1"> AE PT
+                                </label>
+                                <label class="btn btn-sm btn-success">
+                                <input type="radio" name="options" id="Radio2"> AE SOC
+                                </label>
+                            </div>
+                        </div>                  
+                    </form>
+                </div>
+                <div class="col-md-6" style="height: 100%;">
+                    <form class="form-horizontal">                      
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Analysis Group</label>
+                            <div class="demographicSelect col-md-8"><select class="chosenClass form-control" data-bind="options: ['Treatment', 'Age', 'Exposure Group']"></select></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row container" style="margin-bottom:15px">
+                <form class="form-inline">
+                    <button class="btn btn-default btn-sm"><i class="fa fa-signal"></i> View Bar Charts</button>
+                    <button class="btn btn-default btn-sm"><i class="fa fa-time"></i> View Time Course Plots</button>
+                </form>
+            </div>
+            <div class="row">         
+                <div class="col-sm-6 container" style="height: 100%;">
+                    <div class="well">
+                        <img style="width:100%" src="../../../../Content/sampleGraphs/AE_TIME_ASTHENIA.png" />
+                        <div class="checkbox">
+                            <label>
+                            <input type="checkbox" value="">
+                            Include
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 container " style="height: 100%;">
+                    <div class="well">
+                        <img style="width:100%" src="../../../../Content/sampleGraphs/AE_TIME_DECREASED APPETITE.png" />
+                        <div class="checkbox">
+                            <label>
+                            <input type="checkbox" value="">
+                            Include
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">         
+                <div class="col-sm-6 container " style="height: 100%;">
+                    <div class="well">
+                        <img style="width:100%" src="../../../../Content/sampleGraphs/AE_TIME_DIARRHOEA.png" />
+                        <div class="checkbox">
+                            <label>
+                            <input type="checkbox" value="">
+                            Include
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 container " style="height: 100%;">
+                    <div class="well">
+                        <img style="width:100%" src="../../../../Content/sampleGraphs/AE_TIME_DYSPNOEA.png" />
+                        <div class="checkbox">
+                            <label>
+                            <input type="checkbox" value="">
+                            Include
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="row">         
+                <div class="col-sm-6 container " style="height: 100%;">
+                    <div class="well">
+                        <img style="width:100%" src="../../../../Content/sampleGraphs/AE_TIME_HEADACHE.png" />
+                        <div class="checkbox">
+                            <label>
+                            <input type="checkbox" value="">
+                            Include
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 container " style="height: 100%;">
+                    <div class="well">
+                        <img style="width:100%" src="../../../../Content/sampleGraphs/AE_TIME_PAIN IN EXTREMITY.png" />
+                        <div class="checkbox">
+                            <label>
+                            <input type="checkbox" value="">
+                            Include
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+        <div data-bind="visible: $root.activeNode().Type == 'logistic'">
+            <div class="col-md-9" style="height: 100%;">
+                <div class="container" data-bind="visible: $root.showSettings()">
+                    <div class="row">         
+                        <div class="col-md-7" style="height: 100%; border-right: 1px solid #eeeeee">
+                            <legend style="font-size:1em">Logistic Regression Settings</legend>
+                            <form class="form-horizontal " style="margin-bottom: 0;">  
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Response Type</label>
+                                    <div class="logisticSelect col-md-8"><select class="chosenClass form-control" data-bind="options: ['AE','LAB','PK'], value: settings.responseType()"></select></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Select the Placebo</label>
+                                    <div class="logisticSelect col-md-8"><select class="chosenClass form-control" data-bind="options: ['none','pbo','drug1','drug2'], value: settings.placebo()"></select></div>
+                                </div>  
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Scale</label>
+                                    <div class="btn-group col-md-8" data-toggle="buttons">
+                                      <label class="btn btn-primary">
+                                        <input type="radio" name="options" id="log"> Logarithmic
+                                      </label>
+                                      <label class="btn btn-primary">
+                                        <input type="radio" name="options" id="lin"> Linear
+                                      </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Number of Bins</label>
+                                    <div class="col-md-7">
+                                        <input class="binSlider" value="0" /> 
+                                    </div>
+                                    <!--<input class="col-md-1" type="text" value="4" />-->
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-5" style="height: 100%;">
+                            <div >
+                                <legend style="font-size:1em">Model</legend>
+                            </div>
+                            <form class="form-horizontal " style="margin-bottom: 0;">  
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="logisticSelect col-md-12"><select class="chosenClass form-control" data-bind="options: ['Event~Exposure','User Defined'], value: settings.model()"></select></div>
+                                    </div>         
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+        
+                    <button class="btn btn-default" style="margin-top:15px;" data-bind="click: $root.runAnalysis">
+                        <i class="fa fa-play-circle"></i> Run Analysis
+                    </button>
+                </div>
+
+                <div class="container" data-bind="visible: !$root.showSettings()">
+                    <div class="row">         
+                        <div class="col-md-12  " style="height: 100%;">
+                            <div >
+                                <p><strong>Logistic Regression</strong>
+                                <a class="btn btn-primary pull-right" style=" margin-bottom: 3px; padding: 0px 5px; margin-right: 10px;"
+                                        data-bind="tooltip: { title: 'Settings' }, click: $root.openSettings">
+                                    <i class="fa fa-wrench"></i>
+                                </a></p>
+                            </div>
+                            <div class="container  ">
+                                <div class="row">         
+                                    <div class="col-md-6 " style="height: 100%;">
+                                        <img style="width:100%" src="../../../../Content/sampleGraphs/Logistic_BASAL_CELL_CARCINOMA.jpg" />
+                                    </div>
+                                    <div class="col-md-6 " style="height: 100%;">
+                                        <img style="width:100%" src="../../../../Content/sampleGraphs/Logistic_BLOOD_ALKALINE_PHOSPHATASE_INCREASED.jpg" />
+                                    </div>
+                                </div>
+                                <div class="row">         
+                                    <div class="col-md-6 " style="height: 100%;">
+                                        <img style="width:100%" src="../../../../Content/sampleGraphs/Logistic_KERATOACANTHOMA.jpg" />
+                                    </div>
+                                    <div class="col-md-6 " style="height: 100%;">
+                                        <img style="width:100%" src="../../../../Content/sampleGraphs/Logistic_MALIGNANT_MELANOMA.jpg" />
+                                    </div>
+                                </div>
+                            </div>                                                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well well-sm col-md-3" style="height: 100%;">
+                    <p><strong>Selections Summary </strong></p> 
+                <ul class="nav nav-pills nav-stacked">
+                    <!-- ko foreach: selections -->
+                    <li class="nav-header" data-bind="text: section"></li>
+                    
+                        <!-- ko foreach: pairs -->
+                                <li style="font-size: 0.9em">
+                                    <a href="#">
+                                        <strong><span data-bind="text: key"></span></strong>:<br />
+                                        <span data-bind="text: value"></span>
+                                        <i class="menuIcon fa fa-edit" data-bind=" tooltip: { title: 'Edit value' }"  ></i>
+                                    </a>                                    
+                                </li>
+                        <!-- /ko -->
+
+                    <!-- /ko -->
+                </ul>
+            </div>
+                        
+        </div>              
+                
+    </div>
+</div>

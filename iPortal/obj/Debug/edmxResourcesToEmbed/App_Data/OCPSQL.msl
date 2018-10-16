@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OCPSQLModelStoreContainer" CdmEntityContainer="OCPSQLEntities">
+    <EntitySetMapping Name="ESAFETY_PROJECT">
+      <EntityTypeMapping TypeName="OCPSQLModel.ESAFETY_PROJECT">
+        <MappingFragment StoreEntitySet="ESAFETY_PROJECT">
+          <ScalarProperty Name="PROJECT_ID" ColumnName="PROJECT_ID" />
+          <ScalarProperty Name="PROJECT_NAME" ColumnName="PROJECT_NAME" />
+          <ScalarProperty Name="SUBMISSION_TYPE_ID" ColumnName="SUBMISSION_TYPE_ID" />
+          <ScalarProperty Name="SUBMISSION_NUMBER" ColumnName="SUBMISSION_NUMBER" />
+          <ScalarProperty Name="SUBMISSION_DATE" ColumnName="SUBMISSION_DATE" />
+          <ScalarProperty Name="SDN" ColumnName="SDN" />
+          <ScalarProperty Name="EDR_LOCATION" ColumnName="EDR_LOCATION" />
+          <ScalarProperty Name="AIM" ColumnName="AIM" />
+          <ScalarProperty Name="COMMENTS" ColumnName="COMMENTS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ESAFETY_PROJECT2">
+      <EntityTypeMapping TypeName="OCPSQLModel.ESAFETY_PROJECT2">
+        <MappingFragment StoreEntitySet="ESAFETY_PROJECT2">
+          <ScalarProperty Name="PROJECT2_ID" ColumnName="PROJECT2_ID" />
+          <ScalarProperty Name="PROJECT_NAME" ColumnName="PROJECT_NAME" />
+          <ScalarProperty Name="SUBMISSION_TYPE_ID" ColumnName="SUBMISSION_TYPE_ID" />
+          <ScalarProperty Name="SUBMISSION_NUMBER" ColumnName="SUBMISSION_NUMBER" />
+          <ScalarProperty Name="SUBMISSION_DATE" ColumnName="SUBMISSION_DATE" />
+          <ScalarProperty Name="SDN" ColumnName="SDN" />
+          <ScalarProperty Name="EDR_LOCATION" ColumnName="EDR_LOCATION" />
+          <ScalarProperty Name="AIM" ColumnName="AIM" />
+          <ScalarProperty Name="COMMENTS" ColumnName="COMMENTS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ESAFETY_WORKFLOW">
+      <EntityTypeMapping TypeName="OCPSQLModel.ESAFETY_WORKFLOW">
+        <MappingFragment StoreEntitySet="ESAFETY_WORKFLOW">
+          <ScalarProperty Name="WORKFLOW_ID" ColumnName="WORKFLOW_ID" />
+          <ScalarProperty Name="WORKFLOW_NAME" ColumnName="WORKFLOW_NAME" />
+          <ScalarProperty Name="PROJECT_ID" ColumnName="PROJECT_ID" />
+          <ScalarProperty Name="ESAFETY_PROJECT2_PROJECT2_ID" ColumnName="ESAFETY_PROJECT2_PROJECT2_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FPTOOLS_PROJECT">
+      <EntityTypeMapping TypeName="OCPSQLModel.FPTOOLS_PROJECT">
+        <MappingFragment StoreEntitySet="FPTOOLS_PROJECT">
+          <ScalarProperty Name="PROJECT_ID" ColumnName="PROJECT_ID" />
+          <ScalarProperty Name="PROJECT_NAME" ColumnName="PROJECT_NAME" />
+          <ScalarProperty Name="FILE_NAME" ColumnName="FILE_NAME" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_DM_DATASET">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_DM_DATASET">
+        <MappingFragment StoreEntitySet="IPORTAL_DM_DATASET">
+          <ScalarProperty Name="DM_DATASET_ID" ColumnName="DM_DATASET_ID" />
+          <ScalarProperty Name="STUDY_ID" ColumnName="STUDY_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_DM_FILE">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_DM_FILE">
+        <MappingFragment StoreEntitySet="IPORTAL_DM_FILE">
+          <ScalarProperty Name="DM_FILE_ID" ColumnName="DM_FILE_ID" />
+          <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+          <ScalarProperty Name="DM_DATASET_ID" ColumnName="DM_DATASET_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_EX_DATASET">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_EX_DATASET">
+        <MappingFragment StoreEntitySet="IPORTAL_EX_DATASET">
+          <ScalarProperty Name="EX_DATASET_ID" ColumnName="EX_DATASET_ID" />
+          <ScalarProperty Name="STUDY_ID" ColumnName="STUDY_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_EX_FILE">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_EX_FILE">
+        <MappingFragment StoreEntitySet="IPORTAL_EX_FILE">
+          <ScalarProperty Name="EX_FILE_ID" ColumnName="EX_FILE_ID" />
+          <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+          <ScalarProperty Name="EX_DATASET_ID" ColumnName="EX_DATASET_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_FILE">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_FILE">
+        <MappingFragment StoreEntitySet="IPORTAL_FILE">
+          <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+          <ScalarProperty Name="FILE_NAME" ColumnName="FILE_NAME" />
+          <ScalarProperty Name="SERVER_PATH" ColumnName="SERVER_PATH" />
+          <ScalarProperty Name="FAST_CHECKSUM" ColumnName="FAST_CHECKSUM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_FP">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_FP">
+        <MappingFragment StoreEntitySet="IPORTAL_FP">
+          <ScalarProperty Name="DRUGNAME" ColumnName="DRUGNAME" />
+          <ScalarProperty Name="FP_ID" ColumnName="FP_ID" />
+          <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+          <ScalarProperty Name="SCALE_ID" ColumnName="SCALE_ID" />
+          <ScalarProperty Name="FOOTNOTE" ColumnName="FOOTNOTE" />
+          <ScalarProperty Name="XLABEL" ColumnName="XLABEL" />
+          <ScalarProperty Name="FP_STYLE_ID" ColumnName="FP_STYLE_ID" />
+          <ScalarProperty Name="RANGE_BOTTOM" ColumnName="RANGE_BOTTOM" />
+          <ScalarProperty Name="RANGE_TOP" ColumnName="RANGE_TOP" />
+          <ScalarProperty Name="RANGE_STEP" ColumnName="RANGE_STEP" />
+          <ScalarProperty Name="PROJECT_ID" ColumnName="PROJECT_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_FP_ROW">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_FP_ROW">
+        <MappingFragment StoreEntitySet="IPORTAL_FP_ROW">
+          <ScalarProperty Name="FP_ROW_ID" ColumnName="FP_ROW_ID" />
+          <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
+          <ScalarProperty Name="SUBCATEGORY" ColumnName="SUBCATEGORY" />
+          <ScalarProperty Name="PARAMETER" ColumnName="PARAMETER" />
+          <ScalarProperty Name="RATIO" ColumnName="RATIO" />
+          <ScalarProperty Name="LOWER_CI" ColumnName="LOWER_CI" />
+          <ScalarProperty Name="UPPER_CI" ColumnName="UPPER_CI" />
+          <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+          <ScalarProperty Name="FP_ID" ColumnName="FP_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_FP_STYLE">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_FP_STYLE">
+        <MappingFragment StoreEntitySet="IPORTAL_FP_STYLE">
+          <ScalarProperty Name="FP_STYLE_ID" ColumnName="FP_STYLE_ID" />
+          <ScalarProperty Name="CODE" ColumnName="CODE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_PC_DATASET">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_PC_DATASET">
+        <MappingFragment StoreEntitySet="IPORTAL_PC_DATASET">
+          <ScalarProperty Name="PC_DATASET_ID" ColumnName="PC_DATASET_ID" />
+          <ScalarProperty Name="STUDY_ID" ColumnName="STUDY_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_PC_FILE">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_PC_FILE">
+        <MappingFragment StoreEntitySet="IPORTAL_PC_FILE">
+          <ScalarProperty Name="PC_FILE_ID" ColumnName="PC_FILE_ID" />
+          <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+          <ScalarProperty Name="PC_DATASET_ID" ColumnName="PC_DATASET_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_PP_DATASET">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_PP_DATASET">
+        <MappingFragment StoreEntitySet="IPORTAL_PP_DATASET">
+          <ScalarProperty Name="PP_DATASET_ID" ColumnName="PP_DATASET_ID" />
+          <ScalarProperty Name="STUDY_ID" ColumnName="STUDY_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_PP_FILE">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_PP_FILE">
+        <MappingFragment StoreEntitySet="IPORTAL_PP_FILE">
+          <ScalarProperty Name="PP_FILE_ID" ColumnName="PP_FILE_ID" />
+          <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+          <ScalarProperty Name="PP_DATASET_ID" ColumnName="PP_DATASET_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_SCALE">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_SCALE">
+        <MappingFragment StoreEntitySet="IPORTAL_SCALE">
+          <ScalarProperty Name="SCALE_ID" ColumnName="SCALE_ID" />
+          <ScalarProperty Name="CODE" ColumnName="CODE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_SDTM_VARIABLE">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_SDTM_VARIABLE">
+        <MappingFragment StoreEntitySet="IPORTAL_SDTM_VARIABLE">
+          <ScalarProperty Name="SDTM_VARIABLE_ID" ColumnName="SDTM_VARIABLE_ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="LONG_DESCRIPTION" ColumnName="LONG_DESCRIPTION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_STUDY">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_STUDY">
+        <MappingFragment StoreEntitySet="IPORTAL_STUDY">
+          <ScalarProperty Name="STUDY_ID" ColumnName="STUDY_ID" />
+          <ScalarProperty Name="STUDY_CODE" ColumnName="STUDY_CODE" />
+          <ScalarProperty Name="EDR_LINK" ColumnName="EDR_LINK" />
+          <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+          <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
+          <ScalarProperty Name="SCREENING_DAY" ColumnName="SCREENING_DAY" />
+          <ScalarProperty Name="WASHOUT_DAY" ColumnName="WASHOUT_DAY" />
+          <ScalarProperty Name="SAMPLING_TIME" ColumnName="SAMPLING_TIME" />
+          <ScalarProperty Name="STUDY_TYPE_ID" ColumnName="STUDY_TYPE_ID" />
+          <ScalarProperty Name="STUDY_DESIGN_ID" ColumnName="STUDY_DESIGN_ID" />
+          <ScalarProperty Name="PARENT_STUDY_ID" ColumnName="PARENT_STUDY_ID" />
+          <ScalarProperty Name="SUBMISSION_ID" ColumnName="SUBMISSION_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_STUDY_DESIGN">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_STUDY_DESIGN">
+        <MappingFragment StoreEntitySet="IPORTAL_STUDY_DESIGN">
+          <ScalarProperty Name="STUDY_DESIGN_ID" ColumnName="STUDY_DESIGN_ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_STUDY_TYPE">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_STUDY_TYPE">
+        <MappingFragment StoreEntitySet="IPORTAL_STUDY_TYPE">
+          <ScalarProperty Name="STUDY_TYPE_ID" ColumnName="STUDY_TYPE_ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="ABBREVIATION" ColumnName="ABBREVIATION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_SUBMISSION">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_SUBMISSION">
+        <MappingFragment StoreEntitySet="IPORTAL_SUBMISSION">
+          <ScalarProperty Name="SUBMISSION_ID" ColumnName="SUBMISSION_ID" />
+          <ScalarProperty Name="SUBMISSION_CODE" ColumnName="SUBMISSION_CODE" />
+          <ScalarProperty Name="SUBMISSION_TYPE_ID" ColumnName="SUBMISSION_TYPE_ID" />
+          <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_SUBMISSION_TYPE">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_SUBMISSION_TYPE">
+        <MappingFragment StoreEntitySet="IPORTAL_SUBMISSION_TYPE">
+          <ScalarProperty Name="SUBMISSION_TYPE_ID" ColumnName="SUBMISSION_TYPE_ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPORTAL_VARIABLE_MAPPING">
+      <EntityTypeMapping TypeName="OCPSQLModel.IPORTAL_VARIABLE_MAPPING">
+        <MappingFragment StoreEntitySet="IPORTAL_VARIABLE_MAPPING">
+          <ScalarProperty Name="VARIABLE_MAPPING_ID" ColumnName="VARIABLE_MAPPING_ID" />
+          <ScalarProperty Name="SDTM_VARIABLE_ID" ColumnName="SDTM_VARIABLE_ID" />
+          <ScalarProperty Name="FILE_VARIABLE" ColumnName="FILE_VARIABLE" />
+          <ScalarProperty Name="MAPPING_QUALITY" ColumnName="MAPPING_QUALITY" />
+          <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SYSTEM_USER">
+      <EntityTypeMapping TypeName="OCPSQLModel.SYSTEM_USER">
+        <MappingFragment StoreEntitySet="SYSTEM_USER">
+          <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="C:\06232017_Build_Deploy_package - Copy for installation 06272017\sasJobsService-new_06202017_SAS9.4\SasJobs.Api\obj\Debug\Package\PackageTmp" managedRuntimeVersion="v4.0" />
+  <setAcl path="C:\06232017_Build_Deploy_package - Copy for installation 06272017\sasJobsService-new_06202017_SAS9.4\SasJobs.Api\obj\Debug\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="C:\06232017_Build_Deploy_package - Copy for installation 06272017\sasJobsService-new_06202017_SAS9.4\SasJobs.Api\obj\Debug\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+</sitemanifest>

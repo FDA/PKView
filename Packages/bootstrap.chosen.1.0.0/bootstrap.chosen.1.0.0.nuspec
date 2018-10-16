@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>bootstrap.chosen</id>
+    <version>1.0.0</version>
+    <title>Bootstrap Chosen</title>
+    <authors>alxlit</authors>
+    <owners>alxlit</owners>
+    <licenseUrl>https://en.wikipedia.org/wiki/MIT_License</licenseUrl>
+    <projectUrl>https://github.com/alxlit/bootstrap-chosen</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An alternate stylesheet for Chosen 1.0. This one is supposed to integrate better with Bootstrap 3.0.</description>
+    <tags>bootstrap chosen select</tags>
+    <dependencies>
+      <dependency id="jQuery" version="1.6.4" />
+    </dependencies>
+    <references />
+  </metadata>
+</package>

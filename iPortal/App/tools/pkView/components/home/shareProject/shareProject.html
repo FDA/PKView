@@ -1,0 +1,69 @@
+﻿<div>
+    <div class="container-fluid">
+        <p>Select a submission to see the available projects to share
+        </p>
+
+        <!-- Show spinner while waiting for server response -->
+        <div class="splash" data-bind="visible: waitingForData">
+            <i class="fa fa-spinner fa-2x fa-spin active"></i>
+        </div>
+
+        <!-- Project share form -->
+        <form class="form-horizontal" role="form" data-bind="if: !waitingForData()">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="submission">Submission</label>
+                <div class="col-sm-8">
+                    <select id="submission" class="form-control"
+                            data-bind="options: submissions, value: selectedSubmission, optionsCaption: 'Select...',
+                            optionsText: 'Submission', optionsValue: 'Submission', onInitialize: initialFocus,
+                            selectize: { selectOnTab: true, dropdownParent: 'body' }"></select>                     
+                </div>
+            </div>
+            <div class="form-group" data-bind="if: enableProjects">
+                <label class="col-sm-3 control-label" for="userProject">Project</label>
+                <div class="col-sm-8">
+                    <select id="userProject" class="form-control"
+                            data-bind="options: projects[selectedSubmission()], value: selectedProject,
+                            selectize: { selectOnTab: true, dropdownParent: 'body' },
+                            optionsText: 'Name', optionsValue: 'Name'"></select>
+                </div>
+            </div>
+            <div class="form-group" data-bind="if: enableStudies">
+                <label class="col-sm-3 control-label" for="studies">Studies</label>
+                <div class="col-sm-8">
+                    <select id="studies" class="form-control" multiple="multiple"
+                            data-bind="options: studies, selectedOptions: selectedStudies,
+                            selectize: { selectOnTab: true, dropdownParent: 'body', plugins: ['remove_button'] },
+                            optionsText: 'StudyCode', optionsValue: 'StudyCode'"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="user">Target user</label>
+                <div class="col-sm-8">
+                    <select id="user" class="form-control"
+                            data-bind="options: users, value: selectedUser, optionsCaption: 'Select...',
+                            optionsText: 'DisplayName', optionsValue: 'UserName', onInitialize: initialFocus,
+                            selectize: { selectOnTab: true, dropdownParent: 'body' }"></select>
+                </div>
+            </div>
+            
+            <div class="form-group" data-bind="if: selectedUser() == '$EMAIL$'">
+                <label class="col-sm-3 control-label" for="email">FDA e-mail</label>
+                <div class="col-sm-8">
+                    <input id="email" class="form-control" type="email" data-bind="value: selectedEmail" />    
+                </div>
+            </div>    
+            
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-8">
+                    <button data-bind="click: share" class="btn btn-default btn-sm">
+                        <!-- ko if: sharing -->
+                        <i class="fa fa-fw fa-spinner fa-spin"></i>
+                        <!-- /ko -->
+                        Share
+                    </button>
+                </div>
+            </div>                             
+        </form>
+    </div>
+</div>

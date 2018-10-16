@@ -1,0 +1,103 @@
+﻿<div id="NDASelection">
+
+    <div class="splash" data-bind="visible: !responseReady()">
+        <i class="fa fa-spinner fa-2x fa-spin active"></i>
+    </div>
+
+    <div data-bind="visible: responseReady()">
+        <nav class="navbar navbar-lite" role="toolbar">
+            <div class="container-fluid">
+
+                <!-- Section title -->
+                <div class="navbar-header pull-left">
+                    <p class="navbar-title">
+                        <strong>Your projects</strong>                        
+                    </p>
+                </div>
+
+                <!-- toolbar -->
+                <div class="btn-toolbar navbar-right pull-right" role="toolbar" aria-label="Main Toolbar">
+
+                    <!-- Filter -->
+                    <div class="btn-group" role="group" aria-label="Filter">
+                        <input class="input-sm" type="text" placeholder="Filter ..." data-bind="value: filterValue, valueUpdate: 'keyup', tooltip: { container: 'body', title: 'Filter your list of projects' }, hasFocus: focusFilter" style="margin-top:  2px;" />                                                   
+                    </div>
+
+                    <!-- Import -->
+                    <div class="btn-group" role="group" style="margin-left: 5px">
+                        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-bolt"></i> Advanced
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">                            
+                            <li><a href="#" data-bind="click: newProject, tooltip: { container: 'body', title: 'Create a new analysis project' }">
+                                    <i class="fa fa-plus"></i> New
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-bind="click: shareProject, tooltip: { container: 'body', title: 'Share a project with other users' }">
+                                    <i class="fa fa-share-alt"></i> Share
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-bind="click: importProject, tooltip: { container: 'body', title: 'Import a project from another user' }">
+                                    <i class="fa fa-users"></i> Import
+                                </a>
+                            </li>
+                        </ul>                                                
+                        <!--<button type="button" class="btn btn-sm btn-default"
+                                data-bind="click: importProject, tooltip: { container: 'body', title: 'Import a project from another user' }">
+                            <i class="fa fa-users"></i> Import
+                        </button>-->
+                    </div>
+
+                    <!--<div class="btn-group" role="group" aria-label="New project" style="margin-left: 5px">
+                        <button type="button" class="btn btn-sm btn-primary"
+                                data-bind="click: newProject, tooltip: { container: 'body', title: 'Create a new analysis project' }">
+                            <i class="fa fa-plus"></i> New
+                        </button>
+                    </div>-->
+                </div> 
+            </div>
+        </nav>
+
+        <p data-bind="visible: projectList().length == 0">
+        No projects to display for the current user.</p>
+
+        <table class="table table-condensed table-striped">
+            <tbody data-bind="visible: filteredProjectList().length > 0, foreach: { data: filteredProjectList, as: 'group' }">
+                <!-- ko foreach: { data: group.Projects, as: 'project' } -->
+                <tr>
+                    <td data-bind="html: group.Submission.Label"></td>
+                    <td><a href="#" data-bind="click: function() {$root.load(group.Submission.Name, project.Name);}, html: project.Label,
+                        tooltip: { container: 'body', title: 'Load this project'}"></a></td>
+                    <td><button class="btn btn-xs btn-link"
+                        data-bind="enable: project.HasPackage, click: function(){ $root.download(group.Submission.Name, project.Name);},
+                            tooltip: { container: 'body', title: 'Download project results'}">
+                            <i class="fa fa-download"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-xs btn-link"
+                                data-bind="click: function(){ $root.MetaAnalysis(group.Submission.Name, project.Name);},
+                            tooltip: { container: 'body', title: 'Forest Plot Meta Analysis'}">
+                            <i class="fa fa-cubes"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-xs btn-link"
+                                data-bind="click: function(){ $root.dataManagement(group.Submission.Name, project.Name);},
+                                tooltip: { container: 'body', title: 'Input data management for this project' }">
+                            <i class="fa fa-cog"></i>
+                        </button>
+                    </td>
+                    <td><button class="btn btn-xs btn-link"
+                        data-bind="click: function() { $root.delete(group.Submission.Name, project.Name);},
+                            tooltip: { container: 'body', title: 'Delete this project'}">
+                        <i class="fa fa-trash"></i></button></td>
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>
+    </div>
+</div>

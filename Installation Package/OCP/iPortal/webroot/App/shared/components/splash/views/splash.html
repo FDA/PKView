@@ -1,0 +1,25 @@
+﻿<div class="splash" data-bind="if: settings.visible, css: formFactors[settings.formFactor].globalClass">
+    <div class="message" data-bind="if: settings.formFactor != 'slim'">
+        <span data-bind="text: settings.message"></span></div> 
+    <div data-bind="if: settings.progress() != null, css: formFactors[settings.formFactor].columnClasses">
+        <div class="col-sm-10" style="padding-top: 35px">
+            <div class="progress progress-striped active">
+                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" 
+                    data-bind="style: { width: settings.progress() + '%' }">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2" data-bind="text: settings.progress() + '%'" style="padding-top: 35px"></div>
+    </div>
+    <div class="clearfix"></div>  
+    <div data-bind="if: settings.progress() === null">
+        <i class="fa fa-spinner fa-2x fa-spin active"></i>
+    </div>
+    <div class="footmessage">
+        <span data-bind="if: displayCounter">
+            <span data-bind="text: counter"></span>:
+        </span>
+        <span data-bind="text: settings.feedback"></span>
+    </div>
+</div>

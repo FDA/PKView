@@ -1,0 +1,61 @@
+﻿<div id="mainWindow" class="container">
+
+    <ol class="breadcrumb breadcrumb-wizard">        
+        <li class="pull-right" role="presentation"><h1 class="text-art" style="display: inline">
+                <a href="#" data-bind="click: function () { $root.navigate(0); }" style="font-size: 1.2em; color:#332299">PkView</a>
+            </h1>
+        </li>
+
+        <li class="pull-right" data-bind="visible: activeStep() > 0 && uiReady()">
+            <button class="btn btn-xs btn-default"
+                    data-bind="tooltip: { container: 'body', title: 'Variability Meta Analysis'},
+                    click: function () { $root.navigate(4); }, visible: uiReady() && allowedSteps().indexOf(3) > -1">
+                <i class="fa fa-building"></i>
+            </button>
+            <button class="btn btn-xs btn-default"
+                    data-bind="tooltip: { container: 'body', title: 'Forest Plot Meta Analysis'},
+                    click: function () { $root.navigate(3); }, visible: uiReady() && allowedSteps().indexOf(3) > -1">
+                <i class="fa fa-cubes"></i>
+            </button> 
+            <button class="btn btn-xs btn-default"
+                    data-bind="tooltip: { container: 'body', title: 'Analysis / Report'},
+                    click: function () { $root.navigate(2); }, visible: uiReady() && allowedSteps().indexOf(2) > -1">
+                <i class="fa fa-bar-chart"></i>
+            </button>
+            <button class="btn btn-xs btn-default"
+                    data-bind="tooltip: { container: 'body', title: 'Data Management'},
+                    click: function () { $root.navigate(1); }, visible: uiReady() && allowedSteps().indexOf(1) > -1">
+                <i class="fa fa-cog"></i>
+            </button>
+            <button class="btn btn-xs btn-default"
+                data-bind="tooltip: { container: 'body', title: 'Home'},
+                    click: function () { $root.navigate(0); }">
+                <i class="fa fa-home"></i>
+            </button>        
+        </li>
+
+        <!-- ko foreach: views -->
+        <li data-bind="visible: $index() == $root.activeStep()">           
+            <span style="display: inline">
+                <span data-bind="text: title"></span>
+            </span>
+        </li>
+        <!-- /ko -->
+
+        <li role="presentation" class="progress" data-bind="visible: splash.visible()">
+            <div role="progressbar" class="progress-bar" aria-valuemax="100" aria-valuemin="0" 
+                data-bind="style: { width: splash.progress() + '%' }, attr: { 'aria-valuenow': splash.progress() }">
+                <span class="sr-only"><span data-bind="text: splash.progress()"></span>% Complete</span>
+            </div>
+        </li>
+    </ol>
+
+    <div data-bind="visible: uiReady()">
+        <!-- ko compose: { model: views[activeStep()].model , activationData: views[activeStep()].data } --><!-- /ko -->  
+    </div>
+    
+    <div class="splash" data-bind="visible: !uiReady()">
+        <i class="fa fa-spinner fa-2x fa-spin active"></i>
+    </div>  
+
+</div>

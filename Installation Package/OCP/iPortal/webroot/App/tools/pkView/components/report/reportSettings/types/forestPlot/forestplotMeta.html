@@ -1,0 +1,124 @@
+﻿<div>
+
+    <div class="form-horizontal" data-bind="with: report">
+
+        <!-- Reference treatments/groups -->
+        <!-- ko foreach:  { data: Settings.References, as: 'cohortReferences' } -->
+        <div class="form-group">
+            <label class="col-xs-4 control-label control-label-detail">
+                Reference Trt/Grp
+                <!-- ko if: $parent.Settings.References.length > 1 -->
+                <small>Cohort: <span data-bind="text: cohortReferences.Cohort"></span></small>
+                <!-- /ko -->
+            </label>
+            <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Reference treatment to use in the treatment comparisons' }">
+                <select class="form-control"
+                        data-bind="options: $root.study.Cohorts()[$index()].treatmentList, value: cohortReferences.Reference,
+                            selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="col-xs-4 control-label control-label-detail">
+                Test
+            </label>
+            <div class="col-xs-8 btn-group" role="group" aria-label="Test"
+                 data-bind="foreach: { data: $root.MetaCohorts[$index()], as: 'metaCohort'} ,
+                    tooltip: { container: 'body', placement: 'left', title: 'Test' }">
+                <button type="button" class="btn btn-sm" data-bind="text: metaCohort,
+                     css: { 'active btn-default': $root.report.Settings.References()[$parentContext.$index()].MetaCohorts.indexOf(metaCohort) != -1,
+                        'btn-lite': $root.report.Settings.References()[$parentContext.$index()].MetaCohorts.indexOf(metaCohort)  == -1
+                    }, click: function () { $root.toggleMetaCohorts(metaCohort,$parentContext.$index()); }"></button>
+            </div>
+
+        </div>
+        <!-- /ko -->
+        <!-- Analytes -->
+        <div class="form-group">
+            <label class="col-xs-4 control-label">
+                Analytes
+            </label>
+            <div class="col-xs-8 btn-group" role="group" aria-label="Analytes"
+                 data-bind="foreach: { data: $root.analytes, as: 'analyte' },
+                    tooltip: { container: 'body', placement: 'left', title: 'Analytes to be included in the figures/plots' }">
+                <button type="button" class="btn btn-sm" data-bind="text: analyte,
+                    css: { 'active btn-default': $parent.Settings.Analytes.indexOf(analyte) != -1,
+                        'btn-lite': $parent.Settings.Analytes.indexOf(analyte) == -1
+                    }, click: function () { $root.toggleAnalyte(analyte); }"></button>
+            </div>
+        </div>
+
+        <!-- Parameters -->
+        <div class="form-group">
+            <label class="col-xs-4 control-label">
+                Parameters
+            </label>
+            <div class="col-xs-8 btn-group" role="group" aria-label="Parameters"
+                 data-bind="foreach: { data: $root.parameters, as: 'parameter' } ,
+                    tooltip: { container: 'body', placement: 'left', title: 'Parameters to be included in the figures/plots' }">
+                <button type="button" class="btn btn-sm" data-bind="text: parameter,
+                    css: { 'active btn-default': $parent.Settings.Parameters.indexOf(parameter) != -1,
+                        'btn-lite': $parent.Settings.Parameters.indexOf(parameter) == -1
+                    }, click: function () { $root.toggleParameter(parameter); }"></button>
+            </div>
+        </div>
+
+        <!-- Statistical Method -->
+        <div class="form-group">
+            <label class="col-xs-4 control-label">
+                Statistical Method
+            </label>
+            <div class="col-xs-8">
+                <select class="form-control"
+                        data-bind="options: $root.statisticalMethods,
+                        value: Settings.Method, selectize: { selectOnTab: true },
+                        optionsText: 'text', optionsValue: 'value'"></select>
+            </div>
+        </div>
+
+        <!-- Folder Sorting (hidden until SAS allows for it) -->
+        <!--<div class="form-group">
+                <label class="col-xs-4 control-label">One Folder Per
+                </label>
+                <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                        title: 'Tables will be organized in folders according to the items in this list. Tip: Drag to sort.' }">
+                    <select class="form-control" multiple="multiple"
+                        data-bind="optionsText: 'text', optionsValue: 'value',
+        options: $root.folderSortingOptions, selectedOptions: Settings.Sorting.Folders,
+        selectize: { selectOnTab: true, plugins: ['drag_drop', 'remove_button'] }"></select>
+                </div>
+            </div>-->
+        <!-- File Sorting -->
+        <div class="form-group">
+            <label class="col-xs-4 control-label">
+                One Plot Per
+            </label>
+            <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                title: 'Observations will be split in different files according to the items in this list. Tip: Drag to sort.' }">
+                <select class="form-control" multiple="multiple"
+                        data-bind="optionsText: 'text', optionsValue: 'value',
+    options: $root.fileSortingOptions, selectedOptions: Settings.Sorting.Files,
+    selectize: { selectOnTab: true, plugins: [/*'drag_drop', */'remove_button'] }"></select>
+            </div>
+        </div>
+
+        <!-- Table Columns -->
+        <div class="form-group">
+            <label class="col-xs-4 control-label">
+                Category Nesting
+            </label>
+            <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                title: 'Categories will be arranged nested within each other according to the items in this list. Tip: Drag to sort.' }">
+                <select class="form-control" multiple="multiple"
+                        data-bind="optionsText: 'text', optionsValue: 'value',
+    options: $root.columnSortingOptions, selectedOptions: Settings.Sorting.Columns,
+    selectize: { selectOnTab: true, plugins: ['drag_drop'/*, 'remove_button'*/],
+        readonly: true, onDelete: function () { return false; }}
+                        "></select>
+            </div>
+        </div>
+
+
+    </div>
+</div>

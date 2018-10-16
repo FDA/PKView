@@ -1,0 +1,721 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OCPSQLModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="OCPSQLModelStoreContainer">
+    <EntitySet Name="ESAFETY_PROJECT" EntityType="OCPSQLModel.Store.ESAFETY_PROJECT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ESAFETY_PROJECT2" EntityType="OCPSQLModel.Store.ESAFETY_PROJECT2" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ESAFETY_WORKFLOW" EntityType="OCPSQLModel.Store.ESAFETY_WORKFLOW" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FPTOOLS_PROJECT" EntityType="OCPSQLModel.Store.FPTOOLS_PROJECT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_DM_DATASET" EntityType="OCPSQLModel.Store.IPORTAL_DM_DATASET" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_DM_FILE" EntityType="OCPSQLModel.Store.IPORTAL_DM_FILE" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_EX_DATASET" EntityType="OCPSQLModel.Store.IPORTAL_EX_DATASET" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_EX_FILE" EntityType="OCPSQLModel.Store.IPORTAL_EX_FILE" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_FILE" EntityType="OCPSQLModel.Store.IPORTAL_FILE" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_FP" EntityType="OCPSQLModel.Store.IPORTAL_FP" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_FP_ROW" EntityType="OCPSQLModel.Store.IPORTAL_FP_ROW" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_FP_STYLE" EntityType="OCPSQLModel.Store.IPORTAL_FP_STYLE" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_PC_DATASET" EntityType="OCPSQLModel.Store.IPORTAL_PC_DATASET" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_PC_FILE" EntityType="OCPSQLModel.Store.IPORTAL_PC_FILE" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_PP_DATASET" EntityType="OCPSQLModel.Store.IPORTAL_PP_DATASET" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_PP_FILE" EntityType="OCPSQLModel.Store.IPORTAL_PP_FILE" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_SCALE" EntityType="OCPSQLModel.Store.IPORTAL_SCALE" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_SDTM_VARIABLE" EntityType="OCPSQLModel.Store.IPORTAL_SDTM_VARIABLE" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_STUDY" EntityType="OCPSQLModel.Store.IPORTAL_STUDY" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_STUDY_DESIGN" EntityType="OCPSQLModel.Store.IPORTAL_STUDY_DESIGN" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_STUDY_TYPE" EntityType="OCPSQLModel.Store.IPORTAL_STUDY_TYPE" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_SUBMISSION" EntityType="OCPSQLModel.Store.IPORTAL_SUBMISSION" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_SUBMISSION_TYPE" EntityType="OCPSQLModel.Store.IPORTAL_SUBMISSION_TYPE" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IPORTAL_VARIABLE_MAPPING" EntityType="OCPSQLModel.Store.IPORTAL_VARIABLE_MAPPING" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SYSTEM_USER" EntityType="OCPSQLModel.Store.SYSTEM_USER" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ESAFETY_PROJECT2_Workflows" Association="OCPSQLModel.Store.ESAFETY_PROJECT2_Workflows">
+      <End Role="ESAFETY_PROJECT2" EntitySet="ESAFETY_PROJECT2" />
+      <End Role="ESAFETY_WORKFLOW" EntitySet="ESAFETY_WORKFLOW" />
+    </AssociationSet>
+    <AssociationSet Name="ESAFETY_WORKFLOW_Project" Association="OCPSQLModel.Store.ESAFETY_WORKFLOW_Project">
+      <End Role="ESAFETY_PROJECT" EntitySet="ESAFETY_PROJECT" />
+      <End Role="ESAFETY_WORKFLOW" EntitySet="ESAFETY_WORKFLOW" />
+    </AssociationSet>
+    <AssociationSet Name="FK__eREVIEW_S__SUBMI__0E591826" Association="OCPSQLModel.Store.FK__eREVIEW_S__SUBMI__0E591826">
+      <End Role="IPORTAL_SUBMISSION_TYPE" EntitySet="IPORTAL_SUBMISSION_TYPE" />
+      <End Role="IPORTAL_SUBMISSION" EntitySet="IPORTAL_SUBMISSION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_eREVIEW_STUDY_eREVIEW_STUDY" Association="OCPSQLModel.Store.FK_eREVIEW_STUDY_eREVIEW_STUDY">
+      <End Role="IPORTAL_STUDY" EntitySet="IPORTAL_STUDY" />
+      <End Role="IPORTAL_STUDY1" EntitySet="IPORTAL_STUDY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_eREVIEW_STUDY_eREVIEW_STUDY_TYPE" Association="OCPSQLModel.Store.FK_eREVIEW_STUDY_eREVIEW_STUDY_TYPE">
+      <End Role="IPORTAL_STUDY_TYPE" EntitySet="IPORTAL_STUDY_TYPE" />
+      <End Role="IPORTAL_STUDY" EntitySet="IPORTAL_STUDY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FPTOOLS_PROJECT_SYSTEM_USER" Association="OCPSQLModel.Store.FK_FPTOOLS_PROJECT_SYSTEM_USER">
+      <End Role="SYSTEM_USER" EntitySet="SYSTEM_USER" />
+      <End Role="FPTOOLS_PROJECT" EntitySet="FPTOOLS_PROJECT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_DM_DATASET_IPORTAL_STUDY" Association="OCPSQLModel.Store.FK_IPORTAL_DM_DATASET_IPORTAL_STUDY">
+      <End Role="IPORTAL_STUDY" EntitySet="IPORTAL_STUDY" />
+      <End Role="IPORTAL_DM_DATASET" EntitySet="IPORTAL_DM_DATASET" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_DM_FILE_IPORTAL_DM_FILE" Association="OCPSQLModel.Store.FK_IPORTAL_DM_FILE_IPORTAL_DM_FILE">
+      <End Role="IPORTAL_DM_DATASET" EntitySet="IPORTAL_DM_DATASET" />
+      <End Role="IPORTAL_DM_FILE" EntitySet="IPORTAL_DM_FILE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_DM_FILE_IPORTAL_FILE" Association="OCPSQLModel.Store.FK_IPORTAL_DM_FILE_IPORTAL_FILE">
+      <End Role="IPORTAL_FILE" EntitySet="IPORTAL_FILE" />
+      <End Role="IPORTAL_DM_FILE" EntitySet="IPORTAL_DM_FILE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_EX_DATASET_IPORTAL_STUDY" Association="OCPSQLModel.Store.FK_IPORTAL_EX_DATASET_IPORTAL_STUDY">
+      <End Role="IPORTAL_STUDY" EntitySet="IPORTAL_STUDY" />
+      <End Role="IPORTAL_EX_DATASET" EntitySet="IPORTAL_EX_DATASET" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_EX_FILE_IPORTAL_EX_DATASET" Association="OCPSQLModel.Store.FK_IPORTAL_EX_FILE_IPORTAL_EX_DATASET">
+      <End Role="IPORTAL_EX_DATASET" EntitySet="IPORTAL_EX_DATASET" />
+      <End Role="IPORTAL_EX_FILE" EntitySet="IPORTAL_EX_FILE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_EX_FILE_IPORTAL_FILE" Association="OCPSQLModel.Store.FK_IPORTAL_EX_FILE_IPORTAL_FILE">
+      <End Role="IPORTAL_FILE" EntitySet="IPORTAL_FILE" />
+      <End Role="IPORTAL_EX_FILE" EntitySet="IPORTAL_EX_FILE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_FP_FPTOOLS_PROJECT" Association="OCPSQLModel.Store.FK_IPORTAL_FP_FPTOOLS_PROJECT">
+      <End Role="FPTOOLS_PROJECT" EntitySet="FPTOOLS_PROJECT" />
+      <End Role="IPORTAL_FP" EntitySet="IPORTAL_FP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_FP_IPORTAL_FP_STYLE" Association="OCPSQLModel.Store.FK_IPORTAL_FP_IPORTAL_FP_STYLE">
+      <End Role="IPORTAL_FP_STYLE" EntitySet="IPORTAL_FP_STYLE" />
+      <End Role="IPORTAL_FP" EntitySet="IPORTAL_FP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_FP_IPORTAL_SCALE" Association="OCPSQLModel.Store.FK_IPORTAL_FP_IPORTAL_SCALE">
+      <End Role="IPORTAL_SCALE" EntitySet="IPORTAL_SCALE" />
+      <End Role="IPORTAL_FP" EntitySet="IPORTAL_FP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_FP_ROW_IPORTAL_FP" Association="OCPSQLModel.Store.FK_IPORTAL_FP_ROW_IPORTAL_FP">
+      <End Role="IPORTAL_FP" EntitySet="IPORTAL_FP" />
+      <End Role="IPORTAL_FP_ROW" EntitySet="IPORTAL_FP_ROW" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_PC_DATASET_IPORTAL_STUDY" Association="OCPSQLModel.Store.FK_IPORTAL_PC_DATASET_IPORTAL_STUDY">
+      <End Role="IPORTAL_STUDY" EntitySet="IPORTAL_STUDY" />
+      <End Role="IPORTAL_PC_DATASET" EntitySet="IPORTAL_PC_DATASET" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_PC_FILE_IPORTAL_FILE" Association="OCPSQLModel.Store.FK_IPORTAL_PC_FILE_IPORTAL_FILE">
+      <End Role="IPORTAL_FILE" EntitySet="IPORTAL_FILE" />
+      <End Role="IPORTAL_PC_FILE" EntitySet="IPORTAL_PC_FILE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_PC_FILE_IPORTAL_PC_DATASET" Association="OCPSQLModel.Store.FK_IPORTAL_PC_FILE_IPORTAL_PC_DATASET">
+      <End Role="IPORTAL_PC_DATASET" EntitySet="IPORTAL_PC_DATASET" />
+      <End Role="IPORTAL_PC_FILE" EntitySet="IPORTAL_PC_FILE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_PP_DATASET_IPORTAL_STUDY" Association="OCPSQLModel.Store.FK_IPORTAL_PP_DATASET_IPORTAL_STUDY">
+      <End Role="IPORTAL_STUDY" EntitySet="IPORTAL_STUDY" />
+      <End Role="IPORTAL_PP_DATASET" EntitySet="IPORTAL_PP_DATASET" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_PP_FILE_IPORTAL_FILE" Association="OCPSQLModel.Store.FK_IPORTAL_PP_FILE_IPORTAL_FILE">
+      <End Role="IPORTAL_FILE" EntitySet="IPORTAL_FILE" />
+      <End Role="IPORTAL_PP_FILE" EntitySet="IPORTAL_PP_FILE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_PP_FILE_IPORTAL_PP_DATASET" Association="OCPSQLModel.Store.FK_IPORTAL_PP_FILE_IPORTAL_PP_DATASET">
+      <End Role="IPORTAL_PP_DATASET" EntitySet="IPORTAL_PP_DATASET" />
+      <End Role="IPORTAL_PP_FILE" EntitySet="IPORTAL_PP_FILE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_STUDY_IPORTAL_STUDY_DESIGN" Association="OCPSQLModel.Store.FK_IPORTAL_STUDY_IPORTAL_STUDY_DESIGN">
+      <End Role="IPORTAL_STUDY_DESIGN" EntitySet="IPORTAL_STUDY_DESIGN" />
+      <End Role="IPORTAL_STUDY" EntitySet="IPORTAL_STUDY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_STUDY_IPORTAL_SUBMISSION" Association="OCPSQLModel.Store.FK_IPORTAL_STUDY_IPORTAL_SUBMISSION">
+      <End Role="IPORTAL_SUBMISSION" EntitySet="IPORTAL_SUBMISSION" />
+      <End Role="IPORTAL_STUDY" EntitySet="IPORTAL_STUDY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_VARIABLE_MAPPING_IPORTAL_FILE" Association="OCPSQLModel.Store.FK_IPORTAL_VARIABLE_MAPPING_IPORTAL_FILE">
+      <End Role="IPORTAL_FILE" EntitySet="IPORTAL_FILE" />
+      <End Role="IPORTAL_VARIABLE_MAPPING" EntitySet="IPORTAL_VARIABLE_MAPPING" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IPORTAL_VARIABLE_MAPPING_IPORTAL_SDTM_VARIABLE" Association="OCPSQLModel.Store.FK_IPORTAL_VARIABLE_MAPPING_IPORTAL_SDTM_VARIABLE">
+      <End Role="IPORTAL_SDTM_VARIABLE" EntitySet="IPORTAL_SDTM_VARIABLE" />
+      <End Role="IPORTAL_VARIABLE_MAPPING" EntitySet="IPORTAL_VARIABLE_MAPPING" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ESAFETY_PROJECT">
+    <Key>
+      <PropertyRef Name="PROJECT_ID" />
+    </Key>
+    <Property Name="PROJECT_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PROJECT_NAME" Type="nvarchar(max)" />
+    <Property Name="SUBMISSION_TYPE_ID" Type="int" Nullable="false" />
+    <Property Name="SUBMISSION_NUMBER" Type="nvarchar(max)" />
+    <Property Name="SUBMISSION_DATE" Type="datetime" Nullable="false" />
+    <Property Name="SDN" Type="nvarchar(max)" />
+    <Property Name="EDR_LOCATION" Type="nvarchar(max)" />
+    <Property Name="AIM" Type="nvarchar(max)" />
+    <Property Name="COMMENTS" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="ESAFETY_PROJECT2">
+    <Key>
+      <PropertyRef Name="PROJECT2_ID" />
+    </Key>
+    <Property Name="PROJECT2_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PROJECT_NAME" Type="nvarchar(max)" />
+    <Property Name="SUBMISSION_TYPE_ID" Type="int" Nullable="false" />
+    <Property Name="SUBMISSION_NUMBER" Type="nvarchar(max)" />
+    <Property Name="SUBMISSION_DATE" Type="datetime" Nullable="false" />
+    <Property Name="SDN" Type="nvarchar(max)" />
+    <Property Name="EDR_LOCATION" Type="nvarchar(max)" />
+    <Property Name="AIM" Type="nvarchar(max)" />
+    <Property Name="COMMENTS" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="ESAFETY_WORKFLOW">
+    <Key>
+      <PropertyRef Name="WORKFLOW_ID" />
+    </Key>
+    <Property Name="WORKFLOW_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="WORKFLOW_NAME" Type="nvarchar(max)" />
+    <Property Name="PROJECT_ID" Type="int" Nullable="false" />
+    <Property Name="ESAFETY_PROJECT2_PROJECT2_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="FPTOOLS_PROJECT">
+    <Key>
+      <PropertyRef Name="PROJECT_ID" />
+    </Key>
+    <Property Name="PROJECT_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PROJECT_NAME" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="FILE_NAME" Type="nvarchar(max)" />
+    <Property Name="USER_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_DM_DATASET">
+    <Key>
+      <PropertyRef Name="DM_DATASET_ID" />
+    </Key>
+    <Property Name="DM_DATASET_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="STUDY_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_DM_FILE">
+    <Key>
+      <PropertyRef Name="DM_FILE_ID" />
+    </Key>
+    <Property Name="DM_FILE_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FILE_ID" Type="int" Nullable="false" />
+    <Property Name="DM_DATASET_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_EX_DATASET">
+    <Key>
+      <PropertyRef Name="EX_DATASET_ID" />
+    </Key>
+    <Property Name="EX_DATASET_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="STUDY_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_EX_FILE">
+    <Key>
+      <PropertyRef Name="EX_FILE_ID" />
+    </Key>
+    <Property Name="EX_FILE_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FILE_ID" Type="int" Nullable="false" />
+    <Property Name="EX_DATASET_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_FILE">
+    <Key>
+      <PropertyRef Name="FILE_ID" />
+    </Key>
+    <Property Name="FILE_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FILE_NAME" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="SERVER_PATH" Type="varchar(max)" />
+    <Property Name="FAST_CHECKSUM" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="IPORTAL_FP">
+    <Key>
+      <PropertyRef Name="FP_ID" />
+    </Key>
+    <Property Name="FP_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DRUGNAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="TITLE" Type="nvarchar(max)" />
+    <Property Name="SCALE_ID" Type="int" Nullable="false" />
+    <Property Name="FOOTNOTE" Type="nvarchar(max)" />
+    <Property Name="XLABEL" Type="nvarchar(max)" />
+    <Property Name="FP_STYLE_ID" Type="int" Nullable="false" />
+    <Property Name="RANGE_BOTTOM" Type="float" Nullable="false" />
+    <Property Name="RANGE_TOP" Type="float" Nullable="false" />
+    <Property Name="RANGE_STEP" Type="float" Nullable="false" />
+    <Property Name="PROJECT_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_FP_ROW">
+    <Key>
+      <PropertyRef Name="FP_ROW_ID" />
+    </Key>
+    <Property Name="FP_ROW_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CATEGORY" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="SUBCATEGORY" Type="nvarchar" MaxLength="50" />
+    <Property Name="PARAMETER" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="RATIO" Type="float" />
+    <Property Name="LOWER_CI" Type="float" />
+    <Property Name="UPPER_CI" Type="float" />
+    <Property Name="COMMENT" Type="nvarchar(max)" />
+    <Property Name="FP_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_FP_STYLE">
+    <Key>
+      <PropertyRef Name="FP_STYLE_ID" />
+    </Key>
+    <Property Name="FP_STYLE_ID" Type="int" Nullable="false" />
+    <Property Name="CODE" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="IPORTAL_PC_DATASET">
+    <Key>
+      <PropertyRef Name="PC_DATASET_ID" />
+    </Key>
+    <Property Name="PC_DATASET_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="STUDY_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_PC_FILE">
+    <Key>
+      <PropertyRef Name="PC_FILE_ID" />
+    </Key>
+    <Property Name="PC_FILE_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FILE_ID" Type="int" Nullable="false" />
+    <Property Name="PC_DATASET_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_PP_DATASET">
+    <Key>
+      <PropertyRef Name="PP_DATASET_ID" />
+    </Key>
+    <Property Name="PP_DATASET_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="STUDY_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_PP_FILE">
+    <Key>
+      <PropertyRef Name="PP_FILE_ID" />
+    </Key>
+    <Property Name="PP_FILE_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FILE_ID" Type="int" Nullable="false" />
+    <Property Name="PP_DATASET_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_SCALE">
+    <Key>
+      <PropertyRef Name="SCALE_ID" />
+    </Key>
+    <Property Name="SCALE_ID" Type="int" Nullable="false" />
+    <Property Name="CODE" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="IPORTAL_SDTM_VARIABLE">
+    <Key>
+      <PropertyRef Name="SDTM_VARIABLE_ID" />
+    </Key>
+    <Property Name="SDTM_VARIABLE_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="50" />
+    <Property Name="LONG_DESCRIPTION" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="IPORTAL_STUDY">
+    <Key>
+      <PropertyRef Name="STUDY_ID" />
+    </Key>
+    <Property Name="STUDY_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="STUDY_CODE" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="EDR_LINK" Type="varchar(max)" />
+    <Property Name="START_DATE" Type="datetime" />
+    <Property Name="END_DATE" Type="datetime" />
+    <Property Name="SCREENING_DAY" Type="varchar" MaxLength="50" />
+    <Property Name="WASHOUT_DAY" Type="varchar" MaxLength="50" />
+    <Property Name="SAMPLING_TIME" Type="varchar(max)" />
+    <Property Name="STUDY_TYPE_ID" Type="int" Nullable="false" />
+    <Property Name="STUDY_DESIGN_ID" Type="int" Nullable="false" />
+    <Property Name="PARENT_STUDY_ID" Type="int" />
+    <Property Name="SUBMISSION_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IPORTAL_STUDY_DESIGN">
+    <Key>
+      <PropertyRef Name="STUDY_DESIGN_ID" />
+    </Key>
+    <Property Name="STUDY_DESIGN_ID" Type="int" Nullable="false" />
+    <Property Name="NAME" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="IPORTAL_STUDY_TYPE">
+    <Key>
+      <PropertyRef Name="STUDY_TYPE_ID" />
+    </Key>
+    <Property Name="STUDY_TYPE_ID" Type="int" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="100" />
+    <Property Name="ABBREVIATION" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="IPORTAL_SUBMISSION">
+    <Key>
+      <PropertyRef Name="SUBMISSION_ID" />
+    </Key>
+    <Property Name="SUBMISSION_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SUBMISSION_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="SUBMISSION_TYPE_ID" Type="int" Nullable="false" />
+    <Property Name="RowVersion" Type="timestamp" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="IPORTAL_SUBMISSION_TYPE">
+    <Key>
+      <PropertyRef Name="SUBMISSION_TYPE_ID" />
+    </Key>
+    <Property Name="SUBMISSION_TYPE_ID" Type="int" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="IPORTAL_VARIABLE_MAPPING">
+    <Key>
+      <PropertyRef Name="VARIABLE_MAPPING_ID" />
+    </Key>
+    <Property Name="VARIABLE_MAPPING_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SDTM_VARIABLE_ID" Type="int" Nullable="false" />
+    <Property Name="FILE_VARIABLE" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="MAPPING_QUALITY" Type="int" Nullable="false" />
+    <Property Name="FILE_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SYSTEM_USER">
+    <Key>
+      <PropertyRef Name="USER_ID" />
+    </Key>
+    <Property Name="USER_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="USER_NAME" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <Association Name="ESAFETY_PROJECT2_Workflows">
+    <End Role="ESAFETY_PROJECT2" Type="OCPSQLModel.Store.ESAFETY_PROJECT2" Multiplicity="0..1" />
+    <End Role="ESAFETY_WORKFLOW" Type="OCPSQLModel.Store.ESAFETY_WORKFLOW" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESAFETY_PROJECT2">
+        <PropertyRef Name="PROJECT2_ID" />
+      </Principal>
+      <Dependent Role="ESAFETY_WORKFLOW">
+        <PropertyRef Name="ESAFETY_PROJECT2_PROJECT2_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ESAFETY_WORKFLOW_Project">
+    <End Role="ESAFETY_PROJECT" Type="OCPSQLModel.Store.ESAFETY_PROJECT" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ESAFETY_WORKFLOW" Type="OCPSQLModel.Store.ESAFETY_WORKFLOW" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESAFETY_PROJECT">
+        <PropertyRef Name="PROJECT_ID" />
+      </Principal>
+      <Dependent Role="ESAFETY_WORKFLOW">
+        <PropertyRef Name="PROJECT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__eREVIEW_S__SUBMI__0E591826">
+    <End Role="IPORTAL_SUBMISSION_TYPE" Type="OCPSQLModel.Store.IPORTAL_SUBMISSION_TYPE" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_SUBMISSION" Type="OCPSQLModel.Store.IPORTAL_SUBMISSION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_SUBMISSION_TYPE">
+        <PropertyRef Name="SUBMISSION_TYPE_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_SUBMISSION">
+        <PropertyRef Name="SUBMISSION_TYPE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_eREVIEW_STUDY_eREVIEW_STUDY">
+    <End Role="IPORTAL_STUDY" Type="OCPSQLModel.Store.IPORTAL_STUDY" Multiplicity="0..1" />
+    <End Role="IPORTAL_STUDY1" Type="OCPSQLModel.Store.IPORTAL_STUDY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_STUDY">
+        <PropertyRef Name="STUDY_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_STUDY1">
+        <PropertyRef Name="PARENT_STUDY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_eREVIEW_STUDY_eREVIEW_STUDY_TYPE">
+    <End Role="IPORTAL_STUDY_TYPE" Type="OCPSQLModel.Store.IPORTAL_STUDY_TYPE" Multiplicity="1" />
+    <End Role="IPORTAL_STUDY" Type="OCPSQLModel.Store.IPORTAL_STUDY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_STUDY_TYPE">
+        <PropertyRef Name="STUDY_TYPE_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_STUDY">
+        <PropertyRef Name="STUDY_TYPE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FPTOOLS_PROJECT_SYSTEM_USER">
+    <End Role="SYSTEM_USER" Type="OCPSQLModel.Store.SYSTEM_USER" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FPTOOLS_PROJECT" Type="OCPSQLModel.Store.FPTOOLS_PROJECT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SYSTEM_USER">
+        <PropertyRef Name="USER_ID" />
+      </Principal>
+      <Dependent Role="FPTOOLS_PROJECT">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_DM_DATASET_IPORTAL_STUDY">
+    <End Role="IPORTAL_STUDY" Type="OCPSQLModel.Store.IPORTAL_STUDY" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_DM_DATASET" Type="OCPSQLModel.Store.IPORTAL_DM_DATASET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_STUDY">
+        <PropertyRef Name="STUDY_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_DM_DATASET">
+        <PropertyRef Name="STUDY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_DM_FILE_IPORTAL_DM_FILE">
+    <End Role="IPORTAL_DM_DATASET" Type="OCPSQLModel.Store.IPORTAL_DM_DATASET" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_DM_FILE" Type="OCPSQLModel.Store.IPORTAL_DM_FILE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_DM_DATASET">
+        <PropertyRef Name="DM_DATASET_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_DM_FILE">
+        <PropertyRef Name="DM_DATASET_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_DM_FILE_IPORTAL_FILE">
+    <End Role="IPORTAL_FILE" Type="OCPSQLModel.Store.IPORTAL_FILE" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_DM_FILE" Type="OCPSQLModel.Store.IPORTAL_DM_FILE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_FILE">
+        <PropertyRef Name="FILE_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_DM_FILE">
+        <PropertyRef Name="FILE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_EX_DATASET_IPORTAL_STUDY">
+    <End Role="IPORTAL_STUDY" Type="OCPSQLModel.Store.IPORTAL_STUDY" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_EX_DATASET" Type="OCPSQLModel.Store.IPORTAL_EX_DATASET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_STUDY">
+        <PropertyRef Name="STUDY_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_EX_DATASET">
+        <PropertyRef Name="STUDY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_EX_FILE_IPORTAL_EX_DATASET">
+    <End Role="IPORTAL_EX_DATASET" Type="OCPSQLModel.Store.IPORTAL_EX_DATASET" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_EX_FILE" Type="OCPSQLModel.Store.IPORTAL_EX_FILE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_EX_DATASET">
+        <PropertyRef Name="EX_DATASET_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_EX_FILE">
+        <PropertyRef Name="EX_DATASET_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_EX_FILE_IPORTAL_FILE">
+    <End Role="IPORTAL_FILE" Type="OCPSQLModel.Store.IPORTAL_FILE" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_EX_FILE" Type="OCPSQLModel.Store.IPORTAL_EX_FILE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_FILE">
+        <PropertyRef Name="FILE_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_EX_FILE">
+        <PropertyRef Name="FILE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_FP_FPTOOLS_PROJECT">
+    <End Role="FPTOOLS_PROJECT" Type="OCPSQLModel.Store.FPTOOLS_PROJECT" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_FP" Type="OCPSQLModel.Store.IPORTAL_FP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FPTOOLS_PROJECT">
+        <PropertyRef Name="PROJECT_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_FP">
+        <PropertyRef Name="PROJECT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_FP_IPORTAL_FP_STYLE">
+    <End Role="IPORTAL_FP_STYLE" Type="OCPSQLModel.Store.IPORTAL_FP_STYLE" Multiplicity="1" />
+    <End Role="IPORTAL_FP" Type="OCPSQLModel.Store.IPORTAL_FP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_FP_STYLE">
+        <PropertyRef Name="FP_STYLE_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_FP">
+        <PropertyRef Name="FP_STYLE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_FP_IPORTAL_SCALE">
+    <End Role="IPORTAL_SCALE" Type="OCPSQLModel.Store.IPORTAL_SCALE" Multiplicity="1" />
+    <End Role="IPORTAL_FP" Type="OCPSQLModel.Store.IPORTAL_FP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_SCALE">
+        <PropertyRef Name="SCALE_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_FP">
+        <PropertyRef Name="SCALE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_FP_ROW_IPORTAL_FP">
+    <End Role="IPORTAL_FP" Type="OCPSQLModel.Store.IPORTAL_FP" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_FP_ROW" Type="OCPSQLModel.Store.IPORTAL_FP_ROW" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_FP">
+        <PropertyRef Name="FP_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_FP_ROW">
+        <PropertyRef Name="FP_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_PC_DATASET_IPORTAL_STUDY">
+    <End Role="IPORTAL_STUDY" Type="OCPSQLModel.Store.IPORTAL_STUDY" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_PC_DATASET" Type="OCPSQLModel.Store.IPORTAL_PC_DATASET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_STUDY">
+        <PropertyRef Name="STUDY_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_PC_DATASET">
+        <PropertyRef Name="STUDY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_PC_FILE_IPORTAL_FILE">
+    <End Role="IPORTAL_FILE" Type="OCPSQLModel.Store.IPORTAL_FILE" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_PC_FILE" Type="OCPSQLModel.Store.IPORTAL_PC_FILE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_FILE">
+        <PropertyRef Name="FILE_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_PC_FILE">
+        <PropertyRef Name="FILE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_PC_FILE_IPORTAL_PC_DATASET">
+    <End Role="IPORTAL_PC_DATASET" Type="OCPSQLModel.Store.IPORTAL_PC_DATASET" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_PC_FILE" Type="OCPSQLModel.Store.IPORTAL_PC_FILE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_PC_DATASET">
+        <PropertyRef Name="PC_DATASET_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_PC_FILE">
+        <PropertyRef Name="PC_DATASET_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_PP_DATASET_IPORTAL_STUDY">
+    <End Role="IPORTAL_STUDY" Type="OCPSQLModel.Store.IPORTAL_STUDY" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_PP_DATASET" Type="OCPSQLModel.Store.IPORTAL_PP_DATASET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_STUDY">
+        <PropertyRef Name="STUDY_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_PP_DATASET">
+        <PropertyRef Name="STUDY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_PP_FILE_IPORTAL_FILE">
+    <End Role="IPORTAL_FILE" Type="OCPSQLModel.Store.IPORTAL_FILE" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_PP_FILE" Type="OCPSQLModel.Store.IPORTAL_PP_FILE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_FILE">
+        <PropertyRef Name="FILE_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_PP_FILE">
+        <PropertyRef Name="FILE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_PP_FILE_IPORTAL_PP_DATASET">
+    <End Role="IPORTAL_PP_DATASET" Type="OCPSQLModel.Store.IPORTAL_PP_DATASET" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_PP_FILE" Type="OCPSQLModel.Store.IPORTAL_PP_FILE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_PP_DATASET">
+        <PropertyRef Name="PP_DATASET_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_PP_FILE">
+        <PropertyRef Name="PP_DATASET_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_STUDY_IPORTAL_STUDY_DESIGN">
+    <End Role="IPORTAL_STUDY_DESIGN" Type="OCPSQLModel.Store.IPORTAL_STUDY_DESIGN" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_STUDY" Type="OCPSQLModel.Store.IPORTAL_STUDY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_STUDY_DESIGN">
+        <PropertyRef Name="STUDY_DESIGN_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_STUDY">
+        <PropertyRef Name="STUDY_DESIGN_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_STUDY_IPORTAL_SUBMISSION">
+    <End Role="IPORTAL_SUBMISSION" Type="OCPSQLModel.Store.IPORTAL_SUBMISSION" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_STUDY" Type="OCPSQLModel.Store.IPORTAL_STUDY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_SUBMISSION">
+        <PropertyRef Name="SUBMISSION_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_STUDY">
+        <PropertyRef Name="SUBMISSION_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_VARIABLE_MAPPING_IPORTAL_FILE">
+    <End Role="IPORTAL_FILE" Type="OCPSQLModel.Store.IPORTAL_FILE" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_VARIABLE_MAPPING" Type="OCPSQLModel.Store.IPORTAL_VARIABLE_MAPPING" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_FILE">
+        <PropertyRef Name="FILE_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_VARIABLE_MAPPING">
+        <PropertyRef Name="FILE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IPORTAL_VARIABLE_MAPPING_IPORTAL_SDTM_VARIABLE">
+    <End Role="IPORTAL_SDTM_VARIABLE" Type="OCPSQLModel.Store.IPORTAL_SDTM_VARIABLE" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IPORTAL_VARIABLE_MAPPING" Type="OCPSQLModel.Store.IPORTAL_VARIABLE_MAPPING" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IPORTAL_SDTM_VARIABLE">
+        <PropertyRef Name="SDTM_VARIABLE_ID" />
+      </Principal>
+      <Dependent Role="IPORTAL_VARIABLE_MAPPING">
+        <PropertyRef Name="SDTM_VARIABLE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

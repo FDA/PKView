@@ -1,0 +1,516 @@
+﻿/* ************************* */
+/* iPortal-wide styles       */
+/* ************************* */
+
+.horiz-separator {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #E5E5E5;    
+}
+
+.text-art {
+    line-height: 1em; 
+    font-weight:bold;  
+    -ms-text-shadow: 5px 5px 5px #7777ff; 
+    text-shadow: 5px 5px 5px #7777ff; 
+    -webkit-font-smoothing: antialiased;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+.text-art-light {
+    -ms-text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    -webkit-text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px;
+    text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px;
+}
+
+.text-art > a:hover {
+    text-decoration: none;
+    opacity: 0.4;
+}
+
+.text-art > a:focus {
+    text-decoration: none;
+    outline-style: none;
+}
+
+/* We want ellipsis in selectize instead of resizing the dropdown */
+.selectize-control.single > .selectize-input > .item {
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;    
+    width: 95%;
+    margin-bottom: -5px;
+}
+
+/* Fixed z-index to be higher than bootstrap modals */
+.selectize-dropdown, .selectize-dropdown.form-control {
+    z-index: 2000;
+}
+
+/* support for feedback inside selectize */
+.has-feedback .selectize-control + .form-control-feedback {
+    margin-top: -4px;
+    right: 40px;
+}
+.has-feedback .selectize-control.single > .selectize-input > .item {  
+    width: 90%;
+}
+
+/* Adjust selectize multiselect item color */
+.selectize-control.multi .selectize-input > div {
+    background-color: #798D8F;
+    color: #FFFFFF;
+}
+
+/* Support for stacked text inside icon in fontawesome */
+.fa-stack-text {
+    font-weight:bold; 
+    font-family: arial; 
+    font-size: 0.5em
+}
+
+/* Support for 45 degrees icon rotation in fontawesome */
+.fa-rotate-45 {
+    -webkit-transform:rotate(45deg); 
+    -moz-transform:rotate(45deg); 
+    -ms-transform:rotate(45deg); 
+    -o-transform:rotate(45deg); 
+    transform:rotate(45deg);
+} 
+
+/* support for navbars on wells */
+.well > .navbar {
+    margin-top: -10px;
+}
+
+/* disabled buttons are not evident enough*/
+.btn[disabled], 
+.btn[disabled]:focus,
+.btn[disabled]:hover {
+    opacity: 0.2;
+    cursor: not-allowed;
+    pointer-events: inherit;
+    color: #000000;
+}
+.btn-primary[disabled], 
+.btn-primary[disabled]:focus,
+.btn-primary[disabled]:hover {
+    opacity: 0.3;
+    background-color: #5c6e80;
+    border-color: #5c6e80;
+}
+
+/* Fix: Fontawesome icons need 14px size to be clear, make btn-sm a little bit larger */
+.btn-sm, .btn-group-sm > .btn{
+    font-size: 14px;
+}
+
+/* Fix tooltip width, bootstrap's default is too small */
+div.tooltip-inner {
+    max-width: 250px;
+}
+/* Fix tooltip width, bootstrap's default is too small */
+div.tooltip-inner {
+    max-width: 250px;
+}
+div.tooltip-wide div.tooltip-inner {
+    max-width: 350px;
+}
+
+/* Increment tooltip Z so they stay over modal popups */
+div.tooltip {
+    z-index: 5000;
+}
+
+/* Fix modal close button as we do not completely follow bootstrap
+   specification in order to integrate with durandal dialogs */
+.modal-dialog .close {
+    color: #2C3E50;
+}
+
+/* Add maximum height to modals with responsive media queries */
+.modal-body{
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+@media (min-height: 500px) {
+    .modal-body { max-height: 350px; }
+}
+
+@media (min-height: 800px) {
+    .modal-body { max-height: 600px; }
+}
+
+@media (min-height: 1200px) {
+    .modal-body { max-height: 1000px; }
+}
+
+@media (min-height: 1600px) {
+    .modal-body { max-height: 1400px; }
+}
+
+/* Fix background transparency on floating table header */
+table.floatThead-table thead {
+    background-color: #ffffff;
+}
+
+/*until bootstrap fixes it*/
+.form-control-feedback {
+    display: block;
+    line-height: 43px;
+    top: 26px;
+}
+
+/*until boostwatch fixes it */
+.navbar-default .navbar-text {
+    color: #ffffff;
+}
+
+/* Add more space between button groups in toolbars */
+.btn-toolbar > .btn, .btn-toolbar > .btn-group, .btn-toolbar > .input-group {
+    margin-left: 25px;
+}
+
+/* Fix navbar margins inside containers */
+.container .navbar > .container > .navbar-header,
+.container .navbar > .container-fluid > .navbar-header,
+.container .navbar > .container > .navbar-collapse,
+.container .navbar > .container-fluid > .navbar-collapse,
+.container .navbar > .container > .navbar-right,
+.container .navbar > .container-fluid > .navbar-right {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+/* Fix right aligned toolbars inside navbars inside containers */
+.container .navbar > container-fluid > .btn-toolbar > .btn-group,
+.container .navbar > container > .btn-toolbar > .btn-group {
+    margin-right: -10px;
+}
+
+/* ************************************* */
+/* context classes for badges and icons  */
+/* ************************************* */
+
+.badge-info {
+    background-color: #00A2E8;
+}
+
+.badge-success {
+    background-color: #00BF00;
+}
+
+.badge-warning {
+    background-color: #F39C12;
+}
+
+.badge-danger {
+    background-color: #F51010;
+}
+
+.icon-info {
+    color: #00A2E8;
+}
+
+.icon-success {
+    color: #00BF00;
+}
+
+.icon-warning {
+    color: #F39C12;
+}
+
+.icon-danger {
+    color: #F51010;
+}
+
+/* ************************************* */
+/* context classes for selectize         */
+/* ************************************* */
+
+.has-success .form-control .selectize-input,
+.has-warning .form-control .selectize-input,
+.has-error .form-control .selectize-input {
+    border-color: #FFFFFF;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.has-success .form-control .selectize-input, 
+.has-success .form-control selectize-input.focus {
+    border: 1px solid #00BF00;
+}
+
+.has-warning .form-control .selectize-input, 
+.has-warning .form-control selectize-input.focus {
+    border: 2px solid #F39C12;
+}
+
+.has-error .form-control .selectize-input, 
+.has-error .form-control selectize-input.focus {
+    border: 2px solid #F51010;
+}
+
+.has-warning .selectize-control + .form-control-feedback,
+.has-error .selectize-control + .form-control-feedback {
+    margin-top: -3px;
+}
+
+/* ************************* */
+/* data dialog styles        */
+/* ************************* */
+
+.data-dialog table {
+    overflow: auto;
+    display: block;
+}
+
+.data-dialog .table thead > tr > th {
+    padding-right: 20px;
+}
+
+/* ************************* */
+/* splash component styles   */
+/* ************************* */
+
+.splash {
+    text-align: center;
+    margin: 10% 0 0 0;
+}
+
+.splash-tiny {
+    margin: 15px 0 0 0;
+}
+
+.splash .message {
+    font-size: 2em;
+    line-height: 1.5em;
+    -webkit-text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px;
+    text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px;
+}
+
+.splash-tiny .message {
+    font-size: 1em;
+    line-height: 0.5em;
+}
+
+.splash .footmessage {
+    font-size: 1em;
+    line-height: 3em;
+    -webkit-text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px;
+    text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px;
+    padding-top: 30px;
+}
+
+.splash-tiny .footmessage {
+    line-height: 1em;
+    padding-top: 10px;
+}
+
+.splash .fa-spinner {
+    text-align: center;
+    display: inline-block;
+    font-size: 5em;
+    margin-top: 50px;
+}
+
+.splash-tiny .fa-spinner {
+    font-size: 3em;
+    margin-top: 35px;
+}
+
+/* ************************* */
+/* wizard breadcrumb styles  */
+/* ************************* */
+
+.breadcrumb-wizard > li + li:before {
+    content: " ";
+    padding: 0;
+}
+
+.breadcrumb-wizard {
+    padding: 0;
+    padding-left: 15px;
+    position: relative;
+}
+
+.breadcrumb-wizard > li {
+    padding: 8px 15px;
+}
+
+.breadcrumb-wizard > li span.badge {
+    margin-right: 5px;
+    background-color: transparent;
+    color: inherit;
+}
+
+
+.breadcrumb-wizard > li.active ~ li,
+.breadcrumb-wizard > li.active ~ li span.badge {
+    color: #DDDDDD;
+}
+
+.breadcrumb-wizard > li.active span.badge {  
+    margin-right: 10px;
+    color: #2C3E50;
+    background-color: #FFFFFF;
+}
+
+.breadcrumb-wizard > li.active {
+    background-color: #2C3E50;
+    color: #FFFFFF;
+}
+
+.breadcrumb-wizard > li.active > a {
+    color: #FFFFFF;
+}
+
+.breadcrumb-wizard > li.progress {
+    position: absolute; 
+    left: 0px; 
+    top: 0px; 
+    height: 3px;  
+    width: 100%;
+    padding: 0px;
+    background-color: transparent;
+}
+
+@media screen and (max-width: 768px) {
+    .breadcrumb-wizard > li span.badge,
+    .breadcrumb-wizard > li.active span.badge {
+        margin-right: 0;
+    }
+    .breadcrumb-wizard > li span.badge + span {
+        display: none;
+    }
+}
+
+/* ************************** */
+/* lite navbar (no bg/border) */
+/* ************************** */
+
+.navbar-lite {
+    border-radius: 0;
+    border-bottom: 1px solid #95A5A6;
+    min-height: 44px;
+}
+
+.navbar-lite .navbar-text {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.navbar-lite .btn-toolbar {
+    padding-bottom: 10px;
+}
+
+/* ************************* */
+/* small navbar              */
+/* ************************* */
+
+.navbar-sm {
+    min-height: 30px;
+}
+
+/* ************************* */
+/* navbar title              */
+/* ************************* */
+
+.navbar-title {
+    font-size: 22.5px;
+}
+
+/* ************************* */
+/* lite button               */
+/* ************************* */
+
+.btn-lite {
+    background-color: #FFFFFF;
+    border: 1px solid #95A5A6;
+}
+
+.btn-lite:hover, .btn-lite:focus {
+    background-color: #ECF0F1; 
+    color: #2C3E50;
+}
+
+/* ************************* */
+/* display-on-hover button   */
+/* ************************* */
+
+.btn-hover {
+    background-color: none;
+}
+.btn-hover:hover {
+    background-color: #FFFFFF;
+    border: 1px solid #95A5A6;
+    color: #2C3E50;
+    opacity: 0.5;
+}
+
+/* ******************************** */
+/* display-on-parent-hover element  */
+/* ******************************** */
+
+.parent-hover .child-hover-block,
+.parent-hover .child-hover-inline,
+.parent-hover .child-hover-inline-block {
+    display: none;
+}
+
+.parent-hover:hover .child-hover-block {
+    display: block;
+}
+
+.parent-hover:hover .child-hover-inline {
+    display: inline;
+}
+
+.parent-hover:hover .child-hover-inline-block {
+    display: inline;
+}
+
+/* ************************* */
+/* Form label with detail    */
+/* ************************* */
+
+.form-horizontal label.control-label-detail {
+    padding-top: 0;
+}
+label.control-label-detail > small {
+    display: block;
+    font-size: 70%;
+    color: #798D8F;
+}
+
+/* ****************************************************************** */
+/* Fontawesome icon overlays (change when it is officially supported) */
+/* ****************************************************************** */
+
+.fa-overlay, .fa-overlay-o {
+    position: absolute;
+    right: 9px;
+    bottom: 9px;
+    text-align: right;
+    width: 100%;
+}
+.fa-overlay-o {
+    color: #FFFFFF;      
+    font-size: 12px;
+}
+
+.fa-overlay { 
+    font-size: 10px;
+}
+
+.btn-sm > span > .fa-overlay,
+.btn-sm > span > .fa-overlay-o {
+    right: 7px;
+    bottom: 5px;
+}
+
+

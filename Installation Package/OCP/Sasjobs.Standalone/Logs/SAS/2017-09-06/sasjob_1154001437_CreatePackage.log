@@ -1,0 +1,677 @@
+INFO: 1                                                          The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: NOTE: Copyright (c) 2002-2012 by SAS Institute Inc., Cary, NC, USA.
+INFO: NOTE: SAS (r) Proprietary Software 9.4 (TS1M4)
+INFO: Licensed to UNIVERSITY OF ILLINOIS SYSTEM - T&R SFA, Site 70080107.
+INFO: NOTE: This session is executing on the X64_10PRO  platform.
+INFO: 
+INFO: 
+INFO: 
+INFO: NOTE: Updated analytical products:
+INFO: 
+INFO: SAS/STAT 14.2
+INFO: SAS/ETS 14.2
+INFO: SAS/OR 14.2
+INFO: SAS/IML 14.2
+INFO: SAS/QC 14.2
+INFO: 
+INFO: NOTE: Additional host information:
+INFO: 
+INFO: X64_10PRO WIN 10.0.15063  Workstation
+INFO: 
+INFO: NOTE: SAS Initialization used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 1
+INFO: 2          %LET SASSPPATH = C:\OCP\Sasjobs.Standalone\\Stored Procedures;
+INFO: 3
+INFO: 4          %global SasSpPath;
+INFO: 5          options nofmterr compress = yes mprint nospool sasautos = (sasautos "&SasSpPath.\Macros" "&SasSpPath.\Sub Macros");
+INFO: 6
+INFO: 7          libname user "%sysfunc(getoption(work))" ACCESS=TEMP FILELOCKWAIT=20;
+INFO: NOTE: Libref USER refers to the same physical library as WORK.
+INFO: NOTE: Libref USER was successfully assigned as follows:
+INFO: Engine:        V9
+INFO: Physical Name: C:\apps\SAS\SASUser\Peter\SAS Temporary Files\_TD8316_DESKTOP-MP8HDJJ_\Prc59
+INFO: 8          %let work = user.;
+INFO: 9
+INFO: 10         %PkViewCreatePackage;
+INFO: MPRINT(PKVIEWCREATEPACKAGE):   * FROM SASDATA IN FILE '';
+INFO: MPRINT(PKVIEWCREATEPACKAGE):   data _null_;
+INFO: MPRINT(PKVIEWCREATEPACKAGE):   set websvc.sasdata;
+INFO: MPRINT(PKVIEWCREATEPACKAGE):   * FROM SASDATA IN FILE '';
+INFO: MPRINT(PKVIEWCREATEPACKAGE):   call symputx("ndaName", ndaName);
+INFO: MPRINT(PKVIEWCREATEPACKAGE):   call symputx("userName", userName);
+INFO: MPRINT(PKVIEWCREATEPACKAGE):   call symputx("ProfileName", profileName);
+INFO: MPRINT(PKVIEWCREATEPACKAGE):   run;
+INFO: NOTE: There were 1 observations read from the data set WEBSVC.SASDATA.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: OutputFolder = C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.dirs_found (compress=no);
+INFO: MPRINT(SMLISTFILESINFOLDER):   length Root $500.;
+INFO: MPRINT(SMLISTFILESINFOLDER):   root = "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000";
+INFO: MPRINT(SMLISTFILESINFOLDER):   output;
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 2                                                          The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: 
+INFO: NOTE: The data set USER.DIRS_FOUND has 1 observations and 1 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.dirs_found user.files_found (compress=no);
+INFO: MPRINT(SMLISTFILESINFOLDER):   keep Path FileName FileType;
+INFO: MPRINT(SMLISTFILESINFOLDER):   length fref $8 Path Filename $500 FileType $16;
+INFO: MPRINT(SMLISTFILESINFOLDER):   modify user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   Path = root;
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = filename(fref, path);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if rc = 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   did = dopen(fref);
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = filename(fref);
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   else do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   length msg $500.;
+INFO: MPRINT(SMLISTFILESINFOLDER):   msg = sysmsg();
+INFO: MPRINT(SMLISTFILESINFOLDER):   putlog msg=;
+INFO: MPRINT(SMLISTFILESINFOLDER):   did = .;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   if did <= 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   return;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   dnum = dnum(did);
+INFO: MPRINT(SMLISTFILESINFOLDER):   do i = 1 to dnum;
+INFO: MPRINT(SMLISTFILESINFOLDER):   filename = dread(did, i);
+INFO: MPRINT(SMLISTFILESINFOLDER):   fid = mopen(did, filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if fid > 0 then do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   FileType = prxchange('s/.*\.{1,1}(.*)/$1/', 1, filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   if filename = filetype then filetype = ' ';
+INFO: MPRINT(SMLISTFILESINFOLDER):   output user.files_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   else do;
+INFO: MPRINT(SMLISTFILESINFOLDER):   root = catt(path, "\", filename);
+INFO: MPRINT(SMLISTFILESINFOLDER):   output user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   end;
+INFO: MPRINT(SMLISTFILESINFOLDER):   rc = dclose(did);
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: The data set USER.DIRS_FOUND has been updated.  There were 0 observations rewritten, 26 observations added and 0 observations
+INFO: deleted.
+INFO: NOTE: The data set USER.FILES_FOUND has 91 observations and 3 variables.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.06 seconds
+INFO: cpu time            0.06 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMLISTFILESINFOLDER):   data user.not_used(rename = (root = path));
+INFO: MPRINT(SMLISTFILESINFOLDER):   set user.dirs_found;
+INFO: MPRINT(SMLISTFILESINFOLDER):   run;
+INFO: 
+INFO: NOTE: There were 27 observations read from the data set USER.DIRS_FOUND.
+INFO: NOTE: The data set USER.NOT_USED has 27 observations and 1 variables.
+INFO: NOTE: Compressing data set USER.NOT_USED increased size by 100.00 percent.
+INFO: 3                                                          The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: Compressed is 2 pages; un-compressed would require 1 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(PKVIEWCREATEPACKAGE):  ;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   data user.ZipFiles;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   length file zippath $500.;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   set user.files_found(where = (upcase(filetype) ne "ZIP"));
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   if upcase(path) = "C:\OCP\SASJOBS.STANDALONE\\STORED PROCEDURES\OUTPUT FILES\PKVIEW\PETER\TEST DATA
+INFO: 9-6\DRUG000" then do;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   file = cats(path, "\", filename);
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   zippath = "";
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   end;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   else do;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   file = cats(path, "\", filename);
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   zippath = scan(path, -1, "\");
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   end;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   keep file zippath;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   run;
+INFO: 
+INFO: NOTE: There were 90 observations read from the data set USER.FILES_FOUND.
+INFO: WHERE UPCASE(filetype) not = 'ZIP';
+INFO: NOTE: The data set USER.ZIPFILES has 90 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.ZIPFILES decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   data user.zipfiles;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   length file $500.;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   set user.files_found;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   file = cats(path, "\", filename);
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   path=tranwrd(path,"C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\","");
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   rename Path=zippath;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   drop filetype filename;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   run;
+INFO: 
+INFO: NOTE: There were 91 observations read from the data set USER.FILES_FOUND.
+INFO: NOTE: The data set USER.ZIPFILES has 91 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.ZIPFILES decreased size by 0.00 percent.
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   proc sort data = user.ZipFiles;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   by file;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   run;
+INFO: 
+INFO: NOTE: There were 91 observations read from the data set USER.ZIPFILES.
+INFO: NOTE: The data set USER.ZIPFILES has 91 observations and 2 variables.
+INFO: NOTE: Compressing data set USER.ZIPFILES decreased size by 0.00 percent.
+INFO: 4                                                          The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: Compressed is 2 pages; un-compressed would require 2 pages.
+INFO: NOTE: PROCEDURE SORT used (Total process time):
+INFO: real time           0.01 seconds
+INFO: cpu time            0.01 seconds
+INFO: 
+INFO: 
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) open nopf;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   data _null_;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   set user.ZipFiles;
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   call execute( catx("", "ods package(ZipOutput)", "add file ='", file, "' path = '", zippath, "';" ) );
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   run;
+INFO: 
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001.zip ' path = ' 0000 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Custom Forest Plot\TEST001_ForestPlot.png ' path = ' 0000\TEST001\Custom
+INFO: Forest Plot ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Custom Non Compartmental Analysis\TEST001NCAInput.xls ' path = '
+INFO: 0000\TEST001\Custom Non Compartmental Analysis ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Custom Non Compartmental Analysis\libraries\macrolib.sas ' path = '
+INFO: 0000\TEST001\Custom Non Compartmental Analysis\libraries ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Custom Non Compartmental Analysis\ncaRun_BLOOD_DRUG.sas ' path = '
+INFO: 0000\TEST001\Custom Non Compartmental Analysis ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Custom Statistical Table\AllCohrotsNew_ExcludeSub.csv ' path = '
+INFO: 0000\TEST001\Custom Statistical Table ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Custom Statistical Table\ExcludedSubjects.csv ' path = ' 0000\TEST001\Custom
+INFO: Statistical Table ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_10_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_11_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_11_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_12_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_12_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_13_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_13_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_14_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_14_1_unpaired.png ' path = '
+INFO: 5                                                          The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_15_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_15_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_1_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_1_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_2_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_2_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_3_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_3_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_4_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_4_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_5_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_6_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_6_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_7_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_7_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_8_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_8_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_9_1_paired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_9_1_unpaired.png ' path = '
+INFO: 0000\TEST001\Forest Plot\DRUG ';
+INFO: 6                                                          The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Individual Conc-Time Listing\TEST001Conc vs RawPC.xls ' path = '
+INFO: 0000\TEST001\Individual Conc-Time Listing ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Individual c-t listing by columns\Parallel C-T Listing.xls ' path = '
+INFO: 0000\TEST001\Individual c-t listing by columns ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\PK Summary Tables\DRUG\PK_Summary_Table_11.rtf ' path = ' 0000\TEST001\PK
+INFO: Summary Tables\DRUG ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\PK excel table\table_1_1.csv ' path = ' 0000\TEST001\PK excel table ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\PK excel table\table_1_2.csv ' path = ' 0000\TEST001\PK excel table ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\PK excel table\table_1_3.csv ' path = ' 0000\TEST001\PK excel table ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\PK excel table\table_1_4.csv ' path = ' 0000\TEST001\PK excel table ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Phoenix WinNonlin\TEST001Conc vs RawPC.xls ' path = ' 0000\TEST001\Phoenix
+INFO: WinNonlin ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_1.png ' path
+INFO: = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_2.png ' path
+INFO: = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_3.png ' path
+INFO: = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_4.png ' path
+INFO: = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_5.png ' path
+INFO: = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_6.png ' path
+INFO: = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_1.png '
+INFO: path = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_2.png '
+INFO: path = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_3.png '
+INFO: path = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_4.png '
+INFO: path = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_5.png '
+INFO: path = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_6.png '
+INFO: path = ' 0000\TEST001\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\estimates.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 7                                                          The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\estimates_excludesub.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\estminmax.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\individualpkstats.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\individualpkstats_excludesub.sas7bdat ' path = '
+INFO: 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\individualpkstatsmeta.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_1.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_1_1.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_1_2.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_1_3.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_2.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_2_1.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_2_2.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_2_3.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_3.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_3_1.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_3_2.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_3_3.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_4.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_4_1.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_4_2.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST001\estimates\removedinput_4_3.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Forest Plot\DRUG X\TEST002_ForestPlot_1_1_paired.png ' path = '
+INFO: 0000\TEST002\Forest Plot\DRUG X ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Forest Plot\DRUG X\TEST002_ForestPlot_1_1_unpaired.png ' path = '
+INFO: 0000\TEST002\Forest Plot\DRUG X ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Forest Plot\DRUG X\TEST002_ForestPlot_2_1_paired.png ' path = '
+INFO: 0000\TEST002\Forest Plot\DRUG X ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Forest Plot\DRUG X\TEST002_ForestPlot_2_1_unpaired.png ' path = '
+INFO: 0000\TEST002\Forest Plot\DRUG X ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: 8                                                          The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\PK Summary Tables\DRUG X\PK_Summary_Table_11.rtf ' path = ' 0000\TEST002\PK
+INFO: Summary Tables\DRUG X ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\PK excel table\table_1_1.csv ' path = ' 0000\TEST002\PK excel table ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\PK excel table\table_1_2.csv ' path = ' 0000\TEST002\PK excel table ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Time Concentration Profiles\Cohort1\TEST002_ConcentrationPlot_1_1.png ' path
+INFO: = ' 0000\TEST002\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\Time Concentration Profiles\Cohort1\TEST002_log_ConcentrationPlot_1_1.png '
+INFO: path = ' 0000\TEST002\Time Concentration Profiles\Cohort1 ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates\estimates.sas7bdat ' path = ' 0000\TEST002\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates\estminmax.sas7bdat ' path = ' 0000\TEST002\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates\individualpkstats.sas7bdat ' path = ' 0000\TEST002\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output
+INFO: Files\PKView\Peter\Test data 9-6\DRUG000\0000\TEST002\estimates\individualpkstatsmeta.sas7bdat ' path = ' 0000\TEST002\estimates ';
+INFO: NOTE: There were 91 observations read from the data set USER.ZIPFILES.
+INFO: NOTE: DATA statement used (Total process time):
+INFO: real time           0.00 seconds
+INFO: cpu time            0.00 seconds
+INFO: 
+INFO: 
+INFO: NOTE: CALL EXECUTE generated line.
+INFO: 1         + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001.zip ' path = ' 0000 ';
+INFO: 2         + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Custom Forest Plot\TEST001_ForestPlot.png ' path = ' 0000\TEST001\Custom Forest Plot ';
+INFO: 3         + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Custom Non Compartmental Analysis\TEST001NCAInput.xls ' path = ' 0000\TEST001\Custom Non Compartmental
+INFO: Analysis '
+INFO: 4         +;
+INFO: 5         + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Custom Non Compartmental Analysis\libraries\macrolib.sas ' path = ' 0000\TEST001\Custom Non Compartmental
+INFO: 6         + Analysis\libraries ';
+INFO: 7         + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Custom Non Compartmental Analysis\ncaRun_BLOOD_DRUG.sas ' path = ' 0000\TEST001\Custom Non Compartmental
+INFO: Analysis
+INFO: 8         + ';
+INFO: 9         + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Custom Statistical Table\AllCohrotsNew_ExcludeSub.csv ' path = ' 0000\TEST001\Custom Statistical Table ';
+INFO: 10        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Custom Statistical Table\ExcludedSubjects.csv ' path = ' 0000\TEST001\Custom Statistical Table ';
+INFO: 11        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_10_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 12        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_11_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 13        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_11_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 14        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_12_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 15        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_12_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 16        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_13_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 9                                                          The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: 17        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_13_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 18        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_14_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 19        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_14_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 20        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_15_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 21        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_15_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 22        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_1_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 23        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_1_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 24        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_2_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 25        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_2_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 26        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_3_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 27        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_3_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 28        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_4_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 29        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_4_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 30        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_5_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 31        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_6_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 32        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_6_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 33        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_7_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 34        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_7_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 35        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_8_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 36        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_8_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 37        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_9_1_paired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 38        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Forest Plot\DRUG\TEST001_ForestPlot_9_1_unpaired.png ' path = ' 0000\TEST001\Forest Plot\DRUG ';
+INFO: 39        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Individual Conc-Time Listing\TEST001Conc vs RawPC.xls ' path = ' 0000\TEST001\Individual Conc-Time Listing
+INFO: ';
+INFO: 40        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Individual c-t listing by columns\Parallel C-T Listing.xls ' path = ' 0000\TEST001\Individual c-t listing
+INFO: by
+INFO: 41        + columns ';
+INFO: 42        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\PK Summary Tables\DRUG\PK_Summary_Table_11.rtf ' path = ' 0000\TEST001\PK Summary Tables\DRUG ';
+INFO: 43        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\PK excel table\table_1_1.csv ' path = ' 0000\TEST001\PK excel table ';
+INFO: 44        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\PK excel table\table_1_2.csv ' path = ' 0000\TEST001\PK excel table ';
+INFO: 45        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 10                                                         The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: 9-6\DRUG000\0000\TEST001\PK excel table\table_1_3.csv ' path = ' 0000\TEST001\PK excel table ';
+INFO: 46        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\PK excel table\table_1_4.csv ' path = ' 0000\TEST001\PK excel table ';
+INFO: 47        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Phoenix WinNonlin\TEST001Conc vs RawPC.xls ' path = ' 0000\TEST001\Phoenix WinNonlin ';
+INFO: 48        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_1.png ' path = ' 0000\TEST001\Time
+INFO: Concentration
+INFO: 49        + Profiles\Cohort1 ';
+INFO: 50        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_2.png ' path = ' 0000\TEST001\Time
+INFO: Concentration
+INFO: 51        + Profiles\Cohort1 ';
+INFO: 52        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_3.png ' path = ' 0000\TEST001\Time
+INFO: Concentration
+INFO: 53        + Profiles\Cohort1 ';
+INFO: 54        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_4.png ' path = ' 0000\TEST001\Time
+INFO: Concentration
+INFO: 55        + Profiles\Cohort1 ';
+INFO: 56        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_5.png ' path = ' 0000\TEST001\Time
+INFO: Concentration
+INFO: 57        + Profiles\Cohort1 ';
+INFO: 58        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_ConcentrationPlot_1_6.png ' path = ' 0000\TEST001\Time
+INFO: Concentration
+INFO: 59        + Profiles\Cohort1 ';
+INFO: 60        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_1.png ' path = ' 0000\TEST001\Time
+INFO: 61        + Concentration Profiles\Cohort1 ';
+INFO: 62        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_2.png ' path = ' 0000\TEST001\Time
+INFO: 63        + Concentration Profiles\Cohort1 ';
+INFO: 64        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_3.png ' path = ' 0000\TEST001\Time
+INFO: 65        + Concentration Profiles\Cohort1 ';
+INFO: 66        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_4.png ' path = ' 0000\TEST001\Time
+INFO: 67        + Concentration Profiles\Cohort1 ';
+INFO: 68        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_5.png ' path = ' 0000\TEST001\Time
+INFO: 69        + Concentration Profiles\Cohort1 ';
+INFO: 70        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\Time Concentration Profiles\Cohort1\TEST001_log_ConcentrationPlot_1_6.png ' path = ' 0000\TEST001\Time
+INFO: 71        + Concentration Profiles\Cohort1 ';
+INFO: 72        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\estimates.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 73        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\estimates_excludesub.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 74        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\estminmax.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 75        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\individualpkstats.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 76        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\individualpkstats_excludesub.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 77        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 11                                                         The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: 9-6\DRUG000\0000\TEST001\estimates\individualpkstatsmeta.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 78        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 79        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_1.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 80        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_1_1.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 81        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_1_2.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 82        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_1_3.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 83        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_2.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 84        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_2_1.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 85        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_2_2.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 86        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_2_3.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 87        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_3.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 88        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_3_1.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 89        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_3_2.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 90        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_3_3.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 91        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_4.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 92        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_4_1.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 93        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_4_2.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 94        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST001\estimates\removedinput_4_3.sas7bdat ' path = ' 0000\TEST001\estimates ';
+INFO: 95        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\Forest Plot\DRUG X\TEST002_ForestPlot_1_1_paired.png ' path = ' 0000\TEST002\Forest Plot\DRUG X ';
+INFO: 96        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\Forest Plot\DRUG X\TEST002_ForestPlot_1_1_unpaired.png ' path = ' 0000\TEST002\Forest Plot\DRUG X ';
+INFO: 97        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\Forest Plot\DRUG X\TEST002_ForestPlot_2_1_paired.png ' path = ' 0000\TEST002\Forest Plot\DRUG X ';
+INFO: 98        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\Forest Plot\DRUG X\TEST002_ForestPlot_2_1_unpaired.png ' path = ' 0000\TEST002\Forest Plot\DRUG X ';
+INFO: 99        + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\PK Summary Tables\DRUG X\PK_Summary_Table_11.rtf ' path = ' 0000\TEST002\PK Summary Tables\DRUG X ';
+INFO: 100       + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\PK excel table\table_1_1.csv ' path = ' 0000\TEST002\PK excel table ';
+INFO: 101       + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\PK excel table\table_1_2.csv ' path = ' 0000\TEST002\PK excel table ';
+INFO: 102       + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\Time Concentration Profiles\Cohort1\TEST002_ConcentrationPlot_1_1.png ' path = ' 0000\TEST002\Time
+INFO: Concentration
+INFO: 103       + Profiles\Cohort1 ';
+INFO: 104       + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\Time Concentration Profiles\Cohort1\TEST002_log_ConcentrationPlot_1_1.png ' path = ' 0000\TEST002\Time
+INFO: 105       + Concentration Profiles\Cohort1 ';
+INFO: 106       + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\estimates\estimates.sas7bdat ' path = ' 0000\TEST002\estimates ';
+INFO: 12                                                         The SAS System                         11:53 Wednesday, September 6, 2017
+INFO: 
+INFO: 107       + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\estimates\estminmax.sas7bdat ' path = ' 0000\TEST002\estimates ';
+INFO: 108       + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\estimates\individualpkstats.sas7bdat ' path = ' 0000\TEST002\estimates ';
+INFO: 109       + ods package(ZipOutput) add file =' C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\0000\TEST002\estimates\individualpkstatsmeta.sas7bdat ' path = ' 0000\TEST002\estimates ';
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) publish archive properties(archive_name = "DRUG000.zip" archive_path =
+INFO: "C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data 9-6\DRUG000\..");
+INFO: NOTE: Writing ZIPOUTPUT file: C:\OCP\Sasjobs.Standalone\\Stored Procedures\Output Files\PKView\Peter\Test data
+INFO: 9-6\DRUG000\..\DRUG000.zip
+INFO: MPRINT(SMZIPOUTPUTFOLDER):   ods package(ZipOutput) close;
+INFO: MPRINT(PKVIEWCREATEPACKAGE):  ;
+INFO: 11
+INFO: 12
+INFO: 13

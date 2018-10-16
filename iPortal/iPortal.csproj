@@ -1,0 +1,944 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C44662D7-4F08-4495-8CA3-B369BD8900B4}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>iPortal</RootNamespace>
+    <AssemblyName>iPortal</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PublishDatabases>true</PublishDatabases>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Excel.4.5">
+      <HintPath>..\packages\ExcelDataReader.2.1.1\lib\net45\Excel.4.5.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ExcelDataReader.2.1.1\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.MSUtil">
+      <HintPath>..\packages\LogParser 2.2\Interop.MSUtil.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.3.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\iTextSharp.5.5.3\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SasJobs.ClientLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SasJobs\SasJobs.ClientLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="SasJobs.Messages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SasJobs\SasJobs.Messages.dll</HintPath>
+    </Reference>
+    <Reference Include="SolrNet">
+      <HintPath>..\packages\SolrNet.0.3.1\lib\SolrNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Data\ESAFETY_PROJECT.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\ESAFETY_PROJECT2.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\ESAFETY_WORKFLOW.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\FPTOOLS_PROJECT.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_DM_DATASET.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_DM_FILE.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_EX_DATASET.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_EX_FILE.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_FILE.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_FP.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_FP_ROW.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_FP_STYLE.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_PC_DATASET.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_PC_FILE.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_PP_DATASET.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_PP_FILE.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_SCALE.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_SDTM_VARIABLE.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_STUDY.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_STUDY_DESIGN.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_STUDY_TYPE.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_SUBMISSION.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_SUBMISSION_TYPE.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\IPORTAL_VARIABLE_MAPPING.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\SYSTEM_USER.cs">
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\Apps\ForestPlotConfig.cs" />
+    <Compile Include="App_Start\Apps\OgdToolConfig.cs" />
+    <Compile Include="App_Start\Apps\PkViewConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Tools\OgdTool\FileDataController.cs" />
+    <Compile Include="Controllers\Tools\OgdTool\ProjectController.cs" />
+    <Compile Include="Controllers\Tools\OgdTool\GenerateScriptController.cs" />
+    <Compile Include="Controllers\Tools\OgdTool\MapDataController.cs" />
+    <Compile Include="Controllers\Tools\OgdTool\FindComparisonController.cs" />
+    <Compile Include="Controllers\Main\SubmissionDataController.cs" />
+    <Compile Include="Controllers\Tools\PkView\Mapping\StudyDesignController.cs" />
+    <Compile Include="Controllers\Tools\PkView\Ouptut\ReportController.cs" />
+    <Compile Include="Controllers\Tools\PkView\PkViewUserController.cs" />
+    <Compile Include="Controllers\Tools\PkView\PkViewProjectController.cs" />
+    <Compile Include="Controllers\Tools\PkView\Ouptut\PackageController.cs" />
+    <Compile Include="Controllers\Main\ClinicalDataController.cs" />
+    <Compile Include="Controllers\Tools\PkView\SafetyAnalysisController.cs" />
+    <Compile Include="Controllers\Tools\PkView\UploadController.cs" />
+    <Compile Include="Models\OgdTool\ExtendedDataFile.cs" />
+    <Compile Include="Models\OgdTool\VariableMappings.cs" />
+    <Compile Include="Models\PkView\AnalysisResults.cs" />
+    <Compile Include="Models\PkView\ConcentrationData.cs" />
+    <Compile Include="Models\PkView\IssMappingSettings.cs" />
+    <Compile Include="Models\PkView\Project.cs" />
+    <Compile Include="Models\PkView\ProjectRepository.cs" />
+    <Compile Include="Models\PkView\Reports\MetaBuilder.cs" />
+    <Compile Include="Models\PkView\Reports\NcaBuilder.cs" />
+    <Compile Include="Models\PkView\PkData.cs" />
+    <Compile Include="Models\PkView\Reports\Report.cs" />
+    <Compile Include="Models\PkView\Reports\ReportSettings.cs" />
+    <Compile Include="Models\PkView\Reports\SafetyBuilder.cs" />
+    <Compile Include="Models\PkView\SubmissionProjectsListItem.cs" />
+    <Compile Include="Models\PkView\User.cs" />
+    <Compile Include="Models\PkView\UserProjectsListItem.cs" />
+    <Compile Include="Models\Shared\ClinicalData\ClinicalDataRepository.cs" />
+    <Compile Include="Models\Shared\ClinicalData\Study.cs" />
+    <Compile Include="Models\Shared\DirectoryTools.cs" />
+    <Compile Include="Models\Shared\DbTools.cs" />
+    <Compile Include="Controllers\Tools\ForestPlot\ProjectDeleteController.cs" />
+    <Compile Include="Controllers\Tools\ForestPlot\GeneratePlotController.cs" />
+    <Compile Include="Controllers\Tools\ForestPlot\ProjectCreateController.cs" />
+    <Compile Include="Controllers\Tools\ForestPlot\ProjectGetController.cs" />
+    <Compile Include="Controllers\Tools\ForestPlot\UploadFileController.cs" />
+    <Compile Include="Controllers\Tools\ForestPlot\ProjectListController.cs" />
+    <Compile Include="Controllers\Main\HomeController.cs" />
+    <Compile Include="Controllers\Tools\PkView\Analysis\AnalysisController.cs" />
+    <Compile Include="Controllers\Main\DownloadController.cs" />
+    <Compile Include="Controllers\Tools\PkView\Mapping\MappingController.cs" />
+    <Compile Include="Models\Shared\InMemoryMultipartFormDataStreamProvider.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shared\ExceptionHandlingAttribute.cs" />
+    <Compile Include="Models\ForestPlot\Project.cs" />
+    <Compile Include="Models\OgdTool\OgdScriptGenerator.cs" />
+    <Compile Include="Models\OgdTool\Project.cs" />
+    <Compile Include="Models\OgdTool\DataFile.cs" />
+    <Compile Include="Models\OgdTool\SubmissionProjectsListItem.cs" />
+    <Compile Include="Models\OgdTool\UserProjectsListItem.cs" />
+    <Compile Include="Models\OgdTool\TreatmentComparison.cs" />
+    <Compile Include="Models\PkView\NDAHash.cs" />
+    <Compile Include="Models\Shared\ClinicalData\StudyDataManager.cs" />
+    <Compile Include="Models\PkView\StudySettings.cs" />
+    <Compile Include="App_Data\OCPSQL.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OCPSQL.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\OCPSQL.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OCPSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\OCPSQL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OCPSQL.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shared\ClinicalDataFile.cs" />
+    <Compile Include="Models\Shared\DamerauLevenshteinDistance.cs" />
+    <Compile Include="Models\Shared\System\NamedLocker.cs" />
+    <Compile Include="Models\Shared\System\ZipArchiveDirectoryExtensions.cs" />
+    <Compile Include="Models\Shared\TemplateEngine.cs" />
+    <Compile Include="Models\Shared\Users.cs" />
+    <Compile Include="Models\Shared\XmlUserData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App\shared\api\files.js" />
+    <Content Include="App\shared\api\pkAnalysis\analysis.js" />
+    <Content Include="App\shared\api\pkAnalysis\mapping.js" />
+    <Content Include="App\shared\api\reports\demographicSummary.js" />
+    <Content Include="App\shared\components\dataDialogExclude\viewmodels\dataDialogExclude.js" />
+    <Content Include="App\shared\components\dataDialogExclude\views\dataDialogExclude.html" />
+    <Content Include="App\shared\components\errorDialog\viewmodels\errorDialog.js" />
+    <Content Include="App\shared\components\modal\viewmodels\modal.js" />
+    <Content Include="App\shared\components\modal\views\modal.html" />
+    <Content Include="App\shared\components\plot\concentrationPlot\concentrationPlot.html" />
+    <Content Include="App\shared\components\plot\concentrationPlot\concentrationPlot.js" />
+    <Content Include="App\shared\components\plot\plot.html" />
+    <Content Include="App\shared\components\plot\plot.js" />
+    <Content Include="App\shared\components\splash\viewmodels\splash.js" />
+    <Content Include="App\shared\components\dataDialog\viewmodels\dataDialog.js" />
+    <Content Include="App\shared\components\splash\views\splash.html" />
+    <Content Include="App\shared\components\dataDialog\views\dataDialog.html" />
+    <Content Include="App\main-built.js" />
+    <Content Include="App\main.js" />
+    <Content Include="App\iPortal\viewmodels\shell.js" />
+    <Content Include="App\iPortal\views\shell.html" />
+    <Content Include="App\tools\eReviewMockup\viewmodels\mainWindow.js" />
+    <Content Include="App\tools\eReviewMockup\views\mainWindow.html" />
+    <Content Include="App\tools\eSafety\issGui\issDialog.html" />
+    <Content Include="App\tools\eSafety\issGui\issDialog.js" />
+    <Content Include="App\tools\eSafety\issGui\issGui.js" />
+    <Content Include="App\tools\eSafety\issGui\issTable.html" />
+    <Content Include="App\tools\eSafety\issGui\issTable.js" />
+    <Content Include="App\tools\eSafety\issGui\issWizard.html" />
+    <Content Include="App\tools\eSafety\issGui\issWizard.js" />
+    <Content Include="App\tools\eSafety\viewmodels\mainWindow.js" />
+    <Content Include="App\tools\eSafety\viewmodels\mainWindow\mainMenu.js" />
+    <Content Include="App\tools\eSafety\viewmodels\mainWindow\newProjectDialog.js" />
+    <Content Include="App\tools\eSafety\viewmodels\mainWindow\projects.js" />
+    <Content Include="App\tools\eSafety\viewmodels\mainWindow\steps.js" />
+    <Content Include="App\tools\eSafety\viewmodels\mainWindow\stepView.js" />
+    <Content Include="App\tools\eSafety\viewmodels\mainWindow\workflows.js" />
+    <Content Include="App\tools\eSafety\viewmodels\modules\dataInput\demographic.js" />
+    <Content Include="App\tools\eSafety\viewmodels\modules\dataInput\main.js" />
+    <Content Include="App\tools\eSafety\viewmodels\modules\logisticRegression\main.js" />
+    <Content Include="App\tools\eSafety\views\mainWindow.html" />
+    <Content Include="App\tools\eSafety\views\mainWindow\mainMenu.html" />
+    <Content Include="App\tools\eSafety\views\mainWindow\newProjectDialog.html" />
+    <Content Include="App\tools\eSafety\views\mainWindow\projects.html" />
+    <Content Include="App\tools\eSafety\views\mainWindow\steps.html" />
+    <Content Include="App\tools\eSafety\views\mainWindow\stepView.html" />
+    <Content Include="App\tools\eSafety\views\mainWindow\workflows.html" />
+    <Content Include="App\tools\eSafety\views\modules\dataInput\demographic.html" />
+    <Content Include="App\tools\eSafety\views\modules\dataInput\main.html" />
+    <Content Include="App\tools\eSafety\views\modules\logisticRegression\main.html" />
+    <Content Include="App\tools\forestPlot\viewmodels\mainWindow.js" />
+    <Content Include="App\tools\forestPlot\viewmodels\modelTemplates.js" />
+    <Content Include="App\tools\forestPlot\views\mainWindow.html" />
+    <Content Include="App\tools\ogdTool\components\home\home.html" />
+    <Content Include="App\tools\ogdTool\components\home\home.js" />
+    <Content Include="App\tools\ogdTool\components\home\importProject\importProject.html" />
+    <Content Include="App\tools\ogdTool\components\home\importProject\importProject.js" />
+    <Content Include="App\tools\ogdTool\components\home\newProject\newProject.html" />
+    <Content Include="App\tools\ogdTool\components\home\newProject\newProject.js" />
+    <Content Include="App\tools\ogdTool\components\main\comparisonForm.html" />
+    <Content Include="App\tools\ogdTool\components\main\comparisonForm.js" />
+    <Content Include="App\tools\ogdTool\components\main\main.html" />
+    <Content Include="App\tools\ogdTool\components\main\main.js" />
+    <Content Include="App\tools\ogdTool\components\main\sections\dataFiles\fileSelectionDialog.html" />
+    <Content Include="App\tools\ogdTool\components\main\sections\dataFiles\setTime.html" />
+    <Content Include="App\tools\ogdTool\components\main\sections\dataFiles\setTime.js" />
+    <Content Include="App\tools\ogdTool\components\main\sections\dataFiles\mapFiles.html" />
+    <Content Include="App\tools\ogdTool\components\main\sections\dataFiles\mapFiles.js" />
+    <Content Include="App\tools\ogdTool\components\main\sections\dataFiles\selectFiles.js" />
+    <Content Include="App\tools\ogdTool\components\main\sections\dataFiles\selectFiles.html" />
+    <Content Include="App\tools\ogdTool\components\main\sections\dataFiles\fileSelectionDialog.js" />
+    <Content Include="App\tools\ogdTool\components\main\sections\kecalculation\kecalculation.html" />
+    <Content Include="App\tools\ogdTool\components\main\sections\kecalculation\kecalculation.js" />
+    <Content Include="App\tools\ogdTool\components\main\sections\units\units.html" />
+    <Content Include="App\tools\ogdTool\components\main\sections\units\units.js" />
+    <Content Include="App\tools\ogdTool\components\main\sections\labels\labels.html" />
+    <Content Include="App\tools\ogdTool\components\main\sections\labels\labels.js" />
+    <Content Include="App\tools\ogdTool\components\main\sections\dataFiles\dataFiles.html" />
+    <Content Include="App\tools\ogdTool\components\main\sections\dataFiles\dataFiles.js" />
+    <Content Include="App\tools\ogdTool\models.js" />
+    <Content Include="App\tools\ogdTool\shared\filter\filter.js" />
+    <Content Include="App\tools\ogdTool\shell.html" />
+    <Content Include="App\tools\ogdTool\shell.js" />
+    <Content Include="App\tools\pkView\components\home\home.html" />
+    <Content Include="App\tools\pkView\components\home\home.js" />
+    <Content Include="App\tools\pkView\components\home\shareProject\shareProject.html" />
+    <Content Include="App\tools\pkView\components\home\shareProject\shareProject.js" />
+    <Content Include="App\tools\pkView\components\home\importProject\importProject.html" />
+    <Content Include="App\tools\pkView\components\home\importProject\importProject.js" />
+    <Content Include="App\tools\pkView\components\home\newProject\newProject.html" />
+    <Content Include="App\tools\pkView\components\home\newProject\newProject.js" />
+    <Content Include="App\tools\pkView\components\report\newReport\newvariabilityReport.html" />
+    <Content Include="App\tools\pkView\components\report\newReport\newvariabilityReport.js" />
+    <Content Include="App\tools\pkView\components\report\newReport\newForestPlotReport.html" />
+    <Content Include="App\tools\pkView\components\report\newReport\newForestPlotReport.js" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\forestPlot\forestplotMeta.html" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\forestPlot\forestplotMeta.js" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\ncaAnalysis\ncaAnalysis.html" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\ncaAnalysis\ncaAnalysis.js" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\concentration\ReviewTime.html" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\concentration\ReviewTime.js" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\variabilityMeta\variabilityMeta.html" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\variabilityMeta\variabilityMeta.js" />
+    <Content Include="App\tools\pkView\components\review\SafetyAnalysis.html" />
+    <Content Include="App\tools\pkView\components\review\SafetyAnalysis.js" />
+    <Content Include="App\tools\pkView\components\review\sections\displayProgress.html" />
+    <Content Include="App\tools\pkView\components\review\sections\displayProgress.js" />
+    <Content Include="App\tools\pkView\components\review\sections\metaVariabilityFormat.html" />
+    <Content Include="App\tools\pkView\components\review\sections\metaVariabilityFormat.js" />
+    <Content Include="App\tools\pkView\components\review\sections\OrderSeverity.html" />
+    <Content Include="App\tools\pkView\components\review\sections\OrderSeverity.js" />
+    <Content Include="App\tools\pkView\components\review\sections\studyVariabilityMeta.html" />
+    <Content Include="App\tools\pkView\components\review\sections\studyVariabilityMeta.js" />
+    <Content Include="App\tools\pkView\components\review\VariabilityMetaAnalysis.html" />
+    <Content Include="App\tools\pkView\components\review\VariabilityMetaAnalysis.js" />
+    <Content Include="App\tools\pkView\components\review\MetaAnalysis.html" />
+    <Content Include="App\tools\pkView\components\review\MetaAnalysis.js" />
+    <Content Include="App\tools\pkView\components\review\sections\editExcludeSubject.html" />
+    <Content Include="App\tools\pkView\components\review\sections\editExcludeSubject.js" />
+    <Content Include="App\tools\pkView\components\review\sections\metaFormat.html" />
+    <Content Include="App\tools\pkView\components\review\sections\metaFormat.js" />
+    <Content Include="App\tools\pkView\components\review\sections\studyMeta.html" />
+    <Content Include="App\tools\pkView\components\review\sections\studyMeta.js" />
+    <Content Include="App\tools\pkView\components\review\sections\setValues.html" />
+    <Content Include="App\tools\pkView\components\review\sections\setValues.js" />
+    <Content Include="App\tools\pkView\components\review\sections\setReferences.html" />
+    <Content Include="App\tools\pkView\components\review\sections\setReferences.js" />
+    <Content Include="App\tools\pkView\components\review\sections\studyDesign.js" />
+    <Content Include="App\tools\pkView\components\review\sections\studyDesign.html" />
+    <Content Include="App\tools\pkView\lib\pkViewSubmissionProfile.js" />
+    <Content Include="App\tools\pkView\lib\pkViewProjects.js" />
+    <Content Include="App\tools\pkView\lib\pkViewAnalysis.js" />
+    <Content Include="App\tools\pkView\deprecated\batch.js" />
+    <Content Include="App\tools\pkView\components\report\newReport\newReport.js" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\concentration\concentration.js" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\empty\empty.js" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\forestPlot\forestplot.js" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\pkSummaryTable\pkSummaryTable.js" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\reportSettings.js" />
+    <Content Include="App\tools\pkView\components\report\reportSummary\reportSummary.js" />
+    <Content Include="App\tools\pkView\components\review\reviewSimple.js" />
+    <Content Include="App\tools\pkView\components\report\report.js" />
+    <Content Include="App\tools\pkView\components\review\review.js" />
+    <Content Include="App\tools\pkView\shell.js" />
+    <Content Include="App\tools\pkView\shared\studyList\studyList.js" />
+    <Content Include="App\tools\pkView\deprecated\batch.html" />
+    <Content Include="App\tools\pkView\components\report\newReport\newReport.html" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\concentration\concentration.html" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\empty\empty.html" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\forestPlot\forestplot.html" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\types\pkSummaryTable\pkSummaryTable.html" />
+    <Content Include="App\tools\pkView\components\report\reportSettings\reportSettings.html" />
+    <Content Include="App\tools\pkView\components\report\reportSummary\reportSummary.html" />
+    <Content Include="App\tools\pkView\components\review\reviewSimple.html" />
+    <Content Include="App\tools\pkView\components\report\report.html" />
+    <Content Include="App\tools\pkView\components\review\review.html" />
+    <Content Include="App\tools\pkView\shell.html" />
+    <Content Include="App\tools\pkView\shared\studyList\studyList.html" />
+    <Content Include="Content\chosen.css" />
+    <Content Include="Content\styles\app.css" />
+    <Content Include="Content\bootstrap-chosen.css" />
+    <Content Include="Content\bootstrap-chosen.less" />
+    <Content Include="Content\bootstrap-chosen.scss" />
+    <Content Include="Content\bootstrap-fileupload.css" />
+    <Content Include="Content\bootstrap-fileupload.min.css" />
+    <Content Include="Lib\bootstrap\bootstrap.boostwatch.min.css" />
+    <Content Include="Content\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen-sprite.png" />
+    <Content Include="Content\styles\iPortal.css" />
+    <Content Include="Lib\bootstrap-datetimepicker\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="Lib\bootstrap-datetimepicker\js\bootstrap-datetimepicker.js" />
+    <Content Include="Lib\bootstrap-datetimepicker\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="Lib\bootstrap-datetimepicker\js\moment.js" />
+    <Content Include="Lib\bootstrap-datetimepicker\js\moment.min.js" />
+    <Content Include="Lib\dataTables\bootstrap\dataTables.bootstrap.css" />
+    <Content Include="Lib\dataTables\bootstrap\dataTables.bootstrap.js" />
+    <Content Include="Lib\dataTables\docs\media\css\doc.css" />
+    <Content Include="Lib\dataTables\docs\media\css\shCore.css" />
+    <Content Include="Lib\dataTables\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Lib\dataTables\docs\media\images\arrow.jpg" />
+    <Content Include="Lib\dataTables\docs\media\images\arrow.png" />
+    <Content Include="Lib\dataTables\docs\media\images\extended.png" />
+    <Content Include="Lib\dataTables\docs\media\js\doc.js" />
+    <Content Include="Lib\dataTables\docs\media\js\jquery.js" />
+    <Content Include="Lib\dataTables\docs\media\js\shBrushJScript.js" />
+    <Content Include="Lib\dataTables\docs\media\js\shCore.js" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\css\AutoFill.css" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\docs\media\css\doc.css" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\docs\media\css\shCore.css" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\docs\media\images\arrow.jpg" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\docs\media\images\arrow.png" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\docs\media\images\extended.png" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\docs\media\js\doc.js" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\docs\media\js\jquery.js" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\docs\media\js\shBrushJScript.js" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\docs\media\js\shCore.js" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\images\filler.png" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\js\AutoFill.js" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\js\AutoFill.min.js" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\css\ColReorder.css" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\docs\media\css\doc.css" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\docs\media\css\shCore.css" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\docs\media\images\arrow.jpg" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\docs\media\images\arrow.png" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\docs\media\images\extended.png" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\docs\media\js\doc.js" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\docs\media\js\jquery.js" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\docs\media\js\shBrushJScript.js" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\docs\media\js\shCore.js" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\images\insert.png" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\js\ColReorder.js" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\js\ColReorder.min.js" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\css\ColVis.css" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\css\ColVisAlt.css" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\docs\media\css\doc.css" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\docs\media\css\shCore.css" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\docs\media\images\arrow.jpg" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\docs\media\images\arrow.png" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\docs\media\images\extended.png" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\docs\media\js\doc.js" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\docs\media\js\jquery.js" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\docs\media\js\shBrushJScript.js" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\docs\media\js\shCore.js" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\images\button.png" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\js\ColVis.js" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\js\ColVis.min.js" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\docs\media\css\doc.css" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\docs\media\css\shCore.css" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\docs\media\images\arrow.jpg" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\docs\media\images\arrow.png" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\docs\media\images\extended.png" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\docs\media\js\doc.js" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\docs\media\js\jquery.js" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\docs\media\js\shBrushJScript.js" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\docs\media\js\shCore.js" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\media\js\FixedColumns.js" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\media\js\FixedColumns.min.js" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\css\dataTables.scroller.css" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\docs\media\css\doc.css" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\docs\media\css\shCore.css" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\docs\media\images\arrow.jpg" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\docs\media\images\arrow.png" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\docs\media\images\extended.png" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\docs\media\js\doc.js" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\docs\media\js\jquery.js" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\docs\media\js\shBrushJScript.js" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\docs\media\js\shCore.js" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\images\loading-background.png" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\js\dataTables.scroller.js" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\js\dataTables.scroller.min.js" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\css\TableTools.css" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\css\TableTools_JUI.css" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\background.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\collection.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\collection_hover.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\copy.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\copy_hover.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\csv.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\csv_hover.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\pdf.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\pdf_hover.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\print.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\print_hover.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\xls.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\xls_hover.png" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\js\TableTools.js" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\js\TableTools.min.js" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\js\ZeroClipboard.js" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\swf\copy_csv_xls.swf" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\swf\copy_csv_xls_pdf.swf" />
+    <Content Include="Lib\dataTables\images\back_disabled.png" />
+    <Content Include="Lib\dataTables\images\back_enabled.png" />
+    <Content Include="Lib\dataTables\images\back_enabled_hover.png" />
+    <Content Include="Lib\dataTables\images\favicon.ico" />
+    <Content Include="Lib\dataTables\images\forward_disabled.png" />
+    <Content Include="Lib\dataTables\images\forward_enabled.png" />
+    <Content Include="Lib\dataTables\images\forward_enabled_hover.png" />
+    <Content Include="Lib\dataTables\images\sort_asc.png" />
+    <Content Include="Lib\dataTables\images\sort_asc_disabled.png" />
+    <Content Include="Lib\dataTables\images\sort_both.png" />
+    <Content Include="Lib\dataTables\images\sort_desc.png" />
+    <Content Include="Lib\dataTables\images\sort_desc_disabled.png" />
+    <Content Include="Lib\dataTables\media\css\demo_page.css" />
+    <Content Include="Lib\dataTables\media\css\demo_table.css" />
+    <Content Include="Lib\dataTables\media\css\demo_table_jui.css" />
+    <Content Include="Lib\dataTables\media\css\jquery.dataTables.css" />
+    <Content Include="Lib\dataTables\media\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Lib\dataTables\media\images\back_disabled.png" />
+    <Content Include="Lib\dataTables\media\images\back_enabled.png" />
+    <Content Include="Lib\dataTables\media\images\back_enabled_hover.png" />
+    <Content Include="Lib\dataTables\media\images\favicon.ico" />
+    <Content Include="Lib\dataTables\media\images\forward_disabled.png" />
+    <Content Include="Lib\dataTables\media\images\forward_enabled.png" />
+    <Content Include="Lib\dataTables\media\images\forward_enabled_hover.png" />
+    <Content Include="Lib\dataTables\media\images\sort_asc.png" />
+    <Content Include="Lib\dataTables\media\images\sort_asc_disabled.png" />
+    <Content Include="Lib\dataTables\media\images\sort_both.png" />
+    <Content Include="Lib\dataTables\media\images\sort_desc.png" />
+    <Content Include="Lib\dataTables\media\images\sort_desc_disabled.png" />
+    <Content Include="Lib\dataTables\media\js\jquery.dataTables.js" />
+    <Content Include="Lib\dataTables\media\js\jquery.dataTables.min.js" />
+    <Content Include="Lib\dataTables\media\js\jquery.js" />
+    <Content Include="Lib\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Lib\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Lib\bootstrap\css\bootstrap.css" />
+    <Content Include="Lib\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Lib\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Lib\bootstrap\js\bootstrap.js" />
+    <Content Include="Lib\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Lib\bootstrap\js\npm.js" />
+    <Content Include="Lib\durandal\css\durandal.css" />
+    <Content Include="Lib\flot\excanvas.js" />
+    <Content Include="Lib\flot\excanvas.min.js" />
+    <Content Include="Lib\flot\jquery.colorhelpers.js" />
+    <Content Include="Lib\flot\jquery.colorhelpers.min.js" />
+    <Content Include="Lib\flot\jquery.flot.canvas.js" />
+    <Content Include="Lib\flot\jquery.flot.canvas.min.js" />
+    <Content Include="Lib\flot\jquery.flot.categories.js" />
+    <Content Include="Lib\flot\jquery.flot.categories.min.js" />
+    <Content Include="Lib\flot\jquery.flot.crosshair.js" />
+    <Content Include="Lib\flot\jquery.flot.crosshair.min.js" />
+    <Content Include="Lib\flot\jquery.flot.errorbars.js" />
+    <Content Include="Lib\flot\jquery.flot.errorbars.min.js" />
+    <Content Include="Lib\flot\jquery.flot.fillbetween.js" />
+    <Content Include="Lib\flot\jquery.flot.fillbetween.min.js" />
+    <Content Include="Lib\flot\jquery.flot.image.js" />
+    <Content Include="Lib\flot\jquery.flot.image.min.js" />
+    <Content Include="Lib\flot\jquery.flot.js" />
+    <Content Include="Lib\flot\jquery.flot.min.js" />
+    <Content Include="Lib\flot\jquery.flot.navigate.js" />
+    <Content Include="Lib\flot\jquery.flot.navigate.min.js" />
+    <Content Include="Lib\flot\jquery.flot.pie.js" />
+    <Content Include="Lib\flot\jquery.flot.pie.min.js" />
+    <Content Include="Lib\flot\jquery.flot.resize.js" />
+    <Content Include="Lib\flot\jquery.flot.resize.min.js" />
+    <Content Include="Lib\flot\jquery.flot.selection.js" />
+    <Content Include="Lib\flot\jquery.flot.selection.min.js" />
+    <Content Include="Lib\flot\jquery.flot.stack.js" />
+    <Content Include="Lib\flot\jquery.flot.stack.min.js" />
+    <Content Include="Lib\flot\jquery.flot.symbol.js" />
+    <Content Include="Lib\flot\jquery.flot.symbol.min.js" />
+    <Content Include="Lib\flot\jquery.flot.threshold.js" />
+    <Content Include="Lib\flot\jquery.flot.threshold.min.js" />
+    <Content Include="Lib\flot\jquery.flot.time.js" />
+    <Content Include="Lib\flot\jquery.flot.time.min.js" />
+    <Content Include="Lib\flot\jquery.js" />
+    <Content Include="Lib\flot\jquery.min.js" />
+    <Content Include="Lib\flot\LICENSE.txt" />
+    <Content Include="Lib\ie10mobile.css" />
+    <Content Include="Content\slider.css" />
+    <Content Include="Content\templates\Forestplot_Template.xls" />
+    <Content Include="Content\templates\MoveNDAFiles.sas" />
+    <Content Include="Content\typeahead.js-bootstrap.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Lib\floatThead\jquery.floatThead.min.js" />
+    <Content Include="Lib\font-awesome\css\font-awesome.css" />
+    <Content Include="Lib\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Lib\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Lib\jquery-2.1.0.js" />
+    <Content Include="Lib\jquery-ui.sortable\jquery-ui.js" />
+    <Content Include="Lib\jquery-ui.sortable\jquery-ui.min.js" />
+    <Content Include="Lib\knockstrap\knockstrap.js" />
+    <Content Include="Lib\knockstrap\knockstrap.min.js" />
+    <Content Include="Lib\ocpkmlib\images\spinner.gif" />
+    <Content Include="Lib\ocpkmlib\js\plugins\frameDialog.js" />
+    <Content Include="Lib\selectize\css\selectize.bootstrap3.css" />
+    <Content Include="Lib\selectize\css\selectize.css" />
+    <Content Include="Lib\selectize\js\ko_selectize.js" />
+    <Content Include="Lib\selectize\js\selectize.js" />
+    <Content Include="Lib\selectize\js\selectize.min.js" />
+    <Content Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\almond-custom.js" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
+    <Content Include="Lib\durandal\js\activator.js" />
+    <Content Include="Lib\durandal\js\app.js" />
+    <Content Include="Lib\durandal\js\binder.js" />
+    <Content Include="Lib\durandal\js\composition.js" />
+    <Content Include="Lib\durandal\js\events.js" />
+    <Content Include="Lib\durandal\js\plugins\dialog.js" />
+    <Content Include="Lib\durandal\js\plugins\history.js" />
+    <Content Include="Lib\durandal\js\plugins\http.js" />
+    <Content Include="Lib\durandal\js\plugins\observable.js" />
+    <Content Include="Lib\durandal\js\plugins\router.js" />
+    <Content Include="Lib\durandal\js\plugins\serializer.js" />
+    <Content Include="Lib\durandal\js\plugins\widget.js" />
+    <Content Include="Lib\durandal\js\system.js" />
+    <Content Include="Lib\durandal\js\transitions\entrance.js" />
+    <Content Include="Lib\durandal\js\viewEngine.js" />
+    <Content Include="Lib\durandal\js\viewLocator.js" />
+    <Content Include="Lib\dataTables\extras\AutoFill\media\js\AutoFill.min.js.gz" />
+    <Content Include="Lib\dataTables\extras\ColReorder\media\js\ColReorder.min.js.gz" />
+    <Content Include="Lib\dataTables\extras\ColVis\media\js\ColVis.min.js.gz" />
+    <Content Include="Lib\dataTables\extras\FixedColumns\media\js\FixedColumns.min.js.gz" />
+    <Content Include="Lib\dataTables\extras\Scroller\media\js\dataTables.scroller.min.js.gz" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\psd\collection.psd" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\psd\copy document.psd" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\psd\file_types.psd" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\images\psd\printer.psd" />
+    <Content Include="Lib\dataTables\extras\TableTools\media\js\TableTools.min.js.gz" />
+    <Content Include="Lib\dataTables\media\images\Sorting icons.psd" />
+    <Content Include="Lib\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="Lib\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Lib\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Lib\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Lib\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Lib\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Lib\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Lib\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Lib\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\templates\OgdTool\twowaycalcke.sas.tpl" />
+    <Content Include="Content\templates\OgdTool\CALCKE.SAS" />
+    <Content Include="Content\templates\OgdTool\MACROLIB.SAS" />
+    <Content Include="Content\templates\OgdTool\DATALOADLIB.SAS" />
+    <Content Include="Content\templates\OgdTool\twowaycalcke.sas - nominal.tpl" />
+    <Content Include="Lib\dataTables\images\Sorting icons.psd" />
+    <Content Include="Content\templates\PkView\NcaAnalysisTemplate.sas.tpl" />
+    <Content Include="Content\templates\PkView\macrolib.sas" />
+    <Content Include="Content\templates\PkView\MetaForestPlot.sas" />
+    <None Include="Properties\PublishProfiles\Dev.pubxml" />
+    <None Include="Properties\PublishProfiles\Peter install test 6-27.pubxml" />
+    <None Include="Properties\PublishProfiles\Production.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.pubxml" />
+    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Lib\jquery-2.1.0.min.js" />
+    <Content Include="Lib\knockout\knockout-3.3.0.debug.js" />
+    <Content Include="Lib\knockout\knockout-3.3.0.js" />
+    <Content Include="Lib\ocpkmlib\js\core.js" />
+    <Content Include="Lib\ocpkmlib\js\net.js" />
+    <Content Include="Lib\ocpkmlib\js\plugins\kmWidget.js" />
+    <Content Include="Lib\ocpkmlib\js\txt.js" />
+    <Content Include="Lib\ocpkmlib\js\widgets\collapsiblePanel\view.html" />
+    <Content Include="Lib\ocpkmlib\js\widgets\collapsiblePanel\viewmodel.js" />
+    <Content Include="Lib\ocpkmlib\js\widgets\dynamicFrames\view.html" />
+    <Content Include="Lib\ocpkmlib\js\widgets\dynamicFrames\viewmodel.js" />
+    <Content Include="Lib\ocpkmlib\js\widgets\formFieldDatebox\view.html" />
+    <Content Include="Lib\ocpkmlib\js\widgets\formFieldDatebox\viewmodel.js" />
+    <Content Include="Lib\ocpkmlib\js\widgets\formFieldSelect\view.html" />
+    <Content Include="Lib\ocpkmlib\js\widgets\formFieldSelect\viewmodel.js" />
+    <Content Include="Lib\ocpkmlib\js\widgets\formFieldTextbox\view.html" />
+    <Content Include="Lib\ocpkmlib\js\widgets\formFieldTextbox\viewmodel.js" />
+    <Content Include="Lib\ocpkmlib\js\widgets\repeater\view.html" />
+    <Content Include="Lib\ocpkmlib\js\widgets\repeater\viewmodel.js" />
+    <Content Include="Lib\ocpkmlib\js\widgets\saveBox\saveButtonAddon.html" />
+    <Content Include="Lib\ocpkmlib\js\widgets\saveBox\saveButtonAddon.js" />
+    <Content Include="Lib\ocpkmlib\js\widgets\saveBox\view.html" />
+    <Content Include="Lib\ocpkmlib\js\widgets\saveBox\viewmodel.js" />
+    <Content Include="Lib\ocpkmlib\js\widgets\tableView\view.html" />
+    <Content Include="Lib\ocpkmlib\js\widgets\tableView\viewmodel.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Lib\text\text.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="weyland-config.js" />
+    <EntityDeploy Include="App_Data\OCPSQL.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OCPSQL.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="App_Data\OCPSQL.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OCPSQL.edmx</DependentUpon>
+      <LastGenOutput>OCPSQL.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_Data\OCPSQL.edmx.diagram">
+      <DependentUpon>OCPSQL.edmx</DependentUpon>
+    </Content>
+    <Content Include="App_Data\OCPSQL.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OCPSQL.edmx</DependentUpon>
+      <LastGenOutput>OCPSQL.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="packages.config" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\_splash.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\userData\" />
+    <Folder Include="Lib\ocpkmlib\css\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lib\jquery-2.1.0.min.map" />
+    <None Include="Scripts\require.intellisense.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Dev|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Prod|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Test|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AfterAddIisSettingAndFileContentsToSourceManifest>AddCustomSkipRules</AfterAddIisSettingAndFileContentsToSourceManifest>
+  </PropertyGroup>
+  <Target Name="AddCustomSkipRules">
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipDeleteAppData">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>filePath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\App_Data\\.*</AbsolutePath>
+        <XPath>
+        </XPath>
+      </MsDeploySkipRules>
+      <MsDeploySkipRules Include="SkipDeleteAppData">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\App_Data\\.*</AbsolutePath>
+        <XPath>
+        </XPath>
+      </MsDeploySkipRules>
+    </ItemGroup>
+  </Target>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59486</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>http://localhost:7575</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

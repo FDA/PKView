@@ -1,0 +1,32 @@
+﻿<div>
+    <div class="container-fluid">
+        <table class="table" data-bind="if: !loading()">
+            <thead>
+                <tr>
+                    <th>Raw time value</th>
+                    <th>Numeric time point</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ko foreach: { data: timeMappings, as: 'mapping' } -->
+                    <tr>
+                        <td style="white-space: nowrap" data-bind="text: mapping.raw"></td>
+                        <td>
+                            <input type="text" class="form-control input-sm" data-bind="value: mapping.normalized, valueUpdate: 'keyup'" />                            
+                        </td>                                                              
+                    </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>   
+        <div class="splash" data-bind="visible: loading">
+            <i class="fa fa-spinner fa-2x fa-spin active"></i>
+        </div>     
+    </div>
+    <div class="modal-footer" data-bind="visible: !loading()">
+        <button class="btn btn-sm btn-primary" data-bind="click: save">
+            <i class="fa fa-save"></i> Save and close
+        </button>
+    </div>
+</div>
+
+

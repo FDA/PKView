@@ -1,0 +1,67 @@
+﻿<div>
+    <div class="container-fluid">
+        <table class="table" data-bind="if: !loading()">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="btn-group" role="group" aria-label="Add or remove treatments or groups">
+                            <button type="button" class="btn btn-default btn-xs"
+                                    data-bind="click: removeTreatment, tooltip: { container: 'body', title: 'Remove the last treatment or group from all arms' }">
+                                <i class="fa fa-minus-circle"></i>
+                            </button>
+                            <button type="button" class="btn btn-default btn-xs"
+                                data-bind="click: addTreatment, tooltip: { container: 'body', title: 'Add treatment or group to all arms' }">
+                                <i class="fa fa-plus-circle"></i>
+                            </button>                                                     
+                        </div>
+                    </th>
+                    <!-- ko foreach: { data: arms[0].treatments, as: 'period' } -->
+                    <th>
+                        Period <span data-bind="text: $index() + 1"></span>
+                    </th>
+                    <!-- /ko -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ko foreach: { data: arms, as: 'arm' } -->
+                    <tr>
+                        <th style="white-space: nowrap">
+                            Arm <span data-bind="text: $index() + 1"></span>
+                            <i class="fa fa-eye" data-bind="tooltip: { container: 'body', title: arm.oldArm }"></i>
+                        </th>
+                        <!-- ko foreach: { data: arm.treatments, as: 'treatment' } -->
+                        <td>
+                            <input type="text" class="form-control input-sm" data-bind="value: arm.treatments()[$index()], valueUpdate: 'keyup'" />                            
+                        </td>
+                        <!-- /ko -->  
+                        <td style="min-width: 70px">
+                            <div class="btn-group" role="group" aria-label="Add or remove treatments or groups">
+                                <button type="button" class="btn btn-default btn-xs"
+                                        data-bind="click: $root.removeSingleTreatment, tooltip: { container: 'body', title: 'Remove the last treatment or group' }">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs"
+                                        data-bind="click: $root.addSingleTreatment, tooltip: { container: 'body', title: 'Add treatment or group' }">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </td>                     
+                    </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>   
+        <div class="splash" data-bind="visible: loading">
+            <i class="fa fa-spinner fa-2x fa-spin active"></i>
+        </div>     
+    </div>
+    <div class="modal-footer" data-bind="visible: !loading()">
+        <button class="btn btn-sm btn-default" data-bind="click: reload">
+            <i class="fa fa-refresh"></i> Reload from DM
+        </button>
+        <button class="btn btn-sm btn-primary" data-bind="click: save">
+            <i class="fa fa-save"></i> Save and close
+        </button>
+    </div>
+</div>
+
+

@@ -1,0 +1,31 @@
+<div data-bind="if: settings.hideBox == false">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <strong data-bind="text: settings.title"/>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="studyParticipationFileName" class="col-md-3 control-label" data-bind="tooltip: { title: tooltipText, placement: 'right', trigger: 'manual' }">
+                        <span>File Name</span>
+                        <span> </span>
+                        <i class="fa fa-question-circle" style="color:#71A4D2; cursor: help"/>
+                    </label>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="filename.xml" data-bind="value: filename, event: { keypress: setModified }, css: getBoxClass()"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-bind="click: saveForm, attr: { disabled: !modified() || saving() ? 'disabled' : null }">
+                                    <i class="fa" data-bind="css: { 'fa-spinner fa-spin': saving(), 'fa-save' : !saving() }"/>
+                                    <span data-bind="text: saving() ? ' Saving...' : ' Save'"/>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

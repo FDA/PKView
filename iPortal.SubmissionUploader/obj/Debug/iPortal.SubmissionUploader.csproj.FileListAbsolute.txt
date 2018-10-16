@@ -1,0 +1,16 @@
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\bin\Debug\iPortal.SubmissionUploader.exe.config
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\bin\Debug\iPortal.SubmissionUploader.exe
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\bin\Debug\iPortal.SubmissionUploader.pdb
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\iPortal.SubmissionUploader.csprojResolveAssemblyReference.cache
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\MainWindow.baml
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\MainWindow.g.cs
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\App.g.cs
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\iPortal.SubmissionUploader_MarkupCompile.cache
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\iPortal.SubmissionUploader_MarkupCompile.lref
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\App.baml
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\iPortal.SubmissionUploader.g.resources
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\iPortal.SubmissionUploader.Properties.Resources.resources
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\iPortal.SubmissionUploader.csproj.GenerateResource.Cache
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\iPortal.SubmissionUploader.exe
+C:\Users\Peter\Documents\GitHub\PKView\iPortal.SubmissionUploader\obj\Debug\iPortal.SubmissionUploader.pdb

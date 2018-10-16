@@ -1,0 +1,55 @@
+﻿<div>
+    <div class="container-fluid">
+        <p>Select a submission to see the available projects to import
+        </p>
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="time">Submission</label>
+                <div class="col-sm-6">
+                    <select id="time" class="form-control"
+                        data-bind="options: submissions, value: selectedSubmission, optionsCaption: 'Select...',
+                            optionsText: 'text', optionsValue: 'value', onInitialize: initialFocus,
+                            selectize: { selectOnTab: true, dropdownParent: 'body' }"></select> 
+                    <span data-bind="visible: waitingForData() && submissions() && submissions().length == 0" class="form-control-feedback"><i class="fa fa-spinner fa-spin"></i></span> 
+                </div>
+            </div>
+            <div data-bind="visible: selectedSubmission() && selectedSubmission().length > 0" class="form-group">
+                <label class="col-sm-4 control-label" for="userName">User</label>
+                <div data-bind="if: !waitingForData() && projects() && projects().length > 0" class="col-sm-6">
+                    <select id="userName" class="form-control"
+                            data-bind="options: projects(), value: selectedUser, optionsCaption: 'Select User...',
+                            selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'DisplayUser', optionsValue: 'Index'"></select>
+                </div>
+                <div data-bind="if: !waitingForData() && projects() && projects().length == 0" class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            No projects found for the selected NDA
+                        </div>
+                        <div class="col-sm-6">
+                            <button data-bind="click: done" class="btn btn-default btn-sm"> Close </button>
+                        </div>
+                    </div>
+                </div>
+                <div data-bind="if: waitingForData()" class="col-sm-6"> <i class="fa fa-spinner fa-spin active"></i></div>              
+            </div>   
+            <div data-bind="if: userProjects() && userProjects().length > 0" class="form-group">
+                <label class="col-sm-4 control-label" for="userProject">Project</label>
+                <div class="col-sm-6">
+                    <select id="userProject" class="form-control"
+                            data-bind="options: userProjects(), value: selectedProject,
+                            selectize: { selectOnTab: true, dropdownParent: 'body' }, optionsText: 'label', optionsValue: 'value'"></select>
+                </div>
+            </div>
+            <div data-bind="if: userProjects() && userProjects().length > 0" class="form-group">
+                <div class="col-sm-offset-4 col-sm-6">
+                    <button data-bind="click: doImport" class="btn btn-default btn-sm">
+                        <!-- ko if: importing -->
+                        <i class="fa fa-fw fa-spinner fa-spin"></i>
+                        <!-- /ko -->
+                        Import
+                    </button>
+                </div>
+            </div>                             
+        </form>
+    </div>
+</div>

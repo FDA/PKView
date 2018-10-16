@@ -1,0 +1,192 @@
+﻿
+/* Styles for the navigation bar*/
+.loader {
+    margin-left: 0;
+    visibility: hidden;
+}
+
+.loader.active {
+    visibility: visible;
+}
+
+/* General Styles */
+.page-host {
+    position: relative;
+    padding-top: 40px;
+}
+
+/* Search results */
+.resultPreview em
+{
+    background-color: #f5ff00;
+}
+
+.resultPreview ul a 
+{
+    color: black;
+    text-decoration: none;
+}
+
+.resultPreview i.fa-plus-square:hover, .resultPreview i.fa-minus-square
+{
+    color: #2C3E50;   
+}
+
+#mappingInterface a.chosen-single, 
+#mappingInterface div.chosenClass,
+#mappingInterface div.chosen-drop {
+    width: 100%;
+}
+
+#NDASelection a.chosen-single, 
+#NDASelection div.chosenClass,
+#NDASelection div.chosen-drop {
+    width: 200px;
+}
+
+#NDASelection div.chosen-container
+{
+    padding-right: 10px;
+}
+
+@media (max-width: 480px) { 
+    .nav-tabs > li {
+        float:none;
+    }
+}
+
+/* esafety */
+
+.nav-inner {
+    margin-left: 20px; 
+    font-size: 0.95em;
+    border-left: 2px solid #48ECCC;
+}
+
+.riskFactors div.chosen-drop,
+.riskFactors li.search-field {
+    width: 100%;
+}
+
+/* disease progression */
+
+/* This contains the iframe and sets a new stacking context */
+div.legacyContent {
+    height: 100%;
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    padding-bottom:60px;
+}
+
+/* Position the iframe inside the new stacking context
+    to take up the whole space */
+div.legacyContent iframe {
+    /*position: absolute;*/
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    border-style: none;
+    z-index: 0;
+}
+
+/* typeahead */
+.twitter-typeahead, 
+#mainWindow .twitter-typeahead .tt-hint, 
+#mainWindow .twitter-typeahead .tt-query {
+    height: 43px;
+}
+
+#mainWindow .twitter-typeahead .tt-query {
+    padding-left: 11px;
+}
+
+a.remove-query-btn i
+{
+    cursor: pointer;
+    position: absolute; 
+    left: -10px; 
+    top: 14px; 
+    color: #ff8888;
+}
+
+a.remove-query-btn:hover i
+{
+    color: #ff5555;
+}
+
+/* ************************* */
+/* PKView styles             */
+/* ************************* */
+
+.list-pkreport > span, 
+.list-pkreport > span:first-child, 
+.list-pkreport > span:last-child ,
+.list-pkreport > a, 
+.list-pkreport > a:first-child, 
+.list-pkreport > a:last-child,
+.list-pkreport2 > span, 
+.list-pkreport2 > span:first-child, 
+.list-pkreport2 > span:last-child ,
+.list-pkreport2 > a, 
+.list-pkreport2 > a:first-child, 
+.list-pkreport2 > a:last-child 
+{
+    border-radius: 0;
+    border: none;
+    margin-bottom: 0;
+}
+
+li.list-pkreport {
+    border-bottom: 1px solid #CCCCCC;
+}
+
+li.list-pkreport:first-child
+{
+    border-top: 1px solid #CCCCCC;
+
+}
+
+li.list-pkreport > span:hover,
+li.list-pkreport > span:focus {
+    background-color: #ECF0F1;
+    cursor: pointer;
+}
+
+li.list-pkreport.active > span:hover,
+li.list-pkreport.active > span:focus {
+    background-color: #FFFFFF;
+    cursor: default;
+}
+
+li.list-pkreport.active > span > a
+{
+    color: #2C3E50;
+}
+
+li.list-pkreport > span > a:hover {
+    text-decoration: none;
+}
+
+li.list-pkreport > span > a.icon
+{
+    color: #CCCCCC;
+}
+
+li.list-pkreport > span > a.icon:hover
+{
+    color: #18BC9C;
+}
+
+.list-pkreport > ul {
+    padding-left: 20px; 
+    background-color: #ECF0F1;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset;
+}
+
+.list-pkreport > ul > li.list-pkreport2 {
+    border-top: 1px solid #ECF0F1;
+}

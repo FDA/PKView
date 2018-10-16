@@ -1,0 +1,642 @@
+/* LIST OF MACRO PROGRAMS */
+/* ANTILOG CONVERSION */
+%MACRO ANTILOG(DSN,TRTNO,PARM1,PARM2,PARM3,PARM4,
+PARM5,PARM6);
+DATA &DSN;
+SET &DSN;
+          %DO I=1 %TO &TRTNO;
+          %DO;
+          &PARM1&I=EXP(&PARM1&I);
+          %IF &PARM2=X %THEN %GOTO FLAG;
+          %ELSE;  &PARM2&I=EXP(&PARM2&I);
+          %IF &PARM3=X %THEN %GOTO FLAG;
+          %ELSE;  &PARM3&I=EXP(&PARM3&I);
+          %IF &PARM4=X %THEN %GOTO FLAG;
+          %ELSE;  &PARM4&I=EXP(&PARM4&I);
+          %IF &PARM5=X %THEN %GOTO FLAG;
+          %ELSE;  &PARM5&I=EXP(&PARM5&I);
+          %IF &PARM6=X %THEN %GOTO FLAG;
+          %ELSE;  &PARM6&I=EXP(&PARM6&I);
+        %FLAG:  %END;
+          %END;
+%MEND ANTILOG;
+
+/* ADD VARIABLES */
+%MACRO ADDVARIA(FROM_A, TO_A);
+   DATA &TO_A;
+     SET &FROM_A;
+     &ADD_VAR;
+%MEND ADDVARIA;
+
+/* CONFIDENCE INTERVAL CALCULATIOIN BASED ON TWO ONE-SIDED T */
+%MACRO CI(P,VARNO);
+     T=TINV(&P, DF);
+     %DO I=1 %TO &VARNO;
+     %DO K=1 %TO &VARNO;
+     %IF &I>=&K %THEN %GOTO FLAG1;
+     %ELSE %DO;
+LOWCI&I&K=100*((LSMEAN&K+(LSMEAN&I-LSMEAN&K)-
+T*STDERR*SQRT(2))/LSMEAN&K);
+
+UPPCI&I&K=100*((LSMEAN&K+(LSMEAN&I-LSMEAN&K)+
+T*STDERR*SQRT(2))/LSMEAN&K);
+     %END;
+     %FLAG1: %END;
+     %END;
+%MEND CI;
+
+/* LIST 90%CI VARIABLES */
+%MACRO CILST(VARNO);
+     %DO I=1 %TO &VARNO;
+     %DO K=1 %TO &VARNO;
+     %IF &I>=&K %THEN %GOTO FLAG1;
+     %ELSE %DO;
+LOWCI&I&K
+UPPCI&I&K
+     %END;
+     %FLAG1: %END;
+     %END;
+%MEND CILST;
+
+
+/* LOG-TRANSFORMED CONFIDENCE INTERVAL CALCULATIOIN BASED ON TWO
+ONE-SIDED T */
+%MACRO CILOG(P,VARNO);
+     P=&P;
+     T=TINV(&P, DF);
+     %DO I=1 %TO &VARNO;
+     %DO K=1 %TO &VARNO;
+     %IF &I>=&K %THEN %GOTO FLAG1;
+     %ELSE %DO;
+
+/*
+LOWCI&I&K=100*EXP((LSMEAN&I-LSMEAN&K)-T*STDERR*SQRT(2));
+UPPCI&I&K=100*EXP((LSMEAN&I-LSMEAN&K)+T*STDERR*SQRT(2));
+*/
+	LOWCI&I&K = 100 * EXP(ESTIMATE-(T*STDERR));
+	UPPCI&I&K = 100 * EXP(ESTIMATE+(T*STDERR));
+
+     %END;
+     %FLAG1: %END;
+     %END;
+%MEND CILOG;
+
+
+/* COPY DATASET WITH ARRAYS */
+%MACRO COPYDS(FROM_A, TO_A);
+   DATA &TO_A;
+       ARRAY C(&NO_ASSAY) C1-C&NO_ASSAY;
+       ARRAY T(&NO_ASSAY) T1-T&NO_ASSAY;
+   SET &FROM_A;
+%MEND COPYDS;
+
+
+
+
+/* CREATE DATASET WITH T AND NEWCMAX */
+%MACRO CREATE;
+    DATA &TARGETDS;
+       ARRAY C(&NO_ASSAY) C1-C&NO_ASSAY;
+       ARRAY T(&NO_ASSAY) T1-T&NO_ASSAY;
+
+
+    &TIME;
+    SET &ORIGINDS;
+    KE_FIRST=0;
+    KE_LAST=0;
+    CLAST=C&NO_ASSAY;
+    NEWCMAX=MAX(&CONCENT);
+%MEND CREATE;
+
+/* PROC FSEDIT TO EDIT DATASET */
+%MACRO EDITDATA(DSNFROM, DSNTO, VARN);
+   DATA &DSNTO;
+   SET &DSNFROM;
+   PROC FSEDIT DATA=&DSNTO;
+   VAR &VARN;
+%MEND EDITDATA;
+
+/* PROC FSPRINT TO EDIT DATASET */
+%MACRO RITEDATA(DSNFROM, DSNTO, VARN);
+   DATA &DSNTO;
+   SET &DSNFROM;
+   PROC FSPRINT DATA=&DSNTO EDIT;
+   VAR &VARN;
+%MEND RITEDATA;
+
+/* LIST LSMEANS */
+%MACRO LSMENLST(TRTNO, VARN);
+     %DO I=1 %TO &TRTNO;
+     &VARN&I
+     %END;
+%MEND LSMENLST;
+
+/* SPLIT GLMOUT INTO A NUMBER OF DATASETS FOR 90% CI */
+%MACRO LSMFILE(DSN,SORTVAR, VARNO, PARM1, PARM2, PARM3, PARM4,
+PARM5, PARM6, SETNAME, ANDOR);
+     %DO I=1 %TO &VARNO;
+     DATA &DSN&I;
+     SET &DSN;
+     IF &SORTVAR=&I;
+        IF %SETLST(&SETNAME, &ANDOR, &PARM1, &PARM2, &PARM3,
+                &PARM4, &PARM5, &PARM6);
+     RENAME LSMEAN=LSMEAN&I
+        COV&I=COV_&I
+;
+        %SORTDS(&DSN&I, &SETNAME);
+        %*PRINT(&DSN&I, &DSN&I);
+     %END;
+%MEND LSMFILE;
+
+/* LIST CONDITIONS FOR SORTING/SETTING DATASET */
+/* THIS IS A PART OF LSMFILE MACRO */
+%MACRO SETLST(SETNAME, ANDOR, PARM1, PARM2, PARM3, PARM4, PARM5,
+PARM6);
+%DO;
+     &SETNAME="&PARM1"
+     %IF &PARM2=X %THEN %GOTO FLAG;
+     %ELSE; &ANDOR &SETNAME="&PARM2"
+     %IF &PARM3=X %THEN %GOTO FLAG;
+     %ELSE; &ANDOR &SETNAME="&PARM3"
+     %IF &PARM4=X %THEN %GOTO FLAG;
+     %ELSE; &ANDOR &SETNAME="&PARM4"
+     %IF &PARM5=X %THEN %GOTO FLAG;
+     %ELSE; &ANDOR &SETNAME="&PARM5"
+     %IF &PARM6=X %THEN %GOTO FLAG;
+     %ELSE; &ANDOR &SETNAME="&PARM6"
+     %FLAG: %END;
+%MEND SETLST;
+
+
+/* CALCULATION OF MEANS */
+%MACRO MEANCAL(DSN, VARN, BY, MEANOUT);
+        PROC MEANS DATA=&DSN NOPRINT;
+        VAR &VARN;
+        BY &BY;
+        OUTPUT OUT=&MEANOUT;
+%MEND MEANCAL;
+
+/* MERGE ANY TWO DATASETS */
+%MACRO MERGEDS(DSN, DSN1, DSN2);
+   DATA &DSN;
+   MERGE &DSN1 &DSN2;
+   IF I>=KE_FIRST AND I<=KE_LAST;
+%MEND MERGEDS;
+
+/* MERGE A SERIES OF SPLIT DATASETS */
+%MACRO MERGMULT(VARNO, DSN, DSN1, DSN2, DSN3, OUTDSN, BY);
+        DATA &OUTDSN;
+        MERGE %MERGELST(&VARNO, &DSN, &DSN1, &DSN2, &DSN3);
+        BY &BY;
+%MEND MERGMULT;
+
+/* LIST DATASETS TO BE MERGED */
+%MACRO MERGELST(VARNO, DSN, DSN1, DSN2, DSN3);
+        %DO I=1 %TO &VARNO;
+                &DSN&I
+        %IF &I=&VARNO %THEN
+                &DSN1 &DSN2 &DSN3;
+        %ELSE ;
+
+        %END;
+%MEND MERGELST;
+
+
+/* PLOT MACRO FOR DETERMINING KE_FIRST AND KE_LAST */
+%MACRO PLOT(DSN, YVAR, XVAR, BY, LABEL);
+   PROC SORT DATA=&DSN;
+   BY &BY;
+   RUN;
+
+   FILENAME OUT PRINTER 'LPT2:';
+   PROC PRINTTO PRINT=OUT;
+   PROC PLOT DATA=&DSN;
+   BY &BY;
+   PLOT &YVAR*&XVAR=&LABEL;
+   RUN;
+   PROC PRINTTO PRINT=PRINT;
+%MEND PLOT;
+
+
+
+
+/* PRINT MACRO */
+%MACRO PRINT(DSN, TITLE);
+   PROC PRINT DATA=&DSN ROUND;
+   TITLE "&TITLE";
+   RUN;
+%MEND PRINT;
+
+/* PROC GLM FOR PK PARAMETERS */
+%MACRO PROCGLM(DSN, TRTNO, CLASSVAR, PARM1, PARM2, PARM3, PARM4,
+PARM5, PARM6, PARM7, PARM8, PARM9, PARM10, PARM11, PARM12,
+MODELIND, HVAR, EVAR);
+PROC GLM DATA=&DSN OUTSTAT=GLMOUT;
+CLASS &CLASSVAR;
+MODEL &PARM1 &PARM2 &PARM3 &PARM4 &PARM5 &PARM6
+&PARM7 &PARM8 &PARM9 &PARM10
+&PARM11 &PARM12
+=&MODELIND;
+TEST H=&HVAR E=&EVAR;
+     %DO I=1 %TO &TRTNO;
+     %DO K=1 %TO &TRTNO;
+     %IF &I>=&K %THEN %GOTO FLAG1;
+     %ELSE %DO;
+          ESTIMATE "TRT&I VS TRT&K" TRT %LVECTOR;
+     %END;
+%FLAG1: %END;
+        %END;
+     LSMEANS TRT/COV STDERR PDIFF TDIFF OUT=LSMOUT;
+     LSMEANS SEQ PER TRT/STDERR PDIFF TDIFF;
+%MEND PROCGLM;
+
+/* PROC GLM FOR BLOOD LEVELS */
+%MACRO PROCGLMC(DSN, TRTNO, CLASSVAR, MODELIND, HVAR, EVAR);
+PROC GLM DATA=&DSN;
+CLASS &CLASSVAR;
+MODEL C1-C&NO_ASSAY
+=&MODELIND;
+TEST H=&HVAR E=&EVAR;
+     %DO I=1 %TO &TRTNO;
+     %DO K=1 %TO &TRTNO;
+     %IF &I>=&K %THEN %GOTO FLAG1;
+     %ELSE %DO;
+          ESTIMATE "TRT&I VS TRT&K" TRT %LVECTOR;
+     %END;
+%FLAG1: %END;
+        %END;
+     LSMEANS TRT/COV STDERR PDIFF TDIFF OUT=LSMOUT;
+     LSMEANS &CLASSVAR/STDERR PDIFF TDIFF;
+%MEND PROCGLMC;
+
+/* LVECTOR IS A PART OF PROC GLM */
+%MACRO LVECTOR;
+%DO L=1 %TO &TRTNO;
+%IF &L=&I %THEN 1;
+%ELSE %DO;
+     %IF &L=&K %THEN -1;
+     %ELSE 0;
+        %END;
+%END;
+%MEND LVECTOR;
+
+/* PROC MIXED */
+%MACRO PROCMIXD(DSN,TRTNO,PARMNO,CLASSVAR,PARM1,PARM2,PARM3,PARM4,PARM5,PARM6,
+PARM7,PARM8,PARM9,PARM10,PARM11,PARM12,FIXEDVAR,RNDOMVAR,BASEDSN);
+%DO M=1 %TO &PARMNO;
+%IF &M=1 %THEN %DO; %LET DPENDVAR=&PARM1; %END;
+%IF &M=2 %THEN %DO; %LET DPENDVAR=&PARM2; %END;
+%IF &M=3 %THEN %DO; %LET DPENDVAR=&PARM3; %END;
+%IF &M=4 %THEN %DO; %LET DPENDVAR=&PARM4; %END;
+%IF &M=5 %THEN %DO; %LET DPENDVAR=&PARM5; %END;
+%IF &M=6 %THEN %DO; %LET DPENDVAR=&PARM6; %END;
+
+PROC MIXED DATA=&DSN MAXITER=1000 MAXFUNC=1000 CONVF=1E-4 CONVG=1E-4 CONVH=1E-4
+NOITPRIN NOCLPRIN;
+CLASS &CLASSVAR;
+MODEL &DPENDVAR=&FIXEDVAR/SOLUTION;
+RANDOM &RNDOMVAR/TYPE=SIMPLE SOLUTION;
+
+%DO I=1 %TO &TRTNO;
+%DO K=1 %TO &TRTNO;
+%IF &I>=&K %THEN %GOTO FLAG1;
+%ELSE %DO;
+
+CONTRAST 'TRT&I VS TRT&K' TRT %LVECTOR;
+ESTIMATE 'TRT&I VS TRT&K' TRT %LVECTOR/ ALPHA=0.1 CL;
+LSMEANS TRT/CL PDIFF ALPHA=0.1 DIFFS;
+MAKE 'CONTRAST' OUT=A;
+MAKE 'ESTIMATE' OUT=B;
+MAKE 'LSMEANS' OUT=C;
+MAKE 'DIFFS' OUT=D;
+RUN;
+%PRINT(A,CONTRAST FOR &DPENDVAR)
+RUN;
+%PRINT(B,ESTIMATE FOR &DPENDVAR)
+RUN;
+%PRINT(C,LSMEANS FOR &DPENDVAR)
+RUN;
+%PRINT(D,DIFFERENCE FOR &DPENDVAR)
+RUN;
+
+PROC TRANSPOSE DATA=C PREFIX=LSMEAN OUT=CLSMEAN;
+VAR LSMEAN;
+RUN;
+PROC TRANSPOSE DATA=C PREFIX=SE OUT=CSE;
+VAR SE;
+RUN;
+
+DATA LSMEANSE;
+MERGE CLSMEAN CSE;
+RENAME LSMEAN1=LSMEAN&I LSMEAN2=LSMEAN&K
+       SE1=SE&I SE2=SE&K;
+
+DATA B;
+MERGE LSMEANSE B;
+
+DATA B;
+FORMAT PKPARM $CHAR8.;
+SET B;
+PKPARM="&DPENDVAR";
+PROC APPEND BASE=&BASEDSN DATA=B FORCE;
+RUN;
+%END;
+%FLAG1: %END;
+        %END;
+%END;
+%PRINT(&BASEDSN, SUMMARY OF ESTIMATE FOR PK PARAMETERS)
+RUN;
+%MEND PROCMIXD;
+
+/* PROC GLM FOR PK PARAMETERS IN REPLICATE DESIGN*/
+%MACRO REPLIGLM(DSN, TRTNO, CLASSVAR, PARM1, PARM2, PARM3, PARM4,
+PARM5, PARM6, PARM7, PARM8, PARM9, PARM10, PARM11, PARM12,
+MODELIND, HVAR, EVAR);
+PROC GLM DATA=&DSN OUTSTAT=GLMOUT;
+CLASS &CLASSVAR;
+MODEL &PARM1 &PARM2 &PARM3 &PARM4 &PARM5 &PARM6
+&PARM7 &PARM8 &PARM9 &PARM10
+&PARM11 &PARM12
+=&MODELIND/SS1 SS2 SS3 SS4;
+CONTRAST 'TRT1 VS TRT2' TRT 1 -1/ E=&EVAR ETYPE=4;
+TEST H=&HVAR E=&EVAR;
+     %DO I=1 %TO &TRTNO;
+     %DO K=1 %TO &TRTNO;
+     %IF &I>=&K %THEN %GOTO FLAG1;
+     %ELSE %DO;
+          ESTIMATE 'TRT&I VS TRT&K' TRT %LVECTOR;
+     %END;
+%FLAG1: %END;
+        %END;
+     LSMEANS TRT/COV E=&EVAR STDERR PDIFF TDIFF OUT=LSMOUT;
+     LSMEANS &CLASSVAR/E=&EVAR ETYPE=4 STDERR PDIFF TDIFF;
+%MEND REPLIGLM;
+
+/* CALCULATE RATIOS OF PARAMETERS */
+%MACRO RATIOCAL(DSN, VARNO, PARM1, PARM2, PARM3, PARM4, PARM5,
+PARM6);
+     DATA &DSN;
+     SET &DSN;
+     %DO I=1 %TO &VARNO;
+     %DO K=1 %TO &VARNO;
+     %IF &I>=&K %THEN %GOTO FLAG1;
+     %ELSE;
+          %DO;
+          R&PARM1&I&K=&PARM1&I/&PARM1&K;
+          %IF &PARM2=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM2&I&K=&PARM2&I/&PARM2&K;
+          %IF &PARM3=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM3&I&K=&PARM3&I/&PARM3&K;
+          %IF &PARM4=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM4&I&K=&PARM4&I/&PARM4&K;
+          %IF &PARM5=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM5&I&K=&PARM5&I/&PARM5&K;
+          %IF &PARM6=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM6&I&K=&PARM6&I/&PARM6&K;
+     %FLAG:  %END;
+     %FLAG1: %END;
+     %END;
+%MEND RATIOCAL;
+/* CALCULATE RATIOS OF PARAMETERS(ANTI-LOG) */
+%MACRO RATIOLOG(DSN, VARNO, PARM1, PARM2, PARM3, PARM4, PARM5,
+PARM6);
+     DATA &DSN;
+     SET &DSN;
+     %DO I=1 %TO &VARNO;
+     %DO K=1 %TO &VARNO;
+     %IF &I>=&K %THEN %GOTO FLAG1;
+     %ELSE %DO;
+          R&PARM1&I&K=EXP(&PARM1&I)/EXP(&PARM1&K);
+          %IF &PARM2=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM2&I&K=EXP(&PARM2&I)/EXP(&PARM2&K);
+          %IF &PARM3=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM3&I&K=EXP(&PARM3&I)/EXP(&PARM3&K);
+          %IF &PARM4=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM4&I&K=EXP(&PARM4&I)/EXP(&PARM4&K);
+          %IF &PARM5=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM5&I&K=EXP(&PARM5&I)/EXP(&PARM5&K);
+          %IF &PARM6=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM6&I&K=EXP(&PARM6&I)/EXP(&PARM6&K);
+     %FLAG:  %END;
+     %FLAG1: %END;
+     %END;
+%MEND RATIOLOG;
+
+%MACRO RATLST(VARNO, PARM1, PARM2, PARM3, PARM4, PARM5, PARM6);
+     %DO I=1 %TO &VARNO;
+     %DO K=1 %TO &VARNO;
+     %IF &I>=&K %THEN %GOTO FLAG1;
+     %ELSE %DO;
+          R&PARM1&I&K
+          %IF &PARM2=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM2&I&K
+          %IF &PARM3=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM3&I&K
+          %IF &PARM4=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM4&I&K
+          %IF &PARM5=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM5&I&K
+          %IF &PARM6=X %THEN %GOTO FLAG;
+          %ELSE;
+          R&PARM6&I&K
+     %FLAG:  %END;
+     %FLAG1: %END;
+     %END;
+%MEND RATLST;
+
+/* READ DATA INTO A DATASET */
+%MACRO READDATA(DSNFROM,DSNTO,FIRSTOBS,VARN,LSIZE);
+DATA &DSNTO;
+INFILE &DSNFROM FIRSTOBS=&FIRSTOBS LS=&LSIZE;
+INPUT &VARN;
+%MEND READDATA;
+
+/* REMOVE SUBJECTS */
+%MACRO REMUVSUB(FROM_A, TO_A);
+     DATA &TO_A;
+       SET &FROM_A;
+       &REMOVSUB;
+%MEND REMUVSUB;
+
+/* RENAME VARIABLES WITH SUFFIX OF TRTNO */
+%MACRO RE_NAME(TRTNO,OLDNAME,NEWNAME);
+%DO I=1 %TO &TRTNO;
+RENAME &OLDNAME&I=&NEWNAME&I;
+%END;
+%MEND RE_NAME;
+
+/* SORTING DATASET */
+%MACRO SORTDS(DSN, BY);
+   PROC SORT DATA=&DSN;
+   BY &BY;
+%MEND SORTDS;
+
+%MACRO SORTMULT(DSN, TRTNO, BY);
+%DO I=1 %TO &TRTNO;
+        PROC SORT DATA=&DSN&I;
+        BY &BY;
+%END;
+%MEND SORTMULT;
+
+/* SPLIT A DATASET TO MAKE MULTIPLE DATASETS */
+/* SORTVARN IS THE VARIABLE NAME AND PARAMETERS ARE RENAMED */
+/* DATASET IS SORTED AND PRINTED */
+%MACRO SPLITBY(DSN, SORTVARN, VARNO, SORTDSBY, PARM1, PARM2,
+PARM3, PARM4, PARM5, PARM6);
+
+     %DO I=1 %TO &VARNO;
+     DATA &DSN&I;
+     SET &DSN;
+     IF &SORTVARN=&I;
+          %DO;
+          RENAME &PARM1=&PARM1&I
+          %IF &PARM2=X %THEN %GOTO FLAG;
+          %ELSE;  &PARM2=&PARM2&I
+          %IF &PARM3=X %THEN %GOTO FLAG;
+          %ELSE;  &PARM3=&PARM3&I
+          %IF &PARM4=X %THEN %GOTO FLAG;
+          %ELSE;  &PARM4=&PARM4&I
+          %IF &PARM5=X %THEN %GOTO FLAG;
+          %ELSE;  &PARM5=&PARM5&I
+          %IF &PARM6=X %THEN %GOTO FLAG;
+          %ELSE;  &PARM6=&PARM6&I
+        %FLAG: ;
+                %END;
+        %SORTDS(&DSN&I,&SORTDSBY)
+        RUN;
+        %*PRINT(&DSN&I,&DSN&I)
+        RUN;
+     %END;
+%MEND SPLITBY;
+
+/* INPUT ORIGINAL OR MODIFIED DATA FROM A DISK DRIVE */
+%MACRO START;
+   DATA &ORIGINDS;
+   INFILE "&DATASET" FIRSTOBS=&FIRSTOBS;
+   INPUT &VAR_LIST;
+%MEND START;
+
+/* TABULATION OF A FILE */
+/* THIS IS A PART OF PROC TABULATE.  IT LISTS ARGUMENTS FOR TABLE
+*/
+%MACRO VARTABLE(TRTNO, MEAN, SD);
+%DO I=1 %TO &TRTNO;
+&MEAN&I*SUM=' ' &SD&I*SUM=' '
+%END;
+%RMEANLST(&TRTNO, &MEAN);
+%MEND VARTABLE;
+
+%MACRO VARCIDAT(TRTNO, LSMEAN);
+%DO I=1 %TO &TRTNO;
+&LSMEAN&I*SUM=' '
+%END;
+%MEND VARCIDAT;
+
+%MACRO TABCILST(VARNO);
+     %DO I=1 %TO &VARNO;
+     %DO K=1 %TO &VARNO;
+     %IF &I>=&K %THEN %GOTO FLAG1;
+     %ELSE %DO;
+LOWCI&I&K*SUM=' '
+UPPCI&I&K*SUM=' '
+     %END;
+     %FLAG1: %END;
+     %END;
+%MEND TABCILST;
+/* THIS IS A PART OF PROC TABULATE.  IT LISTS ARGUMENTS FOR TABLE
+*/
+%MACRO RMEANLST(TRTNO, MEAN);
+     %DO I=1 %TO &TRTNO;
+     %DO K=1 %TO &TRTNO;
+     %IF &I>=&K %THEN %GOTO FLAG1;
+     %ELSE; R&MEAN&I&K*SUM=' '
+%FLAG1: %END;
+%END;
+%MEND RMEANLST;
+
+/* THIS IS A PART OF PROC TABULATE.  IT LISTS ARGUMENTS FOR TABLE
+*/
+%MACRO VARLST(TRTNO, MEAN, SD);
+     %DO I=1 %TO &TRTNO;
+     &MEAN&I &SD&I
+        %END;
+%MEND VARLST;
+
+
+
+
+/* TRANSPOSE DATASET */
+%MACRO TRANSPOS(DSN, OUTDS, VARN, BY);
+        PROC TRANSPOSE DATA=&DSN OUT=&OUTDS;
+        VAR &VARN;
+        BY &BY;
+%MEND TRANSPOS;
+
+/*************************************************************************
+ **	Checks whether a folder exist. If it does not exist - create it	    **
+ **	Input:                                                              **
+ **	 - BasePath: Path to folder (eg. C:\myfolder)                       **
+ **  - FolderName: Name of the folder to create                         **
+ **	Created by:	Jens Stampe Soerensen  (2013/2014)                      **																					**;
+ *************************************************************************/
+%macro CreateFolder(
+	BasePath = ,
+	FolderName =
+);
+
+	%** Local macro variables **;
+	%local folder folderpath;
+
+	%** Checks **;
+	%if %nrbquote(&BasePath.) ne and %nrbquote(&FolderName.) ne %then %do;
+		%let folder = &BasePath.\&FolderName.;
+	%end;
+	%else %do;
+		%let folder = &BasePath.;
+	%end;
+
+	%** Check if the folder exist, if not create it **;
+	%local rc fileref;
+	%let rc = %sysfunc(filename(fileref, &folder.)) ;
+	%if %sysfunc(fexist(&fileref.))  %then
+		%put NOTE: The directory "&folder." exists ;
+	%else %do;
+		%let folderpath = %sysfunc(dcreate(&FolderName., &BasePath.));
+		%put NOTE: The directory has been created at &BasePath.\&FolderName.;
+		%put NOTE: Value of folderpath = &FolderPath.;
+	%end ;
+	%let rc=%sysfunc(filename(fileref)) ;
+
+%mend CreateFolder;
+
+/*************************************************************************
+ **   Rename a variable                                                 **
+ **   Input:                                                            **
+ **    - VarName: Name of the variable                                  **
+ **    - NewName: New name of the variable                              **
+ **   Created by: Eduard Porta (2016)                                   **
+ *************************************************************************/
+%macro RenameVariable(
+   Name = ,
+   NewName =
+);
+
+%if &Name. ne and &NewName. ne %then %do;
+   rename &Name.=&NewName.;
+%end;
+
+%mend RenameVariable;

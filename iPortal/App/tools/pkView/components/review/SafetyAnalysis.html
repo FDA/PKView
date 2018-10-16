@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript" src="SafetyAnalysis.js"></script>
+</head>
+<body>
+    <section>
+        <div class="splash" data-bind="visible: displaySpinner">
+            <i class="fa fa-spinner fa-lg fa-spin active"></i>
+        </div>
+
+        <div data-bind="visible: !displaySpinner()">
+            <nav class="navbar navbar-lite" role="toolbar">
+                <div class="container-fluid">
+                    <div class="navbar-header pull-left">
+                        <!-- Nda and analysis name -->
+                        <p class="navbar-title">
+                            <strong data-bind="text: NDAName"></strong>
+                            <span data-bind="if: Analyses().length > 0">
+                                <span data-bind="text: ' - ' + activeAnalysis()"></span>
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- toolbar -->
+                    <div class="btn-toolbar navbar-right pull-right" role="toolbar" aria-label="Main Toolbar">
+                        <button type="button" class="btn btn-sm btn-primary navbar-right"
+                            data-bind="click: getSafetyPackage, visible: ISSfound, enable: AnalysisComplete">
+                            Download eSafety
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary navbar-right"
+                            data-bind="click: deleteAnalysis, visible: ISSfound, tooltip: { container: 'body', title: 'Delete Analysis' }">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary navbar-right"
+                            data-bind="click: saveAnalysis, visible: ISSfound, tooltip: { container: 'body', title: 'Save Analysis' }">
+                            <i class="fa fa-save"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary navbar-right"
+                            data-bind="click: editAnalysisName, visible: ISSfound, tooltip: { container: 'body', title: 'Edit Analysis Name' }">
+                            <i class="fa fa-edit"></i>
+                        </button>
+
+                        <!-- Supplement choice -->
+                        <div class="btn-group navbar-right" role="group" aria-label="Serial number choice" data-bind="if: Object.keys(supplements()).length > 1">
+                            <button type="button" data-bind="tooltip: { container: 'body', title: 'Selected Serial Number(s)' }"
+                                class="btn btn-sm btn-lite dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span data-bind="if: SelectedSupplement() != '' && SelectedSupplement() != '0000'">Serial Number 
+                                <span data-bind="text: SelectedSupplement"></span>
+                                </span>
+                                <span data-bind="if: SelectedSupplement() == '0000'">Original (0000)</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <!-- ko foreach: { data: Object.keys(supplements()), as: 'supplementNumber' } -->
+                                <li><a href="#" data-bind="click: $root.selectSupplement">
+                                    <span data-bind="if: supplementNumber != '0000'">Serial Number 
+                                        <span data-bind="text: supplementNumber"></span>
+                                    </span>
+                                    <span data-bind="if: supplementNumber == '0000'">Original (0000)</span>
+                                </a></li>
+                                <!-- /ko -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div role="tabpanel" class="tab-pane">
+                <ul class="nav nav-tabs" id="analysisTabs" data-bind="visible: !displaySpinner()">
+                    <!-- ko foreach: Analyses, as: 'Analysis' -->
+                    <li class="analysisTab" data-bind="css: { active: isActive }">
+                        <a href="#" data-bind="click: $root.setActiveAnalysis">
+                            <span data-bind="text: AnalysisName, tooltip: {
+    container: 'body',
+    title: AnalysisCreationDate
+}"></span>
+                        </a>
+                    </li>
+                    <!-- /ko -->
+                    <li class="analysisTab">
+                        <a href="#" data-bind="click: $root.createNewAnalysis">
+                            <span>New Analysis</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Domain specific settings -->
+            <!-- ko foreach: { data: IssStudyMappings, as: 'IssDomain'} -->
+            <div class="well" style="padding-bottom: 0">
+                <nav class="navbar navbar-lite navbar-sm navbar-click" role="toolbar">
+                    <p class="navbar-text">
+                        <strong><span data-bind="text: IssDomainType"></span>- </strong>
+                        <span data-bind="text: $root.IssDomainDescriptions[IssDomainType]">Demographics</span>
+
+                    </p>
+                    <button class="btn btn-hover btn-xs navbar-right" data-bind="click: $root.viewData">
+                        <i class="fa fa-table"></i>View Data
+                    </button>
+                </nav>
+                <div class="container-fluid">
+                    <!-- ko foreach: { data: $root.splitInTwoColumns(IssDomainMappings), as: 'column' } -->
+                    <div class="row" data-bind="foreach: column">
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                <div class="form-group has-feedback" data-bind="css: {
+    'has-success': IssMappingQuality == 0,
+    'has-error': IssMappingQuality == 2,
+    'has-warning': IssMappingQuality == 1
+}">
+                                    <label class="control-label col-xs-4" data-bind="tooltip: {
+    container: 'body',
+    title: $root.issVariables[IssVariable].longDescription
+}">
+                                        <span data-bind="text: $root.issVariables[IssVariable].description">Variable label</span>
+                                        <sup><i class="fa fa-question-circle"></i></sup>
+                                    </label>
+                                    <select class="dropdown col-xs-7"
+                                        data-bind=" options: IssDomain.IssFileVariables,
+
+    value: IssFileVariable,
+    event: { change: $root.changeQuality },
+    selectize: { selectOnTab: true },
+    optionsText: 'IssLabel',
+    optionsValue: 'IssName',
+    optionsCaption: 'Choose...' ">
+                                    </select>
+                                    <span class="form-control-feedback">
+                                        <i class="fa" data-bind="css: {
+    'fa-check': IssMappingQuality == 0,
+    'fa-times': IssMappingQuality == 2,
+    'fa-exclamation': IssMappingQuality == 1
+},
+    tooltip: {
+        container: 'body', title:
+        IssMappingQuality == 0 ? 'Variable mapped according to SDTM standards' :
+        (IssMappingQuality == 2) ? 'This variable could not be mapped ' +
+        'automatically. This means the file probably does not follow the SDTM ' +
+        'standard and there is not enough historical information to guess a good mapping' :
+        'This variable could not be mapped automatically but it is optional, so the analysis ' +
+        'can run without it. Manually setting it to a correct value can improve the ' +
+        'accuracy of the analysis code or enable aditional results.'
+    }"></i>
+                                    </span>
+                                    <!-- ko if: $root.editSeverity[IssDomain.IssDomainType] && $root.editSeverity[IssDomain.IssDomainType][IssVariable] -->
+                                    <div class="col-xs-1" style="padding-left: 0">
+                                        <button class="btn btn-default btn-sm" type="button" style="border-radius: 3px"
+                                            data-bind="click: function () { $root.editSeverityMapping(IssDomain.IssDomainType, IssFileVariable, IssVariable); }">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <!-- /ko -->
+
+            <div class="well" style="padding-bottom: 0; height: 200px; overflow: scroll;" data-bind="visible: ISSfound">
+                <nav class="navbar navbar-lite" role="toolbar">
+                    <p><strong>ADSL Variables </strong></p>
+                </nav>
+                <!-- ko foreach: { data: $root.splitInFourColumns(TRTxxPs()), as: 'Tcolumn' } -->
+                <div class="row" data-bind="foreach: Tcolumn">
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <input type="checkbox" data-bind="checked: Selection">
+                            <span data-bind="text: TRTXXP"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+
+            <nav class="navbar" role="toolbar">
+                <div class="container-fluid" data-bind="visible: ISSfound">
+                    <div class="navbar-header pull-left">
+                        <!-- Nda and study name -->
+                        <button class="btn btn-default" type="button" style="border-radius: 3px"
+                            data-bind="tooltip: { container: 'body', title: 'Additional Options' }, click: showOptions">
+                            Additional Options
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div data-bind="visible: displayTRTP">
+                <div class="well" style="padding-bottom: 0">
+                    <nav class="navbar navbar-lite" role="toolbar">
+                        <p style="font-size: 20px"><strong>Options </strong></p>
+                    </nav>
+                    <div class="container">
+                        <table class="table table-bordered" style="width: 1100px;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20px;">Selected studies</th>
+                                    <th>StudyId</th>
+                                    <!-- <th style="width: 20px;">Number of Subjects</th> -->
+                                    <th>ARM</th>
+                                    <th>TRTP</th>
+                                    <th style="width: 10px;">Study Duration</th>
+                                    <th>Revised TRTP</th>
+                                    <th style="width: 20px;">Numeric Dose</th>
+
+                                    <th style="width: 10px;">Order</th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <button class="btn btn-default btn-xs" type="button" style="border-radius: 3px; display: block; font-size: small;"
+                                            data-bind="tooltip: { container: 'body', title: 'Clear All' }, click: ClearAll">
+                                            Clear All
+                                        </button>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <button class="btn btn-default btn-xs" type="button" style="border-radius: 3px; display: block; font-size: small;"
+                                            data-bind="tooltip: { container: 'body', title: 'Select All' }, click: SelectAll">
+                                            Select All
+                                        </button>
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>
+                                        <button class="btn btn-default btn-xs" type="button" style="border-radius: 3px; display: block; font-size: small;"
+                                            data-bind="tooltip: { container: 'body', title: 'Reset to 0' }, click: ResetOrder">
+                                            Reset to 0</button></th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: IssTRTPs">
+                                <tr>
+                                    <td style="width: 20px;">
+                                        <input type="checkbox" data-bind="checked: IncludeStudy"></td>
+                                    <td data-bind="text: StudyId"></td>
+                                    <!-- <td style="width: 20px;" data-bind="text: NumberOfSubjects"></td> -->
+                                    <td data-bind="text: ARM"></td>
+                                    <td data-bind="text: TRTP"></td>
+                                    <td>
+                                        <input data-bind="value: StudyDuration" style="width: 50px;" /></td>
+                                    <!-- ko if: TRTP != '' -->
+                                    <td>
+                                        <input data-bind="value: RevisedTRTP" /></td>
+                                    <td>
+                                        <input data-bind="value: NumericDose" style="width: 50px;" /></td>
+                                    <td>
+                                        <input data-bind="value: order" style="width: 30px;" /></td>
+                                    <!-- /ko -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="well" style="padding-bottom: 15px">
+                    <strong style="font-size: 16px">Cutoff of AE rate </strong>
+                    <input type="number" data-bind="value: AeCutoffRate" style="width: 100px;" />
+                    <strong>%</strong>
+                </div>
+
+                <!-- ko foreach: { data: CDomains, as: 'CDomain'} -->
+                <div class="well" style="padding-bottom: 15px">
+                    <nav class="navbar navbar-lite navbar-sm navbar-click" role="toolbar">
+                        <p class="navbar-text">
+                            <strong><span data-bind="text: CDomainName"></span>- </strong>
+                            <span data-bind="text: $root.DomainCountsDescriptions[CDomainName]">Demographics</span>
+                        </p>
+                        <button class="btn btn-hover btn-xs navbar-right" data-bind="click: $root.viewData1">
+                            <i class="fa fa-table"></i>View Data
+                        </button>
+                    </nav>
+                    <div>
+                        <p>
+                            <strong><span>Inclusions</span></strong>
+                        </p>
+                    </div>
+                    <!-- ko foreach: { data: Inclusions, as: 'Inclusion'} -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <select
+                                data-bind=" options: CDomain.CVariables,
+    value: selectedVariable,
+    event: { change: $root.getCountValue },
+    selectize: { selectOnTab: true },
+    optionsText: 'CVariableName',
+    optionsValue: 'CVariableName',
+    optionsCaption: 'Choose...' ">
+                            </select>
+                        </div>
+                        <div class="col-md-2" data-bind="visible: display">
+                            <select
+                                data-bind=" options: Relations,
+    value: relation,
+    selectize: { selectOnTab: true },
+    optionsText: 'relation',
+    optionsValue: 'relation',
+    optionsCaption: 'Choose...' ">
+                            </select>
+                        </div>
+
+                        <div class="col-md-7" data-bind="visible: display">
+                            <div style="padding-bottom: 0; height: 100px; width: 600px; overflow: scroll;">
+                                <!-- ko foreach: { data: CountValues, as: 'CountValue'} -->
+                                <input type="checkbox" data-bind="checked: SelectValue">
+                                <span data-bind="text: UniqueValue"></span>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <div>
+                        <p>
+                            <strong><span>Exclusions</span></strong>
+                        </p>
+                    </div>
+                    <!-- ko foreach: { data: Exclusions, as: 'Exclusion'} -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <select
+                                data-bind=" options: CDomain.CVariables,
+    value: selectedVariable,
+    event: { change: $root.getCountValue },
+    selectize: { selectOnTab: true },
+    optionsText: 'CVariableName',
+    optionsValue: 'CVariableName',
+    optionsCaption: 'Choose...' ">
+                            </select>
+                        </div>
+                        <div class="col-md-2" data-bind="visible: display">
+                            <select
+                                data-bind=" options: Relations,
+    value: relation,
+    selectize: { selectOnTab: true },
+    optionsText: 'relation',
+    optionsValue: 'relation',
+    optionsCaption: 'Choose...' ">
+                            </select>
+                        </div>
+                        <div class="col-md-7" data-bind="visible: display">
+                            <div style="padding-bottom: 0; height: 100px; width: 600px; overflow: scroll;">
+                                <!-- ko foreach: { data: CountValues, as: 'CountValue'} -->
+                                <input type="checkbox" data-bind="checked: SelectValue">
+                                <span data-bind="text: UniqueValue"></span>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <!-- /ko -->
+
+                <div class="well" style="padding-bottom: 15px">
+                    <nav class="navbar navbar-lite" role="toolbar">
+                        <p style="font-size: 16px"><strong>Type of Analysis </strong></p>
+                    </nav>
+                    <div>
+                        <input type="radio" name="analysisType" value="ITT" data-bind="checked: AnalysisType" />
+                        ITT 
+                    </div>
+                    <div>
+                        <input type="radio" name="analysisType" value="PerProtocol" data-bind="checked: AnalysisType" />
+                        Per Protocol 
+                    </div>
+                </div>
+
+                <div class="well" style="padding-bottom: 15px">
+                    <div>
+                        <input type="checkbox" data-bind="checked: CumulativeAePooled">
+                        <span>Cumulative AE (pooled) </span>
+                    </div>
+                    <div>
+                        <input type="checkbox" data-bind="checked: CumulativeAeIndividual">
+                        <span>Cumulative AE (individual study) </span>
+                    </div>
+                    <div>
+                        <input type="checkbox" data-bind="checked: DoseResponse">
+                        <span>Dose Response </span>
+                    </div>
+                    <div>
+                        <input type="checkbox" data-bind="checked: DosingRecord">
+                        <span>Dosing Record </span>
+                    </div>
+                    <div>
+                        <span>Maximum day for cumulative dose </span>
+                        <input data-bind="value: MaxDayCumulative" />
+                    </div>
+                </div>
+
+                <div class="container-fluid" style="padding-bottom: 15px">
+                    <div class="col-md-3" style="padding-left: 0">
+                        <button class="btn btn-default" type="button" style="border-radius: 3px"
+                            data-bind="tooltip: { container: 'body', title: 'Run analysis' }, click: $root.runIssAnalysis">
+                            Run analysis
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

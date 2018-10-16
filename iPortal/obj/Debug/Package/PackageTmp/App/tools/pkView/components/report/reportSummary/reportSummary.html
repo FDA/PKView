@@ -1,0 +1,51 @@
+﻿<div>
+    <!-- How many studies found -->
+    <div data-bind="foreach: { data: supplementNumbers, as: 'supplementNumber' }">
+        <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+            list: $root.supplements()[supplementNumber].studies.concat($root.supplements()[supplementNumber].notSelected), 
+            contextClass: 'info', 
+            what: 'found in ' 
+                + (supplementNumber == '0000' ? 'the original submission (0000) of '
+                    : ('serial number ' + supplementNumber + ' of ') )
+                + $root.NDAName() } } --><!-- /ko -->
+    </div>
+
+    <!-- How many unmappable studies -->
+    <div data-bind="foreach: { data: supplementNumbers, as: 'supplementNumber' }">
+        <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+            list: $root.supplements()[supplementNumber].unmappable, 
+            contextClass: 'info', 
+            what: 'in ' + (supplementNumber == '0000' ? 'the original submission (0000)'
+                    : ('serial number ' + supplementNumber) ) + ' do not contain pharmacokinetic data.',
+            suffix: { text: '?', tooltip: 'These studies are missing the DM, PP or PC data files, ' +
+                'which are crucial to our analysis methods and therefore cannot be processed by our tool.' +
+                'You should normally not be concerned about this as many types of study do not include pharmacokinetic data.' } } } --><!-- /ko -->  
+    </div>
+
+    <div data-bind="if: analyze">
+        <!-- How many studies not selected to run -->
+        <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+            list: unselectedStudies, 
+            contextClass: 'info', 
+            what: 'were not selected by the user for further processing.' } } --><!-- /ko -->  
+
+        <!-- How many studies successfully analyzed -->
+        <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+            list: successStudies, 
+            contextClass: 'success', 
+            what: ' successfully analyzed.' } } --><!-- /ko -->  
+
+        <!-- How many studies cannot be run -->
+        <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+            list: unRunnableStudies, 
+            contextClass: 'warning', 
+            what: ' excluded from analysis due to unmapped variables.',
+            } } --><!-- /ko --> 
+
+        <!-- How many studies failed -->
+        <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+            list: failedStudies, 
+            contextClass: 'danger', 
+            what: ' caused a runtime error and could not be analyzed.'} } --><!-- /ko --> 
+    </div>                              
+</div>

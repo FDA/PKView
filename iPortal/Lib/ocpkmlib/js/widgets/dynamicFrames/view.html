@@ -1,0 +1,18 @@
+<div>
+    <!-- ko foreach: { data: items } -->
+    <div class="well well-sm">
+        <button type="button" class="close pull-right" aria-hidden="true" data-bind="click: $parent.removeItem">×</button>
+        <p class="lead" style="border-bottom: 2px solid #cecece">
+            <span data-bind="text: $parent.settings.itemName"/>
+            <span data-bind="visible: $data[$parent.settings.titleField] !== ''">: </span>
+            <span data-bind="text: $data[$parent.settings.titleField]"/>
+        </p>
+        <div data-part="frameTemplate"/>
+    </div>
+    <!-- /ko -->
+    <button data-part="addBtn" class="btn btn-default" data-bind="click: addItem">
+        <i class="fa fa-plus"/>
+        <span> Add </span>
+        <span data-bind="text: settings.itemName"/>
+    </button>
+</div>

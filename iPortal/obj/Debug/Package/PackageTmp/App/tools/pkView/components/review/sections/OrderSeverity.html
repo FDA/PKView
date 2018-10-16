@@ -1,0 +1,28 @@
+﻿<div class="container-fluid">
+    <table class="table" data-bind="if: !loading()">
+        <thead>
+            <tr>
+                <th>Unique Value</th>
+                <th>Order</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ko foreach: { data: SeverityValues, as: 'SeverityValue'} -->
+            <tr>
+                <td style="white-space: nowrap; width: 200px;" data-bind="text: UniqueValue"></td>
+                <td style="width: 100px;">
+                    <input type="text" class="form-control input-sm" data-bind="value: order, valueUpdate: 'keyup'" />
+                </td>
+            </tr>
+            <!-- /ko -->
+        </tbody>
+    </table>
+    <div class="splash" data-bind="visible: loading">
+        <i class="fa fa-spinner fa-2x fa-spin active"></i>
+    </div>
+</div>
+
+<div class="modal-footer" data-bind="visible: !loading()">
+    <button class="btn btn-default" data-bind="click: SaveAndClose">Save and Close </button>
+</div>
+

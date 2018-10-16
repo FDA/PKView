@@ -1,0 +1,25 @@
+﻿<div>
+    <div data-bind="if: step() == 'select'">
+        <!-- ko compose: { model: 'tools/ogdTool/components/main/sections/dataFiles/selectFiles', activationData: { comparison: $root.comparison, project: $root.project } } -->       
+        <!-- /ko -->  
+    </div>
+    <div data-bind="if: step() == 'map'">
+        <!-- ko compose: { model: 'tools/ogdTool/components/main/sections/dataFiles/mapFiles', activationData: { comparison: $root.comparison, project: $root.project } } -->
+        <!-- /ko -->
+    </div>
+    <div class="modal-footer">
+        <!-- ko if: step() == 'select'-->
+        <button class="btn btn-sm btn-default" data-bind="click: next">
+            <i class="fa fa-arrow-right"></i> Next
+        </button>
+        <!-- /ko -->
+        <!-- ko if: step() == 'map'-->
+        <button class="btn btn-sm btn-default" data-bind="click: back">
+            <i class="fa fa-arrow-left"></i> Back
+        </button>
+        <button class="btn btn-sm btn-primary" data-bind="click: save">
+            <i class="fa fa-save"></i> Save and close
+        </button>
+        <!-- /ko -->
+    </div>
+</div>

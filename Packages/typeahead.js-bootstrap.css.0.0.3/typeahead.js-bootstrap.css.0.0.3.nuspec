@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>typeahead.js-bootstrap.css</id>
+    <version>0.0.3</version>
+    <authors>Jake Harding,  ashleydw</authors>
+    <owners>Jake Harding,  ashleydw</owners>
+    <licenseUrl>https://raw.github.com/ashleydw/typeahead.js-bootstrap.css/master/LICENSE-MIT</licenseUrl>
+    <projectUrl>https://github.com/ashleydw/typeahead.js-bootstrap.css</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Bootstrap 3 compatible CSS for typeahead. This version is based on commit https://github.com/ashleydw/typeahead.js-bootstrap.css/commit/998ed658ff4f66b8fb574804486824d3e25dcdaa</description>
+    <summary>Bootstrap 3 compatible CSS for typeahead</summary>
+    <releaseNotes>Depend on bootstrap, not Twitter.Bootstrap, as the latter is now deprecated.</releaseNotes>
+    <tags>bootstrap twitter typeahead</tags>
+    <dependencies>
+      <dependency id="bootstrap" version="3.0.0" />
+      <dependency id="Twitter.Typeahead" />
+    </dependencies>
+    <references />
+  </metadata>
+</package>

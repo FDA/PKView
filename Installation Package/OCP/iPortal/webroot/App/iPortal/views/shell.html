@@ -1,0 +1,47 @@
+﻿<div style="padding-bottom: 60px; padding-top: 60px; min-width: 400px">
+    <header class="navbar navbar-fixed-top navbar-default" role="banner" style="min-width: 400px">
+        <div class="container-fluid">
+            <div class="navbar-header">                
+                <button class="navbar-toggle collapsed" data-target="#navbar-main" data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" data-bind="attr: { href: router.navigationModel()[0].hash }">
+                    <i class="fa fa-home"></i>
+                    <span>iPortal</span>
+                </a>
+                <p class="loader navbar-right navbar-text" data-bind="css: { active: router.isNavigating }">
+                    <a href="#"><i class="fa fa-spinner fa-lg fa-spin"></i></a>
+                </p>
+            </div>
+            
+            <div id="navbar-main" class="navbar-collapse bs-navbar-collapse collapse" style="height: 1px;" role="navigation">
+                <ul class="nav navbar-nav">
+                    <!-- ko foreach: router.navigationModel.slice(1) -->
+                    <!-- ko if: moduleId.split('/')[0] != "tools" -->
+                    <li data-bind="css: { active: isActive }">
+                        <a data-bind="attr: { href: hash }, html: title"></a>
+                    </li>
+                    <!--/ko-->
+                    <!--/ko-->
+                    <!-- ko foreach: sections -->
+                        <li class="dropdown" data-bind="css: { active: $root.router.activeInstruction().config.moduleId.search(folder + '/') == 0 }">
+                        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
+                            <span data-bind="text: title"> </span> <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" data-bind="foreach: $root.router.navigationModel">
+                            <li data-bind="if: moduleId.search($parent.folder + '/') == 0, css: { active: isActive }">
+                                <a data-bind="attr: { href: hash }, click: function () { $('body').trigger('click'); return true; }, html: title" tabindex="-1" role="menuitem"></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--/ko-->
+                </ul>
+            </div>  
+        </div>        
+    </header>  
+    
+    <div class="page-host" data-bind="router: { transition: 'entrance', cacheViews: true }" role="main"></div>
+</div>

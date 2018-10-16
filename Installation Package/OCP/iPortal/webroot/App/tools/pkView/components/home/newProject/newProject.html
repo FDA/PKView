@@ -1,0 +1,35 @@
+﻿<div>
+    <div class="container-fluid">
+        <div class="col-xs-12">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="time">Submission</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <select id="time" class="form-control"
+                                    data-bind="options: submissions, value: selectedSubmission, optionsCaption: 'Select...',
+                                    optionsText: 'text', optionsValue: 'value', onInitialize: initialFocus,
+                                    selectize: { selectOnTab: true, dropdownParent: 'body', ondDropdownOpen: refreshSubmissions }"></select>
+                            <span class="input-group-btn" style="padding-left: 10px; vertical-align: top">                               
+                            </span>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="projectName">Project name</label>                    
+                    <div class="col-sm-8">
+                        <input id="projectName" class="form-control" data-bind="value: projectName" maxlength="50" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default btn-sm" data-bind="click: createProject,
+                    css: { 'btn-primary': true}, enable: true">
+            Create project
+        </button>
+    </div>
+</div>

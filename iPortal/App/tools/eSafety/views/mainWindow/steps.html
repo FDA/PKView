@@ -1,0 +1,33 @@
+﻿<div id="steps">
+    <ul class="stepsBreadcrumb breadcrumb">
+        <!-- ko foreach: workflow.steps -->
+        <li data-bind="css: { active: $parent.activeOrFirstStep() == id() }" style="background-color: #F5F5F5;">
+            <a href="#" data-bind="click: $parent.activateStep" style="height: 20px">
+                <span data-bind="text: name()"></span>              
+            </a>
+            <span class="divider">
+                <i class="fa fa-angle-right"></i> 
+            </span> 
+        </li>
+        <!-- /ko -->
+ 
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="margin: 0;padding: 3px;">Add Step... <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Study Summary</a></li>
+                <li><a href="#" data-bind="click: addStep">Logistic Regression</a></li>
+                <li><a href="#">Survival Analysis</a></li>
+            </ul>
+        </li>
+ 
+    </ul>  
+    <div data-bind="foreach: workflow.steps">
+        <div class="stepView" data-bind="compose: view(), visible: $parent.activeOrFirstStep() == id()"></div>
+    </div>
+    <style scoped>
+        .stepsBreadcrumb { padding: 4px 13px; }
+        .stepsBreadcrumb li.active { font-weight: bold;}
+        .stepsBreadcrumb a:hover { text-decoration: none;color: white;}
+        .stepsBreadcrumb a:focus { text-decoration: none;}
+    </style>
+</div>

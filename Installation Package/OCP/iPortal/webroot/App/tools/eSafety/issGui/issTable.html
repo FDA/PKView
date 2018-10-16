@@ -1,0 +1,23 @@
+﻿<div>
+    <form class="form-horizontal" style="margin-bottom: 0">
+        <div class="form-group">
+            <label class="col-md-3 control-label"> Save to File </label>
+            <div class="col-md-5">
+                <select class="tableDialogSelect chosenClass"
+                        data-bind="options: ['','Comma-Separated Values (.csv)','Adobe PDF (.pdf)','Excel OpenXML Spreadsheet (xslx)']">
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<div  style="overflow: auto; max-height: 300px; margin-bottom:10px;">
+    <table class="table table-striped table-bordered" style="">
+        <tbody data-bind="foreach: dataCells">          
+            <tr data-bind="foreach: $data">
+                <td data-bind="text: $data">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<button class="btn btn-primary btn-sm" data-bind="click: close">Close</button>

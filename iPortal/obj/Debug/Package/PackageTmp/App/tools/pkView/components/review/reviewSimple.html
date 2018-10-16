@@ -1,0 +1,165 @@
+﻿<div style="padding-top: 5px">
+
+    <!-- How many studies found -->
+    <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+        list: totalStudies, 
+        contextClass: 'info', 
+        what: 'found for ' + NDAName() } } --><!-- /ko -->
+
+    <!-- How many unmappable studies -->
+    <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+        list: unmappable, 
+        contextClass: 'info', 
+        what: 'will be excluded from further processing due to missing files.',
+        suffix: { text: '?', tooltip: 'These studies are missing the DM, PP or PC data files, ' +
+            'which are crucial to our analysis methods and therefore cannot be processed by our tool.' +
+            'You should normally not be concerned about this as many types of study do not include pharmacokinetic data.' } } } --><!-- /ko -->  
+
+    <!-- How many studies mapped according to sdtm standards -->
+    <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+        list: validMappings.excellent, 
+        contextClass: 'success', 
+        what: ' studies successfully loaded according to SDTM standards.' } } --><!-- /ko -->  
+
+    <!-- How many studies with heuristically or manually mapped variables -->
+    <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+        list: validMappings.good, 
+        contextClass: 'warning', 
+        what: ' had some variables either identified based on heuristics/historical data or manually set by the user.',
+        suffix: { text: '?', tooltip: 'Some variables (columns) in the data files of these studies have non-SDTM names or formatting ' +
+            'that render us unable to load them precisely. Sometimes we can guess the correct values based on heuristic methods or ' +
+            'prior knowledge, but we cannot guarantee the correctness of the results package generated for those studies.' } } } --><!-- /ko --> 
+
+    <!-- How many studies with unmapped optional variables -->
+    <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+        list: validMappings.unmappedOptional, 
+        contextClass: 'warning', 
+        what: ' had some optional variables left unidentified.',
+        suffix: { text: 'How to fix this?', tooltip: 'Some variables (columns) in the data files of these studies are missing ' + 
+            'or have non-SDTM names or formatting that render us unable to load them precisely. We could not identify these ' +
+            'variables using heuristic methods or historical data either. We do not need these variables to proceed, but having ' +
+            'them may help us provide more accurate results or enable additional analysis routines in some cases.' +
+            'You can manually specify a valid match in the sections below or click the navigation tabs on the top right ' +
+            'corner to use the advanced interface.', class: 'tooltip-wide' } } } --><!-- /ko --> 
+
+    <!-- How many studies where reference could not be computed -->
+    <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+        list: validMappings.noReference, 
+        contextClass: 'danger', 
+        what: ' have data issues that prevent the computation of treatments or groups.',
+        suffix: { text: 'How to fix this?', tooltip: 'Some variables (columns) in the data files of these studies ' + 
+            'have non-standard formatting that render us unable to load them precisely. We could not use these ' +
+            'variables to determine a list of treatments or groups for further analysis. Unless this is fixed, ' +
+            'these studies will be excluded from further processing. You can try to manually specify the settings ' +
+            'to generate this list on the advanced interface.', class: 'tooltip-wide' } } } --><!-- /ko --> 
+    
+    <!-- How many studies with unmapped variables -->
+    <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+        list: validMappings.unmapped, 
+        contextClass: 'danger', 
+        what: ' had some mandatory variables left unidentified.',
+        suffix: { text: 'How to fix this?', tooltip: 'Some variables (columns) in the data files of these studies are missing ' + 
+            'or have non-SDTM names or formatting that render us unable to load them precisely. We could not identify these ' +
+            'variables using heuristic methods or historical data either. Unless this is fixed, these studies will be excluded ' +
+            'from further processing. You can manually specify a valid match in the sections below or click the navigation tabs ' +
+            'on the top right corner to use the advanced interface.', class: 'tooltip-wide' } } } --><!-- /ko --> 
+
+    <div class="alert alert-info" data-bind="visible: studies().length == 0 && !splash.visible()">
+        <i class="fa fa-info"></i> No studies could be found that can be processed by our tool for the current NDA. This may
+        not be an issue if the NDA does not contain studies with pharmacokinetic data in the first place. 
+        <div>
+            <button class="btn btn-default btn-sm" data-bind="click: error"><i class="fa fa-home"></i> Back to the Main Menu</button>
+        </div>
+    </div>
+
+    <div class="panel panel-danger" style="margin-top: 40px;" data-bind="visible: validMappings.unmapped().length > 0">
+        <div class="panel-heading">
+            <h4 class="panel-title"><i class="fa fa-times-circle"></i> Unidentified Required Variables</h4>
+        </div>
+        <div class="panel-body">                   
+            <table class="table">
+                <thead>
+                    <tr><th>Study Id</th><th>Domain (file)</th><th>SDTM Variable</th><th>File Variable/Column</th></tr>
+                </thead>
+                <tbody data-bind="foreach: { data: studies, as: 'study' }">
+                    <!-- ko foreach: { data: study.Unmapped, as: 'row' } -->
+                        <tr data-bind="if: ! row.mapping.Optional()">
+                            <td data-bind="text: study.StudyCode"></td>
+                            <td>                                  
+                                <a href="#" data-bind="click: function () { $root.viewData(row.domain) }, tooltip: { title: 'View data file' }"> 
+                                <i class="fa fa-file-text"></i>
+                                <span data-bind="text: domain.Type + ': ' + $root.domainDescriptions[domain.Type]"></span></a>
+                            </td>
+                                <td data-bind="tooltip: { container: 'body', title: $root.sdtmVariables[mapping.SdtmVariable].longDescription }">
+                                <span data-bind="text: $root.sdtmVariables[mapping.SdtmVariable].description"></span>
+                                <sup><i class="fa fa-question-circle"></i></sup>
+                            </td>
+                            <td>
+                                <div class="form-group has-feedback has-error">
+                                <label class="sr-only" data-bind="text: $root.sdtmVariables[mapping.SdtmVariable].description"></label>      
+                                <select class="form-control" 
+                                data-bind="options: domain.FileVariables, value: mapping.FileVariable, event: { change: $root.changeQuality },
+                                    selectize: { selectOnTab: true }, optionsText: 'Label', optionsValue: 'Name',
+                                    optionsCaption: 'Choose...' "></select>
+                                <span class="form-control-feedback"><i class="fa fa-times" data-bind="tooltip: {
+                                    container: 'body', title: 'This variable could not be mapped ' +
+                                    'automatically. This means the file probably does not follow the SDTM ' +
+                                    'standard and there is not enough historical information to guess a good mapping'
+                                    }"></i></span> 
+                                </div>                                                                                          
+                            </td>
+                        </tr>  
+                    <!-- /ko -->                     
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-warning" style="margin-top: 40px;" data-bind="visible: validMappings.unmappedOptional().length > 0">
+        <div class="panel-heading">
+            <h4 class="panel-title"><i class="fa fa-exclamation-circle"></i> Unidentified Optional Variables</h4>
+        </div>
+        <div class="panel-body">
+            <p>These variables are not required for the analysis to run, however, setting them to correct values can potentially 
+                improve acuracy or enable additional results.</p>
+            <table class="table">
+                <thead>
+                    <tr><th>Study Id</th><th>Domain (file)</th><th>SDTM Variable</th><th>File Variable/Column</th></tr>
+                </thead>
+                <tbody data-bind="foreach: { data: studies, as: 'study' }">
+                    <!-- ko foreach: {data: study.Unmapped, as: 'row'} -->
+                        <!-- ko if: row.mapping.Optional() -->
+                            <tr data-bind="visible: row.mapping.MappingQuality() == 2">
+                                <td data-bind="text: study.StudyCode"></td>
+                                <td>
+                                    <a href="#" data-bind="click: function () { $root.viewData(row.domain) }, tooltip: { title: 'View data file' }"> 
+                                    <i class="fa fa-file-text"></i>
+                                    <span data-bind="text: domain.Type + ': ' + $root.domainDescriptions[domain.Type]"></span></a> 
+                                </td>
+                                <td data-bind="tooltip: { container: 'body', title: $root.sdtmVariables[mapping.SdtmVariable].longDescription }">
+                                    <span data-bind="text: $root.sdtmVariables[mapping.SdtmVariable].description"></span>
+                                    <sup><i class="fa fa-question-circle"></i></sup>
+                                </td>
+                                <td>
+                                    <div class="form-group has-feedback has-warning">
+                                    <label class="sr-only" data-bind="text: $root.sdtmVariables[mapping.SdtmVariable].description"></label>      
+                                    <select class="form-control" 
+                                    data-bind="options: domain.FileVariables, value: mapping.FileVariable, event: { change: $root.changeQuality },
+                                        selectize: { selectOnTab: true }, optionsText: 'Label', optionsValue: 'Name',
+                                        optionsCaption: 'Choose...' "></select>
+                                    <span class="form-control-feedback"><i class="fa fa-exclamation" data-bind="tooltip: {
+                                        container: 'body', title:
+                                        'This variable could not be mapped automatically but it is optional, so the analysis ' +
+                                            'can run without it. Manually setting it to a correct value can improve the ' +
+                                            'accuracy of the analysis code or enable aditional results.'
+                                        }"></i></span> 
+                                    </div>                                                                                          
+                                </td>
+                            </tr>  
+                        <!-- /ko -->                                           
+                    <!-- /ko -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

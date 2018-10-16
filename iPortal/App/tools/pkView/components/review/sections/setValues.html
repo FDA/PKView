@@ -1,0 +1,41 @@
+﻿<div>
+    <div class="container-fluid">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="" data-bind="checked: customize, disable: loading">
+                Use user defined value mappings
+            </label>
+        </div>
+        <table class="table" data-bind="if: !loading() && customize">
+            <thead>
+                <tr>
+                    <th>Original value</th>
+                    <th>User defined value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ko foreach: { data: valueMappings, as: 'mapping' } -->
+                    <tr>
+                        <td style="white-space: nowrap" data-bind="text: mapping.oldValue"></td>
+                        <td>
+                            <input type="text" class="form-control input-sm" data-bind="value: mapping.newValue, valueUpdate: 'keyup'" />                            
+                        </td>                                                              
+                    </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>   
+        <div class="splash" data-bind="visible: loading">
+            <i class="fa fa-spinner fa-2x fa-spin active"></i>
+        </div>     
+    </div>
+    <div class="modal-footer" data-bind="visible: !loading()">
+        <button class="btn btn-sm btn-default" data-bind="click: reload, enable: customize">
+            <i class="fa fa-refresh"></i> Recalculate
+        </button>
+        <button class="btn btn-sm btn-primary" data-bind="click: save">
+            <i class="fa fa-save"></i> Save and close
+        </button>
+    </div>
+</div>
+
+

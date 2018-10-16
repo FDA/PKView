@@ -1,0 +1,211 @@
+﻿<div>
+    <div class="splash" data-bind="visible: !ready() && !invalid()">
+        <i class="fa fa-spinner fa-2x fa-spin active"></i>
+    </div> 
+
+    <div class="alert alert-danger" data-bind="visible: invalid">
+        <p>Invalid data loaded, please verify mappings are correct on data management section.</p>
+    </div>
+
+    <div class="alert alert-danger" data-bind="visible: !enablePpParameters()">
+        <p>The currently selected cohort has no PP domain data</p>
+    </div>
+
+    <div data-bind="if: ready && !invalid()">
+        <div class="form-horizontal" data-bind="with: report">
+            <div class="row">
+
+                <!-- ko if: $root.cohorts.length > 1 -->
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">Cohort</label>
+                        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                        title: 'Selected study cohort' }">
+                            <select class="form-control"
+                                    data-bind="options: $root.cohorts, value: Settings.SelectedCohort,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: $root.periods[Settings.SelectedCohort()].length > 1 && $root.enablePeriod() -->
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">Period</label>
+                        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                        title: 'Selected period' }">
+                            <select class="form-control"
+                                    data-bind="options: $root.periods[Settings.SelectedCohort()], value: Settings.SelectedPeriod,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- PC:Analyte -->
+                <div class="col-xs-6">
+                    <div class="form-group" data-bind="if: $root.enablePcAnalyte">
+                        <label class="col-xs-4 control-label">
+                            PC Analyte
+                        </label>
+                        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Selected measured treatment or metabolyte' }">
+                            <select class="form-control"
+                                    data-bind="options: $root.pcAnalytes[Settings.SelectedCohort()][Settings.SelectedPeriod()],
+                                value: $root.report.Settings.SelectedPcAnalyte,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PC:Specimen -->
+                <div class="col-xs-6">
+                    <div class="form-group" data-bind="if: $root.enablePcSpecimen">
+                        <label class="col-xs-4 control-label">PC Specimen</label>
+                        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                        title: 'Selected sampled specimen' }">
+                            <select class="form-control"
+                                    data-bind="options: $root.pcSpecimens[Settings.SelectedCohort()][Settings.SelectedPeriod()][Settings.SelectedPcAnalyte()],
+                                value: Settings.SelectedPcSpecimen,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PP:Analyte -->
+                <div class="col-xs-6">
+                    <div class="form-group" data-bind="if: $root.enablePpAnalyte">
+                        <label class="col-xs-4 control-label">
+                            PP Analyte
+                        </label>
+                        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Selected analyte from PP domain that matches the analyte from the sponsor concentration data' }">
+                            <select class="form-control"
+                                    data-bind="options: $root.ppAnalytes[Settings.SelectedCohort()][Settings.SelectedPeriod()], value: Settings.SelectedPpAnalyte,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PC:Specimen -->
+                <div class="col-xs-6">
+                    <div class="form-group" data-bind="if: $root.enablePpSpecimen">
+                        <label class="col-xs-4 control-label">PP Specimen</label>
+                        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                        title: 'Selected  specimen from PP domain that matches the specimen from the sponsor concentration data' }">
+                            <select class="form-control"
+                                    data-bind="options: $root.ppSpecimens[Settings.SelectedCohort()][Settings.SelectedPeriod()][Settings.SelectedPpAnalyte()], value: Settings.SelectedPpSpecimen,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pk parameters -->
+                <!-- ko if: $root.enablePpParameters -->
+                <div class="col-xs-6 col-md-4 col-lg-3">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">
+                            AUC<sub>t</sub>
+                        </label>
+                        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Selected PK parameter from the sponsor data to be used as AUCt for comparison between FDA and sponsor' }">
+                            <select class="form-control"
+                                    data-bind="options: $root.ppParameters[Settings.SelectedCohort()][Settings.SelectedPeriod()][Settings.SelectedPpAnalyte()][Settings.SelectedPpSpecimen()],
+                                value: Settings.SelectedAuct,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-4 col-lg-3">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">
+                            AUC<sub>inf</sub>
+                        </label>
+                        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Selected PK parameter from the sponsor data to be used as AUCinf for comparison between FDA and sponsor' }">
+                            <select class="form-control"
+                                    data-bind="options: $root.ppParameters[Settings.SelectedCohort()][Settings.SelectedPeriod()][Settings.SelectedPpAnalyte()][Settings.SelectedPpSpecimen()],
+                                value: Settings.SelectedAucInfinity,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-4 col-lg-3">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">
+                            C<sub>max</sub>
+                        </label>
+                        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Selected PK parameter from the sponsor data to be used as Cmax for comparison between FDA and sponsor' }">
+                            <select class="form-control"
+                                    data-bind="options: $root.ppParameters[Settings.SelectedCohort()][Settings.SelectedPeriod()][Settings.SelectedPpAnalyte()][Settings.SelectedPpSpecimen()],
+                                value: Settings.SelectedCmax,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-4 col-lg-3">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">
+                            T<sub>1/2</sub>
+                        </label>
+                        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Selected PK parameter from the sponsor data to be used as T(1/2) for comparison between FDA and sponsor' }">
+                            <select class="form-control"
+                                    data-bind="options: $root.ppParameters[Settings.SelectedCohort()][Settings.SelectedPeriod()][Settings.SelectedPpAnalyte()][Settings.SelectedPpSpecimen()],
+                                value: Settings.SelectedThalf,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-4 col-lg-3">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">
+                            T<sub>max</sub>
+                        </label>
+                        <div class="col-xs-8" data-bind="tooltip: { container: 'body', placement: 'left',
+                    title: 'Selected PK parameter from the sponsor data to be used as Tmax for comparison between FDA and sponsor' }">
+                            <select class="form-control"
+                                    data-bind="options: $root.ppParameters[Settings.SelectedCohort()][Settings.SelectedPeriod()][Settings.SelectedPpAnalyte()][Settings.SelectedPpSpecimen()],
+                                value: Settings.SelectedTmax,
+                                selectize: { selectOnTab: true }, optionsText: 'text', optionsValue: 'value'"></select>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+
+        <!-- Plots for the user to select the time interval to plot -->
+        <div class="well">
+            <nav class="navbar navbar-lite navbar-sm navbar-click" role="toolbar">
+                <p class="navbar-text"><strong>Select interval of points to consider</strong></p>
+            </nav>
+            <div class="container-fluid">
+                <div class="row" data-bind="if: plots[report.Settings.SelectedCohort()][report.Settings.SelectedPeriod()][report.Settings.SelectedPcAnalyte()][report.Settings.SelectedPcSpecimen()]">
+                    <div class="tab-pane" style="padding: 20px; background-color: #ffffff">
+                        <!-- ko compose: {
+                model: 'shared/components/plot/concentrationPlot/concentrationPlot',
+                activationData: plots[report.Settings.SelectedCohort()][report.Settings.SelectedPeriod()][report.Settings.SelectedPcAnalyte()][report.Settings.SelectedPcSpecimen()]
+            } -->
+                        <!-- /ko -->
+                    </div>
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label">Selected time</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static" data-bind="text: currentInterval"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<button class="btn btn-default" data-bind="click: reviewTimePoints">Review time points</button>-->
+        <button class="btn btn-primary" data-bind="click: generateReport, disable: computingReport">
+            <i class="fa" data-bind="css: { 'fa-save': !computingReport(), 'fa-spinner fa-spin': computingReport() }"></i> Save
+        </button>
+    </div>
+
+</div>

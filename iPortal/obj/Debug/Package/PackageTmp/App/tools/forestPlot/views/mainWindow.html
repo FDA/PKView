@@ -1,0 +1,313 @@
+﻿<div class="container">
+
+    <div class="pull-right" style="text-align: right; top: -15px ;position: absolute; right: 8%">
+        <p style="font-size: 1.2em; font-weight:bold; color:#bb0c0c; -ms-text-shadow: 5px 5px 5px #ff7777;              
+            text-shadow: 5px 5px 5px #ff7777; -webkit-font-smoothing: antialiased;">Forest Plot Generator</p>
+    </div>
+
+    <div id="plotsProjectTable" data-bind="visible: activeStep() == 'showProjectTable'">
+        <!-- Show tab -->                
+        <legend>Previously Generated Plots</legend>
+        <!-- Show Project Table Here -->
+        <div class="">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Project Name</th>
+                        <th>Excel File Name</th>
+                        <th># of Plots</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: { data: $root.plotProjects, as: 'project' }">
+                    <tr >
+                        <td data-bind="text: project.Id"></td>
+                        <td data-bind="text: project.ProjectName"></td>
+                        <td data-bind="text: project.FileName"></td>
+                        <td data-bind="text: project.PlotNumbers"></td>
+                        <td style="width: 1%; white-space:nowrap;">
+                            <button class="btn btn-sm btn-success btn-small" data-bind="click: $root.editProject"><i class="fa fa-pencil"> Edit</i></button>
+                            <button class="btn btn-sm btn-danger btn-small"  data-bind="click: $root.removeProject"><i class="fa fa-trash"> Delete</i></button>   
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+        
+
+        <!-- 3 buttons for selection -->
+        <button class="btn btn-default btn-sm" data-bind="click: createFromExcel">Create</button>     
+        <a class="btn btn-default btn-sm" href="../../../../Content/templates/Forestplot_Template.xls">Download Excel Template</a>    
+    </div> 
+    
+    <!-- If Select Excel File to upload to Server -->
+    <div class="form-inline well" style="margin-top:30px" data-bind="visible: activeStep() == 'showProjectNameScreen'">
+        <div class="form-group">
+            <div class="fileupload fileupload-new" data-provides="fileupload">
+                <div class="input-group">
+                    <div class="form-control uneditable-input">
+                        <div style="height: 22px; overflow: hidden; width: 1000px">
+                            <i class="fa fa-file fileupload-exists"></i> 
+                            <span class="fileupload-preview"></span>
+                        </div>
+                    </div>
+                    <div class="input-group-btn">
+                        <a class="btn btn-default btn-file">
+                            <span class="fileupload-new">Select file</span>
+                            <span class="fileupload-exists">Change</span>
+                            <input type="file" class="file-input" name="uploadedFile" id="File1"/></a>
+                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Input New Project Name -->
+        <div class="form-group" >
+            <label class="sr-only">Project Name</label>
+            <input type="text" data-bind="value: $root.newProjectName" class="form-control" placeholder="Enter Project Name">
+        </div>
+        <button class="btn btn-default" data-bind="click: $root.newProject">Continue</button>
+        <button class="btn btn-primary pull-right" data-bind="click: returnProjectTable"><i class="fa fa-home fa fa-large"> Back to Project Table</i></button>
+    </div>
+
+    <!--Sending / Retrieve Data from Server -->
+    <div class="splash" data-bind="visible: activeStep() == 'retrieveServer'">
+        <div class="message">
+            Getting Data From Server...
+        </div>
+        <i class="fa fa-spinner fa-2x fa-spin active"></i>
+    </div>
+
+    <!-- Show Multiple Plots with Master Tab Screen -->       
+    <div style="margin-top: 20px" id="Div1" data-bind="if: (project() != null) && (project().Plots().length > 0), visible: activeStep() == 'showMultiplePlotScreen'">
+
+        <div>        
+            <button style="margin-top: 10px" class="btn btn-primary btn-xs pull-right" data-bind="click: returnProjectTable"><i class="fa fa-home fa fa-large"> Back to Project Table</i></button>
+            <ul class="nav nav-tabs" style="margin-bottom:10px">  
+                <li>  <!-- Show Project Name at front of Tab -->
+                    <div class="form-control" data-bind="text: project().ProjectName" style=" font-weight:bold; line-height: 1em; height: 40px"></div>
+                </li>
+                <!-- Eduard: For now we can only upload a single plot and we cannot add plots, so we dont show tabs -->
+                <!-- Show Master Tab if plot > 1 --
+                <li data-bind="if: (project() != null) && (project().Plots().length > 1), css: { active: $root.chosenPlot() == 'masterPlot' }">     
+                    <a href="#" data-bind="click: $root.goToMaster, text: 'All Plots' " ></a> 
+                </li>
+                <!-- ko foreach: { data: project().Plots(), as: 'plot' } --
+                <li data-bind="css: { active: $root.chosenPlot() == Id }">
+                    <a href="#" data-bind="click: $root.goToPlot, text: plot.Id"></a>
+                </li>
+                <!-- /ko --
+                <li><a href="#" id="A1" data-bind="click: $root.addNewPlot"><i class="fa fa-plus"></i></a></li>-->
+            </ul>
+
+            <!-- Show content of master tab -->
+            <div id="Div3" data-bind="if: (project() != null) && (project().Plots().length > 1)" class="tab-content"  style="overflow: visible">
+                <div class="tab-pane row" data-bind="css: { active: $root.chosenPlot() == 'masterPlot' }">
+                    <div>                     
+                        <div class="col-md-6" >
+                            <div class="form-horizontal  well">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Drug Name</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control"  type ="text" data-bind="value: masterSettings.drugName" /> 
+                                        <i class="fa fa-exclamation-sign fa fa-large" style="color:#F51010" 
+                                            data-bind="visible: $root.customSettings.drugName() == true, tooltip: { title: 'This Drug Name setting has been customized for some of the plots' }"     ></i>
+                                    </div>
+                                                        
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Title</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control"  type ="text" data-bind = "value: masterSettings.title" />
+                                        <i class="fa fa-exclamation-sign fa fa-large" style="color:#F51010" 
+                                            data-bind="visible: $root.customSettings.title() == true, tooltip: { title: 'This Title setting has been customized for some of the plots' }"     ></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Scale</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control"  data-bind ="options: $root.scaleOptions, optionsText: 'name', optionsValue: 'value', value: masterSettings.scale"></select>
+                                        <i class="fa fa-exclamation-sign fa fa-large" style="color:#F51010" 
+                                            data-bind="visible: $root.customSettings.scale() == true, tooltip: { title: 'This Scale setting has been customized for some of the plots' }"     ></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Range: 
+                                        (<span  data-bind ="text: masterSettings.rangeBottom"></span>,
+                                        <span  data-bind ="text: masterSettings.rangeTop"></span>)                                          
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" style="width:90%"  type="text" id="rangeMasterSlider" 
+                                            data-bind="value: masterSettings.range, attr: { 'data-slider-value': '[' + masterSettings.range() + ']' }"
+                                            data-slider-min="0" data-slider-max="10" 
+                                            data-slider-step="1"  data-slider-orientation="horizontal" 
+                                            data-slider-selection="after"data-slider-tooltip="show" /> 
+                                        <i class="fa fa-exclamation-sign fa fa-large" style="color:#F51010" 
+                                            data-bind="visible: $root.customSettings.range() == true || $root.customSettings.rangeBottom() == true || $root.customSettings.rangeTop() == true, tooltip: { title: 'This Range setting has been customized for some of the plots' }"     ></i>         
+                                    </div> 
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Step for Plot: 
+                                        (<span  data-bind ="text: masterSettings.rangeStep"></span>)                                       
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" style="width:90%" type="text" id="stepMasterSlider" 
+                                            data-bind="value: masterSettings.rangeStep, attr: { 'data-slider-value': masterSettings.rangeStep() }"
+                                            data-slider-min="0" data-slider-max="5" 
+                                            data-slider-step="0.1" data-slider-orientation="horizontal" 
+                                            data-slider-selection="before"data-slider-tooltip="show" />
+                                        <i class="fa fa-exclamation-sign fa fa-large" style="color:#F51010" 
+                                            data-bind="visible: $root.customSettings.rangeStep() == true, tooltip: { title: 'This Range Step setting has been customized for some of the plots' }"     ></i>          
+                                    </div> 
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">X-Axis Label</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control"  type="text" data-bind ="value: masterSettings.xLabel"/>
+                                        <i class="fa fa-exclamation-sign fa fa-large" style="color:#F51010" 
+                                            data-bind="visible: $root.customSettings.xLabel() == true, tooltip: { title: 'This X-Axis Label setting has been customized for some of the plots' }"     ></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Foot Note</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control"  rows="3" data-bind ="value: masterSettings.footNote"></textarea>
+                                        <i class="fa fa-exclamation-sign fa fa-large" style="color:#F51010" 
+                                            data-bind="visible: $root.customSettings.footNote() == true, tooltip: { title: 'This Foot Note setting has been customized for some of the plots' }"     ></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Style</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control"  data-bind ="options: $root.styleOptions, optionsText: 'name', optionsValue: 'value', value: masterSettings.style"></select>
+                                        <i class="fa fa-exclamation-sign fa fa-large" style="color:#F51010" 
+                                            data-bind="visible: $root.customSettings.style() == true, tooltip: { title: 'This Style setting has been customized for some of the plots' }"     ></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <!-- Change button to <a href> due to base64 image file
+                                <button class="btn btn-default btn-sm download-file pull-right" data-bind="click: $root.downloadPackage"> -->
+                                <a class="btn btn-default btn-sm download-file pull-right" data-bind="attr: { 'href': plot.plotImg, 'download': 'Plot_' + plot.Id + '.png' }" >
+                                    <i class="fa fa-download"></i> Download Plot</a>
+                                <!--</button> -->
+                            </div>
+                            <img style="width: 100%; padding-top:10px" src="#" />
+                        </div>                       
+                    </div>
+                </div>
+            </div>     
+            <!-- Show content of each tab -->
+            <div id="Div2" class="tab-content" data-bind="foreach: { data: $root.project().Plots(), as: 'plot' }" style="overflow: visible">
+                <div class="tab-pane row" data-bind="css: { active: $root.chosenPlot() == Id }">                                        
+                                       
+                    <!-- Show content of selected Plot and Data -->
+                    <div class="col-md-6">
+                        <div class="tab-content">
+                            <!-- Show content of Plot with selection and plot -->
+                            <div class="tab-pane active" data-bind="attr: { id: plot.Id + '_Plot' }">
+                                <div class="well">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Drug Name</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control"  type ="text" data-bind="value: plot.Settings.DrugName" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Title</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control"  type ="text" data-bind = "value: plot.Settings.Title" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Scale</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control"  data-bind ="options: $root.scaleOptions, optionsText: 'name', optionsValue: 'value', value: plot.Settings.Scale"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Range: 
+                                                (<span  data-bind ="text: plot.Settings.RangeBottom"></span>,
+                                                <span  data-bind ="text: plot.Settings.RangeTop"></span>)                                          
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input style="width:90%" class="form-control fpSlider rangeSlider"  type="text" data-bind="value: plot.Settings.range,
+                                                    attr: { 'data-slider-value': '[' + plot.Settings.range() + ']'}"
+                                                    data-slider-min="0" data-slider-max="10" 
+                                                    data-slider-step="1"  data-slider-orientation="horizontal" 
+                                                    data-slider-selection="after"data-slider-tooltip="show" />          
+                                            </div> 
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Step for Plot: 
+                                                (<span  data-bind ="text: plot.Settings.RangeStep"></span>)                                       
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input style="width:90%" class="form-control fpSlider stepSlider"  type="text"
+                                                    data-bind="value: plot.Settings.RangeStep, attr: { 'data-slider-value': plot.Settings.RangeStep() }"
+                                                    data-slider-min="0" data-slider-max="5" 
+                                                    data-slider-step="0.1" data-slider-orientation="horizontal" 
+                                                    data-slider-selection="before"data-slider-tooltip="show" />          
+                                            </div> 
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">X-Axis Label</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control"  type="text" data-bind ="value: plot.Settings.Xlabel"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Foot Note</label>
+                                            <div class="col-sm-8">
+                                                <textarea class="form-control"  rows="3" data-bind ="value: plot.Settings.FootNote"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Style</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control"  data-bind ="options: $root.styleOptions, optionsText: 'name', optionsValue: 'value', value: plot.Settings.Style"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                            
+                            </div>  
+
+                            <!-- Show content of Data as grid -->
+                            <div class="tab-pane" data-bind="attr: { id: plot.Id + '_Data' }">
+                                <p data-bind="text: 'My id is ' + plot.Id "></p>
+                            </div>
+                        </div>                        
+                    </div>
+                    <!-- Download plot button -->
+                    <div class="col-md-6">
+                        <div>
+                            <!-- As there is no interface editor it makes no sense to show the data tab -->
+                            <ul class="nav nav-pills pull-left" style="display: none">
+                                <li class="active"><a style="padding: 6px 15px" data-bind="attr: { href: '#' + plot.Id + '_Plot' }" data-toggle="pill">Plot Settings</a></li>
+                                <li><a style="padding: 6px 15px" data-bind="attr: { href: '#' + plot.Id + '_Data' }" data-toggle="pill">Data</a></li>
+                            </ul>
+                                <!-- Change button to <a href> due to base64 image file
+                                <button class="btn btn-default btn-sm download-file pull-right"> </button> data-bind="click: $root.downloadPlots">-->
+                                <a class="btn btn-default btn-sm download-file pull-right" data-bind="attr: { 'href': plot.plotImg, 'download': 'Plot_' + plot.Id + '.png' }" >
+                                    <i class="fa fa-download"></i> Download Plot</a>                            
+                        </div>
+                        <img src="#" style="width: 100%; padding-top: 10px" data-bind ="attr: { src: plot.plotImg }" />
+                        <div class="splash" data-bind="visible: plot.plotImg() == '' ">
+                            <div class="message">
+                                Generating Plot...
+                            </div>
+                            <i class="fa fa-spinner fa-2x fa-spin active"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        </div>
+  
+      </div>
+
+</div>

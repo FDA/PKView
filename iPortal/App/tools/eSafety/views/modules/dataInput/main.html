@@ -1,0 +1,50 @@
+﻿<div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="inputMenu span2 roundCorners" style="height: 100%;">
+                <div class="blockHeader">
+                    <p><strong>Input Files 
+                        <a class="btn btn-primary pull-right" style=" margin-bottom: 3px; padding: 1px 4px; margin-right: 10px;">
+                            <i class="fa fa-plus-sign"></i>
+                        </a></strong>
+                    </p> 
+                </div>
+                <ul class="nav nav-list">
+                    <!-- ko foreach: fileTypes -->
+                    <li class="nav-header" data-bind="text: name"></li>
+                    
+                        <!-- ko foreach: $root.files -->
+                            <!-- ko if: type == $parent.id -->
+                                <li data-bind="css: { active: $root.activeOrFirstFile() == id }">
+                                    <a href="#" data-bind="click: $root.activateFile">
+                                        <span data-bind="text: name"></span>
+                                        <i class="menuIcon fa fa-eye-open pull-right" data-bind=" tooltip: { title: 'Preview this file' }"  ></i>
+                                        <i class="menuIcon fa fa-trash pull-right" data-bind=" tooltip: { title: 'Remove this file' }"  ></i>
+                                    </a>                                    
+                                </li>
+                            <!-- /ko -->
+                        <!-- /ko -->
+
+                    <!-- /ko -->
+                </ul>
+            </div>
+            <!-- ko foreach: files -->
+            <div class="span10" data-bind="compose: view(), visible: $parent.activeOrFirstFile() == id" style="height: 100%;"></div>
+            <!-- /ko -->
+            <style scoped>
+                div.inputMenu { padding-bottom:10px;background-color: #F7F7F9;}
+                div.inputMenu div.well { padding: 0; height: 100%; margin-bottom: 0 }
+                div.inputMenu li > a > i.menuIcon { display: none }
+                div.inputMenu li > a:hover > i.menuIcon { display: inline-block }
+                div.inputMenu li > a:hover > i.menuIcon:hover 
+                {
+                    background-color: white;
+                    color: #0088CC;
+                    -webkit-border-radius: 4px;
+                    -moz-border-radius: 4px;
+                    border-radius: 4px;  
+                }
+            </style>
+        </div>
+    </div>
+</div>

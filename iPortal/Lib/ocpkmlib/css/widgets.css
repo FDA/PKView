@@ -1,0 +1,41 @@
+/*!
+ * Widget styles
+ */
+
+.selectize-input.not-full > input{
+    color: #999999;
+}
+
+.selectize-control.form-control:before {
+    background: url("../images/spinner.gif") repeat scroll 0 0 / 16px 16px rgba(0, 0, 0, 0);
+    content: " ";
+    display: block;
+    height: 16px;
+    margin: -8px 0 0;
+    opacity: 0;
+    position: absolute;
+    right: 34px;
+    top: 50%;
+    transition: opacity 0.2s ease 0s;
+    width: 16px;
+    z-index: 2;
+}
+.selectize-control.form-control.loading:before {
+    opacity: 0.4;
+}
+
+.selectize-control.single .item
+{
+    white-space:nowrap;
+    text-overflow:ellipsis;
+} 
+
+.input-group .selectize-control.form-control:nth-child(2) .selectize-input {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.input-group .selectize-control.form-control:last-child .selectize-input {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}

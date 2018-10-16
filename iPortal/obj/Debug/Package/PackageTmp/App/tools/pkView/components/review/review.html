@@ -1,0 +1,235 @@
+﻿<div id="mappingInterface">
+    <section>
+        <nav class="navbar navbar-lite" role="toolbar">
+            <div class="container-fluid">
+                <div class="navbar-header pull-left">
+                    <!-- Nda and study name -->
+                    <p class="navbar-title">
+                        <strong data-bind="text: NDAName, visible: !splash.visible()"></strong>
+                        <span data-bind="if: studies().length > 0 && mappingMode() != 'basic'">
+                            <span data-bind="text: ' - ' + activeStudy()"></span>
+                            <!-- ko if: SelectedSupplement() == '' -->
+                                <span data-bind="text: '(' + activeSupplement() + ')' "></span>
+                            <!-- /ko -->
+                        </span>
+                    </p>                 
+                </div>
+
+                <!-- progress display -->
+                <p class="navbar-text navbar-right pull-right" data-bind="visible: splash.visible()">                    
+                    <span class="text-art-light" style="padding-right: 20px;" data-bind="text: splash.feedback() + ' ...'"></span>
+                    <span class="fa-stack fa-lg">  
+                        <span class="fa fa-stack-1x fa-stack-text" data-bind="text: splash.progress() + '%'"></span>
+                        <i class="fa fa-spin fa-circle-o-notch fa-stack-2x"></i>
+                    </span>                    
+                </p>
+
+                <!-- toolbar -->
+                <div class="btn-toolbar navbar-right pull-right" role="toolbar" aria-label="Main Toolbar"
+                    data-bind="visible: !splash.visible()">
+
+                    <!-- Supplement choice -->
+                    <div class="btn-group" role="group" aria-label="Serial number choice" data-bind="if: Object.keys(supplements()).length > 1">
+                        <button type="button" data-bind="tooltip: { container: 'body', title: 'Selected Serial Number(s)' }"
+                            class="btn btn-sm btn-lite dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span data-bind="if: SelectedSupplement() != '' && SelectedSupplement() != '0000'">
+                                Serial Number 
+                                <span data-bind="text: SelectedSupplement"></span>
+                            </span>                            
+                            <span data-bind="if: SelectedSupplement() == '0000'">Original (0000)</span>
+                            <span data-bind="if: SelectedSupplement() == ''">All / Rolling</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <!-- ko foreach: { data: Object.keys(supplements()), as: 'supplementNumber' } -->
+                                <li><a href="#" data-bind="click: $root.selectSupplement">
+                                    <span data-bind="if: supplementNumber != '0000'">
+                                        Serial Number 
+                                        <span data-bind="text: supplementNumber"></span>
+                                    </span>                                     
+                                    <span data-bind="if: supplementNumber == '0000'">Original (0000)</span>    
+                                </a></li>
+                            <!-- /ko -->
+                            <li><a href="#" data-bind="click: function () { selectSupplement(''); }">All / Rolling </a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Toggle interface -->
+                    <div class="btn-group" role="group" aria-label="Interface Choice">
+                        <button type="button" class="btn btn-sm"
+                            data-bind="css: { 'active btn-default': $root.mappingMode() != 'basic', 'btn-lite': $root.mappingMode() == 'basic' },
+                            tooltip: { container: 'body', title: 'Advanced Mode' }, click: function () { $root.mappingMode('advanced'); }">
+                            <i class="fa fa-cogs"></i></button>
+                    </div>
+
+                    <!-- Analysis choices -->
+                    <div data-bind="if: $root.mappingMode() != 'basic'" class="btn-group" role="group" aria-label="Analysis Choice">
+                        <button type="button" class="btn btn-sm btn-lite"
+                            data-bind="tooltip: { container: 'body', title: 'Run analysis only for this study' }, click: runSingleStudy">
+                            <i class="fa fa-play"></i></button>
+                    </div>
+                </div> 
+            </div>
+        </nav>
+        
+        <div class="tab-content"> 
+            <!--Code for "Basic mode" removed to remove ‘basic’ data  mapping mode
+                        changed on 08/14/2017 -->                 
+             <!--Code for "Advanced mode" changed to use it as the default data  mapping mode
+                        changed on 08/14/2017 -->       
+            <!-- Advanced mode -->            
+            <div role="tabpanel" class="tab-pane" data-bind="css: { active: $root.mappingMode() != 'basic' }">
+                <!-- Tab bar -->
+                <ul class="nav nav-tabs" id="studyTabs" data-bind="if: studies().length > 0">
+                    <!-- ko foreach: studies -->
+                    <li class="studyTab" data-bind="css: { active: $parent.activeStudy() == StudyCode && $parent.activeSupplement() == SupplementNumber }">
+                        <a href="#" data-bind="click: $parent.setActiveStudy">
+                            <span data-bind="text: StudyCode"></span>
+                            <!-- ko if: $root.SelectedSupplement() == '' -->
+                                <span data-bind="text: '(' + SupplementNumber + ')' "></span>
+                            <!-- /ko -->
+                            <i class="fa fa-lg fa-check-circle icon-success"
+                                data-bind="visible: Cohorts().length > 0 && QualityCount().unmapped == 0 && QualityCount().unmappedOptional == 0 && QualityCount().good == 0, tooltip: { container: 'body', title: 'All variables were mapped according to SDTM standards' }"     
+                                data-placement="auto left"></i>
+                            <i class="fa fa-lg fa-exclamation-circle icon-warning" 
+                                data-bind="visible: Cohorts().length > 0 && QualityCount().unmapped == 0 && QualityCount().unmappedOptional == 0 && QualityCount().good > 0, tooltip: { container: 'body', title: 'Some variables were mapped by the user or automatically based on previous nonstandard submissions' }"     
+                                data-placement="auto left"></i>
+                            <span class="badge badge-warning" 
+                                data-bind="text: Cohorts().length == 0 || QualityCount().unmappedOptional == 0 ? '' : QualityCount().unmappedOptional, tooltip: { container: 'body', title: 'Some optional variables could not be mapped automatically. The analysis script can run without them but setting them to correct values can potentially improve acuracy or enable aditional results' }"     
+                                data-placement="auto left">-1</span> 
+                            <i class="fa fa-lg fa-times-circle icon-danger" 
+                                data-bind="visible: Cohorts().length == 0, tooltip: { container: 'body', title: 'A list of reference treatments/groups could not be determined' }"     
+                                data-placement="auto left"></i>                     
+                            <span class="badge badge-danger" 
+                                data-bind="text: Cohorts().length == 0 || QualityCount().unmapped == 0 ? '' : QualityCount().unmapped,
+                                    tooltip: { container: 'body', title: 'This is the count of variables that could not be mapped automatically. ' + 
+                                        'This means the file probably does not follow the SDTM standard and there is not enough historical information to guess a good mapping' }"     
+                                data-placement="auto left">-1</span>                                                            
+                        </a>
+                    </li>
+                    <!-- /ko -->
+                    <li class="dropdown" style="display: block">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span data-bind="text: dropdownTitle"></span> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- ko foreach: { data: studies, afterRender: $root.afterRenderTabs } -->
+                            <li data-bind="css: { active: $parent.activeStudy() == StudyCode && $parent.activeSupplement() == SupplementNumber }">
+                                <a href="#" data-bind="click: $parent.setActiveStudy">                           
+                                    <i class="fa fa-lg fa-check-circle icon-success"
+                                        data-bind="visible: QualityCount().unmapped == 0 && QualityCount().unmappedOptional == 0 && QualityCount().good == 0, tooltip: { container: 'body', title: 'All variables were mapped according to SDTM standards' }"     
+                                        data-placement="auto left"></i>
+                                    <i class="fa fa-lg fa-exclamation-circle icon-warning" 
+                                        data-bind="visible: QualityCount().unmapped == 0 && QualityCount().unmappedOptional == 0 && QualityCount().good > 0, tooltip: { container: 'body', title: 'Some variables were mapped by the user or automatically based on previous nonstandard submissions' }"     
+                                        data-placement="auto left"></i>
+                                    <span class="badge badge-warning" 
+                                        data-bind="text: QualityCount().unmappedOptional == 0 ? '' : QualityCount().unmappedOptional, tooltip: { container: 'body', title: 'Some optional variables could not be mapped automatically. The analysis script can run without them but setting them to correct values can potentially improve acuracy or enable aditional results' }"     
+                                        data-placement="auto left">-1</span>                      
+                                    <span class="badge badge-danger" 
+                                        data-bind="text: QualityCount().unmapped == 0 ? '' : QualityCount().unmapped, tooltip: { container: 'body', title: 'This is the count of variables that could not be mapped automatically. This means the file probably does not follow the SDTM standard and there is not enough historical information to guess a good mapping' }"     
+                                        data-placement="auto left">-1</span>
+                                    <span data-bind="text: StudyCode"></span>     
+                                    <!-- ko if: $root.SelectedSupplement() == '' -->
+                                        <span data-bind="text: '(' + SupplementNumber + ')' "></span>
+                                    <!-- /ko -->                           
+                                </a>
+                            </li>
+                            <!-- /ko -->
+                        </ul>
+                    </li>
+                </ul>
+ 
+                <!-- Study Tab -->
+                <div class="tab-content" data-bind=" foreach: { data: studies, as: 'study' }" style="overflow: visible; padding-top: 20px">
+                    <div class="tab-pane" data-bind="if: $parent.activeStudy() == StudyCode && $parent.activeSupplement() == SupplementNumber,
+                        css: { active: $parent.activeStudy() == StudyCode && $parent.activeSupplement() == SupplementNumber }">
+
+                        <!-- General Study Information -->                        
+                        <!-- ko compose: { model: 'tools/pkView/components/review/sections/studyDesign', activationData: { study: study }} -->
+                        <!-- /ko -->  
+
+                        <!-- Domain specific settings -->
+                        <div data-bind="foreach: { data: StudyMappings, as: 'domain' }">
+                            <!-- code changed to remove domain "EX" from display  --> 
+                            <!-- changed on 08/04/2017 --> 
+                            <!-- ko if: domain.Type !== "EX" -->
+                            <div class="well" style="padding-bottom:0">     
+                                <nav class="navbar navbar-lite navbar-sm navbar-click" role="toolbar">
+                                    <p class="navbar-text">
+                                        <strong><span data-bind="text: Type"></span> - </strong>
+                                        <span data-bind="text: $root.domainDescriptions[Type]">Demographics</span></p>
+                                    <button class="btn btn-hover btn-xs navbar-right" data-bind="click: $root.viewData">
+                                        <i class="fa fa-table"></i> View Data</button>
+                                </nav>  
+                                <div class="container-fluid">
+                                    <!-- ko foreach: { data: $root.splitInTwoColumns(domain.DomainMappings), as: 'column' } -->                                 
+                                    <div class="row" data-bind="foreach: column">
+                                        <div class="col-md-6">
+                                            <div class="form-horizontal">
+                                                <div class="form-group has-feedback" data-bind="css: {
+                                                    'has-success': MappingQuality() == 0,
+                                                    'has-error': MappingQuality() == 2 && !Optional(),
+                                                    'has-warning': (MappingQuality() == 2 && Optional()) || MappingQuality() == 1}">
+                                                    <label class="control-label col-xs-4" data-bind="tooltip: { container: 'body',
+                                                        title: $root.sdtmVariables[SdtmVariable].longDescription }">
+                                                        <span data-bind="text: $root.sdtmVariables[SdtmVariable].description">Variable label</span>
+                                                        <sup><i class="fa fa-question-circle"></i></sup>
+                                                    </label>
+                                                    <div data-bind="css: { unmapped: MappingQuality() == 2,
+                                                        'col-xs-7': $root.allowValueMapping[domain.Type] && $root.allowValueMapping[domain.Type][SdtmVariable],
+                                                        'col-xs-8': !$root.allowValueMapping[domain.Type] || !$root.allowValueMapping[domain.Type][SdtmVariable]}">
+                                                        <select class="form-control"
+                                                                data-bind="options: domain.UIFileVariables, value: FileVariable, event: { change: $root.changeQuality },
+                                                            selectize: { selectOnTab: true }, optionsText: 'Label', optionsValue: 'Name', optionsCaption: 'Choose...' "></select>
+                                                        <span class="form-control-feedback">
+                                                            <i class="fa" data-bind="css: {
+                                                            'fa-check': MappingQuality() == 0,
+                                                            'fa-times': MappingQuality() == 2 && !Optional(),
+                                                            'fa-exclamation': (MappingQuality() == 2 && Optional()) || MappingQuality() == 1 },
+                                                            tooltip: { container: 'body', title:
+                                                                MappingQuality() == 0 ? 'Variable mapped according to SDTM standards' :
+                                                                (MappingQuality() == 2 && !Optional()) ? 'This variable could not be mapped ' +
+                                                                    'automatically. This means the file probably does not follow the SDTM ' +
+                                                                    'standard and there is not enough historical information to guess a good mapping' :
+                                                                'This variable could not be mapped automatically but it is optional, so the analysis ' +
+                                                                    'can run without it. Manually setting it to a correct value can improve the ' +
+                                                                    'accuracy of the analysis code or enable aditional results.'}"></i>
+                                                        </span>
+                                                    </div>
+                                                    <!-- ko if: $root.allowValueMapping[domain.Type] && $root.allowValueMapping[domain.Type][SdtmVariable] -->
+                                                    <div class="col-xs-1" style="padding-left: 0">
+                                                        <button class="btn btn-default btn-sm" type="button" style="border-radius: 3px"
+                                                                data-bind="click: function () { $root.editValueMapping(study, domain.Type, $data);}">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                    </div>
+                                                    <!-- /ko -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                        </div>                          
+                    </div>
+                </div>
+
+                <div data-bind="visible: unmappable().length > 0">
+                    <!-- ko compose: { model: 'tools/pkView/shared/studyList/studyList', activationData: { 
+                        list: unmappable, 
+                        contextClass: 'info', 
+                        what: 'will be excluded from further processing due to missing files.',
+                        suffix: { text: '?', tooltip: 'These studies are missing the DM, PP or PC data files, ' +
+                            'which are crucial to our analysis methods and therefore cannot be processed by our tool.' +
+                            'You should normally not be concerned about this as many types of study do not include pharmacokinetic data.' } } } -->
+                    <!-- /ko -->  
+                </div>
+            </div>
+          
+        </div>
+    </section>
+
+    <!-- compose: { model: 'shared/components/splash/viewmodels/splash', activationData: splash } --><!-- o -->
+</div>

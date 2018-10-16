@@ -1,0 +1,22 @@
+﻿<div id="projects" class="k-widget">
+    <div class="navbar navbar-static-top">
+        <div class="navbar-inner projects-inner" style="background: rgb(245,245,245)">
+            <ul data-bind="foreach: window.iss.projects" class="nav">
+                <li data-bind="css: { active: $parent.activeOrFirstProject() == PROJECT_ID() }">
+                    <a href="#" class="projects" data-bind="click: $parent.activateProject">
+                        <span data-bind="text: PROJECT_NAME()"></span>
+                        <button class="close" style="margin-left: 5px;">&times;</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div data-bind="foreach: window.iss.projects">
+        <div class="projectWorkflows" data-bind="compose: view(), visible: $parent.activeOrFirstProject() == PROJECT_ID()"></div>
+    </div>
+    <style scoped>
+       #projects { border-top-width: 0; min-height: 300px; padding-bottom: 15px; }
+        .navbar .nav > li > a.projects { padding: 5px 7px; }  
+        .projects-inner { min-height: 0 }
+    </style>
+</div>

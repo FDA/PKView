@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="iPortal" />
+  <setParameter name="IPORTAL_TESTConnectionString1-Web.config Connection String" value="Data Source=FDSTDSQLDEV01\TDSQLISTDEVR2_01;Initial Catalog=OCPSQL;Integrated Security=True" />
+  <setParameter name="OCPSQLEntities-Web.config Connection String" value="metadata=res://*/App_Data.OCPSQL.csdl|res://*/App_Data.OCPSQL.ssdl|res://*/App_Data.OCPSQL.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=FDSTDSQLDEV01\TDSQLISTDEVR2_01;initial catalog=OCPSQL;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" />
+</parameters>
